@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>Chatwork 完全解説書 2026年版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cw:#00b900;--cw2:#00d400;--cw-light:rgba(0,185,0,.1);--cw-border:rgba(0,185,0,.25);
+  --red:#e53e3e;--red-light:#fff5f5;--red-border:#fc8181;
+  --org:#dd6b20;--org-light:#fffaf0;--org-border:#f6ad55;
+  --blu:#3182ce;--blu-light:#ebf8ff;--blu-border:#90cdf4;
+  --gry:#4a5568;
+  --bg:#ffffff;--bg-off:#f7f8fa;--bg-off2:#eef0f3;
+  --text:#1a202c;--muted:#4a5568;--border:#e2e8f0;
+  --max:1000px
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --cw:#00e500;--cw2:#00ff00;--cw-light:rgba(0,229,0,.15);--cw-border:rgba(0,229,0,.35);
+    --red:#fc8181;--red-light:rgba(252,129,129,.12);--red-border:rgba(252,129,129,.4);
+    --org:#f6ad55;--org-light:rgba(246,173,85,.12);--org-border:rgba(246,173,85,.4);
+    --blu:#63b3ed;--blu-light:rgba(99,179,237,.12);--blu-border:rgba(99,179,237,.4);
+    --bg:#121212;--bg-off:#1e1e1e;--bg-off2:#252525;
+    --text:#e8e8e8;--muted:#a0aec0;--border:rgba(255,255,255,.12);
+  }
+  .site-header{background:linear-gradient(135deg,#0a1a0a 0%,#0d2e0d 40%,#0a1f0a 100%)}
+  .site-header::before{background:radial-gradient(circle,rgba(0,229,0,.25),transparent 70%)}
+  .alert-banner{background:#c53030}
+  th{background:#006600}
+  .m-sidebar{background:#1a1a1a}
+  .mockup-bar{background:#2a2a2a}
+  .mockup-body{background:#1e1e1e}
+  .m-chat{background:#1e1e1e}
+  .m-bubble{background:#2a2a2a;border-color:rgba(255,255,255,.1)}
+  .m-bubble.mine{background:rgba(0,185,0,.2);border-color:rgba(0,229,0,.3)}
+  .m-input{background:#2a2a2a;border-color:rgba(255,255,255,.12);color:var(--muted)}
+  .m-task{background:#1e1e1e}
+  .faq-q{background:#1e1e1e}
+  .plan-card{background:#1e1e1e}
+  .plan-card.featured{background:rgba(0,185,0,.15)}
+  .toc-wrap{background:#1e1e1e}
+  .code-block pre{background:#1a1a1a;color:#b0d0b0}
+  .checklist{background:rgba(0,185,0,.1)}
+  .danger-box{background:rgba(229,62,62,.12);border-color:rgba(252,129,129,.5)}
+  .note{background:rgba(0,185,0,.1)}
+  .note-red{background:rgba(229,62,62,.1)}
+  .note-org{background:rgba(221,107,32,.1)}
+  .note-blu{background:rgba(49,130,206,.1)}
+  .site-footer{background:#0a1a0a}
+  .to-top{background:#1e1e1e}
+  tr:nth-child(even) td{background:rgba(255,255,255,.04)}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85}
+
+/* 緊急警告バナー */
+.alert-banner{background:var(--red);color:#fff;padding:14px 24px;text-align:center;font-size:14px;font-weight:700;line-height:1.6}
+.alert-banner a{color:#fff;text-decoration:underline}
+
+/* ヘッダー */
+.site-header{
+  background:linear-gradient(135deg,#003300 0%,#005500 40%,#007700 100%);
+  color:#fff;padding:64px 24px 54px;text-align:center;position:relative;overflow:hidden
+}
+.site-header::before{content:'';position:absolute;top:-100px;right:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,185,0,.3),transparent 70%);pointer-events:none}
+.site-header::after{content:'';position:absolute;bottom:-80px;left:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,0,.2),transparent 70%);pointer-events:none}
+.hd-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;padding:4px 16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;position:relative;z-index:1}
+.site-header h1{font-size:clamp(26px,5vw,42px);font-weight:700;letter-spacing:-.01em;line-height:1.25;margin-bottom:12px;position:relative;z-index:1}
+.site-header .sub{font-size:14px;color:rgba(255,255,255,.9);max-width:540px;margin:0 auto 24px;position:relative;z-index:1}
+.hd-meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hd-meta span{font-size:12px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.15);padding:4px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.3)}
+
+/* ラッパー */
+.wrapper{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* 目次 */
+.toc-wrap{background:var(--bg-off);border-left:4px solid var(--cw);padding:26px 30px;margin:48px 0 40px;border-radius:0 6px 6px 0}
+.toc-wrap .toc-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cw);margin-bottom:16px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;list-style:none;counter-reset:toc}
+.toc-grid li{counter-increment:toc;border-bottom:1px solid var(--border)}
+.toc-grid li:nth-last-child(-n+2){border-bottom:none}
+.toc-grid a{display:flex;align-items:center;gap:8px;padding:8px 4px;color:var(--text);text-decoration:none;font-size:13px;transition:color .2s}
+.toc-grid a::before{content:counter(toc,decimal-leading-zero);font-size:11px;font-weight:700;color:var(--cw);min-width:24px}
+.toc-grid a:hover{color:var(--cw)}
+.toc-grid li.danger a{color:var(--red);font-weight:700}
+.toc-grid li.danger a::before{color:var(--red)}
+
+/* セクション */
+.section{padding:60px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:last-of-type{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-num{background:var(--cw);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 11px;border-radius:2px;flex-shrink:0;min-width:44px;text-align:center}
+.sec-num.danger{background:var(--red)}
+.sec-hd h2{font-size:clamp(18px,3vw,22px);font-weight:700;border-bottom:2px solid var(--cw);padding-bottom:6px;flex:1;line-height:1.35}
+.sec-hd h2.danger{border-bottom-color:var(--red);color:var(--red)}
+
+/* 本文 */
+p{margin-bottom:16px}
+p:last-child{margin-bottom:0}
+h3{font-size:16px;font-weight:700;margin:28px 0 12px;padding-left:12px;border-left:3px solid var(--cw);color:var(--text)}
+h3.danger{border-left-color:var(--red);color:var(--red)}
+h4{font-size:14px;font-weight:700;margin:20px 0 8px;color:var(--muted)}
+ul,ol{padding-left:20px;margin-bottom:16px}
+li{margin-bottom:7px}
+
+/* ノート */
+.note{background:var(--cw-light);border-left:4px solid var(--cw);padding:14px 20px;margin:18px 0;border-radius:0 4px 4px 0;font-size:14px}
+.note .lbl{display:block;color:var(--cw);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px}
+.note-red{background:var(--red-light);border-left-color:var(--red)}
+.note-red .lbl{color:var(--red)}
+.note-org{background:var(--org-light);border-left-color:var(--org)}
+.note-org .lbl{color:var(--org)}
+.note-blu{background:var(--blu-light);border-left-color:var(--blu)}
+.note-blu .lbl{color:var(--blu)}
+
+/* 危険ボックス（なりすまし用） */
+.danger-box{
+  background:var(--red-light);border:2px solid var(--red);border-radius:8px;
+  padding:20px 24px;margin:20px 0
+}
+.danger-box .d-title{font-size:15px;font-weight:700;color:var(--red);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.danger-box ul{padding-left:0;list-style:none}
+.danger-box li{padding:8px 0 8px 20px;border-bottom:1px solid var(--red-border);position:relative;font-size:14px}
+.danger-box li:last-child{border-bottom:none}
+.danger-box li::before{content:'!';position:absolute;left:0;top:9px;width:14px;height:14px;background:var(--red);color:#fff;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;border-radius:50%}
+
+/* チェックリスト */
+.checklist{background:var(--cw-light);border:1px solid var(--cw-border);border-radius:6px;padding:16px 20px;margin:16px 0}
+.checklist .c-title{font-size:13px;font-weight:700;color:var(--cw);margin-bottom:10px}
+.checklist ul{padding-left:0;list-style:none}
+.checklist li{padding:6px 0 6px 24px;position:relative;font-size:14px;border-bottom:1px solid var(--cw-border)}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'';position:absolute;left:0;top:9px;width:14px;height:14px;border:2px solid var(--cw);border-radius:2px}
+
+/* テーブル */
+.tbl-wrap{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:360px}
+th{background:var(--cw);color:#fff;padding:10px 14px;text-align:left;font-weight:700;font-size:13px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--bg-off)}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700}
+.tag-g{background:var(--cw-light);color:var(--cw);border:1px solid var(--cw-border)}
+.tag-r{background:var(--red-light);color:var(--red)}
+.tag-o{background:var(--org-light);color:var(--org)}
+.tag-b{background:var(--blu-light);color:var(--blu)}
+.chk{color:var(--cw);font-weight:700}
+.xmk{color:#c53030;font-weight:700}
+
+/* コードブロック */
+.code-block{position:relative;margin:16px 0}
+.code-block pre{background:var(--bg-off2);border:1px solid var(--border);border-radius:4px;padding:16px 52px 16px 18px;overflow-x:auto;font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:8px;right:8px;background:var(--cw);color:#fff;border:none;padding:5px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans JP',sans-serif;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:background .2s;white-space:nowrap}
+.copy-btn:hover{background:#008800}
+.copy-btn.copied{background:var(--blu);color:#fff}
+
+/* ステップ */
+.steps{list-style:none;padding:0;counter-reset:step}
+.steps li{counter-increment:step;padding:12px 12px 12px 50px;position:relative;border-bottom:1px solid var(--border)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:10px;top:12px;width:26px;height:26px;background:var(--cw);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%}
+
+/* TOPボタン */
+.to-top{display:inline-flex;align-items:center;gap:6px;margin-top:36px;padding:7px 16px;background:var(--bg-off);border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:.06em;transition:all .2s;cursor:pointer}
+.to-top::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.to-top:hover{background:var(--cw);color:#fff;border-color:var(--cw)}
+
+/* ツールチップ */
+.tip{border-bottom:1.5px dotted var(--cw);cursor:help;position:relative;display:inline}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a202c;color:#fff;font-size:12px;font-weight:400;line-height:1.65;padding:8px 12px;border-radius:6px;width:max-content;max-width:260px;white-space:normal;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;opacity:0;transition:opacity .18s ease;z-index:9999;font-family:'Noto Sans JP',sans-serif;letter-spacing:0}
+.tip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a202c;pointer-events:none;opacity:0;transition:opacity .18s ease;z-index:9999}
+.tip:hover::after,.tip:hover::before{opacity:1}
+
+/* ===== モックアップ ===== */
+.mockup-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:22px 0;font-size:12px;box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.mockup-bar{background:#f0f0f0;padding:8px 14px;display:flex;gap:6px;align-items:center;border-bottom:1px solid var(--border)}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.mockup-bar span:nth-child(1){background:#ff6058}
+.mockup-bar span:nth-child(2){background:#ffbd2e}
+.mockup-bar span:nth-child(3){background:#28c840}
+.mockup-body{background:#fff}
+
+/* Chatwork画面モック */
+.m-cw{display:flex;min-height:240px}
+.m-sidebar{width:220px;background:#f9fafb;border-right:1px solid var(--border);flex-shrink:0;overflow:hidden}
+.m-cw-logo{padding:12px 16px;font-size:16px;font-weight:900;color:var(--cw);border-bottom:1px solid var(--border);letter-spacing:-.02em}
+.m-room-item{padding:9px 14px;border-bottom:1px solid var(--border);cursor:default;display:flex;align-items:center;gap:8px}
+.m-room-item.on{background:var(--cw-light);border-left:3px solid var(--cw)}
+.m-room-avatar{width:30px;height:30px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.m-room-info{flex:1;min-width:0}
+.m-room-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-room-last{font-size:10px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-badge{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:10px;flex-shrink:0}
+.m-chat{flex:1;display:flex;flex-direction:column}
+.m-chat-header{padding:10px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.m-messages{flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.m-msg{display:flex;gap:10px;align-items:flex-start}
+.m-msg.mine{flex-direction:row-reverse}
+.m-msg-avatar{width:32px;height:32px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.m-bubble{max-width:75%;padding:9px 13px;border-radius:4px;font-size:13px;line-height:1.6;background:var(--bg-off);border:1px solid var(--border)}
+.m-bubble.mine{background:var(--cw-light);border-color:var(--cw-border)}
+.m-bubble .m-name{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:3px}
+.m-bubble .m-time{font-size:10px;color:var(--muted);margin-top:3px;text-align:right}
+.m-input-area{padding:8px 14px;border-top:1px solid var(--border);display:flex;gap:6px}
+.m-input{flex:1;background:var(--bg-off);border:1px solid var(--border);border-radius:4px;padding:8px 12px;font-size:12px;color:var(--muted)}
+.m-send{background:var(--cw);color:#fff;border:none;border-radius:4px;padding:8px 14px;font-size:11px;font-weight:700;cursor:default}
+
+/* タスク画面モック */
+.m-task{padding:16px 20px}
+.m-task-title{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);padding-bottom:8px;border-bottom:1px solid var(--border)}
+.m-task-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.m-task-item:last-child{border-bottom:none}
+.m-task-check{width:16px;height:16px;border:2px solid var(--border);border-radius:2px;flex-shrink:0}
+.m-task-check.done{background:var(--cw);border-color:var(--cw);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px}
+.m-task-text{flex:1;color:var(--text)}
+.m-task-done{text-decoration:line-through;color:var(--muted)}
+.m-task-due{font-size:10px;color:var(--org);font-weight:700;white-space:nowrap}
+.m-task-due.over{color:var(--red)}
+
+/* プランカード */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.plan-card{border:1.5px solid var(--border);border-radius:6px;padding:18px 16px;font-size:13px;background:var(--bg-off)}
+.plan-card.featured{border-color:var(--cw);background:var(--cw-light)}
+.plan-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.plan-price{font-size:22px;font-weight:700;color:var(--cw);margin-bottom:2px;line-height:1.2}
+.plan-price span{font-size:11px;font-weight:400;color:var(--muted)}
+.plan-note{font-size:11px;color:var(--muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.plan-card ul{padding-left:0;list-style:none}
+.plan-card li{padding:3px 0 3px 14px;position:relative;font-size:11px;border:none;margin-bottom:2px}
+.plan-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--border)}
+.plan-card.featured li::before{background:var(--cw)}
+
+/* FAQ */
+.faq-item{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden}
+.faq-q{background:var(--bg-off);padding:13px 46px 13px 18px;font-weight:700;font-size:14px;cursor:pointer;position:relative;user-select:none}
+.faq-q::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--cw);font-weight:400;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{display:none;padding:14px 18px;font-size:14px;line-height:1.85;border-top:1px solid var(--border)}
+.faq-item.open .faq-a{display:block}
+
+/* フッター */
+.site-footer{background:#003300;color:rgba(255,255,255,.8);text-align:center;padding:36px 24px;font-size:12px;margin-top:48px}
+.site-footer strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}
+.footer-note{display:inline-block;background:rgba(255,255,255,.1);padding:3px 14px;border-radius:20px;margin-top:8px;font-size:11px}
+
+/* レスポンシブ */
+@media(max-width:768px){
+  .toc-grid{grid-template-columns:1fr}
+  .plan-grid{grid-template-columns:1fr}
+  .m-sidebar{width:160px}
+}
+@media(max-width:480px){
+  .site-header{padding:48px 20px 40px}
+  .toc-wrap{padding:18px}
+  .section{padding:44px 0}
+  th,td{padding:8px 10px}
+  .m-sidebar{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="alert-banner">
+  【重要・2026年1月〜急増中】Chatwork上でのなりすまし詐欺に注意してください。振込・口座情報の要求は全て詐欺です。
+</div>
+
+<header class="site-header">
+  <div class="hd-badge">Complete Guide 2026</div>
+  <h1>Chatwork 完全解説書</h1>
+  <p class="sub">基本操作から全機能・料金プラン・そして急増中のなりすまし詐欺対策まで、2026年最新情報を完全収録</p>
+  <div class="hd-meta">
+    <span>14 セクション</span>
+    <span>2026年最新対応</span>
+    <span>全機能網羅</span>
+    <span>なりすまし詐欺対策</span>
+    <span>kubell公式情報準拠</span>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<nav class="toc-wrap">
+  <div class="toc-lbl">目次</div>
+  <ol class="toc-grid">
+    <li><a href="#s01">Chatworkとは・他ツールとの比較</a></li>
+    <li><a href="#s02">アカウント作成・初期設定</a></li>
+    <li><a href="#s03">画面の見方・UI完全解説</a></li>
+    <li><a href="#s04">グループチャットの使い方</a></li>
+    <li><a href="#s05">メッセージの操作・記法</a></li>
+    <li><a href="#s06">タスク管理機能の使い方</a></li>
+    <li><a href="#s07">ファイル共有・管理</a></li>
+    <li><a href="#s08">ビデオ通話・音声通話</a></li>
+    <li><a href="#s09">コンタクト追加・管理</a></li>
+    <li><a href="#s10">通知・マイチャット活用</a></li>
+    <li class="danger"><a href="#s11">なりすまし詐欺の手口と対策【重要】</a></li>
+    <li><a href="#s12">セキュリティ設定</a></li>
+    <li><a href="#s13">料金プラン完全比較</a></li>
+    <li><a href="#s14">よくあるトラブル・FAQ</a></li>
+  </ol>
+</nav>
+
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>Chatworkとは・他ツールとの比較</h2></div>
+
+  <p>Chatwork（チャットワーク）は株式会社kubell（旧Chatwork株式会社）が提供する<strong>日本最大のビジネスチャットツール</strong>です。2011年にサービスを開始し、2026年現在は国内59万社以上が導入しています。</p>
+
+  <p>「グループチャット」「タスク管理」「ファイル管理」「ビデオ・音声通話」の4機能を一つのツールで提供し、メールよりスピーディーで、LINEよりビジネス向けというポジションで中小企業を中心に広く普及しています。</p>
+
+  <h3>主要ビジネスチャットとの比較</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>比較項目</th><th>Chatwork</th><th>Slack</th><th>Microsoft Teams</th><th>LINE WORKS</th></tr></thead>
+    <tbody>
+      <tr><td>国内シェア</td><td><span class="tag tag-g">中小企業No.1</span></td><td>IT系に強い</td><td>大企業・Office連携</td><td>LINE利用者に親しみやすい</td></tr>
+      <tr><td>タスク管理</td><td><span class="tag tag-g">標準搭載</span></td><td>外部連携</td><td>Microsoft To Doと連携</td><td>なし（別途ツール）</td></tr>
+      <tr><td>社外との連絡</td><td><span class="tag tag-g">無料で可能</span></td><td>有料（Connect）</td><td>制限あり</td><td>可能</td></tr>
+      <tr><td>操作の簡単さ</td><td><span class="tag tag-g">シンプル</span></td><td>機能が多く複雑</td><td>複雑</td><td>シンプル</td></tr>
+      <tr><td>料金（無料）</td><td>制限あり</td><td>制限あり</td><td>Microsoft 365に付属</td><td>制限あり</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>アカウント作成・初期設定</h2></div>
+
+  <h3>アカウント作成の手順</h3>
+  <ol class="steps">
+    <li>chatwork.com にアクセスして「無料で始める」をクリックする</li>
+    <li>メールアドレスを入力して「無料アカウントを作成」をクリックする</li>
+    <li>登録メールに届いた確認リンクをクリックして認証する</li>
+    <li>氏名・会社名・パスワードを設定してアカウント作成完了</li>
+    <li>PC版アプリをダウンロードするか、ブラウザ版（chatwork.com）でそのまま使い始める</li>
+  </ol>
+
+  <h3>最初にやっておくべき設定</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>設定項目</th><th>場所</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>プロフィール設定</td><td>右上アイコン→「プロフィール編集」</td><td>氏名・プロフィール画像・部署・電話番号など。社内外の相手に見えるので丁寧に設定する</td></tr>
+      <tr><td>通知設定</td><td>設定→「通知」</td><td>メール通知・デスクトップ通知の受け取り方を設定。最初は全通知オンで様子を見る</td></tr>
+      <tr><td>二段階認証</td><td>設定→「セキュリティ」</td><td>不正ログイン防止のために必ず設定する（詳しくはSection 12）</td></tr>
+      <tr><td>マイチャット活用</td><td>チャット一覧「マイチャット」</td><td>自分だけが見られるメモ帳として活用。下書きやアイデアメモに使う</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>画面の見方・UI完全解説</h2></div>
+
+  <p>Chatworkの画面はシンプルで、左のチャット一覧・中央のメッセージエリア・右のタスクエリアという構成です。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-cw">
+        <div class="m-sidebar">
+          <div class="m-cw-logo">Chatwork</div>
+          <div class="m-room-item on">
+            <div class="m-room-avatar" style="background:var(--cw)">営</div>
+            <div class="m-room-info">
+              <div class="m-room-name">営業部チーム</div>
+              <div class="m-room-last">田中：資料確認お願いします</div>
+            </div>
+            <div class="m-badge">3</div>
+          </div>
+          <div class="m-room-item">
+            <div class="m-room-avatar" style="background:#3182ce">プ</div>
+            <div class="m-room-info">
+              <div class="m-room-name">プロジェクトA</div>
+              <div class="m-room-last">山本：MTGの件</div>
+            </div>
+          </div>
+          <div class="m-room-item">
+            <div class="m-room-avatar" style="background:var(--org)">S</div>
+            <div class="m-room-info">
+              <div class="m-room-name">佐藤さん（取引先）</div>
+              <div class="m-room-last">承知しました</div>
+            </div>
+          </div>
+          <div class="m-room-item">
+            <div class="m-room-avatar" style="background:#718096">M</div>
+            <div class="m-room-info">
+              <div class="m-room-name">マイチャット</div>
+              <div class="m-room-last">メモ：企画書の構成案</div>
+            </div>
+          </div>
+        </div>
+        <div class="m-chat">
+          <div class="m-chat-header">営業部チーム</div>
+          <div class="m-messages">
+            <div class="m-msg">
+              <div class="m-msg-avatar" style="background:#3182ce">田</div>
+              <div class="m-bubble">
+                <div class="m-name">田中 健一</div>
+                明日のプレゼン資料をアップしました。確認お願いします。
+                <div class="m-time">14:30</div>
+              </div>
+            </div>
+            <div class="m-msg mine">
+              <div class="m-msg-avatar" style="background:var(--cw)">私</div>
+              <div class="m-bubble mine">
+                確認しました。1点だけ修正依頼します。
+                <div class="m-time">14:45</div>
+              </div>
+            </div>
+          </div>
+          <div class="m-input-area">
+            <div class="m-input">メッセージを入力...</div>
+            <div class="m-send">送信</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>各エリアの役割</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>エリア</th><th>位置</th><th>主な操作</th></tr></thead>
+    <tbody>
+      <tr><td><strong>チャット一覧</strong></td><td>左側</td><td>参加しているグループチャット・ダイレクトチャットの一覧。未読バッジも表示される</td></tr>
+      <tr><td><strong>メッセージエリア</strong></td><td>中央</td><td>選択したチャットのメッセージを表示・送受信するメインエリア</td></tr>
+      <tr><td><strong>タスクエリア</strong></td><td>右側（PC版）</td><td>そのチャットに紐づいたタスクの一覧・管理</td></tr>
+      <tr><td><strong>上部タブ</strong></td><td>中央上部</td><td>「チャット」「タスク」「ファイル」「メンバー」タブで各機能に切り替え</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>グループチャットの使い方</h2></div>
+
+  <p>Chatworkの中心機能がグループチャットです。部署・プロジェクト・取引先など目的ごとにチャットルームを作成して会話を整理します。</p>
+
+  <h3>グループチャットの作成</h3>
+  <ol class="steps">
+    <li>左上の「+」ボタン（またはチャット一覧上部の新規作成アイコン）をクリックする</li>
+    <li>「グループチャットを作成」を選択する</li>
+    <li>チャット名・アイコンを設定する（後から変更可）</li>
+    <li>参加させたいメンバーをコンタクトリストから選択する</li>
+    <li>「作成」をクリックして完了。すぐにメッセージを送り始められる</li>
+  </ol>
+
+  <h3>グループチャットの運用ポイント</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【チャット名の付け方】
+目的・人数・期間が一目でわかる名前にする
+
+例：
+「営業部_全体」          → 部署の常設チャット
+「★ProjectA_開発チーム」 → ★をつけて重要チャットを上位表示
+「【2026年3月】キャンペーン企画」→ 期間限定プロジェクト用
+「山田さん_株式会社〇〇」  → 取引先との1:1
+
+【ピン留め機能の活用】
+よく使うチャットを右クリック→「ピン留め」で
+チャット一覧の上部に固定表示できる
+
+【チャットの退出・アーカイブ】
+プロジェクト完了後は「チャットを退出」または
+「アーカイブ」で整理する</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>メッセージの操作・記法</h2></div>
+
+  <h3>基本的なメッセージ操作</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>操作</th><th>方法</th></tr></thead>
+    <tbody>
+      <tr><td>メッセージを送る</td><td>入力欄に入力してEnterキーまたは「送信」ボタン（改行はShift+Enter）</td></tr>
+      <tr><td>メッセージを編集する</td><td>メッセージにカーソルを当てて「・・・」→「編集」（送信後も修正可能）</td></tr>
+      <tr><td>メッセージを削除する</td><td>「・・・」→「削除」（管理者は他のメンバーのメッセージも削除可）</td></tr>
+      <tr><td>引用返信する</td><td>「・・・」→「引用」で特定のメッセージを引用して返信</td></tr>
+      <tr><td>To（宛先）をつける</td><td>「To」ボタンをクリックしてメンバーを選択。指定した相手に通知が届く</td></tr>
+      <tr><td>全員に通知する</td><td>「ToAll」ボタンでチャット内の全メンバーに通知</td></tr>
+      <tr><td>メッセージにリアクション</td><td>メッセージにカーソルを当てて絵文字アイコンをクリック</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>メッセージ記法（テキスト装飾）</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【Chatwork記法】
+[title]見出しタイトル[/title]    → インフォアイコン付き見出し
+[info]本文テキスト[/info]         → グレーの囲み枠（インフォボックス）
+[code]コードや数値[/code]         → コードブロック表示
+[qt][/qt]                        → 引用ブロック
+
+※Chatworkには太字・斜体・色などのリッチテキスト装飾はありません
+ シンプルなテキストのみで、記法タグで見た目を整える方式です
+
+【使い方の例】
+[title]本日のMTG議題[/title]
+[info]
+1. 先週の振り返り
+2. 来週のスケジュール確認  
+3. その他
+[/info]
+
+→ 見やすい議題ボックスが作れる</pre>
+  </div>
+
+  <h3>メッセージ検索（有料プランのみ高機能）</h3>
+  <ul>
+    <li><strong>無料プラン：</strong> キーワード検索のみ可能。直近40日以前のメッセージは閲覧不可</li>
+    <li><strong>有料プラン：</strong> 発言者・日時・チャットを絞り込んだ詳細検索が可能。全期間のメッセージを検索できる</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>タスク管理機能の使い方</h2></div>
+
+  <p>Chatworkのタスク機能は、メッセージと連動して作業の依頼・受領・完了を管理できる機能です。メールで言う「〇〇お願いします」という依頼を、タスクとして追跡・管理できます。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-task">
+        <div class="m-task-title">タスク一覧（未完了）</div>
+        <div class="m-task-item">
+          <div class="m-task-check"></div>
+          <div class="m-task-text">企画書の修正・再提出（担当：田中）</div>
+          <div class="m-task-due over">3/20 期限切れ</div>
+        </div>
+        <div class="m-task-item">
+          <div class="m-task-check"></div>
+          <div class="m-task-text">請求書の確認と承認</div>
+          <div class="m-task-due">3/25</div>
+        </div>
+        <div class="m-task-item">
+          <div class="m-task-check"></div>
+          <div class="m-task-text">来月のMTGスケジュール調整</div>
+          <div class="m-task-due">3/31</div>
+        </div>
+        <div class="m-task-item">
+          <div class="m-task-check done">✓</div>
+          <div class="m-task-text m-task-done">サーバーの設定確認</div>
+          <div class="m-task-due" style="color:var(--muted)">完了</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>タスクの作成と割り当て</h3>
+  <ol class="steps">
+    <li>チャット画面右上の「タスク」タブをクリックする（または右側のタスクエリアから）</li>
+    <li>「タスクを追加」ボタンをクリックしてタスク内容を入力する</li>
+    <li>担当者（自分または他のメンバー）・期限を設定する</li>
+    <li>「追加」をクリックすると、担当者に通知が届く</li>
+    <li>タスク完了時はチェックボタンをクリック。依頼者に完了通知が届く</li>
+  </ol>
+
+  <h3>タスク機能の活用ポイント</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【タスクを使うべき場面】
+「〇〇してください」という依頼
+「確認お願いします」という確認依頼
+「期限：〇月〇日まで」という締め切りがある作業
+
+【使わなくていい場面】
+雑談・情報共有・質問（普通にメッセージで十分）
+
+【よくある使い方の失敗】
+× チャットで「よろしくお願いします」とだけ送る
+  → 流れていって誰も対応しない
+
+○ タスクに登録して担当者・期限を明確にする
+  → 完了まで追跡できる・抜け漏れが防げる
+
+【注意点】
+- 自分が依頼した以外の他のメンバーのタスクは見えない
+- リマインド機能はないため、期限管理は自分で行う</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S07 -->
+<section class="section" id="s07">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>ファイル共有・管理</h2></div>
+
+  <p>Chatworkではチャット内でファイルを直接共有・管理できます。メールに添付するよりも簡単で、ファイルのやり取り履歴もチャットに残るため、後から確認しやすいのが特徴です。</p>
+
+  <h3>ファイルのアップロード方法</h3>
+  <ol class="steps">
+    <li>チャット入力エリアのクリップアイコンをクリックしてファイルを選択する（またはドラッグ＆ドロップ）</li>
+    <li>必要であればコメントを入力して送信する</li>
+    <li>アップロードされたファイルは「ファイル」タブで一覧確認できる</li>
+  </ol>
+
+  <h3>ファイル管理の仕様</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>フリープラン</th><th>ビジネス以上</th></tr></thead>
+    <tbody>
+      <tr><td>ストレージ容量</td><td>組織全体で5GB</td><td>組織全体で10GB以上</td></tr>
+      <tr><td>1ファイルの上限</td><td>5MB</td><td>5MB（同様）</td></tr>
+      <tr><td>ファイル検索</td><td>制限あり</td><td>詳細検索可</td></tr>
+      <tr><td>ファイルの閲覧</td><td>直近40日以内</td><td>全期間</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-org">
+    <span class="lbl">機密ファイルの取り扱い注意</span>
+    Chatworkで共有したファイルはチャットのメンバー全員が閲覧できます。機密性の高い書類をグループチャットで共有する際は、参加メンバーの範囲を確認してから送信してください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S08 -->
+<section class="section" id="s08">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>ビデオ通話・音声通話</h2></div>
+
+  <p>Chatworkにはビデオ通話・音声通話機能が搭載されており、外部ツールなしにオンライン会議を開催できます。</p>
+
+  <h3>通話の開始方法</h3>
+  <ol class="steps">
+    <li>通話したいチャットを開く</li>
+    <li>チャット右上のビデオカメラアイコンをクリックする</li>
+    <li>「通話を開始する」をクリックすると通話ルームが作成される</li>
+    <li>チャット内に通話リンクが投稿されるので、参加者はそこをクリックして入室する</li>
+  </ol>
+
+  <h3>通話機能の仕様比較</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機能</th><th>フリープラン</th><th>ビジネス以上</th></tr></thead>
+    <tbody>
+      <tr><td>1対1の通話</td><td><span class="chk">可</span></td><td><span class="chk">可</span></td></tr>
+      <tr><td>複数人のビデオ会議</td><td><span class="xmk">不可（1対1のみ）</span></td><td><span class="chk">最大14人</span></td></tr>
+      <tr><td>画面共有</td><td><span class="chk">可</span></td><td><span class="chk">可</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-blu">
+    <span class="lbl">複数人での会議はビジネスプラン以上が必要</span>
+    フリープランでは1対1の通話しかできません。3人以上でのビデオ会議を行う場合は、ビジネスプラン以上への移行が必要です。または外部ツール（Zoom・Google Meet）とChatworkを組み合わせる方法もあります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S09 -->
+<section class="section" id="s09">
+  <div class="sec-hd"><span class="sec-num">09</span><h2>コンタクト追加・管理</h2></div>
+
+  <p>Chatworkでは、他のユーザーとチャットするには事前に<span class="tip" data-tip="Chatworkでメッセージのやり取りができる相手として登録すること。メールの「アドレス帳登録」に近い概念">コンタクト追加</span>が必要です（またはグループチャット経由での接触）。</p>
+
+  <h3>コンタクトの追加方法</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>方法</th><th>手順</th><th>使う場面</th></tr></thead>
+    <tbody>
+      <tr><td><strong>メールアドレスで検索</strong></td><td>コンタクト追加→メールアドレスを入力→申請を送る→相手が承認</td><td>相手のメールアドレスを知っている時</td></tr>
+      <tr><td><strong>Chatwork IDで検索</strong></td><td>コンタクト追加→Chatwork IDを入力→申請</td><td>相手のIDを教えてもらった時</td></tr>
+      <tr><td><strong>グループチャット経由</strong></td><td>共通のグループチャット内のメンバー名をクリック→コンタクト申請</td><td>共通のチャットに既にいる相手</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="danger-box">
+    <div class="d-title">知らない相手からのコンタクト申請は必ず確認してください</div>
+    <ul>
+      <li>相手のメールアドレスさえ知っていれば誰でもコンタクト申請を送れる仕様です</li>
+      <li>申請者の名前・プロフィール写真が本物に見えても、なりすましの可能性があります</li>
+      <li>既に同じ人のアカウントをコンタクト登録済みでないか必ず確認してください</li>
+      <li>不審な申請は承認せずに「拒否」してください</li>
+    </ul>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S10 -->
+<section class="section" id="s10">
+  <div class="sec-hd"><span class="sec-num">10</span><h2>通知・マイチャット活用</h2></div>
+
+  <h3>通知設定の最適化</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>通知の種類</th><th>設定方法</th><th>おすすめ</th></tr></thead>
+    <tbody>
+      <tr><td>デスクトップ通知</td><td>設定→「通知」→デスクトップ通知をON/OFF</td><td>業務時間中はON推奨</td></tr>
+      <tr><td>メール通知</td><td>設定→「通知」→メール通知の頻度を選択</td><td>「即時通知」か「オフ」が多い</td></tr>
+      <tr><td>特定チャットのミュート</td><td>チャット名を右クリック→「通知設定」→「ミュート」</td><td>賑やかなチャットに適用</td></tr>
+      <tr><td>To通知のみ受け取る</td><td>設定→「通知」→「Toあり・Toallのみ通知」を選択</td><td>通知が多すぎる場合に有効</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>マイチャットの活用方法</h3>
+  <p>マイチャットは自分だけが見られるプライベートなチャットです。以下のような使い方が便利です。</p>
+  <ul>
+    <li><strong>メモ帳として：</strong> 思いついたアイデア・覚えておきたいことを書き留める</li>
+    <li><strong>下書きチェックとして：</strong> 送信前のメッセージをここで書いて確認してから本番チャットに貼り付ける</li>
+    <li><strong>ToDo管理として：</strong> 自分だけのタスクリストをマイチャットのタスク機能で管理する</li>
+    <li><strong>ファイル置き場として：</strong> よく使うファイルをアップロードして手軽にアクセスする</li>
+  </ul>
+
+  <h3>予約送信機能（有料プランのみ）</h3>
+  <p>2024年11月に追加された機能です。メッセージ入力後に時計アイコンをクリックして日時を指定すると、設定した日時に自動でメッセージが送信されます。早朝に作業した内容を営業時間内に送りたい場合などに便利です。</p>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S11 ★最重要セクション -->
+<section class="section" id="s11">
+  <div class="sec-hd"><span class="sec-num danger">11</span><h2 class="danger">なりすまし詐欺の手口と対策【重要・2026年最新】</h2></div>
+
+  <div class="danger-box">
+    <div class="d-title">公式緊急注意喚起（2026年1月・kubell発表）</div>
+    <ul>
+      <li>実在する企業の代表者・社員を装い、口座情報の提供や現金の振り込みを要求するなりすまし詐欺が急増しています</li>
+      <li>実在する人物の氏名・プロフィール画像を無断使用した悪質なアカウントが確認されています</li>
+      <li>2026年1月20日に通報窓口が新設され、警察との連携も開始されています</li>
+    </ul>
+  </div>
+
+  <h3 class="danger">主な手口（3パターン）</h3>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>手口</th><th>具体的な内容</th><th>狙い</th></tr></thead>
+    <tbody>
+      <tr><td><strong>振込詐欺型</strong></td><td>社長・上司を装って「至急この口座に振り込んでください」「振込先が変わりました」とメッセージを送る</td><td>不正送金</td></tr>
+      <tr><td><strong>フィッシング型</strong></td><td>「システムのアップデートが必要です」「セキュリティ確認のためログインしてください」という偽サイトへのリンクを送る</td><td>アカウント乗っ取り</td></tr>
+      <tr><td><strong>多段階誘導型</strong></td><td>Chatworkで接触後、LINEグループへ誘導。「他の人には知らせないで」と孤立させてから要求を繰り返す</td><td>金銭・情報搾取</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="danger">なぜChatworkが狙われやすいのか</h3>
+  <ul>
+    <li><strong>相手のメールアドレスを知っているだけで申請できる：</strong> 承認ハードルが低く、名前と顔写真を本物そっくりにすると騙されやすい</li>
+    <li><strong>チャットは「信頼の場」という心理：</strong> メールより警戒心が薄れ、上司・取引先からと思うと反射的に従ってしまいがち</li>
+    <li><strong>「至急」という言葉で判断力を奪う：</strong> 急かされると確認する余裕がなくなる</li>
+  </ul>
+
+  <h3 class="danger">絶対に覚えておくべき鉄則</h3>
+
+  <div class="danger-box">
+    <div class="d-title">これが来たら100%詐欺です</div>
+    <ul>
+      <li>チャット上で突然「口座に振り込んでください」「口座番号を教えてください」と言われる</li>
+      <li>「至急」「緊急」「今だけ」「他の人には内緒で」というキーワードが入っている</li>
+      <li>普段やり取りしていない相手から突然コンタクト申請が来て、すぐに金銭の話になる</li>
+      <li>既にコンタクト登録している同じ人から「新しいアカウントです」と申請が来る</li>
+    </ul>
+  </div>
+
+  <div class="checklist">
+    <div class="c-title">なりすまし詐欺を防ぐ今すぐできる対策チェックリスト</div>
+    <ul>
+      <li>知らないアカウントからのコンタクト申請は、既存コンタクトと同名がないか確認してから承認する</li>
+      <li>コンタクト申請者のChatwork IDとプロフィールを、知り合いの正規アカウントと比較確認する</li>
+      <li>チャット上での振込・口座情報の要求は、必ず電話または対面で本人確認する</li>
+      <li>「他の人には言わないで」という指示が来たら詐欺と判断して応じない</li>
+      <li>二段階認証を設定してアカウント乗っ取りを防ぐ</li>
+      <li>不審なURLは絶対にクリックしない</li>
+      <li>被害を受けたまたは受けそうになった場合、警察または消費生活センターに相談する</li>
+    </ul>
+  </div>
+
+  <h3>なりすましアカウントを発見したら</h3>
+  <ol class="steps">
+    <li>やり取りの記録（スクリーンショット）を保存する</li>
+    <li>不審なアカウントとのコンタクトを削除する（コンタクトリスト→右クリック→「コンタクトを削除」）</li>
+    <li>Chatwork内の「ご意見・ご要望」からkubellに報告する（2026年1月〜通報窓口が新設）</li>
+    <li>金銭的な被害が発生した場合は最寄りの警察署または消費生活センターに相談する</li>
+  </ol>
+
+  <div class="note note-red">
+    <span class="lbl">誤って承認してしまった場合</span>
+    不正アカウントのコンタクト申請を誤って承認してしまった場合は、「コンタクトの削除」と「グループチャットからの削除」を行ってください。金銭的要求には絶対に応じず、すぐに警察に相談してください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S12 -->
+<section class="section" id="s12">
+  <div class="sec-hd"><span class="sec-num">12</span><h2>セキュリティ設定</h2></div>
+
+  <h3>二段階認証の設定（全ユーザー必須）</h3>
+  <ol class="steps">
+    <li>右上のアイコン→「設定」→「セキュリティ」をクリックする</li>
+    <li>「二段階認証を設定する」をクリックする</li>
+    <li>認証アプリ（Google AuthenticatorまたはMicrosoft Authenticator推奨）をスマートフォンにインストールする</li>
+    <li>QRコードをアプリで読み取り、表示される6桁のコードを入力して設定完了</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">二段階認証は絶対に設定してください</span>
+    二段階認証を設定するとパスワードが漏洩してもログインできません。なりすまし詐欺対策の最も基本的かつ効果的な対策です。特に管理者アカウントは必須です。
+  </div>
+
+  <h3>プラン別セキュリティ機能</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>セキュリティ機能</th><th>フリー</th><th>ビジネス</th><th>エンタープライズ</th></tr></thead>
+    <tbody>
+      <tr><td>二段階認証</td><td><span class="chk">可</span></td><td><span class="chk">可</span></td><td><span class="chk">可</span></td></tr>
+      <tr><td>ログイン端末制限</td><td><span class="xmk">なし</span></td><td><span class="xmk">なし</span></td><td><span class="chk">可</span></td></tr>
+      <tr><td>IPアドレス制限</td><td><span class="xmk">なし</span></td><td><span class="xmk">なし</span></td><td><span class="chk">可</span></td></tr>
+      <tr><td>社外ユーザー制限</td><td><span class="xmk">なし</span></td><td><span class="xmk">なし</span></td><td><span class="chk">可</span></td></tr>
+      <tr><td>チャットログエクスポート</td><td><span class="xmk">なし</span></td><td><span class="chk">可</span></td><td><span class="chk">可</span></td></tr>
+      <tr><td>SNS連携制限</td><td><span class="xmk">なし</span></td><td><span class="xmk">なし</span></td><td><span class="chk">可</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S13 -->
+<section class="section" id="s13">
+  <div class="sec-hd"><span class="sec-num">13</span><h2>料金プラン完全比較（2026年版）</h2></div>
+
+  <p>Chatworkは<strong>フリー・ビジネス・エンタープライズ</strong>の3プランです。有料プランは1ヶ月無料トライアルが利用できます。</p>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-name">フリープラン</div>
+      <div class="plan-price">0<span>円/ユーザー</span></div>
+      <div class="plan-note">個人・小規模チームの試用に</div>
+      <ul>
+        <li>基本チャット機能</li>
+        <li>タスク管理</li>
+        <li>ファイル共有（5GB/組織）</li>
+        <li>1対1のビデオ通話</li>
+        <li>メッセージ閲覧：直近40日分</li>
+        <li>グループチャット数：制限あり</li>
+        <li>広告表示あり</li>
+      </ul>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-name">ビジネスプラン ★推奨</div>
+      <div class="plan-price">700<span>円〜/ユーザー/月（年払い）</span></div>
+      <div class="plan-note">1ヶ月無料トライアルあり。中小企業の本格利用に</div>
+      <ul>
+        <li><strong>全期間のメッセージ閲覧</strong></li>
+        <li><strong>高度な検索（発言者・日時絞り込み）</strong></li>
+        <li><strong>最大14人のビデオ会議</strong></li>
+        <li><strong>ストレージ10GB以上</strong></li>
+        <li><strong>予約送信・自分宛て一覧</strong></li>
+        <li><strong>チャットログエクスポート</strong></li>
+        <li>広告非表示</li>
+        <li>管理者権限の委譲</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">エンタープライズプラン</div>
+      <div class="plan-price">1,200<span>円〜/ユーザー/月（年払い）</span></div>
+      <div class="plan-note">最低5ユーザー〜。大規模組織・高セキュリティ向け</div>
+      <ul>
+        <li>ビジネスの全機能</li>
+        <li>IPアドレスアクセス制限</li>
+        <li>ログイン端末制限</li>
+        <li>社外ユーザーのアクセス制限</li>
+        <li>SNS連携制限</li>
+        <li>専任サポート</li>
+        <li>SLAサービス保証</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note note-org">
+    <span class="lbl">料金は公式サイトで最新確認を</span>
+    Chatworkの料金は2023年7月に改定されています。本ガイドの料金は参考値です。正確な最新料金はchatwork.comの料金ページでご確認ください。
+  </div>
+
+  <h3>プランの選び方</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>こんな場合は</th><th>おすすめ</th><th>理由</th></tr></thead>
+    <tbody>
+      <tr><td>個人・フリーランスで試したい</td><td><span class="tag tag-g">フリー</span></td><td>基本機能は無料で十分試せる</td></tr>
+      <tr><td>3人以上でのビデオ会議をしたい</td><td><span class="tag tag-o">ビジネス</span></td><td>フリーは1対1のみ制限がある</td></tr>
+      <tr><td>過去のメッセージを遡って検索したい</td><td><span class="tag tag-o">ビジネス</span></td><td>フリーは直近40日しか閲覧不可</td></tr>
+      <tr><td>社外からのアクセスを制限したい</td><td><span class="tag tag-b">エンタープライズ</span></td><td>IPアドレス制限・端末制限が必要</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S14 -->
+<section class="section" id="s14">
+  <div class="sec-hd"><span class="sec-num">14</span><h2>よくあるトラブル・FAQ</h2></div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">メッセージが「直近40日以前」で見られなくなりました。</div>
+    <div class="faq-a">フリープランの仕様です。40日以前のメッセージはフリープランでは閲覧できません。過去のメッセージへのアクセスが必要な場合はビジネスプランへのアップグレードが必要です。なお、メッセージ自体は消えているわけではなく、有料プランにアップグレードすれば遡って閲覧できます。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">知らない人からコンタクト申請が来ました。承認してもいいですか？</div>
+    <div class="faq-a">慎重に確認してください。相手のプロフィールを見て、すでに同じ名前の人をコンタクト登録していないか確認してください。知人・取引先の場合は別の手段（電話・メール）で本人確認してから承認することをおすすめします。不審な場合は拒否してください。2026年1月以降、なりすまし詐欺が急増しているため特に注意が必要です。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">送ったメッセージを取り消せますか？</div>
+    <div class="faq-a">Chatworkでは送信したメッセージを「編集」または「削除」できます。メッセージにカーソルを当てると表示される「・・・」から選択してください。ただし、相手がすでに読んでいた場合、内容を見られている可能性はあります。また管理者は他のメンバーのメッセージも削除できます。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">退職した社員のアカウントはどうすればいいですか？</div>
+    <div class="faq-a">管理者が「ユーザー管理」からそのユーザーを「無効化」または「削除」できます（ビジネスプラン以上）。無効化するとログインできなくなります。退職者のアカウントを放置するとセキュリティリスクになるため、退職時には必ず対応してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">スマホとPCで同じアカウントを使えますか？</div>
+    <div class="faq-a">はい、同じアカウントでスマホアプリ・PCアプリ・ブラウザ版の全てから使えます。メッセージ・タスク・ファイルはすべてのデバイスで同期されます。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">グループチャットを誤って退出してしまいました。</div>
+    <div class="faq-a">退出した場合、自分でチャットに戻ることはできません。チャットのオーナーまたは管理者に再招待してもらう必要があります。なお、退出後もそれ以前のメッセージ閲覧履歴には影響しません。</div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+</div>
+
+<footer class="site-footer">
+  <strong>Chatwork 完全解説書 2026年版</strong>
+  本ガイドは2026年3月時点の情報を基に制作されています。なりすまし詐欺情報はkubell公式発表（2026年1月）に基づきます。料金・機能はアップデートにより変更される場合があります。最新情報は公式サイト（chatwork.com）でご確認ください。
+  <br><span class="footer-note">完全版 ／ 最終更新：2026年3月</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, { threshold: 0.05 });
+document.querySelectorAll('.section').forEach(el => obs.observe(el));
+
+function copyCode(btn) {
+  const text = btn.nextElementSibling.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showCopied(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
+}
+function showCopied(btn) {
+  btn.textContent = 'COPIED';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+}
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+</body>
+</html>

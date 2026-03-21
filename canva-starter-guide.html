@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canva 入門ガイド 2025年版</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -285,6 +286,57 @@ tr:nth-child(even) td{background:var(--bg-off)}
     color: #fff;
     border-color: var(--accent, var(--acc, #2d2d2d));
   }
+
+  /* ===== ツールチップ注釈 ===== */
+  .tip {
+    border-bottom: 1.5px dotted var(--accent, var(--acc, #2d2d2d));
+    cursor: help;
+    position: relative;
+    display: inline;
+  }
+  .tip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.65;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    max-width: 280px;
+    white-space: normal;
+    width: max-content;
+    max-width: 260px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0;
+  }
+  .tip::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a1a1a;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+  }
+  .tip:hover::after,
+  .tip:hover::before {
+    opacity: 1;
+  }
 </style>
 </head>
 <body>
@@ -305,7 +357,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
 
   <div class="upgrade-banner">
     <span class="ub-icon">入門版について</span>
-    <p>このガイドは<strong>基本操作から「はじめての1枚」完成まで</strong>をカバーします。AI機能（Magic Studio）・ブランドキット・チーム機能・Visual Suite 2.0・動画制作など上級活用は<strong>完全版</strong>で詳しく解説しています。</p>
+    <p>このガイドは<strong>基本操作から「はじめての1枚」完成まで</strong>をカバーします。AI機能（<span class="tip" data-tip="Canvaに統合されたAI機能の総称。背景除去・画像生成・文章生成などが含まれる">Magic Studio</span>）・<span class="tip" data-tip="企業・個人ブランドのカラー・フォント・ロゴをまとめて登録できる機能">ブランドキット</span>・チーム機能・Visual Suite 2.0・動画制作など上級活用は<strong>完全版</strong>で詳しく解説しています。</p>
   </div>
 
   <!-- 目次 -->
@@ -314,7 +366,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
     <ul class="toc-list">
       <li><a href="#s01">Canvaとは・なぜ選ばれるのか</a></li>
       <li><a href="#s02">アカウント作成と画面の見方</a></li>
-      <li><a href="#s03">テンプレートを使ったデザイン作成</a></li>
+      <li><a href="#s03"><span class="tip" data-tip="あらかじめデザインされた下敷き。文字・画像を差し替えるだけで完成する">テンプレート</span>を使ったデザイン作成</a></li>
       <li><a href="#s04">テキスト・画像・素材の操作</a></li>
       <li><a href="#s05">書き出し・ダウンロード・共有</a></li>
       <li><a href="#s06">料金プラン（無料 vs Pro）</a></li>
@@ -438,7 +490,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
             <div class="m-cv-tool" title="写真">写</div>
             <div class="m-cv-tool" title="図形">図</div>
             <div class="m-cv-tool" title="AI">AI</div>
-            <div class="m-cv-tool" title="アップロード">↑</div>
+            <div class="m-cv-tool" title="<span class="tip" data-tip="ファイルをインターネット上のサービスに送信・保存すること">アップロード</span>">↑</div>
           </div>
           <div class="m-cv-canvas">
             <div class="m-cv-design">
@@ -507,7 +559,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
       <div class="flow-card">
         <div class="flow-n">4</div>
         <div class="flow-title">書き出し・完成</div>
-        <div class="flow-desc">PNG/PDF等でダウンロード</div>
+        <div class="flow-desc"><span class="tip" data-tip="透明背景が使える画像形式。ロゴやイラストの保存に向いている">PNG</span>/<span class="tip" data-tip="環境に関係なく同じ見た目で表示・印刷できるファイル形式">PDF</span>等でダウンロード</div>
       </div>
     </div>
 
@@ -616,7 +668,7 @@ Delete      : 選択した要素を削除
     </ul>
 
     <div class="goto-full">
-      <strong>完全版で詳しく解説：</strong> 背景除去（Magic Eraser）・AI画像生成・マジックリサイズ・写真フィルター・テキストエフェクト・アニメーション追加（すべてMagic Studio機能）
+      <strong>完全版で詳しく解説：</strong> 背景除去（Magic Eraser）・AI画像生成・<span class="tip" data-tip="作成したデザインを別のサイズに自動変換する機能。SNS別に複数サイズを一括生成できる">マジックリサイズ</span>・写真フィルター・テキストエフェクト・アニメーション追加（すべてMagic Studio機能）
     </div>
   
   <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
@@ -651,7 +703,7 @@ Delete      : 選択した要素を削除
               </div>
             </div>
             <div class="m-cv-exp-opt">
-              <div class="m-cv-exp-opt-icon" style="background:#d97706">JPG</div>
+              <div class="m-cv-exp-opt-icon" style="background:#d97706"><span class="tip" data-tip="ファイルサイズが小さい画像形式。写真の保存に向いているが透明背景は不可">JPG</span></div>
               <div class="m-cv-exp-opt-info">
                 <div class="m-cv-exp-opt-name">JPG</div>
                 <div class="m-cv-exp-opt-desc">ファイルサイズを小さくしたい場合</div>
@@ -672,8 +724,8 @@ Delete      : 選択した要素を削除
         <tr><td><strong>PDF（印刷用）</strong></td><td>高解像度・印刷に最適・複数ページOK</td><td>チラシ・名刺・パンフレット・プレゼン資料の印刷</td></tr>
         <tr><td><strong>PDF（標準）</strong></td><td>通常品質のPDF</td><td>デジタル配布用資料・メール送付</td></tr>
         <tr><td><strong>MP4（動画）</strong></td><td>アニメーション・動画のある場合</td><td>アニメーション付きSNS投稿・動画コンテンツ</td></tr>
-        <tr><td><strong>GIF</strong></td><td>ループするアニメーション</td><td>ステッカー・アニメーションバナー</td></tr>
-        <tr><td><strong>SVG</strong></td><td>ベクター形式（Proのみ）</td><td>拡大縮小しても劣化しないロゴ・アイコン</td></tr>
+        <tr><td><strong><span class="tip" data-tip="ループするアニメーションを表現できる画像形式。ファイルサイズが小さい">GIF</span></strong></td><td>ループするアニメーション</td><td>ステッカー・アニメーションバナー</td></tr>
+        <tr><td><strong><span class="tip" data-tip="拡大しても劣化しないベクター形式の画像ファイル。ロゴ制作に最適">SVG</span></strong></td><td>ベクター形式（Proのみ）</td><td>拡大縮小しても劣化しないロゴ・アイコン</td></tr>
       </tbody>
     </table>
     </div>
@@ -753,7 +805,7 @@ Delete      : 選択した要素を削除
           <li>テンプレートのロック（編集制限）</li>
           <li>承認ワークフロー</li>
           <li>管理者ダッシュボード</li>
-          <li>SSO（シングルサインオン）</li>
+          <li><span class="tip" data-tip="シングルサインオン。1つのID・パスワードで複数のサービスにログインできる仕組み">SSO</span>（シングルサインオン）</li>
         </ul>
       </div>
     </div>

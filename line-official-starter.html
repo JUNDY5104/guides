@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>LINE公式アカウント 入門ガイド 2026年版｜元飲食店店長サム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ln:#06c755;--ln2:#00e060;--ln-light:rgba(6,199,85,.1);--ln-border:rgba(6,199,85,.25);
+  --red:#e53e3e;--red-light:#fff5f5;
+  --org:#dd6b20;--org-light:#fffaf0;
+  --blu:#3182ce;--blu-light:#ebf8ff;
+  --bg:#fff;--bg-off:#f7faf8;--bg-off2:#eef5f1;
+  --text:#1a202c;--muted:#4a5568;--border:#e2e8f0;
+  --max:1000px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85}
+
+/* ヘッダー */
+.site-header{background:linear-gradient(135deg,#003d20 0%,#00622f 45%,#008c42 100%);color:#fff;padding:64px 24px 54px;text-align:center;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;top:-120px;right:-60px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(6,199,85,.3),transparent 70%);pointer-events:none}
+.site-header::after{content:'';position:absolute;bottom:-80px;left:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(6,199,85,.2),transparent 70%);pointer-events:none}
+.hd-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;padding:4px 16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;position:relative;z-index:1}
+.site-header h1{font-size:clamp(24px,4.5vw,38px);font-weight:700;line-height:1.25;margin-bottom:12px;position:relative;z-index:1}
+.site-header .sub{font-size:14px;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto 24px;position:relative;z-index:1;line-height:1.8}
+.hd-meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hd-meta span{font-size:12px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.12);padding:4px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.25)}
+.hd-free-badge{display:inline-block;background:#06c755;color:#fff;font-size:12px;font-weight:700;padding:5px 20px;border-radius:20px;margin-bottom:16px;position:relative;z-index:1;letter-spacing:.06em}
+
+/* ナビ */
+.nav-wrap{background:var(--bg-off);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;gap:8px;max-width:var(--max);margin:0 auto;white-space:nowrap}
+.nav-btn{display:inline-flex;align-items:center;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--ln-border);color:var(--ln);background:var(--ln-light);transition:all .2s;flex-shrink:0}
+.nav-btn:hover{background:var(--ln);color:#fff}
+
+/* ラッパー */
+.wrapper{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* セクション */
+.section{padding:60px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:last-of-type{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-num{background:var(--ln);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 11px;border-radius:2px;flex-shrink:0;min-width:44px;text-align:center}
+.sec-hd h2{font-size:clamp(18px,3vw,22px);font-weight:700;border-bottom:2px solid var(--ln);padding-bottom:6px;flex:1;line-height:1.35}
+
+/* 本文 */
+p{margin-bottom:16px;color:var(--text)}
+p:last-child{margin-bottom:0}
+h3{font-size:16px;font-weight:700;margin:28px 0 12px;padding-left:12px;border-left:3px solid var(--ln);color:var(--text)}
+ul,ol{padding-left:20px;margin-bottom:16px;color:var(--text)}
+li{margin-bottom:7px}
+strong{color:#1a202c}
+
+/* ノート */
+.note{background:var(--ln-light);border-left:4px solid var(--ln);padding:14px 20px;margin:18px 0;border-radius:0 4px 4px 0;font-size:14px}
+.note .lbl{display:block;color:var(--ln);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px}
+.note-org{background:var(--org-light);border-left-color:var(--org)}
+.note-org .lbl{color:var(--org)}
+.note-blu{background:var(--blu-light);border-left-color:var(--blu)}
+.note-blu .lbl{color:var(--blu)}
+.note-red{background:var(--red-light);border-left-color:var(--red)}
+.note-red .lbl{color:var(--red)}
+
+/* テーブル */
+.tbl-wrap{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:360px}
+th{background:var(--ln);color:#fff;padding:10px 14px;text-align:left;font-weight:700;font-size:13px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--bg-off)}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700}
+.tag-g{background:var(--ln-light);color:var(--ln);border:1px solid var(--ln-border)}
+.tag-r{background:var(--red-light);color:var(--red)}
+.tag-o{background:var(--org-light);color:var(--org)}
+.tag-b{background:var(--blu-light);color:var(--blu)}
+.chk{color:var(--ln);font-weight:700}
+.xmk{color:#999;font-size:13px}
+
+/* ステップ */
+.steps{list-style:none;padding:0;counter-reset:step}
+.steps li{counter-increment:step;padding:12px 12px 12px 50px;position:relative;border-bottom:1px solid var(--border);color:var(--text)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:10px;top:12px;width:26px;height:26px;background:var(--ln);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%}
+
+/* コードブロック */
+.code-block{position:relative;margin:16px 0}
+.code-block pre{background:var(--bg-off2);border:1px solid var(--border);border-radius:4px;padding:16px 52px 16px 18px;overflow-x:auto;font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:8px;right:8px;background:var(--ln);color:#fff;border:none;padding:5px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border-radius:2px;transition:background .2s;white-space:nowrap}
+.copy-btn:hover{background:#008c42}
+.copy-btn.copied{background:var(--blu)}
+
+/* ツールチップ */
+.tip{border-bottom:1.5px dotted var(--ln);cursor:help;position:relative;display:inline}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a202c;color:#fff;font-size:12px;padding:8px 12px;border-radius:6px;width:max-content;max-width:260px;white-space:normal;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;opacity:0;transition:opacity .18s;z-index:9999;line-height:1.65;font-family:'Noto Sans JP',sans-serif}
+.tip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a202c;pointer-events:none;opacity:0;transition:opacity .18s;z-index:9999}
+.tip:hover::after,.tip:hover::before{opacity:1}
+
+/* プランカード */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.plan-card{border:1.5px solid var(--border);border-radius:6px;padding:18px 16px;font-size:13px;background:var(--bg-off)}
+.plan-card.featured{border-color:var(--ln);background:var(--ln-light)}
+.plan-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.plan-price{font-size:20px;font-weight:700;color:var(--ln);margin-bottom:2px;line-height:1.2}
+.plan-price span{font-size:11px;font-weight:400;color:var(--muted)}
+.plan-note{font-size:11px;color:var(--muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.plan-card ul{padding-left:0;list-style:none}
+.plan-card li{padding:3px 0 3px 14px;position:relative;font-size:11px;border:none;margin-bottom:2px}
+.plan-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--border)}
+.plan-card.featured li::before{background:var(--ln)}
+
+/* モックアップ */
+.mockup-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:22px 0;box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.mockup-bar{background:#f0f0f0;padding:8px 14px;display:flex;gap:6px;align-items:center;border-bottom:1px solid var(--border)}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.mockup-bar span:nth-child(1){background:#ff6058}
+.mockup-bar span:nth-child(2){background:#ffbd2e}
+.mockup-bar span:nth-child(3){background:#28c840}
+.mockup-body{background:#fff}
+
+/* LINE画面モック */
+.m-line{background:#fff;min-height:200px}
+.m-line-hd{background:#06c755;padding:10px 16px;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.m-line-hd .hd-icon{width:28px;height:28px;background:rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px}
+.m-chat-area{padding:14px 16px;display:flex;flex-direction:column;gap:12px;background:#b2dfb2}
+.m-chat-bubble{background:#fff;border-radius:4px 14px 14px 14px;padding:10px 14px;font-size:13px;color:#222;max-width:75%;line-height:1.7;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.m-chat-bubble.right{background:#06c755;color:#fff;align-self:flex-end;border-radius:14px 4px 14px 14px}
+.m-rich-menu{background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background-color:#ddd}
+.m-rm-item{background:#fff;padding:12px 8px;text-align:center;font-size:11px;font-weight:700;color:#333;display:flex;flex-direction:column;align-items:center;gap:4px}
+.m-rm-icon{font-size:20px}
+
+/* FAQ */
+.faq-item{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden}
+.faq-q{background:var(--bg-off);padding:13px 46px 13px 18px;font-weight:700;font-size:14px;cursor:pointer;position:relative;user-select:none;color:var(--text)}
+.faq-q::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--ln);font-weight:400;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{display:none;padding:14px 18px;font-size:14px;line-height:1.85;border-top:1px solid var(--border);color:var(--muted)}
+.faq-item.open .faq-a{display:block}
+
+/* TOPボタン */
+.to-top{display:inline-flex;align-items:center;gap:6px;margin-top:36px;padding:7px 16px;background:var(--bg-off);border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:.06em;transition:all .2s;cursor:pointer}
+.to-top::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.to-top:hover{background:var(--ln);color:#fff;border-color:var(--ln)}
+
+/* 完全版バナー */
+.upgrade-banner{background:linear-gradient(135deg,#003d20,#006630);border-radius:8px;padding:24px 28px;margin:40px 0;color:#fff;position:relative;overflow:hidden}
+.upgrade-banner::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(6,199,85,.3),transparent 70%);pointer-events:none}
+.ub-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px}
+.ub-title{font-size:18px;font-weight:700;margin-bottom:8px;position:relative;z-index:1}
+.ub-desc{font-size:13px;color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:16px;position:relative;z-index:1}
+.ub-list{list-style:none;padding:0;margin-bottom:16px;position:relative;z-index:1}
+.ub-list li{font-size:13px;color:rgba(255,255,255,.9);padding:3px 0 3px 18px;position:relative}
+.ub-list li::before{content:'▶';position:absolute;left:0;color:#06c755;font-size:9px;top:6px}
+.ub-btn{display:inline-block;background:#06c755;color:#fff;font-size:14px;font-weight:700;padding:10px 24px;border-radius:4px;text-decoration:none;transition:background .2s;position:relative;z-index:1}
+.ub-btn:hover{background:#00a844}
+
+/* フッター */
+.site-footer{background:#003d20;color:rgba(255,255,255,.7);text-align:center;padding:36px 24px;font-size:12px;margin-top:48px}
+.site-footer strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}
+.footer-note{display:inline-block;background:rgba(255,255,255,.1);padding:3px 14px;border-radius:20px;margin-top:8px;font-size:11px}
+
+/* レスポンシブ */
+@media(max-width:768px){
+  .plan-grid{grid-template-columns:1fr}
+  .toc-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .site-header{padding:48px 20px 40px}
+  .section{padding:44px 0}
+  th,td{padding:8px 10px}
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#111;--bg-off:#1a1a1a;--bg-off2:#222;
+    --text:#e8e8e8;--muted:#999;--border:rgba(255,255,255,.1);
+    --ln:#00d456;--ln2:#00f060;--ln-light:rgba(0,212,86,.12);--ln-border:rgba(0,212,86,.3);
+    --red-light:rgba(229,62,62,.12);--org-light:rgba(221,107,32,.12);--blu-light:rgba(49,130,206,.12);
+  }
+  .mockup-bar{background:#2a2a2a}
+  .m-line-hd{background:#009940}
+  .m-rich-menu{background-color:#333}
+  .m-rm-item{background:#1a1a1a;color:#e8e8e8}
+  .m-chat-area{background:#2d5a2d}
+  .m-chat-bubble{background:#2a2a2a;color:#e8e8e8}
+  .faq-q{background:#1a1a1a}
+  .plan-card{background:#1a1a1a}
+  .plan-card.featured{background:rgba(0,212,86,.1)}
+  .nav-wrap{background:#1a1a1a}
+  strong{color:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hd-free-badge">無料ガイド</div>
+  <div class="hd-badge">Beginner Guide 2026</div>
+  <h1>LINE公式アカウント<br>入門ガイド</h1>
+  <p class="sub">開設から最初のメッセージ配信・リッチメニュー設定まで。「難しそう」をこの1本で解消します</p>
+  <div class="hd-meta">
+    <span>8 セクション</span>
+    <span>2026年最新対応</span>
+    <span>個人事業主・発信者向け</span>
+    <span>完全無料</span>
+  </div>
+</header>
+
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <a href="#s01" class="nav-btn">01 LINEとは</a>
+    <a href="#s02" class="nav-btn">02 アカウント開設</a>
+    <a href="#s03" class="nav-btn">03 管理画面</a>
+    <a href="#s04" class="nav-btn">04 初期設定</a>
+    <a href="#s05" class="nav-btn">05 メッセージ配信</a>
+    <a href="#s06" class="nav-btn">06 リッチメニュー</a>
+    <a href="#s07" class="nav-btn">07 料金プラン</a>
+    <a href="#s08" class="nav-btn">08 FAQ</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>LINE公式アカウントとは</h2></div>
+
+  <p>LINE公式アカウントは、個人のLINEアカウントとは別の<strong>ビジネス用LINEアカウント</strong>です。企業・店舗・個人事業主・発信者が友だち登録してくれたユーザーにメッセージを配信できるツールで、2026年現在は400万以上のアカウントが利用しています。</p>
+
+  <p>メールマガジンと似ていますが、LINEはメールよりも<strong>開封率が圧倒的に高い</strong>のが最大の特徴です。メールの開封率が10〜20%程度なのに対し、LINEは50〜70%と言われています。友だち登録してくれた人に確実にメッセージが届きます。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-line">
+        <div class="m-line-hd">
+          <div class="hd-icon">S</div>
+          元飲食店店長サム
+        </div>
+        <div class="m-chat-area">
+          <div class="m-chat-bubble">
+            友だち登録ありがとうございます！<br>特典のCapCutガイドをお届けします。<br>▼ こちらからどうぞ<br>https://…
+          </div>
+          <div class="m-chat-bubble right">ありがとうございます！</div>
+          <div class="m-chat-bubble">
+            今後もAI・動画編集の役立つ情報をお届けします。よろしくお願いします！
+          </div>
+        </div>
+        <div class="m-rich-menu">
+          <div class="m-rm-item"><div class="m-rm-icon">🎁</div>特典を受け取る</div>
+          <div class="m-rm-item"><div class="m-rm-icon">📚</div>ガイド一覧</div>
+          <div class="m-rm-item"><div class="m-rm-icon">💬</div>お問い合わせ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>個人LINEとの違い</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>比較</th><th>個人LINE</th><th>LINE公式アカウント</th></tr></thead>
+    <tbody>
+      <tr><td>用途</td><td>友人・家族との連絡</td><td>ビジネス・発信・集客</td></tr>
+      <tr><td>一斉送信</td><td>不可（グループのみ）</td><td><span class="tag tag-g">可（全友だちへ一括配信）</span></td></tr>
+      <tr><td>自動返信</td><td>不可</td><td><span class="tag tag-g">可（キーワード自動応答）</span></td></tr>
+      <tr><td>リッチメニュー</td><td>なし</td><td><span class="tag tag-g">設置可能</span></td></tr>
+      <tr><td>分析機能</td><td>なし</td><td><span class="tag tag-g">友だち数・開封率など確認可</span></td></tr>
+      <tr><td>友だち人数</td><td>上限あり</td><td>無制限</td></tr>
+      <tr><td>料金</td><td>無料</td><td>基本無料（配信数超過で課金）</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>こんな使い方ができます</h3>
+  <ul>
+    <li><strong>特典配布：</strong> 友だち登録のお礼にPDF・URLを自動で送付する</li>
+    <li><strong>新作告知：</strong> noteやBrainの新作を全友だちに一斉配信する</li>
+    <li><strong>ステップ配信：</strong> 登録後1日目・3日目・7日目に自動でメッセージを送るシナリオを組む</li>
+    <li><strong>導線設計：</strong> リッチメニューから販売ページ・SNSへ誘導する</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>アカウント開設の手順</h2></div>
+
+  <p>LINE公式アカウントの開設は<strong>無料・10分以内</strong>で完了します。すでに個人LINEアカウントを持っていれば、そのアカウントで開設できます。</p>
+
+  <h3>開設手順</h3>
+  <ol class="steps">
+    <li>account.line.biz にアクセスして「LINE公式アカウントを作成する」をクリックする</li>
+    <li>個人のLINEアカウントでログインする（メールアドレスでも登録可能）</li>
+    <li>アカウント名・業種・国/地域を入力する</li>
+    <li>認証コードをLINEまたはSMSで受け取り入力する</li>
+    <li>利用目的を選択して「完了」→管理画面（LINE Official Account Manager）が表示されれば開設完了</li>
+  </ol>
+
+  <div class="note note-org">
+    <span class="lbl">アカウント名は慎重に決める</span>
+    アカウント名は後から変更できますが、変更するたびに友だちに通知が届きます。最初から「活動名＋サービス名」などブランドとして使える名前に設定することをおすすめします。
+  </div>
+
+  <h3>認証バッジについて</h3>
+  <p>開設直後は<span class="tip" data-tip="審査なしで誰でも作れる通常アカウント。グレーのシールドマークが表示される">未認証アカウント</span>です。申請して審査に通過すると<span class="tip" data-tip="LINE社の審査を通過した信頼性の高いアカウント。青いシールドマークが表示される">認証済みアカウント</span>になり、LINEアプリ内で検索可能になります。発信者・個人事業主は未認証のままでも問題なく使えます。</p>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>管理画面の見方</h2></div>
+
+  <p>LINE公式アカウントの管理はPC版の「LINE Official Account Manager」で行うのが最も使いやすいです。スマホアプリ「LINE Official Account」でも操作できますが、細かい設定はPC版を推奨します。</p>
+
+  <h3>主要メニューの役割</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>メニュー</th><th>主な操作</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ホーム</strong></td><td>友だち数の推移・メッセージ配信数・ブロック数などをダッシュボードで確認</td></tr>
+      <tr><td><strong>メッセージを送る</strong></td><td>全友だちへの一斉配信・予約配信・セグメント配信を作成・送信</td></tr>
+      <tr><td><strong>チャット</strong></td><td>友だちからのメッセージに個別返信。自動応答の設定も</td></tr>
+      <tr><td><strong>分析</strong></td><td>友だち数の推移・属性（年齢・性別）・メッセージの開封率・リッチメニューのクリック数</td></tr>
+      <tr><td><strong>トークルーム管理</strong></td><td>リッチメニュー・あいさつメッセージ・自動応答の設定</td></tr>
+      <tr><td><strong>友だちを増やす</strong></td><td>友だち追加用QRコード・ボタン・URLの取得</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>最初にやるべき初期設定</h2></div>
+
+  <h3>①プロフィール設定</h3>
+  <ol class="steps">
+    <li>管理画面の「アカウント設定」→「基本情報」を開く</li>
+    <li>プロフィール画像をアップロードする（正方形・推奨640×640px）</li>
+    <li>ステータスメッセージ（一言説明）を入力する。「何を発信しているか」を20字以内で</li>
+    <li>ホーム画像（横長カバー画像）を設定する。活動内容・サービスを視覚的にアピール</li>
+  </ol>
+
+  <h3>②あいさつメッセージの設定</h3>
+  <p>友だち追加直後に<strong>自動で送られるメッセージ</strong>です。最も重要な設定のひとつです。</p>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【あいさつメッセージの例（特典配布あり）】
+
+友だち登録ありがとうございます！
+元飲食店店長サムです。
+
+プレゼントのCapCutガイドはこちらからどうぞ👇
+① 無料でここまでできるチェックリスト
+https://…
+
+② 伸びる動画の構成テンプレ5種
+https://…
+
+今後もAI・動画編集・発信に役立つ情報をお届けします。
+よろしくお願いします！
+
+【設定場所】
+管理画面→トークルーム管理→あいさつメッセージ</pre>
+  </div>
+
+  <h3>③自動応答メッセージの設定</h3>
+  <p>友だちからメッセージが届いた時に自動返信するメッセージです。特定のキーワードに反応させることもできます。</p>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【基本の自動応答例】
+
+キーワード：「特典」
+返信：「特典のURLはこちらです→ https://…」
+
+キーワード：「問い合わせ」
+返信：「ご連絡ありがとうございます。通常1〜2営業日以内にご返信します」
+
+【設定場所】
+管理画面→チャット→自動応答メッセージ</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>最初のメッセージ配信</h2></div>
+
+  <p>メッセージ配信はLINE公式アカウントのメイン機能です。登録してくれた全友だちに一斉送信できます。</p>
+
+  <h3>メッセージ配信の手順</h3>
+  <ol class="steps">
+    <li>管理画面の「メッセージを送る」→「メッセージを作成」をクリック</li>
+    <li>テキスト・画像・動画・カードタイプなど送りたい形式を選ぶ</li>
+    <li>メッセージ内容を入力してプレビューで確認する</li>
+    <li>「今すぐ送信」または日時を指定して「予約送信」を選択する</li>
+    <li>送信対象（全員・絞り込み）を選んで送信する</li>
+  </ol>
+
+  <h3>配信で気をつけること</h3>
+  <ul>
+    <li><strong>配信頻度：</strong> 週1〜2回が一般的。多すぎるとブロックされやすくなる</li>
+    <li><strong>配信時間：</strong> 平日12時・夜8〜9時台が開封率が高い傾向にある</li>
+    <li><strong>内容の割合：</strong> 有益な情報8：告知・販売2 が崩れると離脱が増える</li>
+    <li><strong>メッセージ数の上限：</strong> 無料プランは月200通まで。超える場合は有料プランへ</li>
+  </ul>
+
+  <div class="note note-blu">
+    <span class="lbl">無料プランの200通とは</span>
+    「200通」は友だち200人に1通ずつ送れるという意味ではありません。友だち100人×2回配信＝200通という計算です。友だちが増えるほど消費が早くなるので注意してください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>リッチメニューの基本設定</h2></div>
+
+  <p><span class="tip" data-tip="LINEのトーク画面下部に常時表示される固定メニュー。メッセージ配信数にカウントされないため無料で使い放題">リッチメニュー</span>とは、LINEのトーク画面下部に常に表示される固定メニューです。お店の看板のようなもので、友だちが見るたびに目に入るため、誘導効率が非常に高いです。無料プランでも使えてメッセージ配信数にカウントされません。</p>
+
+  <h3>リッチメニューに設定するおすすめ項目</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【発信者・コンテンツ販売向けの定番構成（6分割）】
+
+左上：🎁 特典を受け取る  → あいさつメッセージの特典URL
+中上：📚 ガイド一覧     → note・Brain販売ページ
+右上：💬 お問い合わせ   → キーワード「問い合わせ」トリガー
+左下：🐦 X（Twitter）  → XアカウントURL
+中下：📝 最新note記事   → 最新のnote記事URL
+右下：👤 プロフィール   → 自己紹介ページまたはnoteプロフィール</pre>
+  </div>
+
+  <h3>リッチメニューの設定手順</h3>
+  <ol class="steps">
+    <li>管理画面の「トークルーム管理」→「リッチメニュー」→「作成」をクリック</li>
+    <li>タイトル・表示期間（無期限でOK）を設定する</li>
+    <li>テンプレート（分割パターン）を選択する（6分割が最もよく使われる）</li>
+    <li>各エリアの画像をアップロードする（推奨サイズ：2500×1686px）</li>
+    <li>各エリアにアクション（リンク・テキスト送信など）を設定する</li>
+    <li>「公開」をクリックして保存→友だちのトーク画面に反映される</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">画像はCanvaで無料作成できます</span>
+    リッチメニュー用の画像はCanvaのテンプレートを使うと簡単に作れます。「LINE リッチメニュー」で検索するとサイズに合ったテンプレートが見つかります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S07 -->
+<section class="section" id="s07">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>料金プラン比較（2026年版）</h2></div>
+
+  <div class="plan-grid">
+    <div class="plan-card featured">
+      <div class="plan-name">コミュニケーションプラン</div>
+      <div class="plan-price">0<span>円/月</span></div>
+      <div class="plan-note">まずはここから。小規模運用に十分</div>
+      <ul>
+        <li>月200通まで無料配信</li>
+        <li>リッチメニュー（無料・無制限）</li>
+        <li>あいさつメッセージ</li>
+        <li>自動応答メッセージ</li>
+        <li>ステップ配信</li>
+        <li>分析機能（基本）</li>
+        <li>チャット機能</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">ライトプラン</div>
+      <div class="plan-price">5,000<span>円/月〜</span></div>
+      <div class="plan-note">友だちが増えてきたら検討</div>
+      <ul>
+        <li>月5,000通まで無料配信</li>
+        <li>超過分：〜3円/通</li>
+        <li>コミュニケーションの全機能</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">スタンダードプラン</div>
+      <div class="plan-price">15,000<span>円/月〜</span></div>
+      <div class="plan-note">本格運用・大量配信向け</div>
+      <ul>
+        <li>月30,000通まで無料配信</li>
+        <li>超過分：〜3円/通</li>
+        <li>セグメント配信（詳細絞り込み）</li>
+        <li>高度な分析機能</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note note-org">
+    <span class="lbl">料金は公式サイトで最新確認を</span>
+    LINEの料金プランは変更されることがあります。本ガイドの金額は参考値です。最新情報はLINE for Business公式サイトでご確認ください。
+  </div>
+
+  <h3>結論：最初は無料プランで十分です</h3>
+  <p>友だちが200人以下であれば無料プランで全機能が使えます。リッチメニュー・あいさつメッセージ・ステップ配信もすべて無料です。<strong>友だちが増えて月200通を超えてきたタイミングでライトプランへの移行を検討</strong>するのが自然な流れです。</p>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S08 -->
+<section class="section" id="s08">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>よくあるトラブル・FAQ</h2></div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">個人のLINEアカウントと分けられますか？</div>
+    <div class="faq-a">はい、完全に別のアカウントです。LINE公式アカウントの友だちにはあなたの個人LINEの内容は見えませんし、個人LINEの友だちリストとも連動しません。安心して使い分けられます。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">友だちを増やすにはどうすればいいですか？</div>
+    <div class="faq-a">最も効果的なのは「友だち追加した人に特典を渡す」という仕組みを作ることです。QRコードをX・Instagram・noteのプロフィールや記事に貼り、「登録するとPDFをプレゼント」という導線を設けてください。管理画面の「友だちを増やす」から専用QRコードとURLが取得できます。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">ブロックされたらわかりますか？</div>
+    <div class="faq-a">個別にブロックした相手は特定できませんが、管理画面の分析でブロック数の合計は確認できます。配信頻度が高すぎたり、有益な情報より宣伝が多くなるとブロックが増える傾向があります。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">スマホだけで管理できますか？</div>
+    <div class="faq-a">「LINE Official Account」アプリでメッセージ配信・チャット対応はできます。ただしリッチメニューの細かい設定・分析の確認・ステップ配信の設計はPC版（ブラウザ）の方が操作しやすいです。最初の設定だけでもPCで行うのをおすすめします。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">アカウントを削除したらどうなりますか？</div>
+    <div class="faq-a">削除するとすべての友だちデータ・配信履歴・設定が消えます。削除後の復元はできません。一時的に使わない場合は削除せず、配信を停止するだけにしておくことをおすすめします。</div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- 完全版バナー -->
+<div class="upgrade-banner">
+  <div class="ub-label">Next Step</div>
+  <div class="ub-title">ステップ配信・収益化まで学ぶなら<br>完全版ガイドへ</div>
+  <div class="ub-desc">入門版では触れられなかった「ステップ配信の設計」「セグメント配信」「友だちを増やす7つの方法」「収益化への導線設計」を完全解説しています。</div>
+  <ul class="ub-list">
+    <li>ステップ配信のシナリオ設計と実装手順</li>
+    <li>リッチメニュー上級活用（切り替え・A/Bテスト）</li>
+    <li>友だちを増やす7つの具体的な方法</li>
+    <li>分析機能の読み方と改善サイクル</li>
+    <li>サムの実際の収益化導線を公開</li>
+  </ul>
+  <a href="[完全版noteURL]" class="ub-btn">完全版ガイドを見る（1,480円）</a>
+</div>
+
+</div><!-- /wrapper -->
+
+<footer class="site-footer">
+  <strong>LINE公式アカウント 入門ガイド 2026年版</strong>
+  本ガイドは2026年3月時点の情報を基に制作されています。LINEの仕様・料金はアップデートにより変更される場合があります。最新情報はLINE for Business公式サイトでご確認ください。
+  <br><span class="footer-note">入門版（無料）／ 最終更新：2026年3月</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.05});
+document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+function copyCode(btn){const text=btn.nextElementSibling.textContent;navigator.clipboard?navigator.clipboard.writeText(text).then(()=>showCopied(btn)):((ta=document.createElement('textarea')).value=text,document.body.appendChild(ta),ta.select(),document.execCommand('copy'),document.body.removeChild(ta),showCopied(btn))}
+function showCopied(btn){btn.textContent='COPIED';btn.classList.add('copied');setTimeout(()=>{btn.textContent='COPY';btn.classList.remove('copied')},2000)}
+function toggleFaq(el){el.parentElement.classList.toggle('open')}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})})
+</script>
+</body>
+</html>
