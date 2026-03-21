@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CapCut 完全解説書 2026年版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cc:#00d4aa;--cc2:#00f5c4;--cc-light:rgba(0,212,170,.1);--cc-border:rgba(0,212,170,.25);
+  --red:#ff4466;--red-light:rgba(255,68,102,.1);
+  --yel:#ffd166;--yel-light:rgba(255,209,102,.1);
+  --blu:#4488ff;--blu-light:rgba(68,136,255,.1);
+  --bg:#0a0e14;--bg2:#0f1520;--bg3:#151e2d;--bg4:#1c2840;
+  --text:#e8f0f8;--muted:#6b8099;--border:rgba(255,255,255,.08);
+  --max:1000px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85}
+
+/* ヘッダー */
+.site-header{
+  position:relative;overflow:hidden;
+  background:var(--bg2);
+  padding:72px 24px 60px;text-align:center;
+  border-bottom:1px solid var(--border)
+}
+.hd-bg{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}
+.hd-bg::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(0,212,170,.18),transparent 65%)}
+.hd-bg::after{content:'';position:absolute;bottom:-100px;right:-50px;width:300px;height:300px;background:radial-gradient(circle,rgba(68,136,255,.1),transparent 70%)}
+.hd-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cc),transparent)}
+.hd-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--cc-border);border-radius:4px;
+  padding:5px 16px;font-size:11px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cc);margin-bottom:22px;position:relative;z-index:1;
+  background:var(--cc-light);font-family:'Space Grotesk',sans-serif
+}
+.hd-dot{width:7px;height:7px;border-radius:50%;background:var(--cc);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.site-header h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(30px,5.5vw,52px);font-weight:700;
+  line-height:1.15;margin-bottom:14px;position:relative;z-index:1;
+  background:linear-gradient(90deg,#fff 0%,var(--cc) 60%,#4488ff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.site-header .sub{font-size:14px;color:var(--muted);max-width:520px;margin:0 auto 28px;position:relative;z-index:1;line-height:1.8}
+.hd-meta{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hd-meta span{font-size:11px;color:var(--cc);border:1px solid var(--cc-border);padding:3px 12px;border-radius:3px;background:var(--cc-light);font-family:'Space Grotesk',sans-serif;letter-spacing:.06em}
+
+/* ラッパー */
+.wrapper{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* 目次 */
+.toc-wrap{
+  background:var(--bg2);border:1px solid var(--border);
+  border-left:3px solid var(--cc);
+  padding:28px 32px;margin:48px 0 40px;border-radius:0 6px 6px 0
+}
+.toc-lbl{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cc);margin-bottom:18px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;list-style:none;counter-reset:toc}
+.toc-grid li{counter-increment:toc;border-bottom:1px solid var(--border)}
+.toc-grid li:nth-last-child(-n+2){border-bottom:none}
+.toc-grid a{display:flex;align-items:center;gap:10px;padding:9px 4px;color:var(--text);text-decoration:none;font-size:13px;transition:color .2s}
+.toc-grid a::before{content:counter(toc,decimal-leading-zero);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--cc);min-width:24px;opacity:.8}
+.toc-grid a:hover{color:var(--cc)}
+
+/* セクション */
+.section{padding:64px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(24px);transition:opacity .5s,transform .5s}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:last-of-type{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:16px;margin-bottom:30px}
+.sec-num{
+  font-family:'Space Grotesk',sans-serif;
+  background:linear-gradient(135deg,var(--cc),#4488ff);
+  color:#000;font-size:11px;font-weight:700;
+  letter-spacing:.12em;padding:5px 12px;border-radius:3px;
+  flex-shrink:0;min-width:44px;text-align:center
+}
+.sec-hd h2{font-size:clamp(18px,3vw,22px);font-weight:700;padding-bottom:8px;flex:1;line-height:1.35;color:#fff;border-bottom:1px solid var(--border)}
+
+/* 本文 */
+p{margin-bottom:16px;color:var(--text)}
+p:last-child{margin-bottom:0}
+h3{font-size:16px;font-weight:700;margin:30px 0 12px;padding-left:14px;border-left:3px solid var(--cc);color:var(--cc)}
+h4{font-size:14px;font-weight:700;margin:20px 0 8px;color:var(--muted)}
+ul,ol{padding-left:20px;margin-bottom:16px;color:var(--text)}
+li{margin-bottom:8px}
+strong{color:#fff}
+
+/* ノート */
+.note{background:var(--cc-light);border-left:3px solid var(--cc);padding:14px 20px;margin:18px 0;border-radius:0 6px 6px 0;font-size:14px}
+.note .lbl{display:block;font-family:'Space Grotesk',sans-serif;color:var(--cc);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.note-red{background:var(--red-light);border-left-color:var(--red)}
+.note-red .lbl{color:var(--red)}
+.note-yel{background:var(--yel-light);border-left-color:var(--yel)}
+.note-yel .lbl{color:var(--yel)}
+.note-blu{background:var(--blu-light);border-left-color:var(--blu)}
+.note-blu .lbl{color:var(--blu)}
+
+/* テーブル */
+.tbl-wrap{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:360px}
+th{background:rgba(0,212,170,.15);color:var(--cc);padding:10px 14px;text-align:left;font-weight:700;font-size:12px;border-bottom:1px solid var(--cc-border);font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.tag-g{background:var(--cc-light);color:var(--cc);border:1px solid var(--cc-border)}
+.tag-r{background:var(--red-light);color:var(--red)}
+.tag-y{background:var(--yel-light);color:var(--yel)}
+.tag-b{background:var(--blu-light);color:var(--blu)}
+
+/* コードブロック */
+.code-block{position:relative;margin:16px 0}
+.code-block pre{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:18px 52px 18px 20px;overflow-x:auto;font-family:'Courier New',monospace;font-size:13px;line-height:1.8;color:#a8c8e8;white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:10px;right:10px;background:var(--cc);color:#000;border:none;padding:5px 12px;font-size:10px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:.1em;cursor:pointer;border-radius:3px;transition:all .2s;white-space:nowrap;text-transform:uppercase}
+.copy-btn:hover{background:#fff}
+.copy-btn.copied{background:#ffd166;color:#000}
+
+/* ステップ */
+.steps{list-style:none;padding:0;counter-reset:step}
+.steps li{counter-increment:step;padding:13px 13px 13px 52px;position:relative;border-bottom:1px solid var(--border);color:var(--text)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{
+  content:counter(step);position:absolute;left:10px;top:12px;
+  width:27px;height:27px;
+  background:linear-gradient(135deg,var(--cc),#4488ff);
+  color:#000;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;border-radius:4px;
+  font-family:'Space Grotesk',sans-serif
+}
+
+/* TOPボタン */
+.to-top{display:inline-flex;align-items:center;gap:6px;margin-top:36px;padding:7px 18px;background:transparent;border:1px solid var(--border);border-radius:3px;font-size:11px;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:.1em;transition:all .2s;cursor:pointer;font-family:'Space Grotesk',sans-serif;text-transform:uppercase}
+.to-top::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.to-top:hover{background:var(--cc);color:#000;border-color:var(--cc)}
+
+/* ツールチップ */
+.tip{border-bottom:1.5px dotted var(--cc);cursor:help;position:relative;display:inline}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#0f1520;color:var(--text);font-size:12px;font-weight:400;line-height:1.65;padding:8px 12px;border-radius:6px;width:max-content;max-width:260px;white-space:normal;box-shadow:0 4px 24px rgba(0,0,0,.6);border:1px solid var(--cc-border);pointer-events:none;opacity:0;transition:opacity .18s ease;z-index:9999;font-family:'Noto Sans JP',sans-serif;letter-spacing:0}
+.tip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--cc-border);pointer-events:none;opacity:0;transition:opacity .18s ease;z-index:9999}
+.tip:hover::after,.tip:hover::before{opacity:1}
+
+/* プランカード */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.plan-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:20px 16px}
+.plan-card.featured{border-color:var(--cc);background:var(--cc-light)}
+.plan-name{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;margin-bottom:6px;color:#fff;letter-spacing:.06em;text-transform:uppercase}
+.plan-price{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--cc);margin-bottom:2px;line-height:1.2}
+.plan-price span{font-size:12px;font-weight:400;color:var(--muted)}
+.plan-note{font-size:11px;color:var(--muted);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.plan-card ul{padding-left:0;list-style:none}
+.plan-card li{padding:3px 0 3px 14px;position:relative;font-size:12px;color:var(--muted);margin-bottom:2px;border:none}
+.plan-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--border)}
+.plan-card.featured li{color:var(--text)}
+.plan-card.featured li::before{background:var(--cc)}
+
+/* AI機能グリッド */
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.ai-card{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:16px 18px;transition:border-color .2s}
+.ai-card:hover{border-color:var(--cc-border)}
+.ai-title{font-size:13px;font-weight:700;color:var(--cc);margin-bottom:6px;font-family:'Space Grotesk',sans-serif}
+.ai-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:6px;vertical-align:middle;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:.06em}
+.ai-badge.free{background:var(--cc-light);color:var(--cc);border:1px solid var(--cc-border)}
+.ai-badge.pro{background:var(--yel-light);color:var(--yel);border:1px solid rgba(255,209,102,.3)}
+.ai-card p{font-size:13px;color:var(--muted);line-height:1.7;margin:0}
+
+/* ===== モックアップ ===== */
+.mockup-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:24px 0;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.mockup-bar{background:var(--bg3);padding:8px 14px;display:flex;gap:6px;align-items:center;border-bottom:1px solid var(--border)}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.mockup-bar span:nth-child(1){background:#ff6058}
+.mockup-bar span:nth-child(2){background:#ffbd2e}
+.mockup-bar span:nth-child(3){background:#28c840}
+.mockup-bar .m-title{font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--muted);margin-left:10px;letter-spacing:.06em}
+.mockup-body{background:var(--bg2);overflow:hidden}
+
+/* エディタモック */
+.m-editor{display:flex;min-height:240px}
+.m-toolbar-v{width:52px;background:var(--bg3);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:4px}
+.m-tool{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);cursor:default;font-family:'Space Grotesk',sans-serif}
+.m-tool.on{background:var(--cc-light);color:var(--cc);border:1px solid var(--cc-border)}
+.m-preview{flex:1;background:#000;display:flex;align-items:center;justify-content:center;position:relative;min-height:200px}
+.m-video-placeholder{width:160px;height:90px;background:linear-gradient(135deg,#1a2a3a,#0a1520);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;position:relative}
+.m-play{width:32px;height:32px;border-radius:50%;background:rgba(0,212,170,.2);border:2px solid var(--cc);display:flex;align-items:center;justify-content:center}
+.m-play::after{content:'';border-left:12px solid var(--cc);border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.m-timeline-area{width:200px;background:var(--bg3);border-left:1px solid var(--border);padding:12px;display:flex;flex-direction:column;gap:8px}
+.m-tl-label{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:4px}
+.m-tl-track{height:28px;background:var(--bg4);border-radius:4px;border:1px solid var(--border);overflow:hidden;position:relative}
+.m-tl-clip{position:absolute;top:3px;left:4px;height:22px;border-radius:3px;display:flex;align-items:center;padding:0 6px;font-size:9px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.m-tl-clip.video{background:rgba(0,212,170,.2);color:var(--cc);border:1px solid var(--cc-border);width:120px}
+.m-tl-clip.audio{background:rgba(68,136,255,.2);color:var(--blu);border:1px solid rgba(68,136,255,.3);width:100px;left:4px}
+.m-tl-clip.text{background:rgba(255,209,102,.15);color:var(--yel);border:1px solid rgba(255,209,102,.3);width:70px;left:30px}
+
+/* FAQ */
+.faq-item{border:1px solid var(--border);border-radius:6px;margin-bottom:10px;overflow:hidden;background:var(--bg2)}
+.faq-q{padding:13px 46px 13px 18px;font-weight:700;font-size:14px;cursor:pointer;position:relative;user-select:none;color:var(--text)}
+.faq-q::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--cc);font-weight:400;transition:transform .2s;font-family:'Space Grotesk',sans-serif}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{display:none;padding:14px 18px;font-size:14px;line-height:1.85;border-top:1px solid var(--border);color:var(--muted)}
+.faq-item.open .faq-a{display:block}
+
+/* フッター */
+.site-footer{background:var(--bg2);border-top:1px solid var(--border);color:var(--muted);text-align:center;padding:40px 24px;font-size:12px;margin-top:60px}
+.site-footer strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:15px;margin-bottom:8px;color:var(--cc);letter-spacing:.06em;font-weight:700}
+.footer-note{display:inline-block;border:1px solid var(--border);padding:3px 14px;border-radius:3px;margin-top:8px;font-size:11px;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em}
+
+/* レスポンシブ */
+@media(max-width:768px){
+  .toc-grid{grid-template-columns:1fr}
+  .ai-grid{grid-template-columns:1fr}
+  .plan-grid{grid-template-columns:1fr}
+  .m-timeline-area{display:none}
+}
+@media(max-width:480px){
+  .site-header{padding:52px 20px 44px}
+  .section{padding:48px 0}
+  th,td{padding:8px 10px}
+  .m-toolbar-v{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hd-bg"></div>
+  <div class="hd-line"></div>
+  <div class="hd-badge"><div class="hd-dot"></div>Complete Guide 2026</div>
+  <h1>CapCut 完全解説書</h1>
+  <p class="sub">インストールから基本編集・AI機能・Pro活用まで。初心者が即戦力になるための2026年版完全ガイドです</p>
+  <div class="hd-meta">
+    <span>12 SECTIONS</span>
+    <span>2026 LATEST</span>
+    <span>PC / MOBILE</span>
+    <span>AI FEATURES</span>
+    <span>PRO GUIDE</span>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<nav class="toc-wrap">
+  <div class="toc-lbl">Contents</div>
+  <ol class="toc-grid">
+    <li><a href="#s01">CapCutとは・他ツールとの比較</a></li>
+    <li><a href="#s02">インストール・初期設定</a></li>
+    <li><a href="#s03">画面の見方・UI完全解説</a></li>
+    <li><a href="#s04">基本編集の操作方法</a></li>
+    <li><a href="#s05">テキスト・テロップの追加</a></li>
+    <li><a href="#s06">音楽・音声・効果音の使い方</a></li>
+    <li><a href="#s07">AI機能完全解説</a></li>
+    <li><a href="#s08">エフェクト・トランジション・フィルター</a></li>
+    <li><a href="#s09">書き出し・SNS投稿</a></li>
+    <li><a href="#s10">スマホ版・Web版との違い</a></li>
+    <li><a href="#s11">料金プラン比較（2026年版）</a></li>
+    <li><a href="#s12">よくあるトラブル・FAQ</a></li>
+  </ol>
+</nav>
+
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>CapCutとは・他ツールとの比較</h2></div>
+
+  <p>CapCut（キャップカット）はTikTokを運営する<span class="tip" data-tip="中国の大手テクノロジー企業。TikTok・CapCutなどを開発・運営している">ByteDance</span>社が提供する動画編集ツールです。2019年のリリース以降、スマートフォンアプリとして爆発的に普及し、現在はPC版・Web版も提供されています。</p>
+
+  <p>「動画編集を始めるならまずCapCutから」と言われるほど初心者向けに設計されており、<strong>無料でも基本的な編集機能をほぼすべて使えます</strong>。TikTok・Instagram Reels・YouTube Shortsなどのショート動画制作に特に強みを持っています。</p>
+
+  <h3>主要動画編集ツールとの比較</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>比較項目</th><th>CapCut</th><th>Premiere Pro</th><th>iMovie</th><th>DaVinci Resolve</th></tr></thead>
+    <tbody>
+      <tr><td>価格</td><td><span class="tag tag-g">無料〜1,380円/月</span></td><td>3,280円/月〜</td><td>無料（Mac限定）</td><td>無料〜</td></tr>
+      <tr><td>習得難易度</td><td><span class="tag tag-g">かんたん</span></td><td>難しい</td><td>かんたん</td><td>難しい</td></tr>
+      <tr><td>AI機能</td><td><span class="tag tag-g">非常に充実</span></td><td>中程度</td><td>限定的</td><td>限定的</td></tr>
+      <tr><td>SNS特化</td><td><span class="tag tag-g">TikTok/Reels最適</span></td><td>汎用</td><td>汎用</td><td>映画・CM向け</td></tr>
+      <tr><td>スマホ対応</td><td><span class="tag tag-g">iOS・Android完全対応</span></td><td>限定的</td><td>iOS限定</td><td>iOS・Android</td></tr>
+      <tr><td>テンプレート</td><td><span class="tag tag-g">膨大（トレンド即対応）</span></td><td>少ない</td><td>少ない</td><td>少ない</td></tr>
+      <tr><td>透かし</td><td>無料版は入る</td><td>なし</td><td>なし</td><td>なし</td></tr>
+      <tr><td>商用利用</td><td>規約要確認</td><td>可</td><td>可</td><td>可</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>CapCutが特に向いている用途</h3>
+  <ul>
+    <li><strong>TikTok・Instagram Reels・YouTube Shorts：</strong> 縦型ショート動画のテンプレートが豊富でトレンドに即対応</li>
+    <li><strong>AI字幕・テロップ自動生成：</strong> 音声を自動で文字起こしして字幕を一括追加</li>
+    <li><strong>動画編集初心者：</strong> 複雑な設定なしに直感的な操作ですぐ始められる</li>
+    <li><strong>コンテンツの量産：</strong> テンプレートに自分の映像をはめ込むだけで高品質な動画が完成</li>
+  </ul>
+
+  <div class="note note-yel">
+    <span class="lbl">ByteDance・データプライバシーについて</span>
+    CapCutはTikTokと同じByteDance社製のため、データ収集に関する懸念を指摘するレビューもあります。機密性の高い映像・個人情報を含むコンテンツの編集には注意が必要です。業務用途では利用規約を事前に確認してください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>インストール・初期設定</h2></div>
+
+  <p>CapCutはPC版・スマホ版・Web版の3種類があります。それぞれ特徴が異なるため、用途に合わせて選んでください。</p>
+
+  <h3>PC版（デスクトップ）のインストール</h3>
+  <ol class="steps">
+    <li>capcut.com にアクセスして「ダウンロード」をクリックする</li>
+    <li>Windows版またはMac版を選択してインストーラーをダウンロードする（Microsoft Storeからも入手可）</li>
+    <li>インストーラーを実行してインストールを完了させる</li>
+    <li>Google・TikTok・メールアドレスのいずれかでログインする</li>
+    <li>初回起動後、言語設定で日本語が選択されていない場合は「Settings」→「General」→「日本語」→「Save」で変更する</li>
+  </ol>
+
+  <h3>スマホ版のインストール</h3>
+  <ol class="steps">
+    <li>App Store（iPhone）またはGoogle Play（Android）で「CapCut」を検索する</li>
+    <li>ByteDance Ltd.の公式アプリをインストールする（類似アプリに注意）</li>
+    <li>アプリを起動してGoogleアカウントまたはTikTokアカウントでログインする</li>
+  </ol>
+
+  <div class="note note-blu">
+    <span class="lbl">PC版とスマホ版でアカウントを共通化</span>
+    同じアカウントでログインすることで、プロジェクトや素材をクラウドで同期できます。スマホで撮影して、PCで本格編集するというワークフローが可能です。ただしPro版をモバイルから購入するとモバイルのみの適用になるため、PC・スマホ両方で使いたい場合はデスクトップ版から購入してください。
+  </div>
+
+  <h3>推奨スペック（PC版）</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>最低スペック</th><th>推奨スペック</th></tr></thead>
+    <tbody>
+      <tr><td>OS</td><td>Windows 7 / macOS 10.14</td><td>Windows 10以降 / macOS 12以降</td></tr>
+      <tr><td>CPU</td><td>Intel Core i3 / Apple M1</td><td>Intel Core i7以降 / Apple M2以降</td></tr>
+      <tr><td>メモリ</td><td>4GB RAM</td><td>16GB RAM以上</td></tr>
+      <tr><td>ストレージ</td><td>10GB空き容量</td><td>SSD 50GB以上</td></tr>
+      <tr><td>GPU</td><td>内蔵グラフィックス</td><td>NVIDIA / AMD 独立GPU</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>画面の見方・UI完全解説</h2></div>
+
+  <p>CapCutのPC版は、中央にプレビュー画面、下部にタイムライン、左に素材パネルという構成です。直感的なレイアウトで、動画編集経験がなくてもすぐに慣れます。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span><span class="m-title">CapCut Desktop — Project Edit</span></div>
+    <div class="mockup-body">
+      <div class="m-editor">
+        <div class="m-toolbar-v">
+          <div class="m-tool on">メディア</div>
+          <div class="m-tool">テキスト</div>
+          <div class="m-tool">ステッカー</div>
+          <div class="m-tool">エフェクト</div>
+          <div class="m-tool">AI</div>
+          <div class="m-tool">音楽</div>
+          <div class="m-tool">テンプレ</div>
+        </div>
+        <div class="m-preview">
+          <div class="m-video-placeholder">
+            <div class="m-play"></div>
+          </div>
+        </div>
+        <div class="m-timeline-area">
+          <div class="m-tl-label">Timeline</div>
+          <div>
+            <div style="font-size:9px;color:var(--muted);margin-bottom:3px;font-family:'Space Grotesk',sans-serif">VIDEO</div>
+            <div class="m-tl-track">
+              <div class="m-tl-clip video">Main Clip</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:9px;color:var(--muted);margin-bottom:3px;font-family:'Space Grotesk',sans-serif">AUDIO</div>
+            <div class="m-tl-track">
+              <div class="m-tl-clip audio">BGM</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:9px;color:var(--muted);margin-bottom:3px;font-family:'Space Grotesk',sans-serif">TEXT</div>
+            <div class="m-tl-track">
+              <div class="m-tl-clip text">テロップ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>各エリアの役割</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>エリア</th><th>役割・主な操作</th></tr></thead>
+    <tbody>
+      <tr><td><strong>左サイドバー</strong></td><td>メディア・テキスト・ステッカー・エフェクト・AI・音楽・テンプレートのパネルを切り替える</td></tr>
+      <tr><td><strong>プレビュー画面（中央）</strong></td><td>編集中の動画をリアルタイムで確認。再生・停止・<span class="tip" data-tip="フレーム：動画の1コマのこと。コマ単位で精密に編集位置を指定できる">フレーム</span>単位の移動ができる</td></tr>
+      <tr><td><strong>右パネル</strong></td><td>選択中の素材のプロパティ（速度・透明度・カラー・エフェクト設定）を表示・変更</td></tr>
+      <tr><td><strong>タイムライン（下部）</strong></td><td>素材を時間軸上に並べて編集するメインエリア。ビデオ・音声・テキストのトラックがある</td></tr>
+      <tr><td><strong>上部ツールバー</strong></td><td>元に戻す・やり直し・書き出し・プロジェクト保存のボタン</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>基本編集の操作方法</h2></div>
+
+  <p>CapCutの基本編集はタイムライン上でクリップを操作するだけです。複雑なコマンドは不要で、ドラッグ操作でほとんどの編集が完結します。</p>
+
+  <h3>新規プロジェクトの作成から編集まで</h3>
+  <ol class="steps">
+    <li>ホーム画面の「+新しいプロジェクト」をクリックして動画ファイルを読み込む</li>
+    <li>読み込んだ素材をタイムラインにドラッグ＆ドロップで配置する</li>
+    <li>タイムライン上のクリップの端をドラッグしてトリミング（カット）する</li>
+    <li>クリップを選択して右クリック→「分割」または「Ctrl+B」でカット編集する</li>
+    <li>クリップをドラッグして順番を入れ替える</li>
+    <li>編集が完成したら右上の「エクスポート」で書き出す</li>
+  </ol>
+
+  <h3>よく使う編集操作のショートカット</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【PC版 必須ショートカット】
+Ctrl + Z         : 元に戻す
+Ctrl + Shift + Z : やり直す
+Ctrl + B         : 再生ヘッドの位置でクリップを分割（カット）
+Ctrl + C / V     : コピー・貼り付け
+Delete           : 選択中のクリップを削除
+Space            : 再生・一時停止
+←→ 矢印キー      : フレーム単位で移動
+Shift + ←→      : 1秒単位で移動
+Ctrl + +/-       : タイムラインのズームイン・アウト
+Ctrl + E         : エクスポート画面を開く
+
+【Mac版は Ctrl → Command に読み替え】</pre>
+  </div>
+
+  <h3>速度変更・スロー・タイムラプスの作り方</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【速度変更の手順】
+1. タイムライン上のクリップを選択する
+2. 右パネルの「速度」タブをクリック
+3. 「通常」または「曲線」を選択する
+   - 通常：全体を一定の速度で変更（0.1x〜100x）
+   - 曲線：シーン内で速度を変化させる（ドラマチックなスロー表現に）
+
+スロー（0.5x）   : ドラマチックな演出・感情的なシーン
+タイムラプス（4x+）: 景色・料理・作業の過程を短縮
+ハイスピード（2x）: テンポ感を上げたい時・冗長なシーンの短縮</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>テキスト・テロップの追加</h2></div>
+
+  <p>CapCutのテキスト機能は充実しており、AI自動字幕から手動テロップまで様々な方法で文字を追加できます。SNS動画では字幕の有無が視聴完了率に大きく影響します。</p>
+
+  <h3>テキスト追加の3つの方法</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>方法</th><th>内容</th><th>おすすめ場面</th></tr></thead>
+    <tbody>
+      <tr><td><strong>手動テキスト</strong></td><td>左パネル「テキスト」→「テキストを追加」。好きな位置・フォント・色で配置</td><td>タイトル・強調テキスト</td></tr>
+      <tr><td><strong>AI自動字幕（Pro推奨）</strong></td><td>音声を自動認識して字幕を生成。日本語対応・一括編集可能</td><td>トーク動画・インタビュー・Vlog</td></tr>
+      <tr><td><strong>テキストテンプレート</strong></td><td>デザイン済みのアニメーション付きテキストをワンクリックで適用</td><td>SNS向けスタイリッシュなテロップ</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>AI自動字幕の使い方</h3>
+  <ol class="steps">
+    <li>左パネルの「テキスト」→「自動キャプション」をクリックする</li>
+    <li>言語「日本語」を選択して「キャプションを生成」をクリックする</li>
+    <li>音声を自動で認識して字幕が生成される（1〜3分程度）</li>
+    <li>生成された字幕をクリックして誤りを修正する</li>
+    <li>全字幕を選択して一括でフォント・色・サイズを変更できる</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">テキストアニメーションのコツ</span>
+    テキストを選択して右パネルの「アニメーション」タブから入場・ループ・退場のアニメーションを設定できます。SNS動画ではアニメーション付きテキストの方が視聴者の目を引きやすいです。持続時間は0.3〜0.5秒程度のテンポの良い設定がおすすめです。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>音楽・音声・効果音の使い方</h2></div>
+
+  <p>CapCutには著作権フリーの音楽ライブラリが内蔵されており、TikTokのトレンド楽曲にもアクセスできます。音声編集はSNS動画の完成度を大きく左右します。</p>
+
+  <h3>BGMの追加方法</h3>
+  <ol class="steps">
+    <li>左パネルの「音楽」をクリックして内蔵ライブラリを開く</li>
+    <li>ジャンル・ムード・テンポで絞り込んで楽曲を選ぶ</li>
+    <li>使用したい楽曲の「+」ボタンをクリックしてタイムラインに追加する</li>
+    <li>音声クリップの端をドラッグして長さを調整する</li>
+    <li>右パネルで音量・フェードイン・フェードアウトを設定する</li>
+  </ol>
+
+  <h3>音声編集の主要機能</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機能</th><th>内容</th><th>プラン</th></tr></thead>
+    <tbody>
+      <tr><td>音量調整</td><td>クリップごとに音量を0〜200%で設定。BGMと声のバランス調整</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>フェードイン・アウト</td><td>音声を徐々に大きく・小さくする自然な演出</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>ノイズ除去</td><td>AI が背景ノイズ・環境音を自動で除去</td><td><span class="tag tag-y">Pro</span></td></tr>
+      <tr><td>ボーカル分離</td><td>BGMから歌声だけ・伴奏だけを分離するAI機能</td><td><span class="tag tag-y">Pro</span></td></tr>
+      <tr><td>テキスト読み上げ</td><td>入力したテキストをAI音声で読み上げ。ナレーションとして使える</td><td><span class="tag tag-g">無料（一部Pro）</span></td></tr>
+      <tr><td>音声変換</td><td>録音した声のピッチ・トーンをリアルタイムに変換</td><td><span class="tag tag-y">Pro</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S07 -->
+<section class="section" id="s07">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>AI機能完全解説</h2></div>
+
+  <p>CapCutのAI機能は2026年時点で最も充実した動画編集ツールの一つです。かつては数時間かかっていた作業がワンクリックで完了します。</p>
+
+  <div class="ai-grid">
+    <div class="ai-card">
+      <div class="ai-title">AI自動カット <span class="ai-badge pro">Pro推奨</span></div>
+      <p>無音部分・シーンの切り替わり・不要な間を自動検出してカット。ゲーム実況・配信アーカイブの編集時間を大幅短縮。PC版は「ツール」→「スマートカット」からアクセス</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-title">背景削除 <span class="ai-badge pro">Pro</span></div>
+      <p>グリーンバックなしに人物・商品の背景をAIで自動削除。透明背景のクリップを生成して別の背景と合成できる。精度は高く、髪の毛の細部まで対応</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-title">自動字幕 <span class="ai-badge free">無料</span></div>
+      <p>音声を自動認識して字幕を生成。日本語・英語など多言語対応。生成後に一括でフォント・色・サイズを変更可能。手動修正も簡単</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-title">ボイスクローン <span class="ai-badge pro">Pro</span></div>
+      <p>自分の声を学習してAIが再現。テキストを入力するとクローン音声で読み上げ。ナレーション収録の手間を大幅に削減</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-title">AI画像生成 <span class="ai-badge pro">Pro</span></div>
+      <p>テキストプロンプトからAIが画像を生成。サムネイル・背景素材・スライド画像の制作に活用できる</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-title">ボーカル分離 <span class="ai-badge pro">Pro</span></div>
+      <p>楽曲から歌声だけ・伴奏だけを分離するAI機能。カラオケ音源の作成やBGMの声被り解消に使える</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-title">スマートリフレーム <span class="ai-badge free">無料</span></div>
+      <p>横長動画を縦型（9:16）に自動変換。被写体を追跡してフレーミングを自動調整するため、手動でのトリミングが不要</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-title">フリッカー除去 <span class="ai-badge pro">Pro</span></div>
+      <p>蛍光灯・モニター撮影時に発生するフリッカー（ちらつき）をAIが自動除去。室内撮影の動画品質を向上</p>
+    </div>
+  </div>
+
+  <div class="note note-yel">
+    <span class="lbl">AIクレジット（月800クレジット）について</span>
+    Pro版では月800クレジットが付与され、AI画像生成・ボイスクローンなどクレジット消費機能に使用します。自動字幕・背景削除・AI自動カットはクレジット不要で使い放題です。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S08 -->
+<section class="section" id="s08">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>エフェクト・トランジション・フィルター</h2></div>
+
+  <p>CapCutは無料版でも数百種類のエフェクト・トランジションが使えます。Pro版ではさらに600種類以上のエフェクトに加え、TikTokトレンドと連動した最新テンプレートが随時追加されます。</p>
+
+  <h3>エフェクトの使い方</h3>
+  <ol class="steps">
+    <li>左パネルの「エフェクト」をクリックしてライブラリを開く</li>
+    <li>「動画エフェクト」または「ボディエフェクト」から選択する</li>
+    <li>使用したいエフェクトを選んでタイムラインに追加する</li>
+    <li>エフェクトの長さ・強度を右パネルで調整する</li>
+  </ol>
+
+  <h3>トランジション（シーン切り替え）の追加</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【トランジションの追加手順】
+1. タイムライン上の2つのクリップの「つなぎ目」にある
+   白いアイコン（|）をクリックする
+2. トランジションライブラリが開く
+3. 使いたいトランジションを選択してプレビュー確認
+4. 「時間」スライダーで切り替えの長さを調整（0.1〜2秒が目安）
+
+【よく使うトランジションの選び方】
+自然な切り替え  → フェード・クロスディゾルブ
+テンポある演出 → スライド・ズーム
+インパクト系   → グリッチ・フラッシュ
+おしゃれ系     → スムーズ・モーションブラー（Pro）
+
+【トランジションを全クリップに一括適用】
+「すべてに適用」ボタンをクリックすると
+タイムライン全体に同じトランジションを一括で設定できる</pre>
+  </div>
+
+  <h3>カラーフィルター・色補正</h3>
+  <ul>
+    <li><strong>フィルター：</strong> ワンクリックで映画風・ヴィンテージ・クール・ウォームなど雰囲気を変えられる</li>
+    <li><strong>調整：</strong> 明るさ・コントラスト・彩度・シャープネスなどを数値で微調整</li>
+    <li><strong>カラーマッチ（Pro）：</strong> 複数クリップのカラーを自動的に統一する機能</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S09 -->
+<section class="section" id="s09">
+  <div class="sec-hd"><span class="sec-num">09</span><h2>書き出し・SNS投稿</h2></div>
+
+  <p>編集が完了したら書き出し（<span class="tip" data-tip="編集データを実際の動画ファイルとして処理・生成すること">エクスポート</span>）を行います。書き出し設定によって画質・ファイルサイズ・透かしの有無が変わります。</p>
+
+  <h3>書き出し設定の選び方</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>設定項目</th><th>推奨設定</th><th>注意点</th></tr></thead>
+    <tbody>
+      <tr><td>解像度</td><td>1080p（Full HD）</td><td>4KはPro版のみ。SNSは1080pで十分</td></tr>
+      <tr><td>フレームレート</td><td>30fps（または24fps）</td><td>60fpsはスポーツ・ゲーム動画向け</td></tr>
+      <tr><td>ビットレート</td><td>推奨（バランス）</td><td>高いほど画質は良いがファイルサイズが増える</td></tr>
+      <tr><td>形式</td><td>MP4（H.264）</td><td>最も互換性が高い。SNS投稿の標準形式</td></tr>
+      <tr><td>透かし</td><td>削除（Pro版）</td><td>無料版はCapCutロゴが左上に表示される</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>SNSへの直接投稿</h3>
+  <p>書き出し後の画面またはエクスポート設定から、TikTok・Instagram・YouTubeなどに直接投稿できます。</p>
+  <ul>
+    <li><strong>TikTok：</strong> CapCutとTikTokは同じByteDance製のため連携がシームレス。キャプション・ハッシュタグもCapCut内で入力できる</li>
+    <li><strong>Instagram：</strong> Reels・ストーリーズのサイズに合わせた書き出しが自動で選択される</li>
+    <li><strong>YouTube：</strong> タイトル・説明文を入力してそのまま投稿できる</li>
+  </ul>
+
+  <div class="note note-red">
+    <span class="lbl">透かし（ウォーターマーク）について</span>
+    無料版で書き出した動画には左上に「CapCut」のロゴが表示されます。SNSでの本格的な活用を考えているなら、透かし削除はPro版に課金する最大の理由のひとつです。7日間の無料トライアルで試すことができます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S10 -->
+<section class="section" id="s10">
+  <div class="sec-hd"><span class="sec-num">10</span><h2>スマホ版・Web版との違い</h2></div>
+
+  <p>CapCutはPC版・スマホ版・Web版の3種類があります。それぞれ使える機能・操作感が異なるため、用途に合わせて使い分けましょう。</p>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>比較項目</th><th>PC版（デスクトップ）</th><th>スマホ版（アプリ）</th><th>Web版（ブラウザ）</th></tr></thead>
+    <tbody>
+      <tr><td>操作性</td><td>精密・高効率</td><td>直感的・タッチ操作</td><td>手軽・インストール不要</td></tr>
+      <tr><td>機能の充実度</td><td><span class="tag tag-g">最も充実</span></td><td>中程度</td><td>基本機能のみ</td></tr>
+      <tr><td>AI自動カット</td><td>あり（2026年版）</td><td>あり</td><td>限定的</td></tr>
+      <tr><td>テンプレート</td><td>あり（豊富）</td><td><span class="tag tag-g">最も豊富</span></td><td>あり</td></tr>
+      <tr><td>書き出し品質</td><td>4K対応（Pro）</td><td>1080pまで（無料）</td><td>1080pまで</td></tr>
+      <tr><td>向いている用途</td><td>長尺・精密な編集</td><td>ショート動画・外出先編集</td><td>簡単な編集・共有</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>スマホ版ならではの機能</h3>
+  <ul>
+    <li><strong>テンプレート：</strong> TikTokのトレンドテンプレートがスマホ版で最も多く・早く更新される</li>
+    <li><strong>エモジ・スタンプ：</strong> スマホ向けのスタンプ・スティッカーが豊富</li>
+    <li><strong>縦型動画編集：</strong> スマホ画面に最適化された縦型（9:16）のインターフェースで直感的に操作できる</li>
+    <li><strong>撮影からそのまま編集：</strong> カメラで撮影した動画をすぐにCapCutで編集・投稿できる</li>
+  </ul>
+
+  <div class="note note-blu">
+    <span class="lbl">PC版をメインに使うメリット</span>
+    長尺の動画・複数トラックの精密な編集・カラー補正・AI自動カットなど高度な作業はPC版の方が格段に効率的です。ショート動画はスマホで撮影・PC版で本格編集・TikTokに投稿というワークフローが最も生産性が高いです。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S11 -->
+<section class="section" id="s11">
+  <div class="sec-hd"><span class="sec-num">11</span><h2>料金プラン比較（2026年版）</h2></div>
+
+  <p>2026年3月時点の料金プランは以下の通りです。まずは7日間の無料トライアルで試してから判断することをおすすめします。</p>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">0<span>円</span></div>
+      <div class="plan-note">基本的な動画編集に十分</div>
+      <ul>
+        <li>基本編集（カット・結合・速度）</li>
+        <li>テキスト・テロップ追加</li>
+        <li>フィルター・エフェクト（一部）</li>
+        <li>自動字幕生成</li>
+        <li>スマートリフレーム</li>
+        <li>書き出しにCapCutロゴあり</li>
+        <li>クラウド保存2GB</li>
+      </ul>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-name">Pro ★推奨</div>
+      <div class="plan-price">1,380<span>円/月（月額）</span></div>
+      <div class="plan-price" style="font-size:16px;margin-top:4px">11,800<span>円/年（約983円/月）</span></div>
+      <div class="plan-note">7日間無料トライアルあり。Web申込が最安</div>
+      <ul>
+        <li><strong>透かし（ロゴ）完全削除</strong></li>
+        <li><strong>AI自動カット（スマートカット）</strong></li>
+        <li><strong>背景削除・ボーカル分離</strong></li>
+        <li><strong>ノイズ除去・フリッカー除去</strong></li>
+        <li><strong>ボイスクローン</strong></li>
+        <li><strong>全テンプレート・エフェクト解放（600種以上）</strong></li>
+        <li><strong>4K書き出し対応</strong></li>
+        <li><strong>月800AIクレジット付与</strong></li>
+        <li><strong>クラウド保存100GB</strong></li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">Teams</div>
+      <div class="plan-price" style="font-size:18px">要<span>問い合わせ</span></div>
+      <div class="plan-note">チーム・企業向けプラン</div>
+      <ul>
+        <li>Proの全機能</li>
+        <li>複数メンバーで共同編集</li>
+        <li>チームブランドキット管理</li>
+        <li>優先サポート</li>
+        <li>1TB以上のストレージ</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Pro版にすべき人・しなくていい人</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>状況</th><th>判断</th><th>理由</th></tr></thead>
+    <tbody>
+      <tr><td>週に複数本SNS投稿する</td><td><span class="tag tag-g">Pro推奨</span></td><td>透かし削除・AI機能で制作効率が上がる</td></tr>
+      <tr><td>ビジネス・副業で動画を使う</td><td><span class="tag tag-g">Pro推奨</span></td><td>透かしなし・高画質・AI時短で元が取れる</td></tr>
+      <tr><td>月に数本だけ個人利用</td><td><span class="tag tag-y">無料でOK</span></td><td>基本機能で十分。透かしが気にならなければ</td></tr>
+      <tr><td>まず試してみたい</td><td><span class="tag tag-y">無料トライアル</span></td><td>7日間は全機能が無料で使える</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-red">
+    <span class="lbl">注意：モバイルから購入するとPC版は使えない</span>
+    スマホのApp Store・Google Playから課金するとモバイル版のみ有効になります。PC版でも使いたい場合は必ずcapcut.comのウェブサイトから購入してください。また、ウェブ経由の方がアプリストア手数料がない分安くなる場合があります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S12 -->
+<section class="section" id="s12">
+  <div class="sec-hd"><span class="sec-num">12</span><h2>よくあるトラブル・FAQ</h2></div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">書き出した動画にCapCutのロゴが入っています。消す方法はありますか？</div>
+    <div class="faq-a">無料版の仕様です。ロゴを消すにはPro版（月額1,380円）へのアップグレードが必要です。7日間の無料トライアルで試すことができます。購入はcapcut.comのウェブサイトからが最安です。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">書き出し後の動画が編集中より画質が悪く見えます。</div>
+    <div class="faq-a">書き出し設定の解像度・ビットレートを上げることで改善できます。エクスポート設定で「1080p」「高品質」を選択してください。また、SNSにアップロードする際に再圧縮されるため、元ファイルより少し画質が落ちることは避けられません。無料版は最大1080pまでです。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">AI自動字幕の精度が低く、誤字が多いです。</div>
+    <div class="faq-a">ノイズの少ない環境で録音した音声ほど精度が上がります。滑舌を意識してゆっくり話すと認識率が向上します。また、専門用語・固有名詞は自動認識が苦手なため、生成後に手動で修正してください。字幕テキストをクリックすると直接編集できます。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">動作が重くて編集中にカクつきます。</div>
+    <div class="faq-a">プレビュー品質を下げることで解決できます。プレビュー画面右上の解像度設定を「1/2」または「1/4」に変更してください。書き出し時は元の品質で出力されます。また、不要なアプリを閉じてメモリを解放することも有効です。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">商用利用はできますか？</div>
+    <div class="faq-a">自分で撮影した映像をCapCutで編集して商用利用することは基本的に可能です。ただし、CapCutの内蔵素材（音楽・エフェクト・テンプレート・ストック映像）には個別にライセンスが設定されており、商用利用が制限されているものもあります。重要な商業案件で使用する前に各素材のライセンス条件を公式で確認してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Pro版を解約する方法は？</div>
+    <div class="faq-a">解約は自動更新の24時間前までにアカウント設定から行う必要があります。ウェブ版で購入した場合はcapcut.comのアカウント設定→サブスクリプションから解約できます。App Store・Google Play経由で購入した場合は各ストアのサブスクリプション管理画面から解約してください。解約後も有効期限まではPro機能が使えます。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">スマホで購入したPro版がPCで使えません。</div>
+    <div class="faq-a">モバイルアプリから購入したPro版はモバイルのみ有効です。PC版でも使いたい場合はcapcut.comのウェブサイトからデスクトップ版のProプランを別途購入する必要があります。PC版で購入するとスマホでも使えます。</div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+</div>
+
+<footer class="site-footer">
+  <strong>CapCut Complete Guide 2026</strong>
+  本ガイドは2026年3月時点の情報を基に制作されています。CapCutの機能・料金・UIはアップデートにより変更される場合があります。最新情報は公式サイト（capcut.com）でご確認ください。
+  <br><span class="footer-note">COMPLETE EDITION / UPDATED MARCH 2026</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, { threshold: 0.05 });
+document.querySelectorAll('.section').forEach(el => obs.observe(el));
+
+function copyCode(btn) {
+  const text = btn.nextElementSibling.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showCopied(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
+}
+function showCopied(btn) {
+  btn.textContent = 'COPIED';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+}
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+</body>
+</html>
