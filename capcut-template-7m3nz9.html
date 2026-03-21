@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow">
+<title>伸びるSNS動画の構成テンプレ5種｜CapCut×元飲食店店長サム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cc:#00d4aa;--cc2:#00f0c0;--cc-light:rgba(0,212,170,.12);--cc-border:rgba(0,212,170,.3);
+  --t1:#ff6b9d;--t1-light:rgba(255,107,157,.12);--t1-border:rgba(255,107,157,.3);
+  --t2:#ffd166;--t2-light:rgba(255,209,102,.12);--t2-border:rgba(255,209,102,.3);
+  --t3:#4ecdc4;--t3-light:rgba(78,205,196,.12);--t3-border:rgba(78,205,196,.3);
+  --t4:#a78bfa;--t4-light:rgba(167,139,250,.12);--t4-border:rgba(167,139,250,.3);
+  --t5:#f97316;--t5-light:rgba(249,115,22,.12);--t5-border:rgba(249,115,22,.3);
+  --bg:#0a0e14;--bg2:#0f1520;--bg3:#151e2d;
+  --text:#e8f0f8;--muted:#8a9bb0;--border:rgba(255,255,255,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85}
+
+/* ヘッダー */
+.hero{
+  background:linear-gradient(160deg,#050810 0%,#0a1520 50%,#0d1520 100%);
+  padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border)
+}
+.hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,212,170,.18),transparent 65%);pointer-events:none}
+.hero-label{display:inline-block;background:var(--cc-light);border:1px solid var(--cc-border);color:var(--cc);font-size:11px;font-weight:700;letter-spacing:.16em;padding:4px 16px;border-radius:4px;margin-bottom:16px;text-transform:uppercase;position:relative;z-index:1}
+.hero h1{font-size:clamp(20px,4.5vw,30px);font-weight:700;line-height:1.3;margin-bottom:12px;position:relative;z-index:1;color:#fff}
+.hero h1 em{color:var(--cc);font-style:normal}
+.hero .sub{font-size:14px;color:var(--muted);max-width:500px;margin:0 auto 20px;position:relative;z-index:1;line-height:1.75}
+.hero-from{font-size:12px;color:var(--muted);position:relative;z-index:1}
+.hero-from strong{color:var(--cc)}
+
+/* 目次ナビ */
+.nav-wrap{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-inner{display:flex;gap:8px;max-width:680px;margin:0 auto;white-space:nowrap}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--border);color:var(--muted);transition:all .2s;flex-shrink:0}
+.nav-btn:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.nav-btn.t1{background:var(--t1-light);border-color:var(--t1-border);color:var(--t1)}
+.nav-btn.t2{background:var(--t2-light);border-color:var(--t2-border);color:var(--t2)}
+.nav-btn.t3{background:var(--t3-light);border-color:var(--t3-border);color:var(--t3)}
+.nav-btn.t4{background:var(--t4-light);border-color:var(--t4-border);color:var(--t4)}
+.nav-btn.t5{background:var(--t5-light);border-color:var(--t5-border);color:var(--t5)}
+
+/* ラッパー */
+.wrapper{max-width:680px;margin:0 auto;padding:0 20px}
+
+/* テンプレートカード */
+.tmpl{padding:44px 0;border-bottom:1px solid var(--border)}
+.tmpl:last-of-type{border-bottom:none}
+.tmpl-hd{margin-bottom:24px}
+.tmpl-num{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+.tmpl-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.tmpl-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:3px;letter-spacing:.06em;margin-right:6px;margin-bottom:6px}
+.tmpl-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-top:12px}
+
+/* カラーテーマ（5種類） */
+.t1-theme .tmpl-num{color:var(--t1)}.t1-theme .tmpl-title em{color:var(--t1);font-style:normal}.t1-theme .tmpl-tag{background:var(--t1-light);color:var(--t1);border:1px solid var(--t1-border)}
+.t2-theme .tmpl-num{color:var(--t2)}.t2-theme .tmpl-title em{color:var(--t2);font-style:normal}.t2-theme .tmpl-tag{background:var(--t2-light);color:var(--t2);border:1px solid var(--t2-border)}
+.t3-theme .tmpl-num{color:var(--t3)}.t3-theme .tmpl-title em{color:var(--t3);font-style:normal}.t3-theme .tmpl-tag{background:var(--t3-light);color:var(--t3);border:1px solid var(--t3-border)}
+.t4-theme .tmpl-num{color:var(--t4)}.t4-theme .tmpl-title em{color:var(--t4);font-style:normal}.t4-theme .tmpl-tag{background:var(--t4-light);color:var(--t4);border:1px solid var(--t4-border)}
+.t5-theme .tmpl-num{color:var(--t5)}.t5-theme .tmpl-title em{color:var(--t5);font-style:normal}.t5-theme .tmpl-tag{background:var(--t5-light);color:var(--t5);border:1px solid var(--t5-border)}
+
+/* 構成フロー */
+.flow{display:flex;flex-direction:column;gap:0;margin:20px 0}
+.flow-item{display:flex;gap:14px;align-items:flex-start;position:relative}
+.flow-item:not(:last-child)::after{
+  content:'';position:absolute;left:20px;top:44px;
+  width:2px;height:calc(100% - 10px);
+  background:var(--border)
+}
+.flow-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.flow-dot{
+  width:40px;height:40px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;
+  letter-spacing:.04em;margin-bottom:0
+}
+.flow-body{padding:0 0 24px;flex:1;min-width:0}
+.flow-section{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.flow-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.flow-time{font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;display:inline-block;margin-bottom:8px}
+.flow-detail{font-size:13px;color:var(--muted);line-height:1.7}
+.flow-tip{background:var(--bg3);border-radius:6px;padding:10px 14px;margin-top:8px;font-size:12px;color:var(--muted);border-left:3px solid var(--border)}
+
+/* t1 */
+.t1-theme .flow-dot{background:var(--t1-light);color:var(--t1);border:1px solid var(--t1-border)}
+.t1-theme .flow-section{color:var(--t1)}
+.t1-theme .flow-time{background:var(--t1-light);color:var(--t1)}
+/* t2 */
+.t2-theme .flow-dot{background:var(--t2-light);color:var(--t2);border:1px solid var(--t2-border)}
+.t2-theme .flow-section{color:var(--t2)}
+.t2-theme .flow-time{background:var(--t2-light);color:var(--t2)}
+/* t3 */
+.t3-theme .flow-dot{background:var(--t3-light);color:var(--t3);border:1px solid var(--t3-border)}
+.t3-theme .flow-section{color:var(--t3)}
+.t3-theme .flow-time{background:var(--t3-light);color:var(--t3)}
+/* t4 */
+.t4-theme .flow-dot{background:var(--t4-light);color:var(--t4);border:1px solid var(--t4-border)}
+.t4-theme .flow-section{color:var(--t4)}
+.t4-theme .flow-time{background:var(--t4-light);color:var(--t4)}
+/* t5 */
+.t5-theme .flow-dot{background:var(--t5-light);color:var(--t5);border:1px solid var(--t5-border)}
+.t5-theme .flow-section{color:var(--t5)}
+.t5-theme .flow-time{background:var(--t5-light);color:var(--t5)}
+
+/* CapCut実装ヒント */
+.impl-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-top:20px}
+.impl-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cc);margin-bottom:10px}
+.impl-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.impl-list li{font-size:13px;color:var(--muted);padding-left:16px;position:relative;line-height:1.65}
+.impl-list li::before{content:'▶';position:absolute;left:0;color:var(--cc);font-size:9px;top:4px}
+
+/* TOPボタン */
+.to-top{display:inline-flex;align-items:center;gap:6px;margin-top:28px;padding:7px 18px;background:transparent;border:1px solid var(--border);border-radius:20px;font-size:11px;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:.1em;transition:all .2s;cursor:pointer;text-transform:uppercase}
+.to-top::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.to-top:hover{background:var(--cc);color:#000;border-color:var(--cc)}
+
+/* フッター */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:36px 24px;text-align:center;margin-top:48px}
+.footer strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}
+.footer p{font-size:12px;color:var(--muted);line-height:1.8}
+.footer-tag{display:inline-block;background:var(--cc-light);color:var(--cc);border:1px solid var(--cc-border);font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin-top:10px;letter-spacing:.06em}
+
+@media(prefers-color-scheme:light){
+  :root{
+    --bg:#f5f7fa;--bg2:#fff;--bg3:#f0f4f8;
+    --text:#1a2030;--muted:#5a6a80;--border:#d8e0ec;
+    --cc:#009980;--cc2:#00b898;--cc-light:rgba(0,153,128,.1);--cc-border:rgba(0,153,128,.3);
+    --t1:#d0356a;--t1-light:rgba(208,53,106,.08);--t1-border:rgba(208,53,106,.25);
+    --t2:#b07800;--t2-light:rgba(176,120,0,.08);--t2-border:rgba(176,120,0,.25);
+    --t3:#2a9990;--t3-light:rgba(42,153,144,.08);--t3-border:rgba(42,153,144,.25);
+    --t4:#6040c0;--t4-light:rgba(96,64,192,.08);--t4-border:rgba(96,64,192,.25);
+    --t5:#c05010;--t5-light:rgba(192,80,16,.08);--t5-border:rgba(192,80,16,.25);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">LINE登録特典 vol.2</div>
+  <h1>SNS動画で<em>伸びる構成</em>はこれだけ<br>テンプレート5種完全版</h1>
+  <p class="sub">TikTok・Reels・YouTube Shortsで再生が回る動画には「型」があります。5パターンを秒数・CapCut実装ヒント付きで解説します</p>
+  <div class="hero-from">制作：<strong>元飲食店店長サム</strong></div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <a href="#t1" class="nav-btn t1">01 フック型</a>
+    <a href="#t2" class="nav-btn t2">02 ビフォーアフター型</a>
+    <a href="#t3" class="nav-btn t3">03 ハウツー型</a>
+    <a href="#t4" class="nav-btn t4">04 ストーリー型</a>
+    <a href="#t5" class="nav-btn t5">05 比較型</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- T1 フック型 -->
+<section class="tmpl t1-theme" id="t1">
+  <div class="tmpl-hd">
+    <div class="tmpl-num">Template 01</div>
+    <div class="tmpl-title"><em>フック型</em><br>冒頭3秒で止める</div>
+    <span class="tmpl-tag">TikTok</span>
+    <span class="tmpl-tag">Reels</span>
+    <span class="tmpl-tag">Shorts</span>
+    <div class="tmpl-desc">SNS動画で一番重要なのは「最初の3秒で離脱させないこと」です。視聴者は0.5秒で続きを見るか判断します。この型は冒頭に強烈な問いかけや意外な事実を置いて、最後まで見させる構成です。</div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">HOOK</div></div>
+      <div class="flow-body">
+        <div class="flow-section">冒頭フック</div>
+        <div class="flow-title">「え、これ知らないの？」な一言</div>
+        <div class="flow-time">0〜3秒</div>
+        <div class="flow-detail">疑問・驚き・数字・「99%の人が知らない〇〇」など。テキストオーバーレイで画面いっぱいに表示するのが効果的です。</div>
+        <div class="flow-tip">例：「1年で100万円貯めた方法、3秒で教えます」</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">本編</div></div>
+      <div class="flow-body">
+        <div class="flow-section">本編コンテンツ</div>
+        <div class="flow-title">フックで約束したことを届ける</div>
+        <div class="flow-time">3〜50秒</div>
+        <div class="flow-detail">テンポよく要点を箇条書きで見せていく。1点につき3〜5秒が目安。情報を詰め込みすぎず「続きはプロフのリンクから」で誘導もできます。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">CTA</div></div>
+      <div class="flow-body">
+        <div class="flow-section">行動促進（CTA）</div>
+        <div class="flow-title">保存・フォロー・コメントを促す</div>
+        <div class="flow-time">50〜60秒</div>
+        <div class="flow-detail">「保存しておくと後で役立ちます」「フォローで毎日こんな情報をお届けします」。CTAは1つに絞るのが鉄則。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="impl-box">
+    <div class="impl-title">CapCutでの実装ヒント</div>
+    <ul class="impl-list">
+      <li>冒頭3秒はBGMなし・SE（効果音）だけにすると注目度が上がります</li>
+      <li>AI自動字幕で全体の字幕を入れた後、冒頭のテキストだけ大きく・色を変えて目立たせる</li>
+      <li>0〜3秒のクリップを選択→「速度」を1.2倍にするとテンポが出ます</li>
+    </ul>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- T2 ビフォーアフター型 -->
+<section class="tmpl t2-theme" id="t2">
+  <div class="tmpl-hd">
+    <div class="tmpl-num">Template 02</div>
+    <div class="tmpl-title"><em>ビフォーアフター型</em><br>変化で感情を動かす</div>
+    <span class="tmpl-tag">TikTok</span>
+    <span class="tmpl-tag">Reels</span>
+    <div class="tmpl-desc">「変化」は人間が最も感情を動かされるコンテンツです。ダイエット・部屋の片付け・スキルアップ・売上の変化など、どんなジャンルでも使えます。「自分もできるかも」という共感が保存・シェアにつながります。</div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">B4</div></div>
+      <div class="flow-body">
+        <div class="flow-section">ビフォー（変化前）</div>
+        <div class="flow-title">リアルな「悩み」を見せる</div>
+        <div class="flow-time">0〜10秒</div>
+        <div class="flow-detail">加工せず、できるだけリアルに見せるのがポイント。「こんな状況でした」という字幕をつけると共感が生まれます。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">転換</div></div>
+      <div class="flow-body">
+        <div class="flow-section">転換ポイント</div>
+        <div class="flow-title">「これをやった」の一言</div>
+        <div class="flow-time">10〜15秒</div>
+        <div class="flow-detail">ビフォーとアフターをつなぐ「理由」を簡潔に。「〇〇を始めました」「〇〇に気づきました」。ここが短いほどテンポが良くなります。</div>
+        <div class="flow-tip">CapCut：インパクトのあるトランジション（フラッシュ・ズーム）を1回使う</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">AFT</div></div>
+      <div class="flow-body">
+        <div class="flow-section">アフター（変化後）</div>
+        <div class="flow-title">数字・ビジュアルで結果を見せる</div>
+        <div class="flow-time">15〜50秒</div>
+        <div class="flow-detail">「〇kg減った」「収益〇万円になった」など数字があると信頼度が上がります。数字がない場合は変化の様子をビジュアルで見せる。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">CTA</div></div>
+      <div class="flow-body">
+        <div class="flow-section">行動促進</div>
+        <div class="flow-title">「あなたもできます」で締める</div>
+        <div class="flow-time">50〜60秒</div>
+        <div class="flow-detail">視聴者が「自分もやってみよう」と思えるひと言を添える。具体的な次のアクションを示すとコメント・DMが増えます。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="impl-box">
+    <div class="impl-title">CapCutでの実装ヒント</div>
+    <ul class="impl-list">
+      <li>ビフォーのクリップはあえて彩度を少し下げる（右パネル「調整」→彩度-20）</li>
+      <li>アフターのクリップは明るさを少し上げて「輝いて見せる」のが定番</li>
+      <li>転換部分に効果音（インパクト系SE）を入れると変化が強調されます</li>
+    </ul>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- T3 ハウツー型 -->
+<section class="tmpl t3-theme" id="t3">
+  <div class="tmpl-hd">
+    <div class="tmpl-num">Template 03</div>
+    <div class="tmpl-title"><em>ハウツー型</em><br>手順で信頼を積み上げる</div>
+    <span class="tmpl-tag">YouTube Shorts</span>
+    <span class="tmpl-tag">TikTok</span>
+    <div class="tmpl-desc">「具体的な手順」を教える動画は保存率が最も高いジャンルです。「後で参考にしよう」と思ってもらえるため、アルゴリズムに評価されやすくなります。専門知識がある方は特にこの型が強みを発揮します。</div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">問題</div></div>
+      <div class="flow-body">
+        <div class="flow-section">問題提起</div>
+        <div class="flow-title">「〇〇で困ったことありますか？」</div>
+        <div class="flow-time">0〜5秒</div>
+        <div class="flow-detail">視聴者が「自分のことだ」と感じる問いかけから始める。具体的な状況を描写すると共感が高まります。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">解決</div></div>
+      <div class="flow-body">
+        <div class="flow-section">解決策の提示</div>
+        <div class="flow-title">「〇ステップで解決できます」</div>
+        <div class="flow-time">5〜10秒</div>
+        <div class="flow-detail">「3ステップで」「2分でできる」など、手軽さを最初に示すと視聴継続率が上がります。</div>
+        <div class="flow-tip">CapCut：テキストで「STEP1/2/3」とナンバリングを画面に表示しながら進める</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">手順</div></div>
+      <div class="flow-body">
+        <div class="flow-section">ステップ解説</div>
+        <div class="flow-title">1ステップ5〜10秒で丁寧に</div>
+        <div class="flow-time">10〜50秒</div>
+        <div class="flow-detail">ステップごとにテキストで見出しを入れる。音声なしで見ている人も多いので、字幕＋テキストオーバーレイの両方で情報を伝えるのが理想。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">CTA</div></div>
+      <div class="flow-body">
+        <div class="flow-section">保存促進</div>
+        <div class="flow-title">「保存して後で使ってください」</div>
+        <div class="flow-time">50〜60秒</div>
+        <div class="flow-detail">ハウツー動画は「保存」への誘導が最も効果的なCTAです。「後で見返せるように保存がおすすめです」の一言を必ず入れましょう。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="impl-box">
+    <div class="impl-title">CapCutでの実装ヒント</div>
+    <ul class="impl-list">
+      <li>AI自動字幕を最初に入れてしまうと、後からテキストを追加した時に整理しやすくなります</li>
+      <li>ステップの切り替わりに「カチッ」というSEを入れるとテンポよく聞こえます</li>
+      <li>スマートリフレームを使えば横長の解説動画を縦型に一発変換できます</li>
+    </ul>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- T4 ストーリー型 -->
+<section class="tmpl t4-theme" id="t4">
+  <div class="tmpl-hd">
+    <div class="tmpl-num">Template 04</div>
+    <div class="tmpl-title"><em>ストーリー型</em><br>共感でファンを作る</div>
+    <span class="tmpl-tag">TikTok</span>
+    <span class="tmpl-tag">Reels</span>
+    <div class="tmpl-desc">商品・スキル・情報を「売る」ための最強の型です。いきなり「これを買ってください」ではなく、「私もあなたと同じ悩みを抱えていました」という共感から入ります。視聴者が感情移入するとフォロー・購入につながります。</div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">共感</div></div>
+      <div class="flow-body">
+        <div class="flow-section">共感の入口</div>
+        <div class="flow-title">「昔の自分」の悩みを正直に話す</div>
+        <div class="flow-time">0〜15秒</div>
+        <div class="flow-detail">美化せず、できるだけリアルに。「〇〇が全然うまくいかなくて、正直諦めかけていました」のような正直さが共感を生みます。</div>
+        <div class="flow-tip">例：「飲食店を辞めて何もできないと思っていた頃の話です」</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">転機</div></div>
+      <div class="flow-body">
+        <div class="flow-section">転機・気づき</div>
+        <div class="flow-title">「変わったきっかけ」</div>
+        <div class="flow-time">15〜30秒</div>
+        <div class="flow-detail">「〇〇に出会った」「〇〇に気づいた」という転換点を具体的に。ここが視聴者の「自分もできるかも」という感情を生みます。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">結果</div></div>
+      <div class="flow-body">
+        <div class="flow-section">現在の状態</div>
+        <div class="flow-title">具体的な結果を数字で示す</div>
+        <div class="flow-time">30〜50秒</div>
+        <div class="flow-detail">「今は〇〇になりました」という変化を数字・エピソードで。数字があると信頼度が上がります。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">CTA</div></div>
+      <div class="flow-body">
+        <div class="flow-section">フォロー・誘導</div>
+        <div class="flow-title">「あなたにも伝えたい」</div>
+        <div class="flow-time">50〜60秒</div>
+        <div class="flow-detail">「同じように悩んでいる方へ、詳しくはプロフのリンクから」「フォローで続きを発信しています」。押しつけず、寄り添う言葉で締める。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="impl-box">
+    <div class="impl-title">CapCutでの実装ヒント</div>
+    <ul class="impl-list">
+      <li>「昔の自分」の場面はウォームなフィルター、「今の自分」はクリアな映像で対比させると効果的</li>
+      <li>BGMは感情に合わせて選ぶ。悩み→希望→達成の流れに合わせてトーンを変えるのが理想</li>
+      <li>テキスト読み上げを使えば声を出さなくてもナレーション風に仕上がります</li>
+    </ul>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- T5 比較型 -->
+<section class="tmpl t5-theme" id="t5">
+  <div class="tmpl-hd">
+    <div class="tmpl-num">Template 05</div>
+    <div class="tmpl-title"><em>比較型</em><br>迷いを解消して選ばせる</div>
+    <span class="tmpl-tag">YouTube Shorts</span>
+    <span class="tmpl-tag">TikTok</span>
+    <div class="tmpl-desc">「A vs B」「おすすめ3選」などの比較動画は、視聴者の「どれを選べばいいかわからない」という悩みに直接刺さります。コメントが増えやすく、アルゴリズムに評価されやすいジャンルです。</div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">問題</div></div>
+      <div class="flow-body">
+        <div class="flow-section">選択の悩みを提示</div>
+        <div class="flow-title">「〇〇と△△、どっちがいい？」</div>
+        <div class="flow-time">0〜5秒</div>
+        <div class="flow-detail">視聴者が実際に悩んでいることを問いかけから始める。「これ知りたかった」と思わせる問いが最強です。</div>
+        <div class="flow-tip">例：「CapCut無料版とPro版、どっち使えばいい？正直に比べます」</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">比較</div></div>
+      <div class="flow-body">
+        <div class="flow-section">比較コンテンツ</div>
+        <div class="flow-title">判断基準を明確に見せる</div>
+        <div class="flow-time">5〜50秒</div>
+        <div class="flow-detail">「価格」「使いやすさ」「機能」などの軸を決めて比較する。画面を分割するか、交互に見せるとわかりやすい。途中で「自分はこう思う」という個人の意見を入れると信頼感が上がります。</div>
+        <div class="flow-tip">CapCut：テキストで「◎」「△」「×」などの評価を画面に表示すると視覚的にわかりやすくなります</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">結論</div></div>
+      <div class="flow-body">
+        <div class="flow-section">明確な結論</div>
+        <div class="flow-title">「結局これがおすすめ」と言い切る</div>
+        <div class="flow-time">50〜58秒</div>
+        <div class="flow-detail">「人によります」で終わると視聴者は物足りなさを感じます。「〇〇な人にはA、△△な人にはB」という形で言い切ると満足度が上がります。</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-dot">CTA</div></div>
+      <div class="flow-body">
+        <div class="flow-section">コメント誘導</div>
+        <div class="flow-title">「あなたはどっち派？」</div>
+        <div class="flow-time">58〜60秒</div>
+        <div class="flow-detail">比較動画はコメント誘導との相性が最高です。「コメントで教えてください」という締めがコメント数を大幅に増やします。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="impl-box">
+    <div class="impl-title">CapCutでの実装ヒント</div>
+    <ul class="impl-list">
+      <li>画面を左右に分割したいときは「オーバーレイ」機能で2つの映像を並べて配置できます</li>
+      <li>各比較項目の切り替わりに同じSE（カチッ音）を使うとリズムが生まれて見やすくなります</li>
+      <li>結論部分のテキストを他より大きく・明るい色にして視覚的に目立たせる</li>
+    </ul>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+</div><!-- /wrapper -->
+
+<div class="footer">
+  <strong>元飲食店店長サム</strong>
+  <p>このガイドが役に立ったら、noteのスキ・フォローをいただけると次のコンテンツ制作の励みになります。</p>
+  <div class="footer-tag">LINE登録特典 vol.2</div>
+</div>
+
+</body>
+</html>

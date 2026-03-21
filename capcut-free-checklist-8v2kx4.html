@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow">
+<title>CapCut 無料でここまでできる！完全チェックリスト｜元飲食店店長サム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cc:#00d4aa;--cc2:#00f0c0;--cc-light:rgba(0,212,170,.12);--cc-border:rgba(0,212,170,.3);
+  --yel:#ffd166;--yel-light:rgba(255,209,102,.12);
+  --red:#ff6b6b;--red-light:rgba(255,107,107,.12);
+  --bg:#0a0e14;--bg2:#0f1520;--bg3:#151e2d;--bg4:#1c2840;
+  --text:#e8f0f8;--muted:#8a9bb0;--border:rgba(255,255,255,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85;min-height:100vh}
+
+/* ヘッダー */
+.hero{
+  background:linear-gradient(160deg,#050810 0%,#0a1520 50%,#0d1f1a 100%);
+  padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border)
+}
+.hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,212,170,.2),transparent 65%);pointer-events:none}
+.hero-label{display:inline-block;background:var(--cc-light);border:1px solid var(--cc-border);color:var(--cc);font-size:11px;font-weight:700;letter-spacing:.16em;padding:4px 16px;border-radius:4px;margin-bottom:16px;text-transform:uppercase;position:relative;z-index:1}
+.hero h1{font-size:clamp(20px,4.5vw,32px);font-weight:700;line-height:1.3;margin-bottom:12px;position:relative;z-index:1;color:#fff}
+.hero h1 em{color:var(--cc);font-style:normal}
+.hero .sub{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto 20px;position:relative;z-index:1;line-height:1.75}
+.hero-from{font-size:12px;color:var(--muted);position:relative;z-index:1}
+.hero-from strong{color:var(--cc)}
+
+.nav-wrap{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-inner{display:flex;gap:8px;max-width:680px;margin:0 auto;white-space:nowrap}
+.nav-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--border);color:var(--muted);transition:all .2s;flex-shrink:0}
+.nav-btn.n1{background:var(--cc-light);border-color:var(--cc-border);color:var(--cc)}
+.nav-btn.n2{background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.3);color:#a78bfa}
+.nav-btn.n3{background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.3);color:var(--yel)}
+.nav-btn.n4{background:rgba(100,180,255,.12);border-color:rgba(100,180,255,.3);color:#64b4ff}
+
+/* 進捗バー */
+.progress-wrap{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 24px;position:sticky;top:0;z-index:100}
+.progress-inner{max-width:680px;margin:0 auto}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.progress-label{font-size:12px;color:var(--muted)}
+.progress-count{font-size:13px;font-weight:700;color:var(--cc)}
+.progress-bar-bg{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--cc),var(--cc2));border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1);width:0%}
+
+/* ラッパー */
+.wrapper{max-width:680px;margin:0 auto;padding:0 20px}
+
+/* セクション */
+.section{padding:36px 0;border-bottom:1px solid var(--border)}
+.section:last-of-type{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sec-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sec-icon.free{background:var(--cc-light);border:1px solid var(--cc-border)}
+.sec-icon.pro{background:var(--yel-light);border:1px solid rgba(255,209,102,.3)}
+.sec-icon.tip{background:rgba(100,180,255,.12);border:1px solid rgba(100,180,255,.3)}
+.sec-title{font-size:17px;font-weight:700;color:#fff}
+.sec-sub{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* チェックアイテム */
+.check-list{display:flex;flex-direction:column;gap:8px}
+.check-item{
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;
+  padding:13px 16px;cursor:pointer;
+  transition:all .2s;user-select:none;-webkit-user-select:none
+}
+.check-item:hover{border-color:var(--cc-border);background:var(--bg3)}
+.check-item.checked{border-color:var(--cc);background:var(--cc-light)}
+.check-item.checked .check-box{background:var(--cc);border-color:var(--cc)}
+.check-item.checked .check-box::after{opacity:1}
+.check-item.checked .check-text{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(0,212,170,.5)}
+.check-box{
+  width:22px;height:22px;border-radius:5px;
+  border:2px solid rgba(255,255,255,.2);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;margin-top:1px;position:relative
+}
+.check-box::after{
+  content:'';width:6px;height:10px;
+  border-right:2.5px solid #000;border-bottom:2.5px solid #000;
+  transform:rotate(45deg) translate(-1px,-1px);
+  opacity:0;transition:opacity .15s
+}
+.check-text{flex:1;font-size:14px;line-height:1.65;transition:all .2s}
+.check-text strong{color:#fff;display:block;margin-bottom:2px;font-size:14px}
+.check-text span{font-size:12px;color:var(--muted)}
+.check-badge{
+  font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;
+  flex-shrink:0;align-self:flex-start;letter-spacing:.04em;margin-top:2px
+}
+.badge-free{background:var(--cc-light);color:var(--cc);border:1px solid var(--cc-border)}
+.badge-pro{background:var(--yel-light);color:var(--yel);border:1px solid rgba(255,209,102,.3)}
+
+/* ヒントボックス */
+.hint-box{background:var(--bg3);border-left:3px solid var(--cc);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0;font-size:14px;color:var(--muted);line-height:1.75}
+.hint-box .hint-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cc);margin-bottom:6px;display:block}
+.hint-box.yellow{border-left-color:var(--yel)}
+.hint-box.yellow .hint-label{color:var(--yel)}
+.hint-box.red{border-left-color:var(--red)}
+.hint-box.red .hint-label{color:var(--red)}
+
+/* 完了ボックス */
+.complete-box{
+  display:none;background:linear-gradient(135deg,rgba(0,212,170,.15),rgba(0,240,192,.08));
+  border:1.5px solid var(--cc-border);border-radius:12px;
+  padding:28px 24px;text-align:center;margin:32px 0
+}
+.complete-box.show{display:block}
+.complete-box .complete-icon{font-size:40px;margin-bottom:12px}
+.complete-box h3{font-size:18px;font-weight:700;color:var(--cc);margin-bottom:8px}
+.complete-box p{font-size:14px;color:var(--muted);line-height:1.75}
+
+/* TOPボタン */
+.to-top{display:inline-flex;align-items:center;gap:6px;margin-top:28px;padding:7px 18px;background:transparent;border:1px solid var(--border);border-radius:20px;font-size:11px;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:.1em;transition:all .2s;cursor:pointer;text-transform:uppercase}
+.to-top::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.to-top:hover{background:var(--cc);color:#000;border-color:var(--cc)}
+
+/* フッター */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:36px 24px;text-align:center;margin-top:48px}
+.footer strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}
+.footer p{font-size:12px;color:var(--muted);line-height:1.8}
+.footer-tag{display:inline-block;background:var(--cc-light);color:var(--cc);border:1px solid var(--cc-border);font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin-top:10px;letter-spacing:.06em}
+
+@media(prefers-color-scheme:light){
+  :root{
+    --bg:#f8faf9;--bg2:#fff;--bg3:#f0f7f5;--bg4:#e8f5f2;
+    --text:#1a2a24;--muted:#5a7a6e;--border:#d0e8e0;
+    --cc:#00a88a;--cc2:#00c8a8;--cc-light:rgba(0,168,138,.1);--cc-border:rgba(0,168,138,.3);
+    --yel:#d4900a;--yel-light:rgba(212,144,10,.1);
+    --red:#c0392b;--red-light:rgba(192,57,43,.1);
+  }
+  .check-box::after{border-color:#fff}
+  .check-item.checked .check-text{color:#888}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">LINE登録特典 vol.1</div>
+  <h1>CapCut<em>無料でここまでできる！</em><br>完全チェックリスト</h1>
+  <p class="sub">有料版（Pro）なしでもプロっぽい動画が作れる機能を全部まとめました。使えているか今すぐ確認してください</p>
+  <div class="hero-from">制作：<strong>元飲食店店長サム</strong></div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <a href="#sec1" class="nav-btn n1">✂️ 基本編集</a>
+    <a href="#sec2" class="nav-btn n2">💬 テキスト</a>
+    <a href="#sec3" class="nav-btn n3">🤖 AI機能</a>
+    <a href="#sec4" class="nav-btn n4">⚙️ プロっぽく設定</a>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-top">
+      <span class="progress-label">達成率</span>
+      <span class="progress-count" id="progressCount">0 / 20 チェック済み</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- 基本編集 -->
+<section class="section" id="sec1">
+      <div class="sec-sub">すべて無料で使えます</div>
+    </div>
+  </div>
+
+  <div class="check-list">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>動画のカット・トリミング</strong>
+        <span>タイムライン上でクリップの端をドラッグするだけ。Ctrl+Bで任意の位置をカット</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>速度変更（スロー・タイムラプス）</strong>
+        <span>0.1x〜100xまで対応。「曲線」モードでシーン内の速度変化も作れる</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>トランジション（シーン切り替え）</strong>
+        <span>クリップとクリップの間のアイコンをタップ。フェード・スライド・ズームなど豊富に選べる</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>BGM・効果音の追加</strong>
+        <span>内蔵ライブラリに著作権フリーの楽曲が多数。フェードイン・アウトも簡単に設定できる</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>フィルター・カラー補正</strong>
+        <span>明るさ・コントラスト・彩度を数値で調整。映画風・ヴィンテージなどワンタップフィルターも</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- テキスト -->
+<section class="section" id="sec2">
+  <div class="sec-hd">
+    <div class="sec-icon free">💬</div>
+    <div>
+      <div class="sec-title">テキスト・テロップ</div>
+      <div class="sec-sub">SNS動画の仕上がりを左右する機能</div>
+    </div>
+  </div>
+
+  <div class="check-list">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>テキストアニメーション</strong>
+        <span>テキストを選択→「アニメーション」タブ。入場・ループ・退場の3種類を設定できる。0.3〜0.5秒が見やすい</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>AI自動字幕（Auto Captions）</strong>
+        <span>音声を自動認識して字幕を一括生成。日本語対応。生成後に一括でフォント・色・サイズを変更できる</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>テキスト読み上げ（Text to Speech）</strong>
+        <span>入力したテキストをAI音声で読み上げ。ナレーション収録なしで解説動画が作れる</span>
+      </div>
+      <div class="check-badge badge-free">無料（一部Pro）</div>
+    </div>
+  </div>
+
+  <div class="hint-box">
+    <span class="hint-label">Pro不要で差をつけるコツ</span>
+    テキストの「スタイル」からアウトライン（縁取り）と影を同時に設定すると、背景に関わらず文字が読みやすくなります。Proのテンプレートを使わなくてもプロっぽい字幕が作れます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- AI機能（無料） -->
+<section class="section" id="sec3">
+  <div class="sec-hd">
+    <div class="sec-icon free">🤖</div>
+    <div>
+      <div class="sec-title">AI機能（無料で使えるもの）</div>
+      <div class="sec-sub">ここが他の無料ツールとの最大の差</div>
+    </div>
+  </div>
+
+  <div class="check-list">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>スマートリフレーム</strong>
+        <span>横長動画（16:9）を縦型（9:16）に自動変換。被写体を追跡して自動でフレーミングを調整してくれる</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>背景削除（AI)</strong>
+        <span>グリーンバックなしで人物の背景をワンクリックで削除。精度が高く髪の毛の細部まで対応している</span>
+      </div>
+      <div class="check-badge badge-pro">Pro推奨</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>AI自動カット（スマートカット）</strong>
+        <span>無音部分・不要な間を自動検出してカット。ゲーム実況・Vlogの編集時間を大幅短縮。上部メニュー「ツール」→「スマートカット」</span>
+      </div>
+      <div class="check-badge badge-pro">Pro</div>
+    </div>
+  </div>
+
+  <div class="hint-box yellow">
+    <span class="hint-label">正直な線引き</span>
+    背景削除・AI自動カットはProが断然便利です。ただし自動字幕・スマートリフレームは無料で十分すぎるほど使えます。まず無料で使い倒してから判断するのがおすすめです。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- 無料でプロっぽく見せる設定5つ -->
+<section class="section" id="sec4">
+  <div class="sec-hd">
+    <div class="sec-icon tip">⚙️</div>
+    <div>
+      <div class="sec-title">無料でもプロっぽく見せる設定5つ</div>
+      <div class="sec-sub">Proなしでクオリティを上げるテクニック</div>
+    </div>
+  </div>
+
+  <div class="check-list">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>書き出しは必ず1080p・30fpsに設定する</strong>
+        <span>無料でも1080pで書き出せます。デフォルトが低画質の場合があるので必ずエクスポート設定を確認してください</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>フィルターを薄くかける（強度30〜50%）</strong>
+        <span>フィルターを強くかけすぎると「加工感」が出ます。強度を下げると映像がナチュラルに底上げされます</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>BGMの音量を映像音声の30〜40%に下げる</strong>
+        <span>BGMが大きすぎると話し声が聞き取れなくなります。右パネルの音量を数値で調整してください</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>BGMの最後にフェードアウトを設定する</strong>
+        <span>音楽が突然終わると安っぽく聞こえます。右パネルの「フェードアウト」をONにするだけで格段に自然になります</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>トランジションは「なし」か「シンプルなもの」だけ使う</strong>
+        <span>派手なトランジションは逆効果です。クロスディゾルブ（フェード）か速いカットのみにするとプロらしく見えます</span>
+      </div>
+      <div class="check-badge badge-free">無料</div>
+    </div>
+  </div>
+
+  <div class="hint-box">
+    <span class="hint-label">飲食店時代の経験から</span>
+    盛り付けで一番重要なのは「引き算」です。動画編集も同じで、何かを足すより何かを省く判断の方が難しく、そしてクオリティを上げます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+<!-- 完了ボックス -->
+<div class="complete-box" id="completeBox">
+  <div class="complete-icon">🎉</div>
+  <h3>全項目チェック完了！</h3>
+  <p>CapCutの無料機能をフル活用する準備ができています。<br>次は「伸びる動画の構成テンプレ5種」も確認してみてください。</p>
+</div>
+
+<!-- フッター -->
+<div class="footer">
+  <strong>元飲食店店長サム</strong>
+  <p>このガイドが役に立ったら、noteのスキ・フォローをいただけると次のコンテンツ制作の励みになります。</p>
+  <div class="footer-tag">LINE登録特典 vol.1</div>
+</div>
+
+</div><!-- /wrapper -->
+
+<script>
+const TOTAL = 20;
+
+function countChecked() {
+  return document.querySelectorAll('.check-item.checked').length;
+}
+
+function updateProgress() {
+  const n = countChecked();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = n + ' / ' + TOTAL + ' チェック済み';
+  document.getElementById('completeBox').classList.toggle('show', n === TOTAL);
+}
+
+function toggle(el) {
+  el.classList.toggle('checked');
+  updateProgress();
+}
+
+// 実際のチェックアイテム数をカウントして初期化
+window.addEventListener('DOMContentLoaded', () => {
+  const items = document.querySelectorAll('.check-item');
+  updateProgress();
+});
+</script>
+</body>
+</html>
