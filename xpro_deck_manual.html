@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X Pro 完全活用ガイド｜デッキ設定から運営効率化まで</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #1d9bf0;
+    --accent2: #7856ff;
+    --accent3: #00c896;
+    --warn: #f59e0b;
+    --text: #e8e8f0;
+    --text-muted: #888899;
+    --text-dim: #555566;
+    --heading-font: 'Noto Sans JP', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--heading-font);
+    font-size: 15px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: .5;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: 'X PRO';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mono);
+    font-size: 120px;
+    font-weight: 700;
+    color: #ffffff04;
+    letter-spacing: -4px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -.02em;
+    margin-bottom: 20px;
+  }
+
+  h1 span {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    color: var(--text-muted);
+    max-width: 600px;
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-muted);
+    letter-spacing: .05em;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 64px;
+  }
+
+  .toc-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .toc ol {
+    list-style: none;
+    counter-reset: toc;
+  }
+
+  .toc li {
+    counter-increment: toc;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid #1e1e2a;
+  }
+
+  .toc li:last-child { border-bottom: none; }
+
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .toc a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color .2s;
+  }
+
+  .toc a:hover { color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 72px;
+    animation: fadeUp .5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: .1em;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  h2 .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 32px 0 14px;
+    padding-left: 12px;
+    border-left: 2px solid var(--accent2);
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin: 24px 0 10px;
+    font-family: var(--mono);
+  }
+
+  p { color: var(--text-muted); margin-bottom: 14px; }
+  p strong { color: var(--text); font-weight: 700; }
+
+  /* ── TABLES ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  thead th {
+    background: var(--surface2);
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #1c1c26;
+    transition: background .15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #141420; }
+
+  td {
+    padding: 11px 16px;
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  td:first-child {
+    color: var(--text);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .check { color: var(--accent3); }
+  .cross { color: var(--text-dim); }
+  .partial { color: var(--warn); }
+
+  /* ── CODE / DECK VIZ ── */
+  .deck-viz {
+    display: flex;
+    gap: 6px;
+    margin: 20px 0;
+    overflow-x: auto;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .deck-col {
+    flex: 1;
+    min-width: 120px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 10px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .deck-col .col-icon {
+    font-size: 18px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .deck-col .col-account {
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+
+  .deck-col.accent-col {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #0d1f30;
+  }
+
+  .deck-col.purple-col {
+    border-color: var(--accent2);
+    color: var(--accent2);
+    background: #130d24;
+  }
+
+  .deck-col.green-col {
+    border-color: var(--accent3);
+    color: var(--accent3);
+    background: #0a1e18;
+  }
+
+  /* ── STEPS ── */
+  .steps {
+    counter-reset: step;
+    margin: 20px 0;
+  }
+
+  .step {
+    counter-increment: step;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .step::before {
+    content: counter(step);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step p { margin: 0; font-size: 14px; }
+
+  /* ── TIPS / CALLOUTS ── */
+  .tip {
+    background: #0d1f30;
+    border: 1px solid #1d4a6e;
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 13.5px;
+    color: #a0c8e8;
+  }
+
+  .tip strong { color: var(--accent); }
+
+  .warn-box {
+    background: #1e1800;
+    border: 1px solid #3d2f00;
+    border-left: 3px solid var(--warn);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 13.5px;
+    color: #c8a840;
+  }
+
+  .warn-box strong { color: var(--warn); }
+
+  /* ── OPERATOR TABLE ── */
+  .op-grid {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+
+  .op-grid > div {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .op-grid > div:nth-last-child(-n+3) { border-bottom: none; }
+
+  .op-head {
+    background: var(--surface2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .op-key {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent3);
+    background: #0a1e18;
+    white-space: nowrap;
+  }
+
+  .op-desc { color: var(--text-muted); }
+  .op-ex { color: var(--text-dim); font-family: var(--mono); font-size: 11px; }
+
+  /* ── TEMPLATE CARDS ── */
+  .template-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .template-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    transition: border-color .2s;
+  }
+
+  .template-card:hover { border-color: var(--accent); }
+
+  .template-card .tc-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .template-card .tc-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .tc-deck {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tc-col {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 6px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ── QA ── */
+  .qa-list { margin-top: 16px; }
+
+  .qa-item {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .qa-q {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+    transition: background .15s;
+  }
+
+  .qa-q:hover { background: var(--surface2); }
+
+  .qa-q-text {
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .qa-q-text::before {
+    content: 'Q.';
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .qa-arrow {
+    font-size: 12px;
+    color: var(--text-dim);
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+
+  .qa-item.open .qa-arrow { transform: rotate(180deg); }
+
+  .qa-a {
+    display: none;
+    padding: 0 20px 16px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    padding-left: 44px;
+  }
+
+  .qa-item.open .qa-a { display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: .05em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .wrapper { padding: 0 16px 60px; }
+    .hero { padding: 48px 0 40px; }
+    .deck-viz { flex-wrap: nowrap; }
+    .op-grid { grid-template-columns: auto 1fr; }
+    .op-ex { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">Complete Guide</div>
+    <h1>X Pro <span>完全活用ガイド</span></h1>
+    <p class="hero-desc">
+      デッキ（カラム）設定から、投稿予約・複数アカウント管理・情報収集・エンゲージメント対応まで。X初心者でも目的別にすぐ使える設定マニュアルです。
+    </p>
+    <div class="hero-tags">
+      <span class="tag">#コンテンツ投稿</span>
+      <span class="tag">#複数アカウント</span>
+      <span class="tag">#リサーチ</span>
+      <span class="tag">#エンゲージメント</span>
+      <span class="tag">2026年3月版</span>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-title">目次</div>
+    <ol>
+      <li><a href="#s1">X Proとは？通常のXとの違い</a></li>
+      <li><a href="#s2">基本画面の見かた</a></li>
+      <li><a href="#s3">デッキ（カラム）の追加・削除・並び替え</a></li>
+      <li><a href="#s4">目的別おすすめデッキ構成</a></li>
+      <li><a href="#s5">デッキをフィルタリングして見やすくする</a></li>
+      <li><a href="#s6">よくある疑問 Q&amp;A</a></li>
+      <li><a href="#s7">まとめ｜推奨デッキ構成テンプレ</a></li>
+    </ol>
+  </nav>
+
+  <!-- SECTION 1 -->
+  <section id="s1">
+    <div class="section-num">01 —</div>
+    <h2><span class="dot"></span>X Proとは？通常のXとの違い</h2>
+    <p>X Proは、<strong>X Premium（旧Twitter Blue）加入者が使える高機能ダッシュボード</strong>です。複数のカラム（デッキ）を横並びで表示し、情報収集・投稿・エンゲージメント・複数アカウント管理をすべて一画面でこなせます。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>機能</th><th>通常のX</th><th>X Pro</th></tr></thead>
+        <tbody>
+          <tr><td>タイムライン表示</td><td>1画面のみ</td><td class="check">✅ 複数カラムを横並び</td></tr>
+          <tr><td>投稿予約</td><td class="partial">△ 一部対応</td><td class="check">✅ 柔軟に設定可能</td></tr>
+          <tr><td>複数アカウント切替</td><td>手動で都度切替</td><td class="check">✅ 同時管理・投稿可能</td></tr>
+          <tr><td>キーワード検索の常時表示</td><td class="cross">❌</td><td class="check">✅ カラムとして固定</td></tr>
+          <tr><td>リスト管理</td><td>閲覧のみ</td><td class="check">✅ カラムとして運用可能</td></tr>
+          <tr><td>DM・通知の一元管理</td><td>個別確認</td><td class="check">✅ まとめて確認可能</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip"><strong>ポイント：</strong>X Proは「情報が流れてしまう」問題を解消し、必要な情報を常に視界に入れておける設計になっています。</div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section id="s2">
+    <div class="section-num">02 —</div>
+    <h2><span class="dot"></span>基本画面の見かた</h2>
+    <p>X Proにアクセスすると、画面は<strong>左サイドバー</strong>と<strong>カラムエリア</strong>の2つに分かれます。</p>
+    <div class="deck-viz">
+      <div class="deck-col accent-col" style="min-width:90px;max-width:90px;">
+        <span class="col-icon">⚡</span>
+        左サイドバー<br>（ナビゲーション）
+      </div>
+      <div class="deck-col">
+        <span class="col-icon">🏠</span>
+        カラム1<br>（デッキ）
+      </div>
+      <div class="deck-col">
+        <span class="col-icon">🔔</span>
+        カラム2<br>（デッキ）
+      </div>
+      <div class="deck-col">
+        <span class="col-icon">🔍</span>
+        カラム3<br>（デッキ）
+      </div>
+      <div class="deck-col" style="opacity:.5;">
+        <span class="col-icon">＋</span>
+        カラム4<br>（デッキ）
+      </div>
+    </div>
+    <h3>左サイドバーの主なアイコン</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>アイコン</th><th>機能</th></tr></thead>
+        <tbody>
+          <tr><td>🏠 ホーム</td><td>タイムラインへ戻る</td></tr>
+          <tr><td>🔔 通知</td><td>メンション・いいね通知</td></tr>
+          <tr><td>✉️ DM</td><td>ダイレクトメッセージ</td></tr>
+          <tr><td>➕ カラムを追加</td><td>デッキ（カラム）の追加メニュー</td></tr>
+          <tr><td>⚙️ 設定</td><td>X Pro全体の設定</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section id="s3">
+    <div class="section-num">03 —</div>
+    <h2><span class="dot"></span>デッキ（カラム）の追加・削除・並び替え</h2>
+    <h3>カラムの追加手順</h3>
+    <div class="steps">
+      <div class="step"><p>左サイドバーの <strong>「＋」ボタン</strong>をクリック</p></div>
+      <div class="step"><p>追加したいカラムの種類を選択（下表参照）</p></div>
+      <div class="step"><p>必要に応じてキーワードやリスト名を入力</p></div>
+      <div class="step"><p>「追加する」をクリック → カラムが右端に追加される</p></div>
+    </div>
+    <h3>追加できるカラムの種類</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>カラム名</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td>🏠 ホーム</td><td>フォロー中アカウントのタイムライン</td></tr>
+          <tr><td>🔔 通知</td><td>いいね・RT・メンションの通知</td></tr>
+          <tr><td>🔍 検索</td><td>特定キーワードのリアルタイム検索</td></tr>
+          <tr><td>📋 リスト</td><td>作成済みリストのタイムライン</td></tr>
+          <tr><td>🔖 コレクション</td><td>ブックマークのまとめ</td></tr>
+          <tr><td>✉️ DM</td><td>ダイレクトメッセージの受信トレイ</td></tr>
+          <tr><td>@ メンション</td><td>自分宛てのメンション一覧</td></tr>
+          <tr><td>📈 トレンド</td><td>現在のトレンドワード</td></tr>
+          <tr><td>❤️ いいね</td><td>自分がいいねした投稿</td></tr>
+          <tr><td>🕐 スケジュール</td><td>予約投稿の管理</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>削除・並び替えの操作</h3>
+    <p><strong>削除：</strong>カラム右上の「⚙️」アイコン → 「カラムを削除」</p>
+    <p><strong>並び替え：</strong>カラム上部をドラッグ＆ドロップで移動</p>
+    <p><strong>幅の変更：</strong>カラム設定から「サイズ」を選択（小・中・大）</p>
+    <div class="tip"><strong>初心者向けTips：</strong>まずはカラムを3〜4個に絞ると管理しやすいです。増やしすぎると逆に見づらくなります。</div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section id="s4">
+    <div class="section-num">04 —</div>
+    <h2><span class="dot"></span>目的別おすすめデッキ構成</h2>
+
+    <!-- 4.1 -->
+    <h3>4-1｜コンテンツ投稿・予約投稿</h3>
+    <p>X Proでは<strong>投稿の予約機能</strong>が標準で使えます。ブログ記事の告知・定期的な情報発信に最適です。</p>
+    <h4>予約投稿の手順</h4>
+    <div class="steps">
+      <div class="step"><p>左サイドバーの <strong>✏️（投稿ボタン）</strong>をクリック</p></div>
+      <div class="step"><p>投稿内容を入力する</p></div>
+      <div class="step"><p>下部の<strong>カレンダーアイコン</strong>をクリック</p></div>
+      <div class="step"><p>日時を指定して「確認」→「スケジュール設定」をクリック</p></div>
+    </div>
+    <h4>スケジュール確認・編集</h4>
+    <p>カラムの種類から <strong>「スケジュール」</strong>を追加すると、予約中の投稿が一覧表示されます。投稿をクリックすると<strong>編集・削除・即時投稿</strong>が選べます。</p>
+    <h4>おすすめカラム構成</h4>
+    <div class="deck-viz">
+      <div class="deck-col accent-col"><span class="col-icon">🕐</span>スケジュール</div>
+      <div class="deck-col"><span class="col-icon">🏠</span>ホームTL</div>
+      <div class="deck-col"><span class="col-icon">🔔</span>通知</div>
+      <div class="deck-col"><span class="col-icon">@</span>メンション</div>
+    </div>
+    <div class="tip"><strong>効率化Tips：</strong>曜日・時間帯を固定して（例：毎朝8時・毎晩21時）1週間分を一括予約すると、「後は自動で流れる」状態を作れます。</div>
+
+    <!-- 4.2 -->
+    <h3>4-2｜複数アカウント管理</h3>
+    <p>本アカ・ビジネスアカ・匿名アカなど使い分けている人に特に有効です。<strong>カラムごとにアカウントを指定</strong>できるため、AアカのTLとBアカの通知を並べて表示できます。</p>
+    <h4>アカウントの追加手順</h4>
+    <div class="steps">
+      <div class="step"><p>左サイドバー最下部の<strong>アカウントアイコン</strong>をクリック</p></div>
+      <div class="step"><p>「別のアカウントを追加」→ ログイン情報を入力</p></div>
+      <div class="step"><p>追加完了後、サイドバーにアカウントアイコンが並ぶ</p></div>
+    </div>
+    <h4>おすすめカラム構成</h4>
+    <div class="deck-viz">
+      <div class="deck-col accent-col">
+        <span class="col-account">アカウントA</span>
+        <span class="col-icon">🏠</span>ホームTL
+      </div>
+      <div class="deck-col accent-col">
+        <span class="col-account">アカウントA</span>
+        <span class="col-icon">🔔</span>通知
+      </div>
+      <div class="deck-col purple-col">
+        <span class="col-account">アカウントB</span>
+        <span class="col-icon">🏠</span>ホームTL
+      </div>
+      <div class="deck-col purple-col">
+        <span class="col-account">アカウントB</span>
+        <span class="col-icon">🔔</span>通知
+      </div>
+    </div>
+    <div class="warn-box"><strong>誤爆防止：</strong>投稿ウィンドウに現在のアカウント名が表示されるので、必ず確認。アカウントごとにプロフィール画像を明確に変えておくと視認性が上がります。</div>
+
+    <!-- 4.3 -->
+    <h3>4-3｜リサーチ・情報収集</h3>
+    <p><strong>検索カラムとリストカラム</strong>を組み合わせると、情報収集の精度が大幅に上がります。</p>
+    <h4>検索演算子一覧</h4>
+    <div class="op-grid">
+      <div class="op-head">演算子</div><div class="op-head">意味</div><div class="op-head">例</div>
+      <div class="op-key">AND（スペース）</div><div class="op-desc">両方含む</div><div class="op-ex">AI ライティング</div>
+      <div class="op-key">OR</div><div class="op-desc">どちらか含む</div><div class="op-ex">ChatGPT OR Gemini</div>
+      <div class="op-key">-（マイナス）</div><div class="op-desc">除外する</div><div class="op-ex">VPN -広告</div>
+      <div class="op-key">#ハッシュタグ</div><div class="op-desc">タグ指定</div><div class="op-ex">#SEO</div>
+      <div class="op-key">from:</div><div class="op-desc">特定ユーザーの投稿</div><div class="op-ex">from:username</div>
+      <div class="op-key">min_faves:</div><div class="op-desc">最低いいね数</div><div class="op-ex">AI min_faves:100</div>
+      <div class="op-key">lang:ja</div><div class="op-desc">日本語のみ</div><div class="op-ex">VPN lang:ja</div>
+    </div>
+    <div class="tip"><strong>活用例：</strong><code>VPN 比較 lang:ja min_faves:10</code> と設定すると、バズっている日本語VPN比較投稿だけを常時監視できます。</div>
+    <h4>おすすめカラム構成</h4>
+    <div class="deck-viz">
+      <div class="deck-col green-col"><span class="col-icon">🔍</span>検索：テーマA</div>
+      <div class="deck-col green-col"><span class="col-icon">🔍</span>検索：テーマB</div>
+      <div class="deck-col"><span class="col-icon">📋</span>リスト：業界情報</div>
+      <div class="deck-col"><span class="col-icon">📈</span>トレンド</div>
+    </div>
+
+    <!-- 4.4 -->
+    <h3>4-4｜エンゲージメント管理（返信・DM）</h3>
+    <p>フォロワーとの関係構築には通知・メンション・DMを見逃さないことが重要です。X Proはこれを<strong>一画面でまとめて管理</strong>できます。</p>
+    <h4>通知カラムのフィルター設定</h4>
+    <p>カラム設定（⚙️）から通知の種類を絞り込めます：いいねのみ / リポストのみ / メンションのみ / フォロー通知のみ</p>
+    <div class="tip"><strong>引用ポスト対策：</strong>検索カラムに自分の@ユーザー名を設定しておくと、メンションされていない言及も拾えます。</div>
+    <h4>おすすめカラム構成</h4>
+    <div class="deck-viz">
+      <div class="deck-col"><span class="col-icon">🏠</span>ホームTL</div>
+      <div class="deck-col accent-col"><span class="col-icon">@</span>メンション</div>
+      <div class="deck-col accent-col"><span class="col-icon">✉️</span>DM</div>
+      <div class="deck-col"><span class="col-icon">🔍</span>検索：@自分</div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section id="s5">
+    <div class="section-num">05 —</div>
+    <h2><span class="dot"></span>デッキをフィルタリングして見やすくする</h2>
+    <p>各カラムは<strong>フィルター設定</strong>で表示内容を絞れます。カラム右上の⚙️アイコン → 「フィルター」タブ → 条件を設定して保存。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>フィルター</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td>メディアのみ</td><td>画像・動画付き投稿のみ表示</td></tr>
+          <tr><td>リンクのみ</td><td>URLを含む投稿のみ表示</td></tr>
+          <tr><td>確認済みアカウントのみ</td><td>認証バッジ付きのみ</td></tr>
+          <tr><td>最小いいね数</td><td>指定数以上のいいねがある投稿のみ</td></tr>
+          <tr><td>最小RT数</td><td>指定数以上のRTがある投稿のみ</td></tr>
+          <tr><td>リプライを除外</td><td>返信ツイートを非表示にする</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip"><strong>活用例：</strong>トレンドカラムのフィルターで「最小いいね：500」に設定すると、バズ投稿だけをピックアップして確認できます。</div>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section id="s6">
+    <div class="section-num">06 —</div>
+    <h2><span class="dot"></span>よくある疑問 Q&amp;A</h2>
+    <div class="qa-list">
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggle(this)">
+          <span class="qa-q-text">X ProはPCだけで使えますか？</span>
+          <span class="qa-arrow">▼</span>
+        </div>
+        <div class="qa-a">基本はブラウザ版（PC）での利用が前提です。スマホからはX公式アプリを使う形になります。</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggle(this)">
+          <span class="qa-q-text">無料で使えますか？</span>
+          <span class="qa-arrow">▼</span>
+        </div>
+        <div class="qa-a">X Proの利用にはX Premium（月額約1,380円〜）への加入が必要です。</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggle(this)">
+          <span class="qa-q-text">予約投稿は何件まで設定できますか？</span>
+          <span class="qa-arrow">▼</span>
+        </div>
+        <div class="qa-a">公式に明確な上限はありませんが、1週間分（7〜14件）程度が管理しやすいです。あまり大量に入れすぎると管理が煩雑になります。</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggle(this)">
+          <span class="qa-q-text">カラムは何個まで追加できますか？</span>
+          <span class="qa-arrow">▼</span>
+        </div>
+        <div class="qa-a">公式に明確な上限はありませんが、画面の横幅に収まる範囲（実用的には6〜8個程度）が目安です。</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggle(this)">
+          <span class="qa-q-text">複数アカウントで同じ投稿を同時に送れますか？</span>
+          <span class="qa-arrow">▼</span>
+        </div>
+        <div class="qa-a">標準機能では一度に複数アカウントへの同時投稿はできません。アカウントを切り替えて個別に投稿する必要があります。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 -->
+  <section id="s7">
+    <div class="section-num">07 —</div>
+    <h2><span class="dot"></span>まとめ｜推奨デッキ構成テンプレ</h2>
+    <p>目的に合わせて、以下のテンプレをそのまま参考にしてください。</p>
+    <div class="template-grid">
+      <div class="template-card">
+        <div class="tc-label">🔰 Starter</div>
+        <div class="tc-title">X初心者スタートパック（3〜4カラム）</div>
+        <div class="tc-deck">
+          <div class="tc-col">🏠 ホームTL</div>
+          <div class="tc-col">🔔 通知</div>
+          <div class="tc-col">🕐 スケジュール</div>
+          <div class="tc-col">@ メンション</div>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="tc-label">📝 Content Creator</div>
+        <div class="tc-title">コンテンツ発信者向け（投稿・予約管理重視）</div>
+        <div class="tc-deck">
+          <div class="tc-col">🕐 スケジュール</div>
+          <div class="tc-col">🏠 ホームTL</div>
+          <div class="tc-col">🔔 通知</div>
+          <div class="tc-col">🔍 自分の名前</div>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="tc-label">🔍 Researcher</div>
+        <div class="tc-title">リサーチ・情報収集向け</div>
+        <div class="tc-deck">
+          <div class="tc-col">🔍 検索：テーマA</div>
+          <div class="tc-col">🔍 検索：テーマB</div>
+          <div class="tc-col">📋 情報源リスト</div>
+          <div class="tc-col">📈 トレンド</div>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="tc-label">👥 Multi-Account</div>
+        <div class="tc-title">複数アカウント運用向け</div>
+        <div class="tc-deck">
+          <div class="tc-col">Aアカ：TL</div>
+          <div class="tc-col">Aアカ：通知</div>
+          <div class="tc-col">Bアカ：TL</div>
+          <div class="tc-col">Bアカ：通知</div>
+          <div class="tc-col">✉️ DM</div>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="tc-label">💬 Engagement</div>
+        <div class="tc-title">エンゲージメント重視（ファン育成型）</div>
+        <div class="tc-deck">
+          <div class="tc-col">🏠 ホームTL</div>
+          <div class="tc-col">@ メンション</div>
+          <div class="tc-col">🔔 通知</div>
+          <div class="tc-col">✉️ DM</div>
+          <div class="tc-col">🔍 @自分の名前</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 X Pro 完全活用ガイド｜2026年3月時点の情報をもとに作成</p>
+    <p style="margin-top:6px;">X Pro（旧TweetDeck）の仕様は変更される場合があります。</p>
+  </footer>
+
+</div>
+
+<script>
+  function toggle(el) {
+    const item = el.closest('.qa-item');
+    item.classList.toggle('open');
+  }
+
+  // Stagger animation on scroll
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationDelay = '0s';
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  sections.forEach(s => {
+    s.style.opacity = '0';
+    observer.observe(s);
+  });
+</script>
+</body>
+</html>

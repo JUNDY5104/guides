@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adobe Premiere Pro 完全ガイド | はじめての本格動画編集</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #141414;
+    --bg2:       #1a1a1a;
+    --surface:   #222222;
+    --surface2:  #2c2c2c;
+    --surface3:  #363636;
+    --border:    #3a3a3a;
+    --border2:   #4a4a4a;
+
+    --gold:      #e8a020;
+    --gold-dim:  #b07a18;
+    --gold-glow: rgba(232,160,32,0.15);
+    --blue:      #4da8f5;
+    --blue-dim:  rgba(77,168,245,0.12);
+    --red:       #e05252;
+    --green:     #52c472;
+    --purple:    #b07ef8;
+
+    --text:      #f0ece6;
+    --text-mid:  #c8c0b4;
+    --text-soft: #968e84;
+    --text-dim:  #5a5450;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ============================================================
+     HERO
+  ============================================================ */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 100px 32px 80px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Diagonal accent stripe */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -80px;
+    width: 520px; height: 520px;
+    background: conic-gradient(from 210deg at 60% 40%,
+      rgba(232,160,32,0.18) 0deg,
+      rgba(232,160,32,0.04) 90deg,
+      transparent 180deg);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+  }
+
+  .hero-inner {
+    max-width: 1020px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .hero-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: '';
+    width: 32px; height: 2px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 0.95;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-desc {
+    color: var(--text-mid);
+    font-size: 16px;
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.9;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+  }
+  .badge {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--text-mid);
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+  .badge.gold {
+    background: rgba(232,160,32,0.1);
+    border-color: rgba(232,160,32,0.4);
+    color: var(--gold);
+  }
+
+  .hero-version {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .version-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    text-align: center;
+  }
+  .version-num {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .version-label {
+    font-size: 10px;
+    color: var(--text-soft);
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+  .version-sub {
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-top: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+
+  @media (max-width: 680px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-version { display: none; }
+  }
+
+  /* ============================================================
+     TOC
+  ============================================================ */
+  .toc-wrap {
+    max-width: 1020px;
+    margin: 56px auto;
+    padding: 0 32px;
+  }
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: 0 0 12px 12px;
+    padding: 36px;
+  }
+  .toc-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 4px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: var(--text-mid);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .toc-item:hover {
+    background: var(--surface2);
+    color: var(--gold);
+  }
+  .toc-n {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    min-width: 24px;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     LAYOUT WRAPPER
+  ============================================================ */
+  .page {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ============================================================
+     SECTION
+  ============================================================ */
+  .sec {
+    margin-bottom: 80px;
+  }
+  .sec-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .sec-tag::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border2), transparent);
+  }
+  .sec h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .sec p {
+    color: var(--text-mid);
+    margin-bottom: 16px;
+    line-height: 1.85;
+  }
+  .sec p strong { color: var(--text); }
+
+  .sec h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin: 40px 0 14px;
+    padding-left: 14px;
+    border-left: 3px solid var(--gold);
+  }
+
+  /* ============================================================
+     CARDS
+  ============================================================ */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin: 24px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .card:hover {
+    border-color: var(--gold-dim);
+    background: var(--surface2);
+  }
+  .card-ico { font-size: 26px; margin-bottom: 12px; }
+  .card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .card p {
+    font-size: 13px;
+    color: var(--text-mid);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* ============================================================
+     STEPS / FLOW
+  ============================================================ */
+  .steps {
+    margin: 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .step {
+    display: flex;
+    gap: 18px;
+    align-items: stretch;
+  }
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40px;
+    flex-shrink: 0;
+  }
+  .step-num {
+    width: 40px; height: 40px;
+    background: var(--surface3);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .step-connector {
+    width: 2px;
+    flex: 1;
+    min-height: 20px;
+    background: var(--border);
+    margin: 3px 0;
+  }
+  .step:last-child .step-connector { display: none; }
+  .step-body {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    flex: 1;
+    margin-bottom: 4px;
+  }
+  .step-body h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text);
+  }
+  .step-body p {
+    font-size: 13px;
+    color: var(--text-mid);
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  /* ============================================================
+     CALLOUT
+  ============================================================ */
+  .note {
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    display: flex;
+    gap: 14px;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .note-icon { font-size: 18px; flex-shrink: 0; padding-top: 2px; }
+  .note p { margin: 0; }
+  .note.tip  { background: rgba(82,196,114,0.08); border-left: 3px solid var(--green); }
+  .note.tip p  { color: #85d9a0; }
+  .note.warn { background: rgba(224,82,82,0.08); border-left: 3px solid var(--red); }
+  .note.warn p { color: #f09090; }
+  .note.info { background: rgba(77,168,245,0.08); border-left: 3px solid var(--blue); }
+  .note.info p { color: #8ac8f8; }
+  .note.gold { background: rgba(232,160,32,0.08); border-left: 3px solid var(--gold); }
+  .note.gold p { color: #e8b84a; }
+
+  /* ============================================================
+     UI DIAGRAMS
+  ============================================================ */
+  .diagram-wrap {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 28px 0;
+  }
+  .diagram-bar {
+    background: var(--surface3);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 18px;
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 1px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; }
+  .dot.y { background: #ffbd2e; }
+  .dot.g { background: #28c840; }
+
+  /* Premiere workspace */
+  .ws {
+    display: grid;
+    grid-template-columns: 220px 1fr 280px;
+    grid-template-rows: auto auto;
+    gap: 3px;
+    padding: 14px;
+    background: #0e0e0e;
+    min-height: 360px;
+  }
+  .ws-block {
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .ws-block-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .ws-block-name {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .ws-block-desc {
+    font-size: 11px;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+  .ws-project  { background: rgba(77,168,245,0.1);  border: 1px solid rgba(77,168,245,0.2);  color: #7dc4f8; grid-row: 1; }
+  .ws-program  { background: rgba(232,160,32,0.1);  border: 1px solid rgba(232,160,32,0.2);  color: #f0c060; grid-row: 1; grid-column: 2; }
+  .ws-source   { background: rgba(176,126,248,0.1); border: 1px solid rgba(176,126,248,0.2); color: #c8a0fc; grid-row: 1; grid-column: 3; }
+  .ws-timeline { background: rgba(82,196,114,0.1);  border: 1px solid rgba(82,196,114,0.2);  color: #80d89a; grid-row: 2; grid-column: 1 / 3; }
+  .ws-tools    { background: rgba(224,82,82,0.1);   border: 1px solid rgba(224,82,82,0.2);   color: #f09090; grid-row: 2; grid-column: 3; }
+
+  @media (max-width: 680px) {
+    .ws { grid-template-columns: 1fr; }
+    .ws-program, .ws-source, .ws-timeline, .ws-tools { grid-column: 1; grid-row: auto; }
+  }
+
+  /* Timeline diagram */
+  .tl {
+    padding: 16px;
+    background: #0e0e0e;
+    overflow-x: auto;
+  }
+  .tl-head {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 6px;
+    padding-left: 80px;
+  }
+  .tl-timecode {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    width: 80px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .tl-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .tl-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-soft);
+    width: 76px;
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 8px;
+  }
+  .clip {
+    height: 32px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .clip.v { background: rgba(77,168,245,0.25); border: 1px solid rgba(77,168,245,0.5); color: #9dd4fc; }
+  .clip.a { background: rgba(82,196,114,0.2);  border: 1px solid rgba(82,196,114,0.4); color: #90d8a8; height: 22px; }
+  .clip.g { background: rgba(232,160,32,0.2);  border: 1px solid rgba(232,160,32,0.4); color: #e8c060; height: 20px; }
+  .clip.fx { background: rgba(176,126,248,0.2); border: 1px solid rgba(176,126,248,0.4); color: #c8a8fc; height: 18px; font-size: 8px; }
+  .tl-cut {
+    width: 2px; height: 32px;
+    background: rgba(232,160,32,0.7);
+    flex-shrink: 0;
+  }
+  .tl-spacer { flex: 1; }
+
+  /* ============================================================
+     TABLES — all cells explicitly bg-colored to prevent white
+  ============================================================ */
+  .tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    background: var(--surface);
+  }
+  .tbl thead tr { background: var(--surface3); }
+  .tbl th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gold);
+    background: var(--surface3);
+  }
+  .tbl th:not(:first-child) { text-align: center; }
+  .tbl td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-mid);
+    background: var(--surface);
+    vertical-align: middle;
+  }
+  .tbl td:not(:first-child) { text-align: center; }
+  .tbl td:first-child { color: var(--text); }
+  .tbl tr:hover td { background: var(--surface2); }
+  .ok  { color: var(--green); font-size: 16px; }
+  .ng  { color: var(--red);   font-size: 16px; }
+  .tri { color: var(--gold);  font-size: 14px; }
+
+  /* kbd */
+  .kbd { display: inline-flex; align-items: center; gap: 3px; }
+  .key {
+    background: var(--surface3);
+    border: 1px solid var(--border2);
+    border-bottom: 3px solid var(--border2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  /* tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+  }
+  .tag.b { background: rgba(77,168,245,0.15);  color: #7dc4f8;  border: 1px solid rgba(77,168,245,0.3); }
+  .tag.g { background: rgba(82,196,114,0.15);  color: #80d89a;  border: 1px solid rgba(82,196,114,0.3); }
+  .tag.o { background: rgba(232,160,32,0.15);  color: var(--gold); border: 1px solid rgba(232,160,32,0.3); }
+  .tag.p { background: rgba(176,126,248,0.15); color: #c8a0fc;  border: 1px solid rgba(176,126,248,0.3); }
+  .tag.r { background: rgba(224,82,82,0.15);   color: #f09090;  border: 1px solid rgba(224,82,82,0.3); }
+
+  /* ============================================================
+     EXPORT PIPELINE
+  ============================================================ */
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 28px 0;
+    overflow-x: auto;
+  }
+  .pipe-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 16px;
+    text-align: center;
+    flex: 1;
+    min-width: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+  .pipe-step + .pipe-step {
+    margin-left: 6px;
+  }
+  .pipe-step::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 16px;
+    z-index: 2;
+  }
+  .pipe-step:last-child::after { display: none; }
+  .pipe-ico { font-size: 22px; }
+  .pipe-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-soft);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .pipe-name { font-size: 13px; font-weight: 700; color: var(--text); }
+
+  /* ============================================================
+     COMPARISON BOXES (iMovie vs Premiere)
+  ============================================================ */
+  .compare-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .cmp-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .cmp-box.premiere { border-top: 3px solid var(--gold); }
+  .cmp-box.imovie   { border-top: 3px solid #58a6ff; }
+  .cmp-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .cmp-box.premiere .cmp-title { color: var(--gold); }
+  .cmp-box.imovie .cmp-title   { color: #58a6ff; }
+  .cmp-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .cmp-list li {
+    font-size: 13px;
+    color: var(--text-mid);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .cmp-list li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--text-dim);
+    font-size: 10px;
+    top: 3px;
+  }
+  @media (max-width: 600px) {
+    .compare-pair { grid-template-columns: 1fr; }
+  }
+
+  /* ============================================================
+     COLOR WORKSPACE
+  ============================================================ */
+  .color-scopes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .scope-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .scope-title {
+    background: var(--surface3);
+    padding: 8px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-soft);
+    letter-spacing: 1px;
+  }
+  .scope-visual {
+    padding: 12px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .waveform {
+    width: 100%;
+    height: 56px;
+    background: linear-gradient(to right,
+      rgba(82,196,114,0.5) 0%, rgba(82,196,114,0.8) 20%,
+      rgba(82,196,114,0.5) 40%, rgba(82,196,114,0.9) 60%,
+      rgba(82,196,114,0.4) 80%, rgba(82,196,114,0.6) 100%);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .parade {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+  }
+  .parade-ch {
+    flex: 1;
+    border-radius: 2px 2px 0 0;
+  }
+  .vectorscope {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 60% 35%,
+      rgba(232,160,32,0.6) 0%, rgba(77,168,245,0.3) 50%, transparent 70%);
+    border: 1px solid var(--border2);
+    position: relative;
+  }
+  @media (max-width: 600px) {
+    .color-scopes { grid-template-columns: 1fr; }
+  }
+
+  /* ============================================================
+     SEQUENCE SETTINGS VISUAL
+  ============================================================ */
+  .seq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .seq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .seq-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-soft);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .seq-val {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .seq-desc {
+    font-size: 11px;
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+
+  /* ============================================================
+     DIVIDER
+  ============================================================ */
+  .rule {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 80px;
+  }
+
+  /* ============================================================
+     FOOTER
+  ============================================================ */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 48px 32px;
+    text-align: center;
+    color: var(--text-mid);
+    font-size: 13px;
+    line-height: 2;
+  }
+  footer strong { color: var(--gold); }
+  footer span   { color: var(--text-dim); }
+
+  /* ============================================================
+     FADE IN
+  ============================================================ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">Professional Video Editing</div>
+      <h1>Adobe<br><em>Premiere Pro</em><br>完全ガイド</h1>
+      <p class="hero-desc">インストールから書き出しまで。iMovieを卒業した方、本格的な動画制作を始めたい方のための、丁寧な解説書です。</p>
+      <div class="hero-badges">
+        <div class="badge gold">2025 最新版</div>
+        <div class="badge">Mac / Windows 対応</div>
+        <div class="badge">Creative Cloud</div>
+        <div class="badge">初心者〜中級者向け</div>
+      </div>
+    </div>
+    <div class="hero-version">
+      <div class="version-box">
+        <div class="version-num">25.x</div>
+        <div class="version-label">VERSION</div>
+        <div class="version-sub">Premiere Pro<br>2025</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<div class="toc-wrap reveal">
+  <div class="toc">
+    <div class="toc-head">目次 — Contents</div>
+    <div class="toc-grid">
+      <a href="#s1"  class="toc-item"><span class="toc-n">01</span>Premiere Proとは？</a>
+      <a href="#s2"  class="toc-item"><span class="toc-n">02</span>インストール方法</a>
+      <a href="#s3"  class="toc-item"><span class="toc-n">03</span>画面の見方</a>
+      <a href="#s4"  class="toc-item"><span class="toc-n">04</span>プロジェクトの作成</a>
+      <a href="#s5"  class="toc-item"><span class="toc-n">05</span>素材の読み込み</a>
+      <a href="#s6"  class="toc-item"><span class="toc-n">06</span>シーケンスの作成</a>
+      <a href="#s7"  class="toc-item"><span class="toc-n">07</span>タイムライン編集</a>
+      <a href="#s8"  class="toc-item"><span class="toc-n">08</span>エフェクト・トランジション</a>
+      <a href="#s9"  class="toc-item"><span class="toc-n">09</span>テキスト・グラフィック</a>
+      <a href="#s10" class="toc-item"><span class="toc-n">10</span>オーディオ編集</a>
+      <a href="#s11" class="toc-item"><span class="toc-n">11</span>カラー補正</a>
+      <a href="#s12" class="toc-item"><span class="toc-n">12</span>書き出し（メディアエンコーダー）</a>
+      <a href="#s13" class="toc-item"><span class="toc-n">13</span>ショートカット一覧</a>
+      <a href="#s14" class="toc-item"><span class="toc-n">14</span>よくあるトラブルと対処</a>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ===== S1: WHAT IS PREMIERE ===== -->
+  <div class="sec reveal" id="s1">
+    <div class="sec-tag">01 — What is Premiere Pro</div>
+    <h2>Premiere Pro とは？</h2>
+    <p>Adobe Premiere Proは、映像業界のプロが使う<strong>本格的な動画編集ソフト</strong>です。映画・テレビ・YouTube・SNS動画まで、あらゆる場面で使われています。iMovieが「かんたん操作の入門アプリ」なら、Premiere Proは「何でもできるプロ仕様ツール」です。</p>
+
+    <div class="cards">
+      <div class="card"><div class="card-ico">🎬</div><h4>業界標準ソフト</h4><p>映画・TV・CM・YouTuberまで、プロの現場で最も使われている編集ソフトのひとつです。</p></div>
+      <div class="card"><div class="card-ico">🔗</div><h4>Adobe連携</h4><p>After Effects・Audition・Photoshopなど他のAdobeアプリとシームレスに連携できます。</p></div>
+      <div class="card"><div class="card-ico">🎨</div><h4>高度なカラー補正</h4><p>Lumetriカラーパネルで映画のような色調整が可能。Log素材のグレーディングにも対応。</p></div>
+      <div class="card"><div class="card-ico">🎵</div><h4>本格オーディオ編集</h4><p>ノイズ除去・EQ・コンプレッサーなど、音声も映像と同レベルで細かく調整できます。</p></div>
+      <div class="card"><div class="card-ico">☁️</div><h4>Creative Cloud同期</h4><p>プロジェクトをクラウドに保存して、別のPCでも続きを編集できます。</p></div>
+      <div class="card"><div class="card-ico">📐</div><h4>あらゆる解像度に対応</h4><p>SD・HD・4K・8K・VR（360°）まで、ほぼすべての映像フォーマットに対応しています。</p></div>
+    </div>
+
+    <h3>iMovieとの比較</h3>
+    <div class="compare-pair">
+      <div class="cmp-box imovie">
+        <div class="cmp-title">🍎 iMovie</div>
+        <ul class="cmp-list">
+          <li>無料で使える</li>
+          <li>操作が非常にシンプル</li>
+          <li>Mac・iPhoneだけで動く</li>
+          <li>基本的なカットと音楽追加が中心</li>
+          <li>カラー補正は最低限のみ</li>
+          <li>マルチカメラ編集は不可</li>
+        </ul>
+      </div>
+      <div class="cmp-box premiere">
+        <div class="cmp-title">⚡ Premiere Pro</div>
+        <ul class="cmp-list">
+          <li>月額約3,280円（単体プラン）</li>
+          <li>操作に学習コストがある</li>
+          <li>Mac・Windows両方で動く</li>
+          <li>エフェクト・合成・VFXも可能</li>
+          <li>プロ水準のカラーグレーディング</li>
+          <li>マルチカメラ同期編集に対応</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note info">
+      <div class="note-icon">💡</div>
+      <p><strong>どちらを使うべき？</strong> SNS用の短い動画・家族の記録ならiMovieで十分です。YouTubeチャンネルの本格運営、仕事での映像制作、After Effectsとの連携が必要な場合はPremiere Proを選びましょう。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S2: INSTALL ===== -->
+  <div class="sec reveal" id="s2">
+    <div class="sec-tag">02 — Installation</div>
+    <h2>インストール方法</h2>
+    <p>Premiere ProはAdobe Creative Cloudを通じてインストールします。まずAdobe IDを作成し、サブスクリプションを契約する必要があります。</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>Adobe公式サイトでAdobe IDを作成</h4>
+          <p>adobe.com にアクセスし、「無料で始める」または「プランと価格設定」からアカウントを作成します。メールアドレスとパスワードを登録するだけです。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>プランを選んで契約</h4>
+          <p>「Premiere Pro 単体プラン」または「コンプリートプラン（全アプリ使い放題）」を選びます。7日間の無料体験が使えるので、まず試してみましょう。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">03</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>Creative Cloud デスクトップアプリをダウンロード</h4>
+          <p>「Creative Cloudをダウンロード」ボタンから、Creative Cloud管理アプリ（CCデスクトップ）をインストールします。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">04</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>CCデスクトップからPremiere Proをインストール</h4>
+          <p>Creative Cloudアプリを起動し、「アプリ」タブからPremiere Proを探して「インストール」をクリックします。数GBのダウンロードが始まります。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">05</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>起動して初期設定</h4>
+          <p>インストール完了後、「開く」をクリックして起動します。初回起動時に言語設定（日本語）とワークスペースの選択が求められます。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>動作環境の目安</h3>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>最低スペック</th><th>推奨スペック</th></tr></thead>
+      <tbody>
+        <tr><td>CPU</td><td>Intel Core i5（第7世代以降）</td><td>Intel Core i7 / Apple M2以上</td></tr>
+        <tr><td>メモリ（RAM）</td><td>8GB</td><td>16GB以上（4K編集は32GB推奨）</td></tr>
+        <tr><td>GPU</td><td>2GB VRAM</td><td>4GB VRAM以上（NVIDIA/AMD）</td></tr>
+        <tr><td>ストレージ（空き）</td><td>20GB以上</td><td>SSD 50GB以上</td></tr>
+        <tr><td>OS（Mac）</td><td>macOS 13.0</td><td>macOS 14.0以上</td></tr>
+        <tr><td>OS（Windows）</td><td>Windows 10 v22H2</td><td>Windows 11</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note warn">
+      <div class="note-icon">⚠️</div>
+      <p><strong>古いPCは要注意：</strong> スペックが低いと4K動画の編集中にフリーズしやすくなります。4K編集をメインにする場合はRAM 32GB・SSD搭載のPCを強くお勧めします。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S3: SCREEN LAYOUT ===== -->
+  <div class="sec reveal" id="s3">
+    <div class="sec-tag">03 — Screen Layout</div>
+    <h2>画面の見方（ワークスペース）</h2>
+    <p>Premiere Proの画面は「パネル」と呼ばれるブロックが組み合わさった構造です。各パネルは自由に移動・リサイズできます。まずデフォルトのワークスペース「編集」で5つのエリアを覚えましょう。</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        Adobe Premiere Pro — ワークスペース構成図
+      </div>
+      <div class="ws">
+        <div class="ws-block ws-project">
+          <div class="ws-block-tag">AREA A</div>
+          <div class="ws-block-name">📁 プロジェクトパネル</div>
+          <div class="ws-block-desc">取り込んだ素材（クリップ）を管理するフォルダ。ここで素材を整理してからタイムラインへ送る。</div>
+        </div>
+        <div class="ws-block ws-program">
+          <div class="ws-block-tag">AREA B</div>
+          <div class="ws-block-name">▶️ プログラムモニター</div>
+          <div class="ws-block-desc">タイムラインの編集結果をリアルタイムで確認するメインプレビュー画面。</div>
+        </div>
+        <div class="ws-block ws-source">
+          <div class="ws-block-tag">AREA C</div>
+          <div class="ws-block-name">🎞️ ソースモニター</div>
+          <div class="ws-block-desc">タイムラインに追加する前に、素材をプレビュー。イン点・アウト点を設定してから送り込む。</div>
+        </div>
+        <div class="ws-block ws-timeline">
+          <div class="ws-block-tag">AREA D — タイムライン（最重要）</div>
+          <div class="ws-block-name">🎬 タイムラインパネル — 映像・音声・テキストを時間軸に並べて編集する作業エリア</div>
+          <div class="ws-block-desc">V1〜（ビデオトラック）とA1〜（オーディオトラック）で構成。クリップの配置・カット・エフェクト適用のほぼ全作業をここで行う。</div>
+        </div>
+        <div class="ws-block ws-tools">
+          <div class="ws-block-tag">AREA E</div>
+          <div class="ws-block-name">🔧 エフェクトコントロール / ルメトリカラー</div>
+          <div class="ws-block-desc">選択中のクリップのエフェクト設定・色補正のパラメーターを調整するパネル。</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>タイムラインのトラック構造</h3>
+    <p>Premiere Proのタイムラインは<strong>複数のトラックが縦に重なる</strong>構造です。上のトラックが手前に表示されます。</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        タイムライン — トラック構造イメージ
+      </div>
+      <div class="tl">
+        <div class="tl-row">
+          <div class="tl-label">V3（グラフィック）</div>
+          <div class="clip g" style="width:100px">テロップ</div>
+          <div class="tl-spacer"></div>
+          <div class="clip g" style="width:80px">エンド</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label">V2（FX）</div>
+          <div class="clip fx" style="width:60px">トランジション</div>
+          <div class="tl-spacer"></div>
+          <div class="clip fx" style="width:60px">カラー補正</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label">V1（メイン映像）</div>
+          <div class="clip v" style="width:130px">クリップ 1</div>
+          <div class="tl-cut"></div>
+          <div class="clip v" style="width:110px">クリップ 2</div>
+          <div class="tl-cut"></div>
+          <div class="clip v" style="width:150px">クリップ 3</div>
+        </div>
+        <div class="tl-row" style="margin-top:4px">
+          <div class="tl-label">A1（台詞）</div>
+          <div class="clip a" style="width:390px">音声トラック ──────────────────────────────</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label">A2（BGM）</div>
+          <div class="clip a" style="width:440px; background:rgba(232,160,32,0.15); border-color:rgba(232,160,32,0.4); color:#e8c060">BGM ─────────────────────────────────────────</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note gold">
+      <div class="note-icon">💡</div>
+      <p><strong>iMovieとの大きな違い：</strong> Premiere Proはトラックを何十層でも重ねられます。これにより、テロップ・エフェクト・合成レイヤーを別々に管理でき、複雑な演出が可能になります。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S4: PROJECT ===== -->
+  <div class="sec reveal" id="s4">
+    <div class="sec-tag">04 — New Project</div>
+    <h2>プロジェクトの作成</h2>
+    <p>Premiere Proでの作業は必ず「プロジェクト」を作るところから始まります。プロジェクトファイル（.prproj）は素材への「参照リスト」であり、素材ファイル自体は別の場所に保存されています。</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>Premiere Proを起動する</h4>
+          <p>アプリを開くと「ホーム」画面が表示されます。「新規プロジェクト」をクリックします。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>プロジェクト名と保存場所を設定</h4>
+          <p>プロジェクト名（例：「vlog_2025_04」）を入力し、保存場所を指定します。素材ファイルと同じフォルダ内に作るとあとで管理しやすいです。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">03</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>「作成」をクリック</h4>
+          <p>「作成」ボタンをクリックするとPremiere Proの編集画面が開きます。この時点ではタイムラインは空の状態です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note tip">
+      <div class="note-icon">📁</div>
+      <p><strong>フォルダ管理のコツ：</strong> 「プロジェクト名フォルダ」の中に「Footage（素材）」「Audio」「Export（書き出し）」「Project（.prorojファイル）」という4つのサブフォルダを作っておくと、ファイルが散らかりません。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S5: IMPORT ===== -->
+  <div class="sec reveal" id="s5">
+    <div class="sec-tag">05 — Import Media</div>
+    <h2>素材の読み込み</h2>
+
+    <h3>方法① ドラッグ＆ドロップ</h3>
+    <p>FinderやエクスプローラーからMP4・MOVファイルをプロジェクトパネルに直接ドラッグ＆ドロップします。最も手軽な方法です。</p>
+
+    <h3>方法② メディアブラウザーを使う（推奨）</h3>
+    <p>メニューバーの「ウィンドウ」→「メディアブラウザー」を開くと、Premiere Pro内部でファイルを参照できます。特にカメラから直接取り込むときやフォルダ構造ごと確認したいときに便利です。</p>
+
+    <h3>方法③ 読み込みダイアログ</h3>
+    <p>ショートカット <span class="kbd"><span class="key">⌘</span><span class="key">I</span></span>（Mac）または <span class="kbd"><span class="key">Ctrl</span><span class="key">I</span></span>（Windows）でファイル選択ダイアログが開きます。</p>
+
+    <h3>対応ファイル形式</h3>
+    <table class="tbl">
+      <thead><tr><th>形式</th><th>動画</th><th>音声</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>.mp4（H.264/H.265）</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td>最も一般的。YouTubeダウンロードの標準</td></tr>
+        <tr><td>.mov（ProRes等）</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td>高品質プロ向け。Macでよく使われる</td></tr>
+        <tr><td>.mxf</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td>業務用カメラ（ARRI・Sony等）の形式</td></tr>
+        <tr><td>.avi</td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td>古い形式だが対応</td></tr>
+        <tr><td>.mkv</td><td><span class="tri">△</span></td><td><span class="tri">△</span></td><td>バージョンによって読めないことがある</td></tr>
+        <tr><td>.mp3 / .aac / .wav</td><td>—</td><td><span class="ok">✓</span></td><td>音楽・SE素材として使用可</td></tr>
+        <tr><td>.psd（Photoshop）</td><td><span class="ok">✓</span></td><td>—</td><td>レイヤー付きで直接読み込み可能</td></tr>
+        <tr><td>.ai（Illustrator）</td><td><span class="ok">✓</span></td><td>—</td><td>ベクターグラフィックをそのまま使える</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note info">
+      <div class="note-icon">ℹ️</div>
+      <p><strong>「リンク切れ」に注意：</strong> Premiere Proは素材ファイルへの「リンク」を保持しています。素材ファイルを移動・削除・名前変更するとリンクが切れ、タイムライン上で「メディアオフライン」と表示されます。素材ファイルはプロジェクト完了まで移動しないようにしましょう。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S6: SEQUENCE ===== -->
+  <div class="sec reveal" id="s6">
+    <div class="sec-tag">06 — Sequence</div>
+    <h2>シーケンスの作成</h2>
+    <p>Premiere Proでは、タイムラインの編集単位を<strong>「シーケンス」</strong>と呼びます。シーケンスには「解像度」「フレームレート」「縦横比」などの設定があり、最初に正しく設定しておくことが重要です。</p>
+
+    <div class="note warn">
+      <div class="note-icon">⚠️</div>
+      <p>シーケンスの設定（解像度・フレームレート）は<strong>後から変更が難しい</strong>です。使う素材の仕様に合わせて最初に正しく設定しましょう。</p>
+    </div>
+
+    <h3>シーケンスの設定項目</h3>
+    <div class="seq-grid">
+      <div class="seq-item">
+        <div class="seq-label">解像度</div>
+        <div class="seq-val">1920×1080</div>
+        <div class="seq-desc">フルHD。YouTubeメインならこれで十分</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-label">フレームレート</div>
+        <div class="seq-val">29.97fps</div>
+        <div class="seq-desc">YouTube/Web向けの標準。映画風なら24fps</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-label">ピクセル縦横比</div>
+        <div class="seq-val">1.0（正方形）</div>
+        <div class="seq-desc">PCやスマホ向けは正方形ピクセル</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-label">オーディオ</div>
+        <div class="seq-val">48000Hz</div>
+        <div class="seq-desc">映像用の標準サンプルレート</div>
+      </div>
+    </div>
+
+    <h3>かんたんシーケンス作成（推奨）</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>プロジェクトパネルで素材クリップを選択</h4>
+          <p>読み込んだ動画ファイルをプロジェクトパネルでクリックして選択します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>タイムラインに直接ドラッグ</h4>
+          <p>プロジェクトパネルから空のタイムラインにドロップすると「クリップに合わせてシーケンスを作成」するか確認ダイアログが出ます。「OK」をクリックすると素材の解像度・FPSに合ったシーケンスが自動作成されます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note tip">
+      <div class="note-icon">💡</div>
+      <p>これが<strong>最もかんたんで失敗しにくい</strong>シーケンス作成方法です。最初の1本の動画クリップをドラッグするだけで、設定が自動的に決まります。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S7: EDITING ===== -->
+  <div class="sec reveal" id="s7">
+    <div class="sec-tag">07 — Timeline Editing</div>
+    <h2>タイムライン編集の基本</h2>
+
+    <h3>ツールの使い分け</h3>
+    <table class="tbl">
+      <thead><tr><th>ツール名</th><th>ショートカット</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td>⬆️ 選択ツール</td><td><span class="key">V</span></td><td>クリップの移動・選択の基本ツール。迷ったらこれ</td></tr>
+        <tr><td>✂️ レーザーツール（カット）</td><td><span class="key">C</span></td><td>クリックした位置でクリップを切断する</td></tr>
+        <tr><td>↔️ リップルツール</td><td><span class="key">B</span></td><td>クリップの端を削ったとき、後ろのクリップが自動でつめられる</td></tr>
+        <tr><td>⟺ ローリングツール</td><td><span class="key">N</span></td><td>2クリップの境界を両方向にずらす</td></tr>
+        <tr><td>🖐️ ハンドツール</td><td><span class="key">H</span></td><td>タイムラインを左右にスクロールする</td></tr>
+      </tbody>
+    </table>
+
+    <h3>カット編集の基本手順</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>タイムラインにクリップを並べる</h4>
+          <p>プロジェクトパネルから複数のクリップをタイムラインにドラッグし、V1トラックに順番に並べます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>再生して不要な部分を確認</h4>
+          <p>スペースキーで再生し、カットしたい位置を見つけます。プログラムモニターを見ながら確認します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">03</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>レーザーツールで切断</h4>
+          <p><span class="key">C</span>キーでレーザーツールに切り替え、切りたい場所をクリックします。再生ヘッドを移動してから <span class="kbd"><span class="key">⌘</span><span class="key">K</span></span>（Mac）/<span class="kbd"><span class="key">Ctrl</span><span class="key">K</span></span>（Win）でも切断できます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">04</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>不要部分を選択して削除</h4>
+          <p><span class="key">V</span>（選択ツール）に戻り、不要なクリップをクリックして <span class="key">Delete</span> キーで削除。または <span class="key">Shift</span>+<span class="key">Delete</span> で「リップル削除」（後ろのクリップが前につめられる）。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note tip">
+      <div class="note-icon">💡</div>
+      <p><strong>リップル削除が便利：</strong> 通常の削除はクリップを消した場所に「空白」が残ります。<span class="kbd"><span class="key">Shift</span>+<span class="key">Delete</span></span>（リップル削除）を使うと、後ろのクリップが自動的に詰まるので空白ができません。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S8: EFFECTS ===== -->
+  <div class="sec reveal" id="s8">
+    <div class="sec-tag">08 — Effects &amp; Transitions</div>
+    <h2>エフェクト・トランジション</h2>
+
+    <h3>エフェクトの適用方法</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>エフェクトパネルを開く</h4>
+          <p>メニューバー「ウィンドウ」→「エフェクト」をクリック。またはショートカット <span class="kbd"><span class="key">Shift</span><span class="key">7</span></span>。エフェクトが分類されたリストが表示されます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>使いたいエフェクトをクリップにドラッグ</h4>
+          <p>エフェクトパネルで目的のエフェクト（例：「ガウスブラー」）を見つけ、タイムライン上のクリップにドラッグ＆ドロップします。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">03</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>エフェクトコントロールで調整</h4>
+          <p>クリップを選択した状態でエフェクトコントロールパネルを開くと、追加したエフェクトのパラメーターが表示されます。数値を変えて調整します。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>よく使うエフェクト</h3>
+    <div class="cards">
+      <div class="card"><div class="card-ico">🌫️</div><h4>ガウスブラー</h4><p>ぼかし効果。モザイクの代わりや、ピンボケ演出に使います。「ブラー度合い」数値で強さを調整。</p></div>
+      <div class="card"><div class="card-ico">✨</div><h4>自動色調補正</h4><p>映像の色バランスを自動で整えます。まず自動で補正してから細かく手動で調整するのが効率的です。</p></div>
+      <div class="card"><div class="card-ico">🔲</div><h4>クロップ</h4><p>映像の上下左右をトリミングして切り取ります。縦動画から横動画へのリサイズにも使えます。</p></div>
+      <div class="card"><div class="card-ico">🌀</div><h4>ワープスタビライザー</h4><p>手ぶれを自動補正する強力なエフェクト。適用するだけで手持ち撮影がなめらかになります。</p></div>
+    </div>
+
+    <h3>トランジション（場面転換）の追加</h3>
+    <p>エフェクトパネルの「ビデオトランジション」フォルダを開き、2つのクリップの境目にドラッグ＆ドロップします。「クロスディゾルブ」が最もよく使われる定番です。</p>
+
+    <div class="note warn">
+      <div class="note-icon">⚠️</div>
+      <p><strong>トランジションに「のりしろ」が必要：</strong> トランジションはクリップに「のりしろ（余白）」がないと適用できません。クリップの端がギリギリまでカットされている場合、トランジションを置けないことがあります。最初から少し長めに読み込んでおきましょう。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S9: TITLE ===== -->
+  <div class="sec reveal" id="s9">
+    <div class="sec-tag">09 — Text &amp; Graphics</div>
+    <h2>テキスト・グラフィック</h2>
+
+    <h3>テキストの追加方法</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>テキストツールに切り替え</h4>
+          <p>ツールバーの「T」アイコンをクリック、またはショートカット <span class="key">T</span> を押します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>プログラムモニター上をクリックしてテキスト入力</h4>
+          <p>プログラムモニター画面上の好きな位置をクリックし、文字を入力します。タイムライン上に自動でグラフィッククリップが追加されます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">03</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>エッセンシャルグラフィクスで書式を設定</h4>
+          <p>「ウィンドウ」→「エッセンシャルグラフィクス」パネルを開くと、フォント・サイズ・色・影・輪郭などを細かく設定できます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note info">
+      <div class="note-icon">ℹ️</div>
+      <p><strong>モーショングラフィクステンプレート（MOGRT）：</strong> Adobe Stock・After Effects・無料サイトからダウンロードできるアニメーション済みのテロップテンプレートです。エッセンシャルグラフィクスパネルにドロップするだけで使えます。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S10: AUDIO ===== -->
+  <div class="sec reveal" id="s10">
+    <div class="sec-tag">10 — Audio Editing</div>
+    <h2>オーディオ編集</h2>
+
+    <h3>音量調整の基本</h3>
+    <p>オーディオクリップの中央に横線が表示されています。この<strong>白い線を上下にドラッグ</strong>すると音量が変わります。クリップを選択してエフェクトコントロールパネルの「音量」から数値入力もできます。</p>
+
+    <h3>キーフレームで音量をフェードする</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-left"><div class="step-num">01</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>オーディオクリップを拡大表示</h4>
+          <p>タイムライン上のオーディオトラックの高さを広げます（トラックの境界をドラッグ）。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">02</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>音量線上でAlt（Option）+クリック</h4>
+          <p>音量の白い線を <span class="key">Alt</span>（Mac: <span class="key">Option</span>）+クリックすると「キーフレーム（ひし形の点）」が追加されます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-left"><div class="step-num">03</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <h4>キーフレームをドラッグして音量をカーブさせる</h4>
+          <p>2点以上のキーフレームを置いて高さを変えると、その間が自動的にフェード（だんだん変わる）になります。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>AIノイズ除去（Enhance Speech）</h3>
+    <p>Premiere Pro 2024以降には<strong>AIによる音声クリーンアップ</strong>機能が搭載されています。エッセンシャルサウンドパネルで「セリフ」カテゴリに設定し、「ノイズを除去」スライダーを上げるだけで、雑音を自動で削減できます。</p>
+
+    <div class="note tip">
+      <div class="note-icon">💡</div>
+      <p><strong>音量の目安：</strong> YouTube・SNS動画では、対話音声が<strong>−12〜−6 dBFS</strong>程度が適切です。エッセンシャルサウンドパネルの「ラウドネス」→「自動一致」ボタンを使うと自動で適切な音量に合わせてくれます。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S11: COLOR ===== -->
+  <div class="sec reveal" id="s11">
+    <div class="sec-tag">11 — Color Grading</div>
+    <h2>カラー補正（ルメトリカラー）</h2>
+    <p>Premiere Proには<strong>ルメトリカラー</strong>という本格的なカラー補正ツールが内蔵されています。「カラー補正」と「カラーグレーディング」の2段階で作業するのが一般的です。</p>
+
+    <div class="compare-pair">
+      <div class="cmp-box imovie">
+        <div class="cmp-title">📐 カラー補正（露出・WB調整）</div>
+        <ul class="cmp-list">
+          <li>ホワイトバランス（色温度）の修正</li>
+          <li>明るさ・コントラストの調整</li>
+          <li>白飛び・黒つぶれの修正</li>
+          <li>「正確な色」に整えるプロセス</li>
+        </ul>
+      </div>
+      <div class="cmp-box premiere">
+        <div class="cmp-title">🎨 カラーグレーディング（演出）</div>
+        <ul class="cmp-list">
+          <li>映画のような色調・雰囲気作り</li>
+          <li>LUT（カラーフィルター）の適用</li>
+          <li>トーンカーブで特定の色を強調</li>
+          <li>「好みの世界観」に仕上げるプロセス</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>ルメトリカラーの基本パラメーター</h3>
+    <table class="tbl">
+      <thead><tr><th>パラメーター</th><th>何が変わる？</th><th>目安</th></tr></thead>
+      <tbody>
+        <tr><td>露光量</td><td>映像全体の明るさ</td><td>暗すぎる→＋0.5〜1.0</td></tr>
+        <tr><td>コントラスト</td><td>明暗の差</td><td>眠い映像→＋20〜40</td></tr>
+        <tr><td>ハイライト</td><td>明るい部分だけの明るさ</td><td>白飛び→マイナス方向</td></tr>
+        <tr><td>シャドウ</td><td>暗い部分だけの明るさ</td><td>つぶれ→プラス方向</td></tr>
+        <tr><td>白レベル / 黒レベル</td><td>最も明るい/暗い部分の限界</td><td>コントラスト強調に使う</td></tr>
+        <tr><td>色温度</td><td>青み↔黄みのバランス</td><td>屋内の黄色みを修正など</td></tr>
+        <tr><td>色かぶり補正</td><td>緑↔マゼンタのバランス</td><td>蛍光灯の緑かぶり修正</td></tr>
+        <tr><td>自然な彩度</td><td>薄い色だけを鮮やかに</td><td>肌色を崩さず鮮やかに</td></tr>
+      </tbody>
+    </table>
+
+    <h3>カラースコープ（波形モニター）</h3>
+    <p>感覚だけでなく<strong>数値で色を確認</strong>するためのツールです。「ウィンドウ」→「Lumetriスコープ」で表示できます。</p>
+    <div class="color-scopes">
+      <div class="scope-box">
+        <div class="scope-title">波形モニター（輝度）</div>
+        <div class="scope-visual">
+          <div class="waveform"></div>
+        </div>
+      </div>
+      <div class="scope-box">
+        <div class="scope-title">RGBパレード（色バランス）</div>
+        <div class="scope-visual">
+          <div class="parade">
+            <div class="parade-ch" style="height:70%; background: rgba(224,82,82,0.6); border-radius:2px 2px 0 0;"></div>
+            <div class="parade-ch" style="height:55%; background: rgba(82,196,114,0.6); border-radius:2px 2px 0 0;"></div>
+            <div class="parade-ch" style="height:80%; background: rgba(77,168,245,0.6); border-radius:2px 2px 0 0;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="scope-box">
+        <div class="scope-title">ベクトルスコープ（色相）</div>
+        <div class="scope-visual">
+          <div class="vectorscope"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note gold">
+      <div class="note-icon">⚡</div>
+      <p><strong>LUT（ルット）を使うと一発で雰囲気が変わる：</strong> LUTとはカラーフィルターのプリセットです。ルメトリカラーの「クリエイティブ」→「Look」にLUTファイルを読み込むだけで、シネマ風・ヴィンテージ風など一発で雰囲気が変わります。無料LUTも多数配布されています。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S12: EXPORT ===== -->
+  <div class="sec reveal" id="s12">
+    <div class="sec-tag">12 — Export</div>
+    <h2>書き出し（メディアエンコーダー）</h2>
+    <p>編集が完了したら、動画ファイルとして書き出します。Premiere Proには<strong>直接書き出し</strong>と<strong>Adobe Media Encoderに送って書き出す</strong>2つの方法があります。</p>
+
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-ico">🎬</div><div class="pipe-lbl">STEP 1</div><div class="pipe-name">編集完了</div></div>
+      <div class="pipe-step"><div class="pipe-ico">📤</div><div class="pipe-lbl">STEP 2</div><div class="pipe-name">ファイル→書き出し</div></div>
+      <div class="pipe-step"><div class="pipe-ico">⚙️</div><div class="pipe-lbl">STEP 3</div><div class="pipe-name">プリセット選択</div></div>
+      <div class="pipe-step"><div class="pipe-ico">📂</div><div class="pipe-lbl">STEP 4</div><div class="pipe-name">保存先を指定</div></div>
+      <div class="pipe-step"><div class="pipe-ico">✅</div><div class="pipe-lbl">完了</div><div class="pipe-name">MP4ファイル</div></div>
+    </div>
+
+    <h3>用途別おすすめプリセット</h3>
+    <table class="tbl">
+      <thead><tr><th>用途</th><th>形式</th><th>解像度</th><th>ビットレート目安</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag r">YouTube HD</span></td><td>H.264（MP4）</td><td>1920×1080</td><td>16〜20 Mbps</td></tr>
+        <tr><td><span class="tag r">YouTube 4K</span></td><td>H.264（MP4）</td><td>3840×2160</td><td>45〜68 Mbps</td></tr>
+        <tr><td><span class="tag b">Instagram（縦）</span></td><td>H.264（MP4）</td><td>1080×1920</td><td>10〜15 Mbps</td></tr>
+        <tr><td><span class="tag g">納品用マスター</span></td><td>ProRes 422 / DNxHR</td><td>元素材と同じ</td><td>高品質（大容量）</td></tr>
+        <tr><td><span class="tag o">メール・Web共有</span></td><td>H.265（MP4）</td><td>1280×720</td><td>5〜8 Mbps</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Adobe Media Encoder（AME）を使うメリット</h3>
+    <p>「ファイル」→「書き出し」→「メディア」で「キューに追加」を選ぶと、Adobe Media Encoderに処理が渡されます。AMEを使うと<strong>書き出し中もPremiere Proで編集を続けられる</strong>ため、長い動画の書き出し時間を有効活用できます。</p>
+
+    <div class="note info">
+      <div class="note-icon">ℹ️</div>
+      <p><strong>YouTubeへの直接アップロード：</strong> 書き出しダイアログの「公開」タブから、YouTubeアカウントと連携してPremiere Proから直接アップロードできます。書き出しとアップロードが一度に完了して便利です。</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S13: SHORTCUTS ===== -->
+  <div class="sec reveal" id="s13">
+    <div class="sec-tag">13 — Keyboard Shortcuts</div>
+    <h2>ショートカット一覧</h2>
+    <p>まず<strong>⭐マークの9つ</strong>だけ覚えましょう。これだけで作業効率が格段に上がります。</p>
+
+    <div class="note gold">
+      <div class="note-icon">⭐</div>
+      <p>優先して覚える9つ：<strong>再生/停止、カット、リップル削除、やり直し、ズームイン/アウト、イン点/アウト点設定、書き出し</strong></p>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>操作</th><th>Mac</th><th>Windows</th><th>説明</th></tr></thead>
+      <tbody>
+        <tr><td>⭐ 再生 / 停止</td><td><span class="key">Space</span></td><td><span class="key">Space</span></td><td>タイムラインの再生・一時停止</td></tr>
+        <tr><td>⭐ クリップをカット</td><td><span class="kbd"><span class="key">⌘</span><span class="key">K</span></span></td><td><span class="kbd"><span class="key">Ctrl</span><span class="key">K</span></span></td><td>再生ヘッドの位置でカット</td></tr>
+        <tr><td>⭐ リップル削除</td><td><span class="kbd"><span class="key">Shift</span><span class="key">Delete</span></span></td><td><span class="kbd"><span class="key">Shift</span><span class="key">Delete</span></span></td><td>空白を残さず削除</td></tr>
+        <tr><td>⭐ やり直し</td><td><span class="kbd"><span class="key">⌘</span><span class="key">Z</span></span></td><td><span class="kbd"><span class="key">Ctrl</span><span class="key">Z</span></span></td><td>直前の操作を取り消す</td></tr>
+        <tr><td>⭐ タイムラインを拡大</td><td><span class="key">+</span> / <span class="key">=</span></td><td><span class="key">+</span></td><td>細かいカット作業に</td></tr>
+        <tr><td>⭐ タイムラインを縮小</td><td><span class="key">−</span></td><td><span class="key">−</span></td><td>全体を俯瞰するときに</td></tr>
+        <tr><td>⭐ イン点を設定</td><td><span class="key">I</span></td><td><span class="key">I</span></td><td>クリップ使用開始点をマーク</td></tr>
+        <tr><td>⭐ アウト点を設定</td><td><span class="key">O</span></td><td><span class="key">O</span></td><td>クリップ使用終了点をマーク</td></tr>
+        <tr><td>⭐ 書き出し</td><td><span class="kbd"><span class="key">⌘</span><span class="key">M</span></span></td><td><span class="kbd"><span class="key">Ctrl</span><span class="key">M</span></span></td><td>書き出しダイアログを開く</td></tr>
+        <tr><td>選択ツール</td><td><span class="key">V</span></td><td><span class="key">V</span></td><td>基本ツール、迷ったらV</td></tr>
+        <tr><td>レーザーツール</td><td><span class="key">C</span></td><td><span class="key">C</span></td><td>カットツール</td></tr>
+        <tr><td>全クリップ選択</td><td><span class="kbd"><span class="key">⌘</span><span class="key">A</span></span></td><td><span class="kbd"><span class="key">Ctrl</span><span class="key">A</span></span></td><td>タイムライン上の全クリップ</td></tr>
+        <tr><td>シーケンス全体を表示</td><td><span class="key">\</span></td><td><span class="key">\</span></td><td>タイムラインをぴったりフィット</td></tr>
+        <tr><td>マーカーを追加</td><td><span class="key">M</span></td><td><span class="key">M</span></td><td>メモ用のマーカーをつける</td></tr>
+        <tr><td>保存</td><td><span class="kbd"><span class="key">⌘</span><span class="key">S</span></span></td><td><span class="kbd"><span class="key">Ctrl</span><span class="key">S</span></span></td><td>プロジェクトを上書き保存</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- ===== S14: TROUBLESHOOTING ===== -->
+  <div class="sec reveal" id="s14">
+    <div class="sec-tag">14 — Troubleshooting</div>
+    <h2>よくあるトラブルと対処法</h2>
+
+    <h3>❌ 動作が重い・カクカクする</h3>
+    <div class="note warn">
+      <div class="note-icon">🔧</div>
+      <p><strong>原因：</strong>4K動画や高ビットレート素材の負荷が高い。<br>
+      <strong>対処①</strong> プロキシを作成する：「クリップを右クリック」→「プロキシ」→「プロキシを作成」で軽量な代替ファイルを生成。編集中はプロキシで作業し、書き出し時にフル解像度に戻ります。<br>
+      <strong>対処②</strong> 再生解像度を下げる：プログラムモニター右下の「フル画質」ドロップダウンを「1/2」や「1/4」に変更します。</p>
+    </div>
+
+    <h3>❌ 「メディアオフライン」と表示される</h3>
+    <div class="note warn">
+      <div class="note-icon">🔧</div>
+      <p><strong>原因：</strong>素材ファイルが移動・削除・名前変更された。<br>
+      <strong>対処：</strong> 赤いクリップを右クリック→「メディアをリンク」→素材の現在の場所を指定すると復元されます。</p>
+    </div>
+
+    <h3>❌ 音声だけ/映像だけが読み込まれない</h3>
+    <div class="note warn">
+      <div class="note-icon">🔧</div>
+      <p><strong>原因：</strong> タイムラインにドラッグする際、ビデオ・オーディオどちらかのトラックターゲットがオフになっている。<br>
+      <strong>対処：</strong> タイムライン左端のトラック名（V1, A1）横の小さな四角アイコンが点灯しているか確認し、オンにしてから再度ドラッグします。</p>
+    </div>
+
+    <h3>❌ 書き出し後の画質が荒い</h3>
+    <div class="note warn">
+      <div class="note-icon">🔧</div>
+      <p><strong>原因：</strong> ビットレートが低すぎる設定になっている。<br>
+      <strong>対処：</strong> 書き出しダイアログの「ビデオ」タブで「ターゲットビットレート」を上げます。1080p YouTubeなら16〜20 Mbpsが目安です。「最高レンダリング品質を使用」にもチェックを入れましょう。</p>
+    </div>
+
+    <h3>❌ アプリが突然クラッシュした</h3>
+    <div class="note tip">
+      <div class="note-icon">💡</div>
+      <p><strong>自動保存を確認：</strong> Premiere Proは定期的に自動保存（自動バックアップ）します。「編集」→「環境設定」→「自動保存」で保存フォルダを確認し、最新の「自動保存」フォルダ内の.prorojファイルを開いてください。</p>
+    </div>
+
+    <h3>❌ エフェクトが重くてプレビューできない</h3>
+    <div class="note tip">
+      <div class="note-icon">💡</div>
+      <p><strong>レンダリングプレビューを作成：</strong> タイムライン上で範囲選択し、「シーケンス」→「インからアウトをレンダリング」（<span class="kbd"><span class="key">Enter</span></span>）でプレビュー用ファイルを一時生成します。レンダリング後はスムーズに再生できます。</p>
+    </div>
+  </div>
+
+</div><!-- /.page -->
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>Adobe Premiere Pro 完全ガイド — 初心者のための本格動画編集マニュアル</p>
+  <p>このガイドは <strong>Adobe Premiere Pro 2025（v25.x）</strong> を基に作成されています。</p>
+  <p><span>Adobe、Premiere Pro、After Effects、Creative CloudはAdobe Inc.の商標です。</span></p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
