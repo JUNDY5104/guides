@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notion完全ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #2d2d2d;
+    --sub: #0098b0;
+    --bg: #ffffff;
+    --bg-light: #f8f8f6;
+    --text: #1a1a1a;
+    --text-muted: #666666;
+    --border: #e0e0e0;
+    --code-bg: #f4f4f2;
+    --max-w: 1000px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  /* ヘッダー */
+  .site-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 56px 24px 48px;
+    text-align: center;
+  }
+  .site-header .label {
+    display: inline-block;
+    background: var(--sub);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .site-header h1 {
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .site-header .subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* メインラッパー */
+  .wrapper {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* 目次 */
+  .toc-block {
+    background: var(--bg-light);
+    border-left: 4px solid var(--sub);
+    padding: 28px 32px;
+    margin: 48px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .toc-block h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 16px;
+  }
+  .toc-block ol {
+    list-style: none;
+    counter-reset: toc;
+  }
+  .toc-block li {
+    counter-increment: toc;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toc-block li:last-child { border-bottom: none; }
+  .toc-block li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sub);
+    margin-right: 10px;
+  }
+  .toc-block a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .toc-block a:hover { color: var(--sub); }
+
+  /* セクション */
+  .section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 700;
+    border-bottom: 2px solid var(--sub);
+    padding-bottom: 6px;
+    flex: 1;
+  }
+
+  /* テキスト要素 */
+  p { margin-bottom: 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    padding-left: 12px;
+    border-left: 3px solid var(--sub);
+    color: var(--accent);
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--text-muted);
+  }
+
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  li { margin-bottom: 6px; }
+
+  /* ノートボックス */
+  .note {
+    background: var(--bg-light);
+    border-left: 4px solid var(--sub);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+  }
+  .note strong {
+    display: block;
+    color: var(--sub);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* ポイントボックス */
+  .point-box {
+    border: 1.5px solid var(--accent);
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+  .point-box .point-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  /* テーブル */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg-light); }
+
+  /* コード<span class="tip" data-tip="テキスト・画像・リストなどコンテンツの最小単位。すべての要素はブロックで構成される">ブロック</span> */
+  .code-block {
+    position: relative;
+    margin: 16px 0;
+  }
+  .code-block pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 20px 18px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .copy-btn:hover { background: var(--sub); }
+  .copy-btn.copied { background: #28a745; }
+
+  /* 画像プレースホルダー */
+  .img-placeholder {
+    background: var(--bg-light);
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    padding: 32px 24px;
+    text-align: center;
+    margin: 24px 0;
+    color: var(--text-muted);
+  }
+  .img-placeholder .img-label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--sub);
+    margin-bottom: 8px;
+  }
+  .img-placeholder .img-filename {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    background: var(--border);
+    padding: 2px 8px;
+    border-radius: 2px;
+    color: var(--text-muted);
+  }
+
+  /* ステップリスト */
+  .steps {
+    list-style: none;
+    padding: 0;
+    counter-reset: step;
+  }
+  .steps li {
+    counter-increment: step;
+    padding: 14px 14px 14px 52px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    width: 26px;
+    height: 26px;
+    background: var(--sub);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* FAQ */
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .faq-q {
+    background: var(--bg-light);
+    padding: 14px 18px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .faq-q::after {
+    content: '+';
+    font-size: 18px;
+    color: var(--sub);
+    font-weight: 400;
+    transition: transform 0.2s;
+  }
+  .faq-item.open .faq-q::after {
+    transform: rotate(45deg);
+  }
+  .faq-a {
+    display: none;
+    padding: 16px 18px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .faq-item.open .faq-a { display: block; }
+
+  /* フッター */
+  .site-footer {
+    background: var(--accent);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    margin-top: 48px;
+  }
+  .site-footer strong {
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 640px) {
+    .site-header { padding: 40px 20px 36px; }
+    .toc-block { padding: 20px; }
+    .section { padding: 40px 0; }
+    th, td { padding: 8px 10px; }
+  }
+
+  /* ---- モックアップ共通 ---- */
+  .mockup-wrap {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 24px 0;
+    font-size: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .mockup-bar {
+    background: #e8e8e6;
+    padding: 8px 14px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .mockup-bar span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .mockup-bar span:nth-child(1) { background: #ff6058; }
+  .mockup-bar span:nth-child(2) { background: #ffbd2e; }
+  .mockup-bar span:nth-child(3) { background: #28c840; }
+  .mockup-body {
+    background: #fff;
+    overflow: hidden;
+  }
+
+  /* ホーム画面モック */
+  .mockup-notion-home { display: flex; min-height: 200px; }
+  .mock-sidebar {
+    width: 190px;
+    background: #f7f7f5;
+    border-right: 1px solid var(--border);
+    padding: 14px 10px;
+    flex-shrink: 0;
+  }
+  .mock-ws-name { font-weight: 700; font-size: 13px; padding: 6px 8px 12px; color: var(--accent); }
+  .mock-nav-item {
+    padding: 5px 8px;
+    border-radius: 4px;
+    color: var(--text-muted);
+    cursor: default;
+    margin-bottom: 1px;
+    white-space: nowrap;
+  }
+  .mock-nav-item.active { background: var(--border); color: var(--accent); font-weight: 700; }
+  .mock-nav-item.pl { padding-left: 18px; }
+  .mock-nav-item.add { color: var(--sub); margin-top: 6px; }
+  .mock-nav-section { padding: 10px 8px 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; }
+  .mock-main { flex: 1; padding: 24px 28px; }
+  .mock-greeting { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: var(--accent); }
+  .mock-recent-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
+  .mock-cards { display: flex; gap: 10px; flex-wrap: wrap; }
+  .mock-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    width: 130px;
+    cursor: default;
+  }
+  .mock-card-icon { width: 28px; height: 28px; background: var(--accent); color: #fff; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .mock-card-title { font-weight: 700; font-size: 12px; margin-bottom: 4px; }
+  .mock-card-date { font-size: 10px; color: #aaa; }
+
+  /* サインアップモック */
+  .mockup-center { padding: 32px 24px; display: flex; align-items: center; justify-content: center; }
+  .mock-signup-box { width: 100%; max-width: 360px; }
+  .mock-logo { width: 40px; height: 40px; background: var(--accent); color: #fff; font-size: 22px; font-weight: 900; display: flex; align-items: center; justify-content: center; border-radius: 6px; margin: 0 auto 16px; }
+  .mock-signup-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 20px; }
+  .mock-input { border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; color: #bbb; font-size: 13px; width: 100%; margin-bottom: 10px; }
+  .mock-btn { background: var(--accent); color: #fff; text-align: center; padding: 10px 14px; border-radius: 4px; font-weight: 700; font-size: 13px; margin-bottom: 8px; cursor: default; }
+  .mock-btn-outline { background: #fff; color: var(--accent); border: 1px solid var(--border); }
+  .mock-divider { text-align: center; color: #ccc; font-size: 11px; margin: 8px 0; position: relative; }
+  .mock-divider::before, .mock-divider::after { content: ''; position: absolute; top: 50%; width: 42%; height: 1px; background: var(--border); }
+  .mock-divider::before { left: 0; }
+  .mock-divider::after { right: 0; }
+  .mock-terms { font-size: 10px; color: #bbb; text-align: center; margin-top: 12px; line-height: 1.6; }
+
+  /* テーブル<span class="tip" data-tip="同じデータベースを別の見た目・形式で表示する方法。テーブル・<span class="tip" data-tip="タスクをカード形式でステータス別に管理する方法。進捗を視覚的に把握しやすい">カンバン</span>・カレンダーなど">ビュー</span>モック */
+  .mock-db-toolbar {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    background: #fafaf8;
+    flex-wrap: wrap;
+    overflow-x: auto;
+  }
+  .mock-view-tab {
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: default;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .mock-view-tab.active { color: var(--accent); font-weight: 700; border-bottom-color: var(--accent); }
+  .mock-view-add { margin-left: auto; padding: 10px 14px; font-size: 12px; color: var(--sub); cursor: default; white-space: nowrap; }
+  .mock-table { padding: 0 16px 16px; overflow-x: auto; }
+  .mock-table-head { display: flex; border-bottom: 1px solid var(--border); background: #fafaf8; min-width: 480px; }
+  .mock-th { padding: 8px 10px; font-size: 11px; font-weight: 700; color: #999; letter-spacing: 0.06em; }
+  .mock-th.title { flex: 2; min-width: 180px; }
+  .mock-th:not(.title) { flex: 1; min-width: 90px; }
+  .mock-table-row { display: flex; border-bottom: 1px solid #f0f0ee; min-width: 480px; }
+  .mock-table-row:last-child { border-bottom: none; }
+  .mock-td { padding: 8px 10px; font-size: 12px; display: flex; align-items: center; }
+  .mock-td.title { flex: 2; min-width: 180px; font-weight: 500; }
+  .mock-td:not(.title) { flex: 1; min-width: 90px; }
+  .mock-td.muted { color: #aaa; }
+  .mock-tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; }
+  .mock-tag.blue { background: #e8f4fd; color: #1a6fa8; }
+  .mock-tag.green { background: #e6f9f0; color: #1a7a48; }
+  .mock-tag.gray { background: #f0f0f0; color: #888; }
+  .mock-tag.red { background: #fdecea; color: #c0392b; }
+  .mock-tag.yellow { background: #fef9e7; color: #b7860a; }
+
+  /* カンバンモック */
+  .mock-kanban { display: flex; gap: 12px; padding: 16px; overflow-x: auto; min-height: 180px; }
+  .mock-col { flex: 1; min-width: 150px; }
+  .mock-col-head { padding: 8px 12px; border-radius: 4px 4px 0 0; font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+  .gray-head { background: #f0f0f0; color: #666; }
+  .blue-head { background: #e8f4fd; color: #1a6fa8; }
+  .green-head { background: #e6f9f0; color: #1a7a48; }
+  .mock-col-count { background: rgba(0,0,0,0.1); border-radius: 10px; padding: 1px 6px; font-size: 10px; }
+  .mock-card-k { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; margin-top: 8px; font-size: 12px; font-weight: 500; line-height: 1.5; }
+  .mock-card-meta { display: flex; gap: 6px; align-items: center; margin-top: 6px; font-size: 10px; color: #aaa; flex-wrap: wrap; }
+
+
+  /* ===== TOPボタン ===== */
+  .to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 36px;
+    padding: 7px 16px;
+    background: var(--bg-off);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted, #666);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: background .2s, color .2s, border-color .2s;
+    cursor: pointer;
+  }
+  .to-top::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid currentColor;
+  }
+  .to-top:hover {
+    background: var(--accent, #2d2d2d);
+    color: #fff;
+    border-color: var(--accent, #2d2d2d);
+  }
+
+  /* ===== ツールチップ注釈 ===== */
+  .tip {
+    border-bottom: 1.5px dotted var(--accent, #2d2d2d);
+    cursor: help;
+    position: relative;
+    display: inline;
+  }
+  .tip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.65;
+    padding: 8px 12px;
+    border-radius: 6px;
+    width: max-content;
+    max-width: 260px;
+    white-space: normal;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0;
+  }
+  .tip::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a1a1a;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+  }
+  .tip:hover::after,
+  .tip:hover::before {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="label">Complete Guide</div>
+  <h1>Notion 完全ガイド</h1>
+  <p class="subtitle">アカウント作成から実践活用まで、基礎から丁寧に解説します</p>
+</header>
+
+<div class="wrapper">
+
+  <!-- 目次 -->
+  <nav class="toc-block">
+    <h2>目次</h2>
+    <ol>
+      <li><a href="#sec1">Notionとは</a></li>
+      <li><a href="#sec2">アカウント作成と初期設定</a></li>
+      <li><a href="#sec3">ページとブロックの基本</a></li>
+      <li><a href="#sec4"><span class="tip" data-tip="情報を一覧で管理する高機能な表。フィルター・並べ替え・複数のビューが使える">データベース</span>の使い方</a></li>
+      <li><a href="#sec5"><span class="tip" data-tip="あらかじめ構成が決まった雛形。選んで内容を書き換えるだけですぐ使える">テンプレート</span>の活用</a></li>
+      <li><a href="#sec6">実践！活用シーン例</a></li>
+      <li><a href="#sec7">よくある質問と注意点</a></li>
+    </ol>
+  </nav>
+
+  <!-- Section 1 -->
+  <section class="section" id="sec1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Notionとは</h2>
+    </div>
+
+    <p>Notionは、メモ・タスク管理・データベース・Wiki・カレンダーなど、複数の機能を1つのツールにまとめたオールインワン型の生産性アプリです。個人利用から大企業のチームまで幅広く使われており、世界中で数千万人が活用しています。</p>
+
+    <!-- Notion ホーム画面モックアップ -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar"><span></span><span></span><span></span></div>
+      <div class="mockup-body mockup-notion-home">
+        <div class="mock-sidebar">
+          <div class="mock-ws-name">My Workspace</div>
+          <div class="mock-nav-item active">ホーム</div>
+          <div class="mock-nav-item">受信トレイ</div>
+          <div class="mock-nav-section">ページ</div>
+          <div class="mock-nav-item pl">タスク管理</div>
+          <div class="mock-nav-item pl">読書リスト</div>
+          <div class="mock-nav-item pl">日記</div>
+          <div class="mock-nav-item pl add">+ 新規ページ</div>
+        </div>
+        <div class="mock-main">
+          <div class="mock-greeting">おかえりなさい</div>
+          <div class="mock-recent-label">最近のページ</div>
+          <div class="mock-cards">
+            <div class="mock-card"><div class="mock-card-icon">T</div><div class="mock-card-title">タスク管理</div><div class="mock-card-date">今日</div></div>
+            <div class="mock-card"><div class="mock-card-icon">R</div><div class="mock-card-title">読書リスト</div><div class="mock-card-date">昨日</div></div>
+            <div class="mock-card"><div class="mock-card-icon">D</div><div class="mock-card-title">日記</div><div class="mock-card-date">3日前</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Notionでできること</h3>
+    <ul>
+      <li>テキストメモ・日記・議事録の作成</li>
+      <li>タスク管理・プロジェクト進捗の追跡</li>
+      <li>表（データベース）による情報整理</li>
+      <li>チームでの共同編集・ページ共有</li>
+      <li>ポートフォリオや社内Wikiとしての活用</li>
+    </ul>
+
+    <h3>他のツールとの違い</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ツール</th>
+          <th>主な用途</th>
+          <th>Notionとの比較</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Evernote</td>
+          <td>メモ・スクラップ</td>
+          <td>Notionはデータベース機能が大幅に強力</td>
+        </tr>
+        <tr>
+          <td>Trello</td>
+          <td>カンバンボード</td>
+          <td>Notionはテキスト編集や表との併用が可能</td>
+        </tr>
+        <tr>
+          <td>Googleドキュメント</td>
+          <td>文書作成</td>
+          <td>Notionはページ間のリンクや構造化が得意</td>
+        </tr>
+        <tr>
+          <td>Airtable</td>
+          <td>データベース</td>
+          <td>Notionはドキュメントと表を同一ページで扱える</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>Point</strong>
+      Notionは「1つのアプリで完結する」ことが最大の強みです。複数のツールを行き来するコストを削減し、情報をひとつの場所にまとめて管理できます。
+    </div>
+  
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+  <!-- Section 2 -->
+  <section class="section" id="sec2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>アカウント作成と初期設定</h2>
+    </div>
+
+    <p>Notionはブラウザ・デスクトップアプリ・スマートフォンアプリのいずれからでも利用できます。まず無料アカウントを作成し、日本語表示に設定しましょう。</p>
+
+    <h3>アカウント作成の手順</h3>
+    <ol class="steps">
+      <li><strong>notion.so</strong> にアクセスし、「Notionを無料で使う」をクリックする</li>
+      <li>メールアドレス、またはGoogleアカウント・Appleアカウントで登録する</li>
+      <li>届いたメールのリンクをクリックして認証する（メール登録の場合）</li>
+      <li>利用目的（個人・チームなど）を選択し、<span class="tip" data-tip="Notionの作業空間全体。会社や個人プロジェクトの単位で作成する">ワークスペース</span>を作成する</li>
+      <li>ログイン完了。ホーム画面が表示される</li>
+    </ol>
+
+    <!-- サインアップ画面モックアップ -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar"><span></span><span></span><span></span></div>
+      <div class="mockup-body mockup-center">
+        <div class="mock-signup-box">
+          <div class="mock-logo">N</div>
+          <div class="mock-signup-title">Notionへようこそ</div>
+          <div class="mock-input-row"><div class="mock-input">メールアドレスを入力</div></div>
+          <div class="mock-btn">メールアドレスで続ける</div>
+          <div class="mock-divider"><span>または</span></div>
+          <div class="mock-btn mock-btn-outline">G &nbsp;&nbsp; Googleで続ける</div>
+          <div class="mock-btn mock-btn-outline">A &nbsp;&nbsp; Appleで続ける</div>
+          <div class="mock-terms">続けることで、利用規約とプライバシーポリシーに同意したことになります</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>日本語表示に変更する方法</h3>
+    <p>Notionは初期設定が英語になっている場合があります。以下の手順で日本語に切り替えてください。</p>
+    <ol class="steps">
+      <li>左サイドバー下部のアカウント名をクリックする</li>
+      <li>「Settings（設定）」を選択する</li>
+      <li>「Language &amp; region」から「日本語」を選択する</li>
+      <li>画面を再読み込みすると日本語表示になる</li>
+    </ol>
+
+    <h3>画面の主な構成</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>エリア</th>
+          <th>内容</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>左サイドバー</td>
+          <td>ページ一覧・検索・設定・ゴミ箱へのアクセス</td>
+        </tr>
+        <tr>
+          <td>メインエリア</td>
+          <td>選択中のページの編集・閲覧</td>
+        </tr>
+        <tr>
+          <td>右上ツールバー</td>
+          <td>共有・コメント・<span class="tip" data-tip="データベースの列のこと。テキスト・日付・セレクトなど型を選んで設定する">プロパティ</span>の表示切り替え</td>
+        </tr>
+      </tbody>
+    </table>
+  
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+  <!-- Section 3 -->
+  <section class="section" id="sec3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>ページとブロックの基本</h2>
+    </div>
+
+    <p>Notionのコンテンツはすべて「ページ」と「ブロック」で構成されています。ブロックとはテキスト・画像・リストなど、あらゆるコンテンツの最小単位です。</p>
+
+    <h3>ページの作成方法</h3>
+    <ol class="steps">
+      <li>左サイドバーの「+ 新規ページ」をクリックする</li>
+      <li>タイトルを入力する（Enterで確定）</li>
+      <li>本文エリアをクリックしてコンテンツを入力し始める</li>
+    </ol>
+
+    <div class="note">
+      <strong>Tip</strong>
+      ページの中にページを作ることができます。「/page」と入力するとサブページを挿入でき、階層的な情報整理に役立ちます。
+    </div>
+
+    <h3>ブロックの種類</h3>
+    <p>本文エリアで「/」を入力すると、挿入できるブロックの一覧が表示されます。主なブロックは以下のとおりです。</p>
+    <table>
+      <thead>
+        <tr>
+          <th>コマンド</th>
+          <th>ブロックの種類</th>
+          <th>用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>/text</td>
+          <td>テキスト</td>
+          <td>通常の本文入力</td>
+        </tr>
+        <tr>
+          <td>/h1</td>
+          <td>見出し1</td>
+          <td>大見出し（最大フォントサイズ）</td>
+        </tr>
+        <tr>
+          <td>/todo</td>
+          <td>ToDoリスト</td>
+          <td>チェックボックス付きのタスクリスト</td>
+        </tr>
+        <tr>
+          <td>/bullet</td>
+          <td>箇条書きリスト</td>
+          <td>点（丸）付きのリスト</td>
+        </tr>
+        <tr>
+          <td>/table</td>
+          <td>シンプルテーブル</td>
+          <td>行列形式の表（データベース機能なし）</td>
+        </tr>
+        <tr>
+          <td>/image</td>
+          <td>画像</td>
+          <td>ファイルアップロードまたはURL指定で画像を挿入</td>
+        </tr>
+        <tr>
+          <td>/code</td>
+          <td>コードブロック</td>
+          <td>プログラムコードのハイライト表示</td>
+        </tr>
+        <tr>
+          <td>/divider</td>
+          <td>区切り線</td>
+          <td>セクション間の水平線</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>ブロックの操作（コピー・移動・削除）</h3>
+    <ul>
+      <li>ブロック左の「6つの点（::）」アイコンをドラッグすると、ブロックを自由に並べ替えられます</li>
+      <li>同じアイコンをクリックすると「削除・複製・色変更」などのメニューが表示されます</li>
+      <li>テキストを選択して「Ctrl+B」（Mac: Cmd+B）で太字にするなど、マークダウン的な書式設定が使えます</li>
+    </ul>
+
+    <h3>よく使うショートカット</h3>
+
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+      <pre>Ctrl + N   : 新規ページを作成
+Ctrl + P   : ページ検索（クイック検索）
+Ctrl + /   : ブロックタイプを変更
+Ctrl + D   : ブロックを複製
+Ctrl + Z   : 元に戻す
+[ ]        : ToDoチェックボックスを作成（半角角括弧2つ）
+---        : 区切り線を挿入（ハイフン3つ）
+
+※ Mac の場合は Ctrl を Cmd に読み替えてください</pre>
+    </div>
+  
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+  <!-- Section 4 -->
+  <section class="section" id="sec4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>データベースの使い方</h2>
+    </div>
+
+    <p>Notionの最大の特徴がデータベース機能です。同じデータを「テーブル」「カレンダー」「カンバン」「ギャラリー」など複数の見た目で切り替えられるため、用途に応じた管理が可能です。</p>
+
+    <!-- データベース ビュー切り替えモックアップ -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar"><span></span><span></span><span></span></div>
+      <div class="mockup-body">
+        <div class="mock-db-toolbar">
+          <div class="mock-view-tab active">テーブル</div>
+          <div class="mock-view-tab">カンバン</div>
+          <div class="mock-view-tab">カレンダー</div>
+          <div class="mock-view-tab">ギャラリー</div>
+          <div class="mock-view-tab">リスト</div>
+          <div class="mock-view-add">+ ビューを追加</div>
+        </div>
+        <div class="mock-table">
+          <div class="mock-table-head">
+            <div class="mock-th title">名前</div>
+            <div class="mock-th">ステータス</div>
+            <div class="mock-th">期限</div>
+            <div class="mock-th">優先度</div>
+          </div>
+          <div class="mock-table-row"><div class="mock-td title">ランディングページ改修</div><div class="mock-td"><span class="mock-tag blue">進行中</span></div><div class="mock-td muted">6月15日</div><div class="mock-td"><span class="mock-tag red">高</span></div></div>
+          <div class="mock-table-row"><div class="mock-td title">競合調査レポート</div><div class="mock-td"><span class="mock-tag green">完了</span></div><div class="mock-td muted">6月10日</div><div class="mock-td"><span class="mock-tag yellow">中</span></div></div>
+          <div class="mock-table-row"><div class="mock-td title">SNS投稿スケジュール作成</div><div class="mock-td"><span class="mock-tag gray">未着手</span></div><div class="mock-td muted">6月20日</div><div class="mock-td"><span class="mock-tag yellow">中</span></div></div>
+          <div class="mock-table-row"><div class="mock-td title">週次ミーティング資料</div><div class="mock-td"><span class="mock-tag blue">進行中</span></div><div class="mock-td muted">6月17日</div><div class="mock-td"><span class="mock-tag gray">低</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>データベースの作成方法</h3>
+    <ol class="steps">
+      <li>ページ本文で「/database」と入力する</li>
+      <li>「データベース - インライン」または「データベース - フルページ」を選択する</li>
+      <li>列名（プロパティ）を設定し、行にデータを入力する</li>
+    </ol>
+
+    <h3>ビューの種類と使い分け</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ビュー</th>
+          <th>表示形式</th>
+          <th>向いている用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>テーブル</td>
+          <td>行・列の表形式</td>
+          <td>データの一覧管理・一括編集</td>
+        </tr>
+        <tr>
+          <td>カンバン</td>
+          <td>カード形式（ステータス別）</td>
+          <td>タスクの進捗管理（未着手・進行中・完了など）</td>
+        </tr>
+        <tr>
+          <td>カレンダー</td>
+          <td>月カレンダー形式</td>
+          <td>日付プロパティを持つ予定・締め切りの管理</td>
+        </tr>
+        <tr>
+          <td>ギャラリー</td>
+          <td>カードのタイル表示</td>
+          <td>ポートフォリオ・レシピ・書籍リストなど</td>
+        </tr>
+        <tr>
+          <td>リスト</td>
+          <td>シンプルな縦リスト</td>
+          <td>メモや記事の一覧をすっきり表示</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>プロパティ（列）の種類</h3>
+    <p>データベースの列にはさまざまな「型」を設定できます。</p>
+    <ul>
+      <li><strong>テキスト</strong>：自由記述のメモ欄</li>
+      <li><strong>数値</strong>：金額・数量などの数字データ</li>
+      <li><strong>セレクト</strong>：あらかじめ決めた選択肢から1つ選ぶ（ステータス管理など）</li>
+      <li><strong>マルチセレクト</strong>：複数のタグを付与できる</li>
+      <li><strong>日付</strong>：開始日・期限日などの日付指定</li>
+      <li><strong>チェックボックス</strong>：完了フラグとして使う</li>
+      <li><strong><span class="tip" data-tip="2つのデータベースを関連付けて情報を参照し合う機能">リレーション</span></strong>：他のデータベースのレコードと関連付ける</li>
+    </ul>
+
+    <div class="note">
+      <strong>活用例</strong>
+      タスク管理では「名前・担当者・ステータス（セレクト）・期限（日付）・優先度（セレクト）」のプロパティを組み合わせるのが基本構成として使いやすいです。
+    </div>
+  
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+  <!-- Section 5 -->
+  <section class="section" id="sec5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>テンプレートの活用</h2>
+    </div>
+
+    <p>Notionにはすぐに使える公式テンプレートが多数用意されており、ゼロから設計する手間を省けます。また、自分でよく使う構成をテンプレート化することも可能です。</p>
+
+    <h3>公式テンプレートの使い方</h3>
+    <ol class="steps">
+      <li>左サイドバーの「テンプレート」をクリックする（またはページ本文内で「/template」と入力する）</li>
+      <li>カテゴリ（仕事・学習・個人など）から目的のテンプレートを探す</li>
+      <li>「このテンプレートを使用」をクリックすると、ページとして複製される</li>
+      <li>複製されたページを自分の用途に合わせて編集する</li>
+    </ol>
+
+    <h3>おすすめ公式テンプレート</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>テンプレート名</th>
+          <th>用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>タスクリスト</td>
+          <td>シンプルなToDoとプロジェクト管理</td>
+        </tr>
+        <tr>
+          <td>週次レビュー</td>
+          <td>週ごとの振り返りと目標設定</td>
+        </tr>
+        <tr>
+          <td>読書リスト</td>
+          <td>読んだ本・読みたい本の記録</td>
+        </tr>
+        <tr>
+          <td>会議メモ</td>
+          <td>アジェンダ・議事録・アクションアイテムの管理</td>
+        </tr>
+        <tr>
+          <td>習慣トラッカー</td>
+          <td>毎日の習慣の達成状況を記録</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>自作テンプレートの作り方</h3>
+    <p>データベース内に「テンプレート」を登録しておくと、同じ構造のページを毎回一から作らずに済みます。</p>
+    <ol class="steps">
+      <li>データベースの右上にある「新規」ボタン横の「v（矢印）」をクリックする</li>
+      <li>「テンプレートを作成」を選択する</li>
+      <li>テンプレートとして使いたい内容（見出し・チェックリスト・プロパティなど）を入力して保存する</li>
+      <li>次回から「新規」をクリックするとテンプレートが反映された状態でページが作成される</li>
+    </ol>
+
+    <div class="point-box">
+      <div class="point-title">自作テンプレートが便利なシーン</div>
+      <ul>
+        <li>毎週同じフォーマットで日報・週報を書くとき</li>
+        <li>プロジェクトごとに同じ管理シートを使うとき</li>
+        <li>面談記録・議事録など定型フォーマットが決まっているとき</li>
+      </ul>
+    </div>
+  
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+  <!-- Section 6 -->
+  <section class="section" id="sec6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>実践！活用シーン例</h2>
+    </div>
+
+    <p>ここでは「タスク管理」「日記」「情報整理」という3つのシーンで、Notionをどのように構成すると使いやすいかを解説します。</p>
+
+    <h3>シーン1：タスク管理</h3>
+    <p>データベースを使ってプロジェクトのタスクを一元管理します。</p>
+
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+      <pre>【推奨プロパティ構成】
+- 名前（タイトル）  : タスクの内容
+- ステータス        : セレクト（未着手 / 進行中 / 完了）
+- 担当者            : 人物（チーム利用時）
+- 期限              : 日付
+- 優先度            : セレクト（高 / 中 / 低）
+- 関連プロジェクト  : セレクトまたはリレーション
+
+【推奨ビュー構成】
+- カンバンビュー（ステータス別）で進捗を視覚的に把握
+- カレンダービュー（期限）で締め切りを確認
+- テーブルビューで全タスクを一覧・フィルタ</pre>
+    </div>
+
+    <!-- カンバンビューモックアップ -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar"><span></span><span></span><span></span></div>
+      <div class="mockup-body">
+        <div class="mock-kanban">
+          <div class="mock-col">
+            <div class="mock-col-head gray-head">未着手 <span class="mock-col-count">2</span></div>
+            <div class="mock-card-k">SNS投稿スケジュール作成<div class="mock-card-meta"><span class="mock-tag yellow">中</span> 6月20日</div></div>
+            <div class="mock-card-k">競合他社リサーチ<div class="mock-card-meta"><span class="mock-tag gray">低</span> 6月25日</div></div>
+          </div>
+          <div class="mock-col">
+            <div class="mock-col-head blue-head">進行中 <span class="mock-col-count">2</span></div>
+            <div class="mock-card-k">ランディングページ改修<div class="mock-card-meta"><span class="mock-tag red">高</span> 6月15日</div></div>
+            <div class="mock-card-k">週次ミーティング資料<div class="mock-card-meta"><span class="mock-tag gray">低</span> 6月17日</div></div>
+          </div>
+          <div class="mock-col">
+            <div class="mock-col-head green-head">完了 <span class="mock-col-count">1</span></div>
+            <div class="mock-card-k">競合調査レポート<div class="mock-card-meta"><span class="mock-tag green">完了</span> 6月10日</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>シーン2：日記・ジャーナル</h3>
+    <p>毎日の記録を継続するには、日付プロパティを持つデータベースが最適です。</p>
+
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+      <pre>【推奨プロパティ構成】
+- 名前（タイトル）  : 日付（例：2025年6月1日）
+- 日付              : 日付プロパティ（カレンダービュー用）
+- 気分              : セレクト（良い / 普通 / イマイチ）
+- 今日の出来事      : テキスト（本文）
+- メモ              : テキスト（補足）
+
+【テンプレート例（本文内容）】
+## 今日の3行まとめ
+1. 
+2. 
+3. 
+
+## 感謝したこと
+
+## 明日やること</pre>
+    </div>
+
+    <h3>シーン3：情報整理（ナレッジベース）</h3>
+    <p>学んだことやリンク集をデータベースで整理し、後から検索・参照しやすくします。</p>
+
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+      <pre>【推奨プロパティ構成】
+- 名前（タイトル）  : 情報・記事のタイトル
+- カテゴリ          : マルチセレクト（AI / マーケ / 読書 など）
+- URL               : URLプロパティ（外部リンク）
+- 登録日            : 日付（自動入力）
+- 重要度            : セレクト（高 / 中 / 低）
+- メモ              : テキスト（要点のまとめ）
+
+【活用のコツ】
+- ギャラリービューでサムネイル付きのカード一覧にする
+- カテゴリでフィルタをかけてジャンル別に絞り込む</pre>
+    </div>
+
+    <div class="note">
+      <strong>Note</strong>
+      Notionの検索機能（Ctrl+P / Cmd+P）は全ページ横断で機能するため、ページが増えても情報にすぐアクセスできます。キーワードを入れるだけで関連ページが一覧表示されます。
+    </div>
+  
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+  <!-- Section 7 -->
+  <section class="section" id="sec7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>よくある質問と注意点</h2>
+    </div>
+
+    <p>Notionを使い始めたときに多く寄せられる疑問と、無料プランの制限について整理します。</p>
+
+    <h3>プランの違い（2025年現在）</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>プラン</th>
+          <th>対象</th>
+          <th>主な制限・特徴</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>フリー</td>
+          <td>個人</td>
+          <td>ページ数・ブロック数に制限なし。ゲスト招待は最大10名まで</td>
+        </tr>
+        <tr>
+          <td>プラス</td>
+          <td>個人・小規模チーム</td>
+          <td>無制限のゲスト招待・バージョン履歴（30日）</td>
+        </tr>
+        <tr>
+          <td>ビジネス</td>
+          <td>チーム</td>
+          <td><span class="tip" data-tip="企業向けシングルサインオンを実現する標準規格。1つのIDで複数サービスにログインできる">SAML</span> SSO・高度な権限設定・バージョン履歴（90日）</td>
+        </tr>
+        <tr>
+          <td>エンタープライズ</td>
+          <td>大企業</td>
+          <td>無制限バージョン履歴・監査ログ・専用サポート</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>無料プランでできること</strong>
+      個人利用であれば無料プランで十分な機能が使えます。ページ数・データベース数の上限はなく、PC・スマートフォン・タブレットからのアクセスもすべて無料です。
+    </div>
+
+    <h3>よくある質問</h3>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">オフラインでも使えますか？</div>
+      <div class="faq-a">デスクトップアプリ・モバイルアプリでは、一度開いたページはオフライン時でも閲覧・編集が可能です。ただし、変更はオンライン復帰後に同期されます。ブラウザ版はオフライン動作に制限があります。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">他のアプリからデータをインポートできますか？</div>
+      <div class="faq-a">はい。Evernote・Notion独自形式（CSV・HTML）・Confluence・Trelloなどからインポートができます。設定メニューの「インポート」から対応フォーマットを確認してください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">ページを誤って削除してしまいました。復元できますか？</div>
+      <div class="faq-a">はい。削除したページは「ゴミ箱」に30日間保存されます。左サイドバー下部の「ゴミ箱」をクリックし、対象ページを選んで「復元」をクリックしてください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">ページを外部に公開することはできますか？</div>
+      <div class="faq-a">可能です。ページ右上の「共有」をクリックし、「Webに公開」をオンにするとURLが発行されます。アカウントを持っていない人でも閲覧できるようになります（公開範囲は設定で調整できます）。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">スマートフォンから使いやすいですか？</div>
+      <div class="faq-a">iOS・Android向けのアプリが提供されており、基本的な操作はモバイルでも問題なく行えます。ただし、複雑なデータベース操作や大量のページ編集はPCのほうが作業しやすいです。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Notionと連携できるツールはありますか？</div>
+      <div class="faq-a">Slack・Google Drive・GitHub・Figmaなど多数のサービスと連携できます。また、Zapierを経由すると対応外サービスともある程度自動化が可能です。連携設定は各ページの「統合」メニューから行えます。</div>
+    </div>
+
+    <div class="point-box">
+      <div class="point-title">使いこなすための3つのコツ</div>
+      <ol>
+        <li>まず1つの用途（タスク管理か日記）だけで使い始める。最初から完璧な構成を目指さない</li>
+        <li>ページの階層は3階層以内に収めると、情報が迷子になりにくい</li>
+        <li>テンプレートを積極的に活用し、定型作業の入力コストを下げる</li>
+      </ol>
+    </div>
+  
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+</div>
+
+<footer class="site-footer">
+  <strong>Notion 完全ガイド</strong>
+  本ガイドの内容は制作時点の情報に基づいています。Notionのアップデートにより画面や機能が変更される場合があります。
+</footer>
+
+<script>
+  // スクロールアニメーション
+  const observer = new <span class="tip" data-tip="要素が画面に表示されたタイミングを検知するブラウザの機能。スクロールアニメーションなどに使う">IntersectionObserver</span>((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.section').forEach(el => observer.observe(el));
+
+  // コピーボタン
+  function copyCode(btn) {
+    const pre = btn.nextElementSibling;
+    const text = pre.textContent;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => showCopied(btn));
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showCopied(btn);
+    }
+  }
+
+  function showCopied(btn) {
+    btn.textContent = 'COPIED';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'COPY';
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  // FAQ トグル
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  // <span class="tip" data-tip="目次などのリンクをクリックするとページ内の特定の場所に直接ジャンプできる仕組み">アンカーリンク</span>のスムーズスクロール
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iMovie 完全ガイド | はじめての動画編集</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --accent2: #f78166;
+    --accent3: #3fb950;
+    --accent4: #d2a8ff;
+    --accent5: #ffa657;
+    --text: #e6edf3;
+    --text-muted: #aab4c0;
+    --text-dim: #768390;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: #0d1117;
+    min-height: 100%;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #0d1117;
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ========== HEADER ========== */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 40%, #1a1f2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(88,166,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(88,166,255,0.1);
+    border: 1px solid rgba(88,166,255,0.3);
+    color: var(--accent);
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    color: var(--text-muted);
+    font-size: 17px;
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto 40px;
+  }
+  .hero-chips {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .chip-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* ========== LAYOUT ========== */
+  .wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ========== TOC ========== */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 48px auto;
+    max-width: 980px;
+    margin-left: 24px; margin-right: 24px;
+  }
+  .toc-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .toc-item:hover { background: var(--surface2); color: var(--accent); }
+  .toc-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    min-width: 22px;
+  }
+
+  /* ========== SECTION ========== */
+  .section {
+    max-width: 980px;
+    margin: 0 auto 72px;
+    padding: 0 24px;
+    background: #0d1117;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+  .section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 32px 0 14px;
+    color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section h3::before {
+    content: '';
+    width: 4px; height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .section p { color: #b8c4ce; margin-bottom: 14px; }
+  .section p strong { color: var(--text); }
+
+  /* ========== CARDS ========== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: #b8c4ce; margin: 0; }
+
+  /* ========== CALLOUT ========== */
+  .callout {
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 14px;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout.tip { background: rgba(63,185,80,0.08); border: 1px solid rgba(63,185,80,0.25); }
+  .callout.tip p { color: #85e890; }
+  .callout.warn { background: rgba(255,166,87,0.08); border: 1px solid rgba(255,166,87,0.25); }
+  .callout.warn p { color: #ffba71; }
+  .callout.info { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.25); }
+  .callout.info p { color: #90c8ff; }
+
+  /* ========== STEP FLOW ========== */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 28px 0;
+    position: relative;
+  }
+  .flow-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+  }
+  .flow-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 44px;
+    flex-shrink: 0;
+  }
+  .flow-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .flow-line {
+    width: 2px;
+    flex: 1;
+    min-height: 32px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+  .flow-item:last-child .flow-line { display: none; }
+  .flow-body {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    flex: 1;
+    margin-bottom: 8px;
+  }
+  .flow-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .flow-body p { font-size: 13px; color: #b8c4ce; margin: 0; }
+
+  /* ========== UI DIAGRAM ========== */
+  .ui-diagram {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 28px 0;
+  }
+  .ui-diagram-title {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 1px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ui-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .ui-dot.red { background: #ff5f57; }
+  .ui-dot.yellow { background: #ffbd2e; }
+  .ui-dot.green { background: #28c840; }
+
+  /* iMovie Layout Diagram */
+  .imovie-layout {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    margin: 12px;
+    min-height: 320px;
+  }
+  .layout-block {
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+  .layout-block-name {
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 1px;
+    opacity: 0.85;
+  }
+  .layout-block-desc {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .layout-block-sub {
+    font-size: 12px;
+    opacity: 0.9;
+  }
+  .block-library { background: #0e1d2f; border: 1px solid #1e4070; color: #79c0ff; }
+  .block-preview { background: #1a1030; border: 1px solid #4a2a70; color: #d2a8ff; grid-row: 1; grid-column: 2; }
+  .block-timeline { background: #0d1f14; border: 1px solid #1a4d28; color: #7ee787; grid-row: 2; grid-column: 1 / 3; }
+  .block-toolbar { background: #231a0a; border: 1px solid #5a3e10; color: #ffa657; grid-row: 3; grid-column: 1 / 3; }
+
+  /* Timeline visual */
+  .timeline-visual {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: 8px;
+    margin: 12px;
+    overflow-x: auto;
+  }
+  .tl-track {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .tl-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .tl-label {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    color: #8fa0b0;
+    width: 48px;
+    flex-shrink: 0;
+  }
+  .tl-clip {
+    height: 36px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .tl-clip.video { background: #0e1d2f; border: 1px solid #1e5090; color: #79c0ff; }
+  .tl-clip.audio { background: #0d1f14; border: 1px solid #1a5030; color: #7ee787; height: 24px; }
+  .tl-clip.title { background: #1a1030; border: 1px solid #4a2a80; color: #d2a8ff; height: 20px; }
+  .tl-clip.transition {
+    width: 18px; height: 36px;
+    background: #231a0a; border: 1px solid #6a4a10;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+
+  /* ========== KEYBOARD SHORTCUT TABLE ========== */
+  .shortcut-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    background: var(--surface);
+  }
+  .shortcut-table th {
+    background: var(--surface2);
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    border-bottom: 1px solid var(--border);
+  }
+  .shortcut-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    color: #c9d3dc;
+  }
+  .shortcut-table tr:hover td { background: var(--surface2); }
+  .kbd {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .key {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-bottom: 3px solid var(--border);
+    border-radius: 5px;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  /* ========== COMPARISON TABLE ========== */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    background: var(--surface);
+  }
+  .compare-table th {
+    background: var(--surface2);
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .compare-table th:first-child { text-align: left; }
+  .compare-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    color: #c9d3dc;
+    text-align: center;
+  }
+  .compare-table td:first-child { text-align: left; color: var(--text); }
+  .compare-table tr:hover td { background: var(--surface2); }
+  .ok { color: var(--accent3); font-size: 18px; }
+  .ng { color: var(--accent2); font-size: 18px; }
+  .maybe { color: var(--accent5); font-size: 16px; }
+
+  /* ========== EXPORT FLOW ========== */
+  .export-flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  .export-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+  .export-step-icon { font-size: 24px; margin-bottom: 6px; }
+  .export-step-label { font-size: 12px; color: #b8c4ce; }
+  .export-step-name { font-size: 14px; font-weight: 700; margin-top: 4px; }
+  .export-arrow { color: var(--text-muted); font-size: 20px; flex-shrink: 0; }
+
+  /* ========== TAG ========== */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+  }
+  .tag.blue { background: rgba(88,166,255,0.15); color: var(--accent); border: 1px solid rgba(88,166,255,0.3); }
+  .tag.green { background: rgba(63,185,80,0.15); color: var(--accent3); border: 1px solid rgba(63,185,80,0.3); }
+  .tag.orange { background: rgba(255,166,87,0.15); color: var(--accent5); border: 1px solid rgba(255,166,87,0.3); }
+  .tag.purple { background: rgba(210,168,255,0.15); color: var(--accent4); border: 1px solid rgba(210,168,255,0.3); }
+
+  /* ========== DIVIDER ========== */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 980px;
+    margin: 0 auto 72px;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 40px 24px;
+    color: #b8c4ce;
+    font-size: 13px;
+  }
+  footer strong { color: var(--accent); }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 640px) {
+    .imovie-layout { grid-template-columns: 1fr; }
+    .block-preview { grid-column: 1; }
+    .block-timeline { grid-column: 1; }
+    .block-toolbar { grid-column: 1; }
+    .export-flow { flex-direction: column; }
+    .export-arrow { transform: rotate(90deg); }
+    .toc-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ========== SCROLL ANIMATION ========== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ===== TOPボタン ===== */
+  .to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 36px;
+    padding: 7px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: all .2s;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .to-top::before {
+    content: '';
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid currentColor;
+  }
+  .to-top:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* ===== ツールチップ注釈 ===== */
+  .ann {
+    border-bottom: 1.5px dotted var(--accent);
+    cursor: help;
+    position: relative;
+    display: inline;
+  }
+  .ann::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1c2128;
+    color: #e6edf3;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.65;
+    padding: 8px 12px;
+    border-radius: 6px;
+    width: max-content;
+    max-width: 260px;
+    white-space: normal;
+    box-shadow: 0 4px 20px rgba(0,0,0,.5);
+    border: 1px solid rgba(88,166,255,.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0;
+  }
+  .ann::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(88,166,255,.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+  }
+  .ann:hover::after,
+  .ann:hover::before { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">BEGINNER'S GUIDE</div>
+  <h1><span>iMovie</span><br>完全ガイド</h1>
+  <p class="hero-sub">インストールから書き出しまで、動画編集がまったく初めての方でも迷わず使えるように徹底解説します。</p>
+  <div class="hero-chips">
+    <div class="chip"><div class="chip-dot" style="background:#58a6ff"></div>Mac / iPhone 対応</div>
+    <div class="chip"><div class="chip-dot" style="background:#3fb950"></div>無料アプリ</div>
+    <div class="chip"><div class="chip-dot" style="background:#ffa657"></div>初心者向け</div>
+    <div class="chip"><div class="chip-dot" style="background:#d2a8ff"></div>日本語UI</div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc wrapper fade-in">
+  <div class="toc-title">目次 — CONTENTS</div>
+  <div class="toc-grid">
+    <a href="#s1" class="toc-item"><span class="toc-num">01</span>iMovieとは？</a>
+    <a href="#s2" class="toc-item"><span class="toc-num">02</span>インストール方法</a>
+    <a href="#s3" class="toc-item"><span class="toc-num">03</span>画面の見方</a>
+    <a href="#s4" class="toc-item"><span class="toc-num">04</span><span class="ann" data-tip="iMovieで編集作業をまとめて保存する単位。1本の動画=1プロジェクトが基本">プロジェクト</span>の作成</a>
+    <a href="#s5" class="toc-item"><span class="toc-num">05</span>動画を取り込む</a>
+    <a href="#s6" class="toc-item"><span class="toc-num">06</span><span class="ann" data-tip="ビデオ・音声・写真などの素材を時間軸上に並べて編集する領域">タイムライン</span>編集</a>
+    <a href="#s7" class="toc-item"><span class="toc-num">07</span>テキスト・タイトル</a>
+    <a href="#s8" class="toc-item"><span class="toc-num">08</span><span class="ann" data-tip="シーンとシーンの切り替わりに入れる視覚的なエフェクト。フェードやスライドなど">トランジション</span></a>
+    <a href="#s9" class="toc-item"><span class="toc-num">09</span>音楽・効果音</a>
+    <a href="#s10" class="toc-item"><span class="toc-num">10</span>書き出し・共有</a>
+    <a href="#s11" class="toc-item"><span class="toc-num">11</span>ショートカット一覧</a>
+    <a href="#s12" class="toc-item"><span class="toc-num">12</span>よくある失敗と対処法</a>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section fade-in" id="s1">
+  <div class="section-label">01 — WHAT IS IMOVIE</div>
+  <h2>iMovieとは？</h2>
+  <p>iMovieはAppleが作った<strong>無料の動画編集アプリ</strong>です。MacとiPhoneの両方で使えます。難しい操作はほとんどなく、動画を「つなぐ」「切る」「音楽をつける」といった基本的な編集が、パソコン初心者でも直感的にできます。</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🆓</div>
+      <h4>完全無料</h4>
+      <p>App Storeからダウンロードできます。有料プランは一切ありません。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🖥️</div>
+      <h4>Mac / iPhone 両対応</h4>
+      <p>Macで編集して、iPhoneで続きを編集することもできます。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎬</div>
+      <h4>本格的な仕上がり</h4>
+      <p>テーマ、トランジション、音楽<span class="ann" data-tip="iMovieで読み込んだ素材ファイルを管理する保管場所">ライブラリ</span>が豊富で映像がプロっぽくなります。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📤</div>
+      <h4>簡単に共有</h4>
+      <p>YouTube・Vimeoへの直接アップロード、メール送信もボタン一つです。</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">ℹ️</div>
+    <p><strong>iMovieでできないこと：</strong>高度な色補正（カラーグレーディング）や、複雑なモーショングラフィクスは苦手です。そこまで必要になったらFinal Cut Proへのステップアップを検討しましょう。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 2 -->
+<div class="section fade-in" id="s2">
+  <div class="section-label">02 — INSTALLATION</div>
+  <h2>インストール方法</h2>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>App Storeを開く</h4>
+        <p>Macの場合はDockの「App Store」アイコンをクリック。iPhoneの場合はホーム画面の「App Store」をタップします。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>「iMovie」を検索</h4>
+        <p>検索バーに「iMovie」と入力してEnterキーを押します。Appleの公式アプリが一番上に出てきます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>「入手」をクリック</h4>
+        <p>「入手」ボタンをクリックします。Apple IDでのサインインを求められたら、お使いのApple IDでログインしてください。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>インストール完了</h4>
+        <p>ダウンロードが終わると自動的にインストールされます。Launchpadや「アプリケーション」フォルダにiMovieが追加されます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <p><strong>必要な環境：</strong>MacはmacOS 14.0（Sonoma）以降、iPhoneはiOS 17以降が必要です。古いOSを使っている場合は先にアップデートしましょう。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 3 -->
+<div class="section fade-in" id="s3">
+  <div class="section-label">03 — SCREEN LAYOUT</div>
+  <h2>画面の見方（Mac版）</h2>
+  <p>iMovieを初めて開いたとき、「どこに何があるの？」と迷いがちです。まず画面の4つのエリアを覚えましょう。</p>
+
+  <div class="ui-diagram">
+    <div class="ui-diagram-title">
+      <div class="ui-dot red"></div><div class="ui-dot yellow"></div><div class="ui-dot green"></div>
+      iMovie — 画面構成図
+    </div>
+    <div class="imovie-layout">
+      <div class="layout-block block-library">
+        <div class="layout-block-name">AREA A</div>
+        <div class="layout-block-desc">📁 ライブラリ／メディア</div>
+        <div class="layout-block-sub">取り込んだ動画・写真・音楽が並ぶ場所。ここから素材を選んで使います。</div>
+      </div>
+      <div class="layout-block block-preview">
+        <div class="layout-block-name">AREA B</div>
+        <div class="layout-block-desc">▶️ プレビュー画面</div>
+        <div class="layout-block-sub">編集中の動画を再生して確認する画面。完成イメージをここで確認します。</div>
+      </div>
+      <div class="layout-block block-timeline">
+        <div class="layout-block-name">AREA C — タイムライン（最重要エリア）</div>
+        <div class="layout-block-desc">🎞️ 動画・音声・テキストの<span class="ann" data-tip="動画・音声・画像などの素材ファイルの1つのかたまり">クリップ</span>を時間順に並べる場所</div>
+        <div class="layout-block-sub">ここで「順番」「長さ」を決めます。編集作業の9割はここで行います。</div>
+      </div>
+      <div class="layout-block block-toolbar">
+        <div class="layout-block-name">AREA D — ツールバー</div>
+        <div class="layout-block-desc">🔧 カット・音量・タイトルなどのボタンが並ぶ操作バー</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>タイムラインの構造</h3>
+  <p>タイムラインは左から右に向かって「時間」が流れています。左が「動画の始まり」、右が「動画の終わり」です。</p>
+
+  <div class="ui-diagram">
+    <div class="ui-diagram-title">
+      <div class="ui-dot red"></div><div class="ui-dot yellow"></div><div class="ui-dot green"></div>
+      タイムライン — 構造イメージ
+    </div>
+    <div class="timeline-visual">
+      <div class="tl-track">
+        <div class="tl-row">
+          <div class="tl-label">テキスト</div>
+          <div class="tl-clip title" style="width:80px">タイトル</div>
+          <div style="flex:1"></div>
+          <div class="tl-clip title" style="width:60px">エンド</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label">動画</div>
+          <div class="tl-clip video" style="width:120px">クリップ1</div>
+          <div class="tl-clip transition"></div>
+          <div class="tl-clip video" style="width:100px">クリップ2</div>
+          <div class="tl-clip transition"></div>
+          <div class="tl-clip video" style="width:140px">クリップ3</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label"><span class="ann" data-tip="バックグラウンドミュージック。映像の背後で流れる音楽のこと">BGM</span></div>
+          <div class="tl-clip audio" style="width:380px">バックグラウンド音楽 ─────────────────</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">💡</div>
+    <p><strong>覚え方のコツ：</strong>タイムラインを「映画のフィルム」のようにイメージしてください。フィルムに写真（クリップ）を貼り付けていく感覚です。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 4 -->
+<div class="section fade-in" id="s4">
+  <div class="section-label">04 — NEW PROJECT</div>
+  <h2>プロジェクトの作成</h2>
+  <p>iMovieでは編集作業のまとまりを「プロジェクト」と呼びます。動画1本ごとにプロジェクトを作成するのが基本です。</p>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>iMovieを起動する</h4>
+        <p>LaunchpadまたはアプリケーションフォルダからiMovieを開きます。最初にプロジェクトの一覧画面が表示されます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>「＋」ボタンをクリック</h4>
+        <p>画面左上の「＋（新規プロジェクト）」ボタンをクリックします。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>「ムービー」を選択</h4>
+        <p>「ムービー」か「予告編」が選べます。普通の動画を作る場合は「<strong>ムービー</strong>」を選んでください。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>プロジェクト名を入力して作成</h4>
+        <p>わかりやすい名前（例：「夏休みの旅行」）を入力して「OK」をクリック。編集画面が開きます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">💡</div>
+    <p><strong>「予告編」とは？</strong> 映画の予告編スタイルのテンプレートが使える機能です。SNS用の短い動画を素早く作るときに便利です。慣れてきたら試してみましょう。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 5 -->
+<div class="section fade-in" id="s5">
+  <div class="section-label">05 — IMPORT MEDIA</div>
+  <h2>動画・写真を取り込む</h2>
+
+  <h3>方法①　ドラッグ＆ドロップ（一番かんたん）</h3>
+  <p>FinderやデスクトップにあるMOVファイル・MP4ファイルを、iMovieのライブラリエリアにそのまま<strong>ドラッグ＆ドロップ</strong>するだけです。</p>
+
+  <h3>方法②　読み込みボタンから取り込む</h3>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>画面上部のツールバーから「読み込む」アイコンをクリック</h4>
+        <p>カメラのアイコン（↓矢印）が読み込みボタンです。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>ファイルを選択</h4>
+        <p>Finderウィンドウが開くので、取り込みたい動画ファイルを選んで「読み込む」をクリックします。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>ライブラリに追加される</h4>
+        <p>取り込んだ動画がライブラリエリア（画面左側）にサムネイルで表示されます。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>対応しているファイル形式</h3>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>ファイル形式</th>
+        <th>使える？</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>.mp4（H.264）</td><td><span class="ok">✓</span></td><td>最もよく使われる形式。YouTubeダウンロードも基本これ</td></tr>
+      <tr><td>.mov</td><td><span class="ok">✓</span></td><td>iPhoneで撮影した動画はこの形式</td></tr>
+      <tr><td>.m4v</td><td><span class="ok">✓</span></td><td>Apple機器で作成した動画</td></tr>
+      <tr><td>.avi</td><td><span class="maybe">△</span></td><td>古い形式。取り込めないことがある</td></tr>
+      <tr><td>.mkv</td><td><span class="ng">✗</span></td><td>直接は使えない。HandBrakeなどで変換が必要</td></tr>
+      <tr><td>.wmv</td><td><span class="ng">✗</span></td><td>WindowsMedia形式。変換が必要</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <p><strong>注意：</strong>iMovieは元の動画ファイルを書き換えません。取り込んだ後も元のファイルはそのままです。安心して編集できます。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 6 -->
+<div class="section fade-in" id="s6">
+  <div class="section-label">06 — TIMELINE EDITING</div>
+  <h2>タイムライン編集の基本</h2>
+  <p>動画編集で一番よく使う操作を覚えましょう。「並べる」「切る」「順番を変える」の3つだけでも動画は完成します。</p>
+
+  <h3>クリップをタイムラインに追加する</h3>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>ライブラリから動画を選ぶ</h4>
+        <p>左側のライブラリエリアにあるサムネイルをクリックします。選択された動画には黄色い枠が表示されます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>使いたい部分をドラッグして選択（任意）</h4>
+        <p>サムネイル上をドラッグすると「使いたい範囲」だけを選べます。動画全体を使う場合はそのままでOKです。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>タイムラインにドラッグ</h4>
+        <p>選択した動画をタイムラインにドラッグ＆ドロップします。クリップが追加されます。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>クリップを切る（トリミング）</h3>
+  <div class="callout info">
+    <div class="callout-icon">✂️</div>
+    <p>クリップの両端（左右の端）にマウスを近づけると、カーソルが<strong>↔ の形</strong>に変わります。そのままドラッグすると動画の「始まり」や「終わり」を削ることができます。これを<strong>トリミング</strong>と言います。</p>
+  </div>
+
+  <h3>クリップを分割する（カット）</h3>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>切りたい位置に再生ヘッドを移動</h4>
+        <p>タイムラインの白い縦線（再生ヘッド）を、切りたい位置にクリックして移動させます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>メニュー「修正」→「クリップを分割」をクリック</h4>
+        <p>または <span class="kbd"><span class="key">⌘</span>+<span class="key">B</span></span> のショートカットが便利です。クリップが2つに分かれます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>不要な部分を選択してDeleteキーで削除</h4>
+        <p>不要なクリップをクリックして選択し、<span class="key">Delete</span>キーを押すと削除されます。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>クリップの順番を変える</h3>
+  <p>タイムライン上のクリップをドラッグして、左右に移動するだけで順番が変えられます。とてもかんたんです。</p>
+
+  <div class="callout tip">
+    <div class="callout-icon">💡</div>
+    <p><strong>やり直しはいつでもOK：</strong>操作を間違えたら <span class="kbd"><span class="key">⌘</span>+<span class="key">Z</span></span> でやり直せます。何度でも使えるので、気軽に試してみましょう。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 7 -->
+<div class="section fade-in" id="s7">
+  <div class="section-label">07 — TITLES & TEXT</div>
+  <h2>テキスト・タイトルの追加</h2>
+  <p>動画にテロップ（字幕）やタイトルを入れると、プロっぽい仕上がりになります。</p>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>ツールバーの「T（タイトル）」をクリック</h4>
+        <p>画面上部のツールバーにある「T」アイコン（タイトルボタン）をクリックします。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>スタイルを選ぶ</h4>
+        <p>「センター」「下部」「オープニング」など、テキストの位置やデザインのスタイルが選べます。ダブルクリックするとプレビューできます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>タイムラインにドラッグ</h4>
+        <p>スタイルを選んだらタイムラインにドラッグします。テキストクリップが追加されます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>テキストを編集</h4>
+        <p>プレビュー画面に表示されたテキストをダブルクリックして、文字を入力します。フォントやサイズはプレビュー画面上部のバーで変更できます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon">💡</div>
+    <p><strong>テロップの長さ調整：</strong>タイムライン上のテキストクリップの端をドラッグすることで、テロップが表示される時間を変えられます。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 8 -->
+<div class="section fade-in" id="s8">
+  <div class="section-label">08 — TRANSITIONS</div>
+  <h2>トランジション（場面転換）</h2>
+  <p>トランジションは「クリップからクリップへ」の切り替わり方のことです。ただ切り替わるより、おしゃれな演出が加わります。</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">⬛</div>
+      <h4>カット（デフォルト）</h4>
+      <p>何もしない状態。クリップがそのまま切り替わります。テンポよく見せたいときに使います。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌫️</div>
+      <h4>ディゾルブ（クロスフェード）</h4>
+      <p>ふわっとフェードしながら切り替わります。おだやかな場面転換に最適。最もよく使われます。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⬛➡️</div>
+      <h4>スライド</h4>
+      <p>画面が左右からスライドしながら切り替わります。旅行動画などに向いています。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⬛⬜</div>
+      <h4>フェードイン/アウト</h4>
+      <p>黒や白からフェードする演出。動画の冒頭・ラストに使うと映画っぽくなります。</p>
+    </div>
+  </div>
+
+  <h3>トランジションの追加方法</h3>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>ツールバーの「トランジション」アイコンをクリック</h4>
+        <p>画面上部の「◇（ひし形）」アイコンをクリックするとトランジション一覧が表示されます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>使いたいトランジションをクリップの間にドラッグ</h4>
+        <p>タイムライン上の2つのクリップの境目にドロップします。境目に「◇」アイコンが表示されれば成功です。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <p><strong>使いすぎに注意：</strong>トランジションをたくさん使うと、逆に見づらい動画になります。シーンが大きく変わる場面だけに使うのが「プロのコツ」です。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 9 -->
+<div class="section fade-in" id="s9">
+  <div class="section-label">09 — AUDIO</div>
+  <h2>音楽・効果音の追加</h2>
+
+  <h3>iMovieの音楽ライブラリを使う（著作権フリー）</h3>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>ツールバーの「♪（オーディオ）」をクリック</h4>
+        <p>音符のアイコンをクリックすると音楽ライブラリが開きます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>「サウンドエフェクト」または「GarageBand」から選ぶ</h4>
+        <p>iMovieには無料で使える効果音や音楽が含まれています。クリックするとプレビュー再生できます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>タイムラインにドラッグ</h4>
+        <p>気に入った音楽をタイムラインの動画クリップの下にドラッグします。緑色のオーディオトラックが表示されます。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>音量の調整</h3>
+  <p>オーディオクリップ（緑の帯）の中央に横線が表示されています。この線を上下にドラッグすると音量が変えられます。上が大きく、下が小さくなります。</p>
+
+  <h3>自分の音楽ファイルを使う</h3>
+  <p>MP3やAACファイルをFinderからタイムラインに直接ドラッグ＆ドロップするだけで追加できます。</p>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚠️</div>
+    <p><strong>著作権に注意：</strong>YouTubeなどに動画を公開する場合、市販CDやサブスク音楽をBGMに使うと著作権侵害になります。iMovie内蔵の音楽、またはフリーBGMサイト（DOVA-SYNDROME、Pixabayなど）の音楽を使いましょう。</p>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 10 -->
+<div class="section fade-in" id="s10">
+  <div class="section-label">10 — EXPORT & SHARE</div>
+  <h2>書き出し・共有</h2>
+  <p>編集が完成したら、動画ファイルとして保存（書き出し）します。書き出すまでは「iMovieのプロジェクト」という状態で、そのままでは他の人に送れません。</p>
+
+  <h3>書き出しの流れ</h3>
+  <div class="export-flow">
+    <div class="export-step">
+      <div class="export-step-icon">🎬</div>
+      <div class="export-step-label">STEP 1</div>
+      <div class="export-step-name">編集完了</div>
+    </div>
+    <div class="export-arrow">→</div>
+    <div class="export-step">
+      <div class="export-step-icon">📤</div>
+      <div class="export-step-label">STEP 2</div>
+      <div class="export-step-name">共有ボタン</div>
+    </div>
+    <div class="export-arrow">→</div>
+    <div class="export-step">
+      <div class="export-step-icon">⚙️</div>
+      <div class="export-step-label">STEP 3</div>
+      <div class="export-step-name">品質選択</div>
+    </div>
+    <div class="export-arrow">→</div>
+    <div class="export-step">
+      <div class="export-step-icon">💾</div>
+      <div class="export-step-label">STEP 4</div>
+      <div class="export-step-name">保存先を指定</div>
+    </div>
+    <div class="export-arrow">→</div>
+    <div class="export-step">
+      <div class="export-step-icon">✅</div>
+      <div class="export-step-label">完了</div>
+      <div class="export-step-name">MP4ファイル</div>
+    </div>
+  </div>
+
+  <h3>画質（解像度）の選び方</h3>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>解像度</th>
+        <th>YouTube</th>
+        <th>SNS（Instagram等）</th>
+        <th>メール送信</th>
+        <th>ファイルサイズ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="tag purple">4K（2160p）</span></td><td><span class="ok">✓</span></td><td><span class="maybe">△</span></td><td><span class="ng">✗</span></td><td>非常に大きい</td></tr>
+      <tr><td><span class="tag blue">1080p（フルHD）</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td><span class="maybe">△</span></td><td>大きい</td></tr>
+      <tr><td><span class="tag green">720p（HD）</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td>中程度</td></tr>
+      <tr><td><span class="tag orange">480p（SD）</span></td><td><span class="maybe">△</span></td><td><span class="ok">✓</span></td><td><span class="ok">✓</span></td><td>小さい</td></tr>
+    </tbody>
+  </table>
+  <p><strong>迷ったら1080pを選んでおけばOK</strong>です。YouTubeにもSNSにも対応でき、ファイルサイズも扱いやすいサイズです。</p>
+
+  <h3>YouTubeに直接アップロード</h3>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>「共有」ボタン（↑アイコン）をクリック</h4>
+        <p>画面右上の共有ボタンをクリックします。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>「YouTube」を選択</h4>
+        <p>共有先の一覧から「YouTube」を選びます。Googleアカウントでサインインする画面が出ます。</p>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+      <div class="flow-body">
+        <h4>タイトル・説明・公開設定を入力して「次へ」</h4>
+        <p>動画タイトルと説明文を入力し、「公開」「限定公開」「非公開」を選んで「次へ」をクリックします。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 11 -->
+<div class="section fade-in" id="s11">
+  <div class="section-label">11 — KEYBOARD SHORTCUTS</div>
+  <h2>ショートカットキー一覧</h2>
+  <p>ショートカットを使うと作業スピードが格段に上がります。まず<strong>よく使うもの5つ</strong>だけ覚えましょう。</p>
+
+  <div class="callout info">
+    <div class="callout-icon">⭐</div>
+    <p>まずこの5つだけ覚えれば十分：<strong>再生・停止、やり直し、クリップ分割、削除、保存</strong></p>
+  </div>
+
+  <table class="shortcut-table">
+    <thead>
+      <tr>
+        <th>操作</th>
+        <th>ショートカット</th>
+        <th>説明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>⭐ 再生・停止</td>
+        <td><span class="kbd"><span class="key">Space</span></span></td>
+        <td>スペースキーを押すたびに再生と停止が切り替わる</td>
+      </tr>
+      <tr>
+        <td>⭐ やり直し（アンドゥ）</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">Z</span></span></td>
+        <td>直前の操作を取り消す。何度でも使える</td>
+      </tr>
+      <tr>
+        <td>⭐ クリップを分割（カット）</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">B</span></span></td>
+        <td>再生ヘッドの位置でクリップを2つに分ける</td>
+      </tr>
+      <tr>
+        <td>⭐ 削除</td>
+        <td><span class="kbd"><span class="key">Delete</span></span></td>
+        <td>選択したクリップを削除する</td>
+      </tr>
+      <tr>
+        <td>⭐ 保存（手動）</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">S</span></span></td>
+        <td>プロジェクトを保存（自動保存もされるが念のため）</td>
+      </tr>
+      <tr>
+        <td>全選択</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">A</span></span></td>
+        <td>タイムライン上の全クリップを選択</td>
+      </tr>
+      <tr>
+        <td>ズームイン（拡大）</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">+</span></span></td>
+        <td>タイムラインを拡大して細かく編集できる</td>
+      </tr>
+      <tr>
+        <td>ズームアウト（縮小）</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">−</span></span></td>
+        <td>タイムライン全体を見渡せるように縮小</td>
+      </tr>
+      <tr>
+        <td>ミュート（音声のオフ）</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">M</span></span></td>
+        <td>選択したクリップの音声をオフにする</td>
+      </tr>
+      <tr>
+        <td>書き出し（共有）</td>
+        <td><span class="kbd"><span class="key">⌘</span>+<span class="key">E</span></span></td>
+        <td>書き出し・共有ダイアログを開く</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+
+<div class="divider"></div>
+
+<!-- SECTION 12 -->
+<div class="section fade-in" id="s12">
+  <div class="section-label">12 — TROUBLESHOOTING</div>
+  <h2>よくある失敗と対処法</h2>
+
+  <h3>❌ 動画が取り込めない</h3>
+  <div class="callout warn">
+    <div class="callout-icon">🔧</div>
+    <p><strong>原因：</strong>非対応のファイル形式（MKV、WMVなど）の可能性があります。<br><strong>対処：</strong>無料ソフト「HandBrake」でMP4（H.264）に変換してから取り込んでください。</p>
+  </div>
+
+  <h3>❌ 音声と映像がずれている</h3>
+  <div class="callout warn">
+    <div class="callout-icon">🔧</div>
+    <p><strong>原因：</strong><span class="ann" data-tip="1秒間に表示される映像コマ数。30fpsや60fpsが一般的">フレームレート</span>が異なるクリップを混在させると起きやすいです。<br><strong>対処：</strong>「ファイル」→「プロジェクトのプロパティ」からフレームレートを確認して統一してください。</p>
+  </div>
+
+  <h3>❌ 書き出しが途中で止まる・終わらない</h3>
+  <div class="callout warn">
+    <div class="callout-icon">🔧</div>
+    <p><strong>原因：</strong>ストレージの空き容量不足が多い原因です。<br><strong>対処：</strong>Macのストレージに10GB以上の空きを確保してから再試行してください。「Apple メニュー」→「このMacについて」→「ストレージ」で確認できます。</p>
+  </div>
+
+  <h3>❌ 動画がカクカクしてプレビューできない</h3>
+  <div class="callout warn">
+    <div class="callout-icon">🔧</div>
+    <p><strong>原因：</strong>4K動画など高解像度データの処理が重い場合に起きます。<br><strong>対処：</strong>「表示」→「再生品質を下げる」をクリック。編集中だけ画質を落として軽くできます（書き出し時はフル品質になります）。</p>
+  </div>
+
+  <h3>❌ プロジェクトが消えた（ように見える）</h3>
+  <div class="callout tip">
+    <div class="callout-icon">💡</div>
+    <p>iMovieのプロジェクトは自動保存されています。「プロジェクト」タブを確認してください。または「ファイル」→「最近開いたプロジェクト」から復元できる場合があります。</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>iMovie 完全ガイド — 初心者のための動画編集マニュアル</p>
+  <p style="margin-top:8px">このガイドは <strong>iMovie 10.4</strong>（macOS Sonoma対応版）を基に作成されています。</p>
+  <p style="margin-top:8px; color: var(--text-dim)">Apple、iMovie、Mac、iPhoneはApple Inc.の商標です。</p>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

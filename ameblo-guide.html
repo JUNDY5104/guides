@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アメブロ完全解説書 2026年版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --org:#e8640a;--org2:#f5872a;--org-light:#fff5ee;--org-border:#fddcc4;
+  --brn:#7a3a00;--brn-light:#fdf0e8;
+  --grn:#1a7a3c;--grn-light:#edf7f1;
+  --red:#c0392b;--red-light:#fdf2f2;
+  --blu:#1a5fa8;--blu-light:#eef4fc;
+  --bg:#ffffff;--bg-off:#fdf8f4;--bg-off2:#f9f4f0;
+  --text:#1a1a1a;--muted:#666;--border:#e8ddd4;
+  --max:1000px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85}
+
+/* ヘッダー */
+.site-header{
+  background:linear-gradient(135deg,#3a1500 0%,#7a3200 45%,#b05010 100%);
+  color:#fff;padding:64px 24px 54px;text-align:center;position:relative;overflow:hidden
+}
+.site-header::before{content:'';position:absolute;top:-100px;right:-60px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(245,135,42,.35),transparent 70%);pointer-events:none}
+.site-header::after{content:'';position:absolute;bottom:-80px;left:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(232,100,10,.25),transparent 70%);pointer-events:none}
+.hd-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;padding:4px 16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;position:relative;z-index:1}
+.site-header h1{font-size:clamp(26px,5vw,42px);font-weight:700;letter-spacing:-.01em;line-height:1.25;margin-bottom:12px;position:relative;z-index:1}
+.site-header .sub{font-size:14px;color:rgba(255,255,255,.7);max-width:540px;margin:0 auto 24px;position:relative;z-index:1}
+.hd-meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hd-meta span{font-size:12px;color:rgba(255,255,255,.6);background:rgba(255,255,255,.1);padding:4px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.2)}
+
+/* ラッパー */
+.wrapper{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* 目次 */
+.toc-wrap{background:var(--bg-off);border-left:4px solid var(--org);padding:26px 30px;margin:48px 0 40px;border-radius:0 6px 6px 0}
+.toc-wrap .toc-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--org);margin-bottom:16px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;list-style:none;counter-reset:toc}
+.toc-grid li{counter-increment:toc;border-bottom:1px solid var(--border)}
+.toc-grid li:nth-last-child(-n+2){border-bottom:none}
+.toc-grid a{display:flex;align-items:center;gap:8px;padding:8px 4px;color:var(--text);text-decoration:none;font-size:13px;transition:color .2s}
+.toc-grid a::before{content:counter(toc,decimal-leading-zero);font-size:11px;font-weight:700;color:var(--org);min-width:24px}
+.toc-grid a:hover{color:var(--org)}
+
+/* セクション */
+.section{padding:60px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:last-of-type{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-num{background:var(--org);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 11px;border-radius:2px;flex-shrink:0;min-width:44px;text-align:center}
+.sec-hd h2{font-size:clamp(18px,3vw,22px);font-weight:700;border-bottom:2px solid var(--org);padding-bottom:6px;flex:1;line-height:1.35}
+
+/* 本文 */
+p{margin-bottom:16px}
+p:last-child{margin-bottom:0}
+h3{font-size:16px;font-weight:700;margin:28px 0 12px;padding-left:12px;border-left:3px solid var(--org2);color:var(--text)}
+h4{font-size:14px;font-weight:700;margin:20px 0 8px;color:var(--muted)}
+ul,ol{padding-left:20px;margin-bottom:16px}
+li{margin-bottom:7px}
+
+/* ノート */
+.note{background:var(--org-light);border-left:4px solid var(--org);padding:14px 20px;margin:18px 0;border-radius:0 4px 4px 0;font-size:14px}
+.note .note-lbl{display:block;color:var(--org);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px}
+.note-grn{background:var(--grn-light);border-left-color:var(--grn)}
+.note-grn .note-lbl{color:var(--grn)}
+.note-blu{background:var(--blu-light);border-left-color:var(--blu)}
+.note-blu .note-lbl{color:var(--blu)}
+.note-red{background:var(--red-light);border-left-color:var(--red)}
+.note-red .note-lbl{color:var(--red)}
+
+/* テーブル */
+.tbl-wrap{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:360px}
+th{background:var(--org);color:#fff;padding:10px 14px;text-align:left;font-weight:700;font-size:13px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--bg-off)}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700}
+.tag-o{background:var(--org-light);color:var(--org);border:1px solid var(--org-border)}
+.tag-g{background:var(--grn-light);color:var(--grn)}
+.tag-b{background:var(--blu-light);color:var(--blu)}
+.tag-r{background:var(--red-light);color:var(--red)}
+
+/* コードブロック */
+.code-block{position:relative;margin:16px 0}
+.code-block pre{background:#fdf6f0;border:1px solid var(--border);border-radius:4px;padding:16px 52px 16px 18px;overflow-x:auto;font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:8px;right:8px;background:var(--org);color:#fff;border:none;padding:5px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans JP',sans-serif;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:background .2s;white-space:nowrap}
+.copy-btn:hover{background:var(--brn)}
+.copy-btn.copied{background:var(--grn)}
+
+/* ステップ */
+.steps{list-style:none;padding:0;counter-reset:step}
+.steps li{counter-increment:step;padding:12px 12px 12px 50px;position:relative;border-bottom:1px solid var(--border)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:10px;top:12px;width:26px;height:26px;background:var(--org);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%}
+
+/* TOPボタン */
+.to-top{display:inline-flex;align-items:center;gap:6px;margin-top:36px;padding:7px 16px;background:var(--bg-off);border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:.06em;transition:all .2s;cursor:pointer}
+.to-top::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.to-top:hover{background:var(--org);color:#fff;border-color:var(--org)}
+
+/* ツールチップ */
+.tip{border-bottom:1.5px dotted var(--org);cursor:help;position:relative;display:inline}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:12px;font-weight:400;line-height:1.65;padding:8px 12px;border-radius:6px;width:max-content;max-width:260px;white-space:normal;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;opacity:0;transition:opacity .18s ease;z-index:9999;font-family:'Noto Sans JP',sans-serif;letter-spacing:0}
+.tip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a1a1a;pointer-events:none;opacity:0;transition:opacity .18s ease;z-index:9999}
+.tip:hover::after,.tip:hover::before{opacity:1}
+
+/* プランカード */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.plan-card{border:1.5px solid var(--border);border-radius:6px;padding:18px 16px;font-size:13px;background:var(--bg-off)}
+.plan-card.featured{border-color:var(--org);background:var(--org-light)}
+.plan-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.plan-price{font-size:22px;font-weight:700;color:var(--org);margin-bottom:2px;line-height:1.2}
+.plan-price span{font-size:11px;font-weight:400;color:var(--muted)}
+.plan-note{font-size:11px;color:var(--muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.plan-card ul{padding-left:0;list-style:none}
+.plan-card li{padding:3px 0 3px 14px;position:relative;font-size:12px;margin-bottom:0;border:none}
+.plan-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--border)}
+.plan-card.featured li::before{background:var(--org)}
+
+/* FAQ */
+.faq-item{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden}
+.faq-q{background:var(--bg-off);padding:13px 46px 13px 18px;font-weight:700;font-size:14px;cursor:pointer;position:relative;user-select:none;color:var(--text)}
+.faq-q::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--org);font-weight:400;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{display:none;padding:14px 18px;font-size:14px;line-height:1.85;border-top:1px solid var(--border)}
+.faq-item.open .faq-a{display:block}
+
+/* ===== モックアップ共通 ===== */
+.mockup-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:22px 0;font-size:12px;box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.mockup-bar{background:#f0e8e0;padding:8px 14px;display:flex;gap:6px;align-items:center;border-bottom:1px solid var(--border)}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.mockup-bar span:nth-child(1){background:#ff6058}
+.mockup-bar span:nth-child(2){background:#ffbd2e}
+.mockup-bar span:nth-child(3){background:#28c840}
+.mockup-url{margin-left:8px;font-size:11px;color:#999;background:#fff;border:1px solid #ddd;border-radius:4px;padding:2px 10px;flex:1;max-width:280px}
+.mockup-body{background:#fff;overflow:hidden}
+
+/* アメブロ管理画面モック */
+.m-ameba{display:flex;min-height:220px}
+.m-left{width:160px;background:#fff5ee;border-right:1px solid var(--border);padding:10px 0;flex-shrink:0}
+.m-left-logo{padding:8px 14px 12px;font-size:15px;font-weight:900;color:var(--org);letter-spacing:-.02em;border-bottom:1px solid var(--border);margin-bottom:8px}
+.m-left-item{padding:7px 14px;font-size:11px;color:var(--muted);cursor:default;display:flex;align-items:center;gap:6px}
+.m-left-item.on{background:var(--org-light);color:var(--org);font-weight:700;border-right:3px solid var(--org)}
+.m-left-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.m-main-area{flex:1;padding:16px 20px;background:#fdfaf8}
+.m-greeting{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px}
+.m-stats{display:flex;gap:10px;margin-bottom:14px}
+.m-stat{flex:1;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 12px;text-align:center}
+.m-stat-num{font-size:20px;font-weight:700;color:var(--org)}
+.m-stat-label{font-size:10px;color:var(--muted);margin-top:2px}
+.m-write-btn{background:var(--org);color:#fff;border:none;border-radius:4px;padding:8px 18px;font-size:12px;font-weight:700;cursor:default;display:inline-block}
+
+/* 記事投稿画面モック */
+.m-editor{padding:14px 18px}
+.m-editor-title{background:#fff;border:1.5px solid var(--border);border-radius:4px;padding:10px 14px;font-size:13px;color:var(--muted);margin-bottom:10px}
+.m-editor-toolbar{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.m-tool-btn{background:#fff;border:1px solid var(--border);border-radius:3px;padding:4px 8px;font-size:11px;font-weight:700;color:var(--muted);cursor:default}
+.m-tool-btn.active{background:var(--org);color:#fff;border-color:var(--org)}
+.m-editor-body{background:#fff;border:1.5px solid var(--border);border-radius:4px;padding:12px 14px;min-height:80px;font-size:13px;color:#999;line-height:1.8}
+.m-editor-footer{display:flex;gap:8px;margin-top:10px;justify-content:flex-end}
+.m-draft-btn{background:#fff;border:1px solid var(--border);border-radius:4px;padding:7px 14px;font-size:11px;font-weight:700;color:var(--muted);cursor:default}
+.m-publish-btn{background:var(--org);color:#fff;border:none;border-radius:4px;padding:7px 16px;font-size:11px;font-weight:700;cursor:default}
+
+/* Ameba Picksモック */
+.m-picks{padding:14px 18px}
+.m-picks-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px}
+.m-pick-item{background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 12px;display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.m-pick-img{width:44px;height:44px;border-radius:4px;background:var(--org-light);border:1px solid var(--org-border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--org)}
+.m-pick-info{flex:1}
+.m-pick-name{font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px}
+.m-pick-rate{font-size:10px;color:var(--grn)}
+.m-pick-btn{background:var(--org);color:#fff;border:none;border-radius:3px;padding:4px 10px;font-size:10px;font-weight:700;cursor:default;white-space:nowrap}
+
+/* フッター */
+.site-footer{background:var(--brn);color:rgba(255,255,255,.5);text-align:center;padding:36px 24px;font-size:12px;margin-top:48px}
+.site-footer strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}
+.footer-note{display:inline-block;background:rgba(255,255,255,.1);padding:3px 14px;border-radius:20px;margin-top:8px;font-size:11px}
+
+/* レスポンシブ */
+@media(max-width:768px){
+  .toc-grid{grid-template-columns:1fr}
+  .plan-grid{grid-template-columns:1fr}
+  .m-left{width:130px}
+  .m-stats{flex-direction:column}
+}
+@media(max-width:480px){
+  .site-header{padding:48px 20px 40px}
+  .toc-wrap{padding:18px}
+  .section{padding:44px 0}
+  th,td{padding:8px 10px}
+  .m-left{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hd-badge">Complete Guide 2026</div>
+  <h1>アメブロ完全解説書</h1>
+  <p class="sub">アカウント開設から記事の書き方、有料プラン、Ameba Picksでの収益化まで2026年最新情報を完全網羅</p>
+  <div class="hd-meta">
+    <span>14 セクション</span>
+    <span>2026年最新対応</span>
+    <span>初心者から収益化まで</span>
+    <span>Ameba Picks 完全解説</span>
+    <span>有料プラン比較</span>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<nav class="toc-wrap">
+  <div class="toc-lbl">目次</div>
+  <ol class="toc-grid">
+    <li><a href="#s01">アメブロとは・他サービスとの比較</a></li>
+    <li><a href="#s02">アカウント作成・初期設定</a></li>
+    <li><a href="#s03">管理画面の見方</a></li>
+    <li><a href="#s04">記事の書き方・投稿の基本</a></li>
+    <li><a href="#s05">画像・動画の使い方</a></li>
+    <li><a href="#s06">プロフィール・デザイン設定</a></li>
+    <li><a href="#s07">読者を増やす方法</a></li>
+    <li><a href="#s08">SEO・検索流入を増やすコツ</a></li>
+    <li><a href="#s09">有料プラン完全比較</a></li>
+    <li><a href="#s10">Ameba Picks 申請から収益化まで</a></li>
+    <li><a href="#s11">ドットマネー受け取り・出金方法</a></li>
+    <li><a href="#s12">バッジ機能・注目エリア活用</a></li>
+    <li><a href="#s13">アメブロ×SNS連携戦略</a></li>
+    <li><a href="#s14">よくあるトラブル・FAQ</a></li>
+  </ol>
+</nav>
+
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>アメブロとは・他サービスとの比較</h2></div>
+
+  <p>アメブロ（Amebaブログ）はサイバーエージェントが運営する日本最大級のブログサービスです。2004年のサービス開始以来、2026年現在も<strong>月間利用者数は国内ブログ最大規模</strong>を誇り、芸能人・インフルエンサー・個人事業主から一般ユーザーまで幅広く利用されています。</p>
+
+  <p>アメブロ最大の強みは<strong>コミュニティ機能の充実</strong>です。フォロー・読者登録・いいね・コメントといったSNS的な交流機能が充実しており、書くだけでなく「つながる」場所として機能しています。</p>
+
+  <h3>他のブログサービスとの比較</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>比較項目</th><th>アメブロ</th><th>WordPress</th><th>note</th><th>はてなブログ</th></tr></thead>
+    <tbody>
+      <tr><td>初期費用</td><td><span class="tag tag-g">無料</span></td><td>サーバー代必要</td><td><span class="tag tag-g">無料〜</span></td><td><span class="tag tag-g">無料〜</span></td></tr>
+      <tr><td>操作の簡単さ</td><td><span class="tag tag-g">かんたん</span></td><td>難しい</td><td>かんたん</td><td>普通</td></tr>
+      <tr><td>コミュニティ機能</td><td><span class="tag tag-g">非常に充実</span></td><td>なし</td><td>あり</td><td>あり</td></tr>
+      <tr><td>SEO</td><td>普通</td><td><span class="tag tag-g">強い</span></td><td>普通</td><td>普通</td></tr>
+      <tr><td>アフィリエイト</td><td>Ameba Picksのみ</td><td><span class="tag tag-g">制限なし</span></td><td>制限あり</td><td>一部可</td></tr>
+      <tr><td>デザインの自由度</td><td>普通</td><td><span class="tag tag-g">高い</span></td><td>低め</td><td>普通</td></tr>
+      <tr><td>集客のしやすさ</td><td><span class="tag tag-g">内部集客しやすい</span></td><td>SEO頼り</td><td>内部集客あり</td><td>はてな内のみ</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>アメブロが向いている人</h3>
+  <ul>
+    <li><strong>日常・趣味・ライフスタイル発信：</strong> 読者登録・いいね機能で仲間と交流しながら継続できる</li>
+    <li><strong>個人事業主・サロン・講師：</strong> 集客ツールとして活用。プロフィールと連絡先を充実させてファンを獲得</li>
+    <li><strong>アフィリエイト初心者：</strong> Ameba Picksは審査が比較的ゆるく、Amazon・楽天の商品を紹介しやすい</li>
+    <li><strong>ブログ初心者：</strong> 難しい設定なしですぐ書ける。サーバー・ドメインの知識不要</li>
+  </ul>
+
+  <div class="note note-blu">
+    <span class="note-lbl">アメブロの注意点</span>
+    外部の<span class="tip" data-tip="アフィリエイト・サービス・プロバイダ。広告主とアフィリエイターを仲介するサービス。A8.net・もしもアフィリエイトなど">ASP</span>（A8.net・もしもアフィリエイトなど）は利用規約で禁止されています。アフィリエイトはAmeba Picksのみ利用可能です。Googleアドセンスも設置できません。収益化の自由度を最優先する場合はWordPressの方が向いています。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>アカウント作成・初期設定</h2></div>
+
+  <p>アメブロはAmebaアカウントを作成すれば、ブログを含むAmeba関連サービスがすべて利用できます。所要時間は約5分です。</p>
+
+  <h3>アカウント作成の手順</h3>
+  <ol class="steps">
+    <li>ameblo.jp にアクセスして「無料ではじめる」をクリックする</li>
+    <li>メールアドレスとパスワードを入力する（またはGoogleアカウントで登録する）</li>
+    <li>登録メールに届いた確認リンクをクリックして認証する</li>
+    <li>ニックネーム・生年月日・性別を入力してアカウント作成完了</li>
+    <li>ブログIDを設定する（例：ameblo.jp/◯◯ の◯◯部分。後から変更不可なので慎重に）</li>
+    <li>ブログタイトル・プロフィールを設定する（後から変更可）</li>
+  </ol>
+
+  <div class="note note-red">
+    <span class="note-lbl">ブログIDは変更不可</span>
+    アメブロのURL（ブログID）は一度設定すると変更できません。自分のブランド名や活動名に合ったものを最初に決めておきましょう。英数字・ハイフンが使えます。
+  </div>
+
+  <h3>最初にやっておくべき初期設定</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>設定項目</th><th>内容・推奨設定</th><th>優先度</th></tr></thead>
+    <tbody>
+      <tr><td>プロフィール画像</td><td>顔写真またはブランドロゴを設定。信頼感が大きく変わる</td><td><span class="tag tag-o">高</span></td></tr>
+      <tr><td>ブログの説明文</td><td>「誰に向けた・何のブログか」を一言で書く。読者が登録するかの判断基準</td><td><span class="tag tag-o">高</span></td></tr>
+      <tr><td>テーマ・デザイン</td><td>管理画面のデザインからテーマを選択。後から変更可</td><td><span class="tag tag-b">中</span></td></tr>
+      <tr><td>カテゴリ設定</td><td>記事を分類するカテゴリを事前に作っておくと管理しやすい</td><td><span class="tag tag-b">中</span></td></tr>
+      <tr><td>メール通知設定</td><td>コメント・フォロー通知をオンにして交流の機会を逃さない</td><td><span class="tag tag-g">低</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>管理画面の見方</h2></div>
+
+  <p>ログイン後の管理画面（ダッシュボード）がアメブロ運営の拠点です。各メニューの役割を覚えることで作業効率が大きく変わります。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span><div class="mockup-url">ameblo.jp/管理画面</div></div>
+    <div class="mockup-body">
+      <div class="m-ameba">
+        <div class="m-left">
+          <div class="m-left-logo">Ameba</div>
+          <div class="m-left-item on"><div class="m-left-dot"></div>ダッシュボード</div>
+          <div class="m-left-item"><div class="m-left-dot"></div>記事を書く</div>
+          <div class="m-left-item"><div class="m-left-dot"></div>記事の管理</div>
+          <div class="m-left-item"><div class="m-left-dot"></div>アクセス解析</div>
+          <div class="m-left-item"><div class="m-left-dot"></div>Ameba Pick</div>
+          <div class="m-left-item"><div class="m-left-dot"></div>デザインの設定</div>
+          <div class="m-left-item"><div class="m-left-dot"></div>プロフィール</div>
+          <div class="m-left-item"><div class="m-left-dot"></div>設定</div>
+        </div>
+        <div class="m-main-area">
+          <div class="m-greeting">おかえりなさい</div>
+          <div class="m-stats">
+            <div class="m-stat"><div class="m-stat-num">1,248</div><div class="m-stat-label">今日のアクセス</div></div>
+            <div class="m-stat"><div class="m-stat-num">342</div><div class="m-stat-label">読者数</div></div>
+            <div class="m-stat"><div class="m-stat-num">87</div><div class="m-stat-label">いいね</div></div>
+          </div>
+          <div class="m-write-btn">記事を書く</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>主要メニューの役割</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>メニュー</th><th>主な操作</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ダッシュボード</strong></td><td>アクセス数・読者数・いいね数を一覧で確認。ブログ運営の起点</td></tr>
+      <tr><td><strong>記事を書く</strong></td><td>新しい記事の作成。テキスト・画像・動画・Ameba Picksリンクを挿入できる</td></tr>
+      <tr><td><strong>記事の管理</strong></td><td>投稿済み記事の一覧・編集・削除・非公開設定。カテゴリの変更もここで</td></tr>
+      <tr><td><strong>アクセス解析</strong></td><td>日別・記事別のアクセス数・流入元・読者の属性を確認</td></tr>
+      <tr><td><strong>Ameba Pick</strong></td><td>アフィリエイトリンクの申請・商品検索・収益確認</td></tr>
+      <tr><td><strong>デザインの設定</strong></td><td>ブログのテーマ・レイアウト・カラーの変更。有料プランで選択肢が増える</td></tr>
+      <tr><td><strong>プロフィール</strong></td><td>ニックネーム・自己紹介文・プロフィール画像の設定・変更</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>記事の書き方・投稿の基本</h2></div>
+
+  <p>アメブロの記事投稿画面はシンプルで、テキストエディタに文章を書いて「投稿」するだけです。基本操作を覚えれば5分で最初の記事が書けます。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-editor">
+        <div class="m-editor-title">記事タイトルを入力してください</div>
+        <div class="m-editor-toolbar">
+          <div class="m-tool-btn active">B</div>
+          <div class="m-tool-btn"><i>I</i></div>
+          <div class="m-tool-btn">U</div>
+          <div class="m-tool-btn">文字色</div>
+          <div class="m-tool-btn">文字サイズ</div>
+          <div class="m-tool-btn">画像</div>
+          <div class="m-tool-btn">動画</div>
+          <div class="m-tool-btn">Pick</div>
+          <div class="m-tool-btn">リンク</div>
+          <div class="m-tool-btn">絵文字</div>
+        </div>
+        <div class="m-editor-body">ここに本文を入力します。テキストを選択してツールバーのボタンで装飾できます。改行はEnterキー、段落の間に空行を入れると読みやすくなります...</div>
+        <div class="m-editor-footer">
+          <div class="m-draft-btn">下書き保存</div>
+          <div class="m-publish-btn">投稿する</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>読まれる記事を書く基本ルール</h3>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【タイトルの書き方】
+読まれるタイトルの公式：「読者の悩み・状況」＋「解決・結果」
+
+例：
+× 「今日のランチ」
+○ 「北海道で見つけた！コスパ最高のランチ3選【札幌中心部】」
+
+× 「AIについて調べました」
+○ 「ChatGPTを使ったら事務作業が1/3になった話」
+
+【本文の基本構成】
+1. 冒頭（リード文）：この記事で何がわかるかを3行で説明
+2. 本文：見出しで区切りながら読みやすく展開
+3. まとめ：記事の要点を再度整理
+4. 締め：次回予告・コメントへの誘導・SNSフォローのお願い
+
+【読みやすくするコツ】
+- 1段落は3〜5行が目安
+- 画像を2〜3枚に1回挿入すると読み続けやすい
+- 見出し（大・中・小）を活用して階層を作る
+- 読者への語りかけ（「〜ですよね」「〜してみてください」）を入れる</pre>
+  </div>
+
+  <h3>投稿設定の使い方</h3>
+  <ul>
+    <li><strong>公開設定：</strong> 「公開」「下書き」「パスワード保護」「読者限定」から選べる</li>
+    <li><strong>カテゴリ：</strong> 記事をカテゴリに分類しておくと読者が過去記事を探しやすくなる</li>
+    <li><strong>公開日時：</strong> 未来の日時を指定して<span class="tip" data-tip="あらかじめ設定した日時に自動で記事を公開する機能。毎日更新したい場合に便利">予約投稿</span>できる。忙しい日でも毎日更新を維持できる</li>
+    <li><strong>コメント設定：</strong> コメントの受付可否・承認制にするかを記事ごとに設定できる</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>画像・動画の使い方</h2></div>
+
+  <p>アメブロは画像・動画を記事に埋め込む機能が標準で搭載されています。視覚的なコンテンツはアクセス数・滞在時間・いいね数に直接影響します。</p>
+
+  <h3>画像のアップロードと挿入</h3>
+  <ol class="steps">
+    <li>記事編集画面のツールバーから「画像」アイコンをクリックする</li>
+    <li>端末から画像ファイルを選択してアップロードする（JPEG・PNG・GIF対応）</li>
+    <li>挿入する画像をクリックすると記事内のカーソル位置に挿入される</li>
+    <li>挿入後は画像をクリックしてサイズ・配置（左寄せ・中央・右寄せ）を調整する</li>
+  </ol>
+
+  <h3>画像の容量制限</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>プラン</th><th>1枚あたりの上限</th><th>保存容量</th></tr></thead>
+    <tbody>
+      <tr><td>無料プラン</td><td>10MB</td><td>無制限（2024年改定後）</td></tr>
+      <tr><td>ライトプラン</td><td>10MB</td><td>無制限</td></tr>
+      <tr><td>プラスプラン</td><td>10MB</td><td>無制限</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>動画の埋め込み</h3>
+  <ul>
+    <li><strong>Amebaビデオ（直接アップロード）：</strong> 記事編集画面から動画ファイルを直接アップロードできる。対応形式はMP4など</li>
+    <li><strong>YouTube埋め込み：</strong> YouTubeのURLを貼り付けるだけで動画が自動的に埋め込まれる。視聴者をYouTubeチャンネルに誘導する際にも有効</li>
+  </ul>
+
+  <div class="note">
+    <span class="note-lbl">画像の推奨サイズ</span>
+    アメブロの記事幅は最大560px程度（スマートフォン表示）です。横幅1000〜1200pxで書き出すと、縮小されてもきれいに表示されます。容量はアップロード前に圧縮しておくと表示速度が上がります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>プロフィール・デザイン設定</h2></div>
+
+  <p>アメブロはブログのトップページが「名刺」の役割を果たします。初めて訪れた読者が「フォローしよう」と思うかどうかは、プロフィールとデザインで決まります。</p>
+
+  <h3>プロフィールの充実ポイント</h3>
+  <ul>
+    <li><strong>プロフィール画像：</strong> 顔写真か、自分を表すアイコン画像を必ず設定する。デフォルトのままは信頼感が下がる</li>
+    <li><strong>ニックネーム：</strong> 本名でなくてもOK。覚えてもらいやすい名前を選ぶ</li>
+    <li><strong>自己紹介文：</strong> 「何者か」「何を書いているブログか」「読者にどんなメリットがあるか」を100〜200文字でまとめる</li>
+    <li><strong>出身地・居住地：</strong> 地域密着型の読者を獲得したい場合は設定しておくと効果的</li>
+  </ul>
+
+  <h3>デザインテーマの選び方</h3>
+  <p>管理画面の「デザインの設定」から無料テーマを選択できます。選ぶ際のポイントは以下の通りです。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【デザイン選びの基準】
+目的・ジャンル別おすすめ方向性：
+
+ライフスタイル・日常系  → 明るい・温かみのあるデザイン
+美容・ファッション系    → シンプル・スタイリッシュなデザイン
+ビジネス・専門知識系    → 見やすい・情報が整理されたデザイン
+料理・グルメ系          → 写真が目立つシンプルなデザイン
+
+【有料プランのデザイン追加機能（プラスプラン）】
+- カバー画像の設定（スマホトップに大きな画像を表示）
+- 注目エリアのカスタマイズ（おすすめ記事・SNSリンクを目立つ位置に配置）
+- フォントの変更（複数種類から選択可能）</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S07 -->
+<section class="section" id="s07">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>読者を増やす方法</h2></div>
+
+  <p>アメブロで読者を増やすには、アメブロ独自の内部コミュニティを活用する方法と、検索からの流入を増やす方法の2軸があります。</p>
+
+  <h3>アメブロ内部での集客方法</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>方法</th><th>内容・コツ</th><th>効果</th></tr></thead>
+    <tbody>
+      <tr><td><strong>フォロー返し</strong></td><td>同じジャンルのブロガーをフォローすると相手がフォロー返しする。1日10〜20人を継続するのが目安</td><td><span class="tag tag-o">即効性あり</span></td></tr>
+      <tr><td><strong>いいね周り</strong></td><td>他のブロガーの記事にいいねをする。いいね通知から自分のブログを見てもらえる</td><td><span class="tag tag-o">即効性あり</span></td></tr>
+      <tr><td><strong>コメント交流</strong></td><td>記事にコメントを残すと存在を認知してもらいやすい。返信も必ずする</td><td><span class="tag tag-b">中長期</span></td></tr>
+      <tr><td><strong><span class="tip" data-tip="アメブロが注目記事としてピックアップするキュレーション機能。掲載されると一気にアクセスが増える">アメトピ</span>への掲載</strong></td><td>話題性・共感性の高い記事が選ばれる。タイトルに「あるある」「失敗談」「発見」を盛り込む</td><td><span class="tag tag-g">大きい</span></td></tr>
+      <tr><td><strong>ランキング上位</strong></td><td>ジャンル別ランキングへの登録・毎日の投稿でランキング上位を目指す</td><td><span class="tag tag-b">中長期</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>アメトピに掲載されやすい記事の特徴</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【アメトピに選ばれやすいタイトルの型】
+「〇〇してみたら△△だった」
+「知らなかった！〇〇の話」
+「やってしまった…〇〇の失敗」
+「〇〇あるある10選」
+「〇〇って実は△△だったの!?」
+
+【共通する要素】
+- 読んだ後に「共感・驚き・役立った」が得られる内容
+- タイトルで結論・オチを少し匂わせる（全部言い切らない）
+- 写真・画像が豊富（3枚以上）
+- 毎日更新を継続していること（更新頻度が評価される）</pre>
+  </div>
+
+  <div class="note note-grn">
+    <span class="note-lbl">継続が最大の戦略</span>
+    アメブロで読者を増やす最も確実な方法は<strong>毎日更新の継続</strong>です。毎日投稿することでアメトピに選ばれる確率が上がり、ランキングにも反映されます。短くても毎日投稿する習慣が、長期的な読者獲得につながります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S08 -->
+<section class="section" id="s08">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>SEO・検索流入を増やすコツ</h2></div>
+
+  <p>アメブロはWordPressほどSEOに強くはありませんが、正しいキーワード設定を行うことでGoogle・Yahoo!からの検索流入を増やすことは十分可能です。</p>
+
+  <h3>アメブロのSEO基本設定</h3>
+  <ol class="steps">
+    <li><strong>記事タイトルにキーワードを入れる：</strong> 検索で上位を狙いたいキーワードを記事タイトルの先頭付近に入れる</li>
+    <li><strong>ハッシュタグを設定する：</strong> 記事投稿時に関連するハッシュタグを5〜10個設定する。アメブロ内検索にも影響する</li>
+    <li><strong>カテゴリを整理する：</strong> 関連する記事を同じカテゴリにまとめることでサイト構造が整理され、評価が上がりやすくなる</li>
+    <li><strong>内部リンクを入れる：</strong> 関連する自分の過去記事にリンクを貼ることでアクセスが回遊し、滞在時間が上がる</li>
+  </ol>
+
+  <h3>キーワードの選び方</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【キーワード選びの基本】
+月間検索数が多すぎるキーワード（例：「ダイエット」）
+→ 大手サイトと競合するため初心者には不向き
+
+月間検索数が適度なロングテールキーワード
+→ 「40代 女性 糖質制限 1ヶ月 効果」のように複数の言葉を組み合わせる
+→ 競合が少なく、検索意図が明確で購買率も高い
+
+【おすすめのキーワード調査方法】
+1. Googleの検索窓にキーワードを入力 → 関連キーワードをサジェストで確認
+2. 「People Also Ask（他の人が質問していること）」を記事ネタに
+3. 同ジャンルの人気アメブロ記事のタイトルを参考にする
+
+【アメブロで特に効きやすいキーワード】
+地域名＋サービス：「札幌 カフェ おすすめ」
+体験談系：「○○ 使ってみた レビュー」
+比較系：「○○ vs △△ 違い」</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S09 -->
+<section class="section" id="s09">
+  <div class="sec-hd"><span class="sec-num">09</span><h2>有料プラン完全比較（2026年版）</h2></div>
+
+  <p>2024年2月のリニューアルを経て、2026年現在のアメブロ有料プランは<strong>「ライト」「プラス」の2種類</strong>です。旧プランからの移行や、どちらを選ぶべきかを詳しく解説します。</p>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-name">無料プラン</div>
+      <div class="plan-price">0円</div>
+      <div class="plan-note">趣味・日常ブログに最適</div>
+      <ul>
+        <li>基本的な記事投稿</li>
+        <li>画像アップロード（10MB/枚）</li>
+        <li>アメブロ広告が表示される</li>
+        <li>読者登録・コメント機能</li>
+        <li>アクセス解析（基本）</li>
+        <li>Ameba Picks利用可</li>
+      </ul>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-name">ライトプラン ★おすすめ</div>
+      <div class="plan-price">1,490円<span>/月（Web申込）</span></div>
+      <div class="plan-note">収益化・集客を始めたい人に</div>
+      <ul>
+        <li>無料の全機能</li>
+        <li><strong>アメブロ広告を非表示</strong></li>
+        <li><strong>固定アナウンス機能</strong></li>
+        <li><strong>カバー画像設定</strong></li>
+        <li><strong>注目エリア機能</strong></li>
+        <li><strong>オンラインレッスン見放題（180本以上）</strong></li>
+        <li>有料バッジ表示</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">プラスプラン</div>
+      <div class="plan-price">要確認<span>/月（公式サイト参照）</span></div>
+      <div class="plan-note">デザイン強化・独自ドメイン向け</div>
+      <ul>
+        <li>ライトの全機能</li>
+        <li>独自ドメイン設定</li>
+        <li>フォント変更</li>
+        <li>高度なデザインカスタマイズ</li>
+        <li>広告完全非表示</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note note-blu">
+    <span class="note-lbl">アプリ経由は料金が異なります</span>
+    スマートフォンアプリから申し込む場合は、App Store・Google Playの手数料が含まれるため料金が異なります。Web（PCブラウザ）から申し込む方が安くなります。まず公式サイトで最新料金を確認してください。
+  </div>
+
+  <h3>プランの選び方</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>こんな人に</th><th>おすすめ</th><th>理由</th></tr></thead>
+    <tbody>
+      <tr><td>趣味で楽しく書きたい</td><td><span class="tag tag-g">無料</span></td><td>基本機能で十分。まず無料で始める</td></tr>
+      <tr><td>広告を消してスッキリ見せたい・集客に使いたい</td><td><span class="tag tag-o">ライト</span></td><td>広告非表示＋カバー画像でプロらしい見た目に</td></tr>
+      <tr><td>独自ドメインが必要・デザインを細かくいじりたい</td><td><span class="tag tag-b">プラス</span></td><td>独自ドメインでSEO・ブランド強化</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>ライトプランのオンラインレッスンが大きな特典</h3>
+  <p>ライトプランには180本以上（2026年現在）のオンライン動画レッスンが見放題で含まれています。テーマはブログ集客・SEO・デザイン・SNS連携・Ameba Picks活用など多岐にわたり、1本1,000円相当の講座が月額料金で見放題になるのはコスパが高いです。</p>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S10 -->
+<section class="section" id="s10">
+  <div class="sec-hd"><span class="sec-num">10</span><h2>Ameba Picks 申請から収益化まで</h2></div>
+
+  <p>Ameba Picks（アメーバピックス）はアメブロ公式の<span class="tip" data-tip="自分のメディアで商品を紹介し、読者が購入した際に報酬が発生する仕組み">アフィリエイト</span>機能です。Amazon・楽天市場などの商品リンクをブログに貼り、読者が購入すると報酬が発生します。アメブロで利用できる唯一の収益化手段です。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-picks">
+        <div class="m-picks-title">Ameba Picks - おすすめ商品</div>
+        <div class="m-pick-item">
+          <div class="m-pick-img">Amazon</div>
+          <div class="m-pick-info">
+            <div class="m-pick-name">おすすめ書籍：AIの使い方完全ガイド</div>
+            <div class="m-pick-rate">報酬率：3.0%（Amazonアソシエイト）</div>
+          </div>
+          <div class="m-pick-btn">記事に追加</div>
+        </div>
+        <div class="m-pick-item">
+          <div class="m-pick-img">楽天</div>
+          <div class="m-pick-info">
+            <div class="m-pick-name">人気の美容グッズ：スキンケアセット</div>
+            <div class="m-pick-rate">報酬率：1.0%（楽天アフィリエイト）</div>
+          </div>
+          <div class="m-pick-btn">記事に追加</div>
+        </div>
+        <div class="m-pick-item">
+          <div class="m-pick-img">他</div>
+          <div class="m-pick-info">
+            <div class="m-pick-name">ファッション・ライフスタイル商品多数</div>
+            <div class="m-pick-rate">各商品ごとに報酬率が異なります</div>
+          </div>
+          <div class="m-pick-btn">商品を探す</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Ameba Picks の申請手順</h3>
+  <ol class="steps">
+    <li>管理画面の左メニューから「Ameba Pick」をクリックする</li>
+    <li>「利用申請をする」ボタンをクリックする</li>
+    <li>利用規約を確認して「同意する」にチェックを入れる</li>
+    <li>基本情報（振込先など）を入力して「申請する」をクリックする</li>
+    <li>審査完了のメールが届いたら（通常数日以内）利用開始できる</li>
+  </ol>
+
+  <h3>審査に通るためのポイント</h3>
+  <ul>
+    <li>ブログに最低5〜10記事程度の投稿があること</li>
+    <li>誇大表現・断定的な表現（「絶対に痩せる」「必ず稼げる」など）がないこと</li>
+    <li>他人の著作物（写真・文章）を無断使用していないこと</li>
+    <li>公序良俗に反する内容がないこと</li>
+  </ul>
+
+  <h3>商品リンクの貼り方</h3>
+  <ol class="steps">
+    <li>記事編集画面のツールバーから「Pick」ボタンをクリックする</li>
+    <li>紹介したい商品名・キーワードで検索する（Amazon・楽天など複数対応）</li>
+    <li>商品を選択して「記事に追加」をクリックする</li>
+    <li>商品画像・商品名・価格が記事内に自動で挿入される</li>
+  </ol>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【Ameba Picksで収益を上げるコツ】
+
+1. 実際に使った商品を紹介する
+   → 「使ってみた感想」「正直なレビュー」は信頼度が高く購入率が上がる
+   → 「広告っぽいリンクを貼るだけ」の記事は読者に見抜かれてクリックされない
+
+2. 記事の文脈に沿った商品を選ぶ
+   → 料理の記事なら調理器具・食材
+   → AI活用の記事なら関連書籍・ガジェット
+   → 「この記事を読んでいる人が欲しいもの」を想像して選ぶ
+
+3. 商品紹介は記事の「まとめ」前後に置く
+   → 記事を最後まで読んで興味が高まったところでリンクを見せる
+   → 冒頭だけのリンクは読み飛ばされやすい
+
+4. 「PR」表記を必ず入れる
+   → 2023年10月からステルスマーケティング規制が強化
+   → 報酬が発生する可能性があるリンクには「PR」「広告」の表示が必要</pre>
+  </div>
+
+  <div class="note note-red">
+    <span class="note-lbl">ステルスマーケティング規制（2023年10月〜）</span>
+    Ameba Picksを利用して報酬が発生する可能性がある場合、記事内に「PR」「広告」「アフィリエイトリンクを含みます」などの表記が法律上必要です。記事タイトルや本文冒頭に明記するようにしてください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S11 -->
+<section class="section" id="s11">
+  <div class="sec-hd"><span class="sec-num">11</span><h2>ドットマネー受け取り・出金方法</h2></div>
+
+  <p>Ameba Picksで発生した報酬は、Amebaのポイントサービス「<span class="tip" data-tip="サイバーエージェントが提供するポイントサービス。アメブロの収益を現金・ギフト券などに交換できる">ドットマネー</span>」として受け取ります。現金への出金には銀行口座の登録が必要です。</p>
+
+  <h3>ドットマネーの仕組み</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>単位</td><td>1ドットマネー＝1円相当</td></tr>
+      <tr><td>報酬確定のタイミング</td><td>商品購入から30〜60日後（返品期間終了後）に確定</td></tr>
+      <tr><td>最低出金額</td><td>500ドットマネー（500円）から出金可能</td></tr>
+      <tr><td>出金先</td><td>銀行振込・Amazonギフト券・各種ポイントへの交換</td></tr>
+      <tr><td>振込手数料</td><td>銀行振込の場合は手数料が差し引かれる（金額により異なる）</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>出金手順</h3>
+  <ol class="steps">
+    <li>ドットマネーのサイト（d-money.jp）にアクセスしてログインする</li>
+    <li>「交換する」から出金方法（銀行振込など）を選択する</li>
+    <li>出金額を入力して申請する（最低500円から）</li>
+    <li>銀行口座が未登録の場合は口座情報を入力して登録する</li>
+    <li>申請後1〜2週間程度で振込される</li>
+  </ol>
+
+  <div class="note note-grn">
+    <span class="note-lbl">Amazonギフト券交換がお得</span>
+    銀行振込には手数料がかかる場合がありますが、Amazonギフト券への交換は手数料ゼロで1ドットマネー＝1円のレートで交換できます。Amazonをよく使う方はギフト券交換がお得です。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S12 -->
+<section class="section" id="s12">
+  <div class="sec-hd"><span class="sec-num">12</span><h2>バッジ機能・注目エリア活用</h2></div>
+
+  <p>2025年2月にアメブロに新登場した「バッジ機能」と、読者の回遊を促す「注目エリア」は、ブログの信頼性・収益性を高める重要な機能です。</p>
+
+  <h3>バッジ機能とは</h3>
+  <p>バッジはブログの実績や特徴を示すアイコンです。プロフィールページやブログトップに表示され、読者に信頼感・専門性を伝えます。</p>
+  <ul>
+    <li><strong>取得条件：</strong> 投稿数・読者数・継続日数など、一定の条件を達成すると自動付与される</li>
+    <li><strong>表示場所：</strong> プロフィール・記事一覧ページに表示。読者からの信頼度が上がる</li>
+    <li><strong>有料プランのバッジ：</strong> 有料プラン加入者には「有料プラン」バッジが表示され、本気度・信頼度のアピールになる</li>
+  </ul>
+
+  <h3>注目エリアの活用</h3>
+  <p>注目エリアはブログトップページの目立つ位置に表示されるカスタムエリアです。<strong>ライトプラン以上</strong>で利用できます。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【注目エリアの効果的な使い方】
+
+パターン1：自己紹介へ誘導
+→ 「初めて来た方はこちら」として自己紹介記事にリンク
+→ ブログの概要を素早く伝えてフォローにつなげる
+
+パターン2：人気記事・おすすめ記事にリンク
+→ アクセス数が高い記事や収益記事を固定表示
+→ 新しい読者を成果記事に誘導してAmeba Picks収益を上げる
+
+パターン3：SNSへの誘導
+→ X（Twitter）・Instagram・LINEのリンクを貼る
+→ ブログ以外のフォロワー獲得につなげる
+
+パターン4：お問い合わせ・サービスへの誘導
+→ 個人事業主・講師の場合は申し込みフォームや料金ページを掲載
+→ ブログを集客ツールとして最大限活用する</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S13 -->
+<section class="section" id="s13">
+  <div class="sec-hd"><span class="sec-num">13</span><h2>アメブロ×SNS連携戦略</h2></div>
+
+  <p>アメブロ単体よりも、SNSと組み合わせることでブログへの流入が大幅に増えます。それぞれのプラットフォームの特性を活かした連携戦略を解説します。</p>
+
+  <h3>SNS別の連携方法と効果</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>SNS</th><th>連携方法</th><th>特に効くジャンル</th></tr></thead>
+    <tbody>
+      <tr><td><strong>X（旧Twitter）</strong></td><td>記事更新のたびにURLをポスト。記事の冒頭1〜2行をつぶやきに入れてクリックを誘導</td><td>時事・AI活用・ビジネス・雑学</td></tr>
+      <tr><td><strong>Instagram</strong></td><td>投稿の詳細はアメブロへ誘導。「続きはプロフのリンクから」の定番フロー</td><td>美容・ファッション・料理・旅行</td></tr>
+      <tr><td><strong>LINE公式アカウント</strong></td><td>新記事をLINEで配信。読者登録よりも高い開封率で記事を届けられる</td><td>全ジャンル・特にリピーター向け</td></tr>
+      <tr><td><strong>YouTube</strong></td><td>動画の補足記事をアメブロに書く。「詳細はブログで」の誘導</td><td>動画と相性のいい解説・レビュー系</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>効果的なクロスメディア戦略</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【基本の流れ：SNS→アメブロ→収益化】
+
+X（認知）
+  ↓ 「続きはアメブロで」
+アメブロ（深い情報・Ameba Picksリンク）
+  ↓ 「このブログが気に入ったらフォローを」
+読者登録・LINE登録（ファン化）
+  ↓ 「新記事・おすすめ商品をお知らせ」
+継続的な収益（Ameba Picks・案件・サービス販売）
+
+【各SNSの投稿タイミングとアメブロの更新を同期させる】
+1. アメブロに記事を投稿する
+2. 記事の要点を3行にまとめてXにポスト → URLを貼る
+3. 記事の写真をInstagramに投稿 → 「詳しくはプロフのリンクから」
+4. LINE登録者に「新記事のお知らせ」を配信</pre>
+  </div>
+
+  <div class="note">
+    <span class="note-lbl">アメブロのSNS設定</span>
+    管理画面の「設定」から、記事投稿時にX（Twitter）・FacebookへのシェアリンクをAuto投稿する設定があります。手動でSNS投稿する手間を減らせます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S14 -->
+<section class="section" id="s14">
+  <div class="sec-hd"><span class="sec-num">14</span><h2>よくあるトラブル・FAQ</h2></div>
+
+  <h3>よくある質問（FAQ）</h3>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">アメブロは本名でなくても使えますか？</div>
+    <div class="faq-a">ニックネームで問題ありません。多くのユーザーがペンネームや活動名で運営しています。ただしAmeba Picksの報酬を受け取る際の振込先は実名の口座が必要になります。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">記事を後から非公開にできますか？</div>
+    <div class="faq-a">はい、できます。管理画面の「記事の管理」から投稿済み記事を選択して「非公開」に変更できます。非公開にした記事はURLを知っていても閲覧できません。削除ではなく非公開にすることで、後から公開に戻すことも可能です。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Ameba Picksの審査に落ちた場合はどうすればいいですか？</div>
+    <div class="faq-a">審査落ちの主な原因は、記事数が少ない・不適切な表現がある・他人の著作物を無断使用しているなどです。記事を10本以上に増やし、誇大表現を修正した上で再申請してください。再申請に制限はありません。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">有料プランはいつでも解約できますか？</div>
+    <div class="faq-a">はい、月単位での解約が可能です。ただし解約しても翌月分の支払いが発生する場合があります（利用期間の末日まで有効）。アプリ経由で申し込んだ場合はApp Store・Google Playから解約する必要があります。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">読者数を一気に増やすサービス（購入など）は使っても大丈夫ですか？</div>
+    <div class="faq-a">利用規約で禁止されており、アカウント停止のリスクがあります。見せかけの読者数は本当のファンにはならず、アメトピ掲載やAmeba Picksの収益にも繋がりません。地道に継続する方が長期的に有効です。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">外部のASP（A8.netなど）は使えないのですか？</div>
+    <div class="faq-a">アメブロの利用規約でAmeba Picks以外のアフィリエイトリンクは禁止されています。A8.net・もしもアフィリエイト・バリューコマースなどは利用できません。外部ASPを使いたい場合はWordPressブログへの移行を検討してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">アメブロをWordPressに移行できますか？</div>
+    <div class="faq-a">記事の移行は可能ですが、ドメイン・URLが変わるためSEO評価はリセットされます。アメブロの記事をエクスポートしてWordPressにインポートする方法があります。読者数が増えてきて収益化の自由度を求めるタイミングで検討するのが一般的です。</div>
+  </div>
+
+  <h3>よくあるトラブルと解決法</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>トラブル</th><th>原因・解決方法</th></tr></thead>
+    <tbody>
+      <tr><td>記事が投稿できない</td><td>ブラウザのキャッシュをクリアする・別のブラウザで試す・アプリを最新版に更新する</td></tr>
+      <tr><td>画像がアップロードできない</td><td>ファイルサイズが10MBを超えていないか確認。JPEG・PNG・GIF以外の形式は非対応</td></tr>
+      <tr><td>アクセス数が急に落ちた</td><td>アメブロのサーバーメンテナンス・Googleのアルゴリズム更新の影響が考えられる。しばらく様子を見て継続更新する</td></tr>
+      <tr><td>Ameba Picksのリンクが表示されない</td><td>審査未完了か、商品の取り扱いが終了している可能性がある。管理画面から状態を確認する</td></tr>
+      <tr><td>コメントのスパムが多い</td><td>管理画面の「コメント設定」から「承認制」にする・特定キーワードを含むコメントをブロックする</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+</div><!-- /wrapper -->
+
+<footer class="site-footer">
+  <strong>アメブロ完全解説書 2026年版</strong>
+  本ガイドは2026年3月時点の情報を基に制作されています。アメブロの機能・料金・規約はアップデートにより変更される場合があります。最新情報は公式サイト（ameba.jp）でご確認ください。
+  <br><span class="footer-note">完全版 ／ 最終更新：2026年3月</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, { threshold: 0.05 });
+document.querySelectorAll('.section').forEach(el => obs.observe(el));
+
+function copyCode(btn) {
+  const text = btn.nextElementSibling.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showCopied(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
+}
+function showCopied(btn) {
+  btn.textContent = 'COPIED';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+}
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+</body>
+</html>
