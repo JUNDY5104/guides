@@ -232,7 +232,7 @@
   tr:last-child td { border-bottom: none; }
   tr:nth-child(even) td { background: var(--bg-light); }
 
-  /* コード<span class="tip" data-tip="テキスト・画像・リストなどコンテンツの最小単位。すべての要素はブロックで構成される">ブロック</span> */
+  /* コードブロック */
   .code-block {
     position: relative;
     margin: 16px 0;
@@ -469,7 +469,7 @@
   .mock-divider::after { right: 0; }
   .mock-terms { font-size: 10px; color: #bbb; text-align: center; margin-top: 12px; line-height: 1.6; }
 
-  /* テーブル<span class="tip" data-tip="同じデータベースを別の見た目・形式で表示する方法。テーブル・<span class="tip" data-tip="タスクをカード形式でステータス別に管理する方法。進捗を視覚的に把握しやすい">カンバン</span>・カレンダーなど">ビュー</span>モック */
+  /* テーブルカンバン・カレンダーなど">ビュー</span>モック */
   .mock-db-toolbar {
     display: flex;
     border-bottom: 1px solid var(--border);
@@ -1252,7 +1252,7 @@ Ctrl + Z   : 元に戻す
 
 <script>
   // スクロールアニメーション
-  const observer = new <span class="tip" data-tip="要素が画面に表示されたタイミングを検知するブラウザの機能。スクロールアニメーションなどに使う">IntersectionObserver</span>((entries) => {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
@@ -1293,7 +1293,7 @@ Ctrl + Z   : 元に戻す
     el.parentElement.classList.toggle('open');
   }
 
-  // <span class="tip" data-tip="目次などのリンクをクリックするとページ内の特定の場所に直接ジャンプできる仕組み">アンカーリンク</span>のスムーズスクロール
+  // アンカーリンクのスムーズスクロール
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
