@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>Zoom Workplace 完全解説書 2026年版｜元飲食店店長サム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --zm:#2d8cff;--zm2:#4da3ff;--zm-light:rgba(45,140,255,.1);--zm-border:rgba(45,140,255,.25);
+  --grn:#00b878;--grn-light:rgba(0,184,120,.1);
+  --red:#e53e3e;--red-light:#fff5f5;
+  --org:#dd6b20;--org-light:#fffaf0;
+  --bg:#ffffff;--bg-off:#f4f6fb;--bg-off2:#e8edf5;
+  --text:#1a202c;--muted:#4a5568;--border:#e2e8f0;
+  --max:1000px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85}
+
+/* ヘッダー */
+.site-header{background:linear-gradient(135deg,#0a1628 0%,#0d2040 40%,#1a3a6e 100%);color:#fff;padding:64px 24px 54px;text-align:center;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;top:-100px;right:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(45,140,255,.25),transparent 70%);pointer-events:none}
+.site-header::after{content:'';position:absolute;bottom:-80px;left:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(45,140,255,.15),transparent 70%);pointer-events:none}
+.hd-new-badge{display:inline-block;background:#e53e3e;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:3px;margin-bottom:12px;position:relative;z-index:1;letter-spacing:.06em}
+.hd-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;padding:4px 16px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;position:relative;z-index:1}
+.site-header h1{font-size:clamp(24px,4.5vw,40px);font-weight:700;line-height:1.25;margin-bottom:12px;position:relative;z-index:1}
+.site-header .sub{font-size:14px;color:rgba(255,255,255,.85);max-width:560px;margin:0 auto 24px;position:relative;z-index:1;line-height:1.8}
+.hd-meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hd-meta span{font-size:12px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.12);padding:4px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.2)}
+
+/* UI変更アラート */
+.ui-alert{background:linear-gradient(135deg,#1a3a6e,#0d2040);border-left:4px solid var(--zm);padding:16px 24px;margin:0}
+.ui-alert-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:14px;font-size:14px;color:#fff}
+.ui-alert-icon{font-size:20px;flex-shrink:0}
+.ui-alert strong{color:var(--zm2)}
+
+/* ナビ */
+.nav-wrap{background:var(--bg-off);border-bottom:1px solid var(--border);padding:12px 24px;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;gap:8px;max-width:var(--max);margin:0 auto;white-space:nowrap}
+.nav-btn{display:inline-flex;align-items:center;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--zm-border);color:var(--zm);background:var(--zm-light);transition:all .2s;flex-shrink:0}
+.nav-btn:hover{background:var(--zm);color:#fff}
+
+/* ラッパー */
+.wrapper{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* 目次 */
+.toc-wrap{background:var(--bg-off);border-left:4px solid var(--zm);padding:26px 30px;margin:48px 0 40px;border-radius:0 6px 6px 0}
+.toc-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--zm);margin-bottom:16px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;list-style:none;counter-reset:toc}
+.toc-grid li{counter-increment:toc;border-bottom:1px solid var(--border)}
+.toc-grid li:nth-last-child(-n+2){border-bottom:none}
+.toc-grid a{display:flex;align-items:center;gap:8px;padding:9px 4px;color:var(--text);text-decoration:none;font-size:13px;transition:color .2s}
+.toc-grid a::before{content:counter(toc,decimal-leading-zero);font-size:11px;font-weight:700;color:var(--zm);min-width:24px}
+.toc-grid a:hover{color:var(--zm)}
+
+/* セクション */
+.section{padding:60px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:last-of-type{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-num{background:var(--zm);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 11px;border-radius:2px;flex-shrink:0;min-width:44px;text-align:center}
+.sec-hd h2{font-size:clamp(18px,3vw,22px);font-weight:700;border-bottom:2px solid var(--zm);padding-bottom:6px;flex:1;line-height:1.35}
+.new-tag{display:inline-block;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:middle;letter-spacing:.04em}
+
+/* 本文 */
+p{margin-bottom:16px;color:var(--text)}
+p:last-child{margin-bottom:0}
+h3{font-size:16px;font-weight:700;margin:28px 0 12px;padding-left:12px;border-left:3px solid var(--zm);color:var(--text)}
+h4{font-size:14px;font-weight:700;margin:20px 0 8px;color:var(--muted)}
+ul,ol{padding-left:20px;margin-bottom:16px;color:var(--text)}
+li{margin-bottom:7px}
+strong{color:#1a202c}
+
+/* ノート */
+.note{background:var(--zm-light);border-left:4px solid var(--zm);padding:14px 20px;margin:18px 0;border-radius:0 4px 4px 0;font-size:14px}
+.note .lbl{display:block;color:var(--zm);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px}
+.note-grn{background:var(--grn-light);border-left-color:var(--grn)}.note-grn .lbl{color:var(--grn)}
+.note-org{background:var(--org-light);border-left-color:var(--org)}.note-org .lbl{color:var(--org)}
+.note-red{background:var(--red-light);border-left-color:var(--red)}.note-red .lbl{color:var(--red)}
+
+/* 変更点ボックス */
+.change-box{background:linear-gradient(135deg,rgba(45,140,255,.08),rgba(45,140,255,.04));border:1.5px solid var(--zm-border);border-radius:8px;padding:16px 20px;margin:18px 0}
+.change-box .cb-title{font-size:12px;font-weight:700;color:var(--zm);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.change-row{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.change-row:last-child{border-bottom:none}
+.change-old{color:var(--red);text-decoration:line-through;flex:1;opacity:.8}
+.change-arrow{color:var(--zm);font-weight:700;flex-shrink:0;padding-top:1px}
+.change-new{color:var(--text);flex:1;font-weight:700}
+
+/* テーブル */
+.tbl-wrap{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:360px}
+th{background:var(--zm);color:#fff;padding:10px 14px;text-align:left;font-weight:700;font-size:13px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--bg-off)}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700}
+.tag-z{background:var(--zm-light);color:var(--zm);border:1px solid var(--zm-border)}
+.tag-g{background:var(--grn-light);color:var(--grn)}
+.tag-r{background:var(--red-light);color:var(--red)}
+.tag-o{background:var(--org-light);color:var(--org)}
+.chk{color:var(--grn);font-weight:700}
+.xmk{color:#999}
+
+/* コードブロック */
+.code-block{position:relative;margin:16px 0}
+.code-block pre{background:var(--bg-off2);border:1px solid var(--border);border-radius:4px;padding:16px 52px 16px 18px;overflow-x:auto;font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:8px;right:8px;background:var(--zm);color:#fff;border:none;padding:5px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border-radius:2px;transition:background .2s;white-space:nowrap}
+.copy-btn:hover{background:#1a6fd4}.copy-btn.copied{background:var(--grn)}
+
+/* ステップ */
+.steps{list-style:none;padding:0;counter-reset:step}
+.steps li{counter-increment:step;padding:12px 12px 12px 50px;position:relative;border-bottom:1px solid var(--border);color:var(--text)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:10px;top:12px;width:26px;height:26px;background:var(--zm);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%}
+
+/* ツールチップ */
+.tip{border-bottom:1.5px dotted var(--zm);cursor:help;position:relative;display:inline}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a202c;color:#fff;font-size:12px;padding:8px 12px;border-radius:6px;width:max-content;max-width:260px;white-space:normal;box-shadow:0 4px 16px rgba(0,0,0,.2);pointer-events:none;opacity:0;transition:opacity .18s;z-index:9999;line-height:1.65;font-family:'Noto Sans JP',sans-serif}
+.tip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a202c;pointer-events:none;opacity:0;transition:opacity .18s;z-index:9999}
+.tip:hover::after,.tip:hover::before{opacity:1}
+
+/* モックアップ */
+.mockup-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:22px 0;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+.mockup-bar{background:#f0f0f0;padding:8px 14px;display:flex;gap:6px;align-items:center;border-bottom:1px solid var(--border)}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.mockup-bar span:nth-child(1){background:#ff6058}
+.mockup-bar span:nth-child(2){background:#ffbd2e}
+.mockup-bar span:nth-child(3){background:#28c840}
+.mockup-bar .m-title{font-size:11px;color:#999;margin-left:8px}
+.mockup-body{background:#fff}
+
+/* Zoom画面モック（新UI） */
+.m-zoom{background:#1c1c1c;min-height:260px;display:flex;flex-direction:column}
+.m-zm-topbar{background:#2d2d2d;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1)}
+.m-zm-logo{color:#2d8cff;font-size:14px;font-weight:700;letter-spacing:-.02em}
+.m-zm-nav{display:flex;gap:4px}
+.m-zm-tab{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);cursor:default}
+.m-zm-tab.on{background:#2d8cff;color:#fff}
+.m-zm-search{background:rgba(255,255,255,.1);border-radius:6px;padding:6px 12px;font-size:12px;color:rgba(255,255,255,.4);width:200px}
+.m-zm-body{flex:1;padding:24px;display:flex;align-items:center;justify-content:center}
+.m-zm-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.m-zm-btn{padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:default;display:flex;align-items:center;gap:8px}
+.m-zm-btn.primary{background:#2d8cff;color:#fff}
+.m-zm-btn.secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+
+/* ミーティング中コントロールバーモック */
+.m-ctrl{background:#1c1c1c;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:6px;border-top:1px solid rgba(255,255,255,.1)}
+.m-ctrl-btn{width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:default;flex-shrink:0}
+.m-ctrl-btn.red{background:#e53e3e}
+.m-ctrl-btn.active{background:#2d8cff}
+.m-ctrl-icon{font-size:16px}
+.m-ctrl-label{font-size:8px;color:rgba(255,255,255,.6)}
+.m-ctrl-btn.active .m-ctrl-label,.m-ctrl-btn.red .m-ctrl-label{color:#fff}
+
+/* プランカード */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.plan-card{border:1.5px solid var(--border);border-radius:6px;padding:18px 16px;font-size:13px;background:var(--bg-off)}
+.plan-card.featured{border-color:var(--zm);background:var(--zm-light)}
+.plan-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.plan-price{font-size:20px;font-weight:700;color:var(--zm);margin-bottom:2px;line-height:1.2}
+.plan-price span{font-size:11px;font-weight:400;color:var(--muted)}
+.plan-note{font-size:11px;color:var(--muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.plan-card ul{padding-left:0;list-style:none}
+.plan-card li{padding:3px 0 3px 14px;position:relative;font-size:11px;border:none;margin-bottom:2px}
+.plan-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--border)}
+.plan-card.featured li::before{background:var(--zm)}
+
+/* FAQ */
+.faq-item{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden}
+.faq-q{background:var(--bg-off);padding:13px 46px 13px 18px;font-weight:700;font-size:14px;cursor:pointer;position:relative;user-select:none;color:var(--text)}
+.faq-q::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--zm);font-weight:400;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{display:none;padding:14px 18px;font-size:14px;line-height:1.85;border-top:1px solid var(--border);color:var(--muted)}
+.faq-item.open .faq-a{display:block}
+
+/* TOPボタン */
+.to-top{display:inline-flex;align-items:center;gap:6px;margin-top:36px;padding:7px 16px;background:var(--bg-off);border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;color:var(--muted);text-decoration:none;letter-spacing:.06em;transition:all .2s;cursor:pointer}
+.to-top::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.to-top:hover{background:var(--zm);color:#fff;border-color:var(--zm)}
+
+/* Coconalaバナー */
+.coconala-banner{background:linear-gradient(135deg,#0a1628,#1a3a6e);border-radius:8px;padding:24px 28px;margin:40px 0;color:#fff;position:relative;overflow:hidden}
+.coconala-banner::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(45,140,255,.3),transparent 70%);pointer-events:none}
+.cb-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:8px}
+.cb-title{font-size:18px;font-weight:700;margin-bottom:8px;position:relative;z-index:1}
+.cb-desc{font-size:13px;color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:16px;position:relative;z-index:1}
+.cb-btn{display:inline-block;background:var(--zm);color:#fff;font-size:14px;font-weight:700;padding:10px 24px;border-radius:4px;text-decoration:none;transition:background .2s;position:relative;z-index:1}
+.cb-btn:hover{background:#1a6fd4}
+
+/* フッター */
+.site-footer{background:#0a1628;color:rgba(255,255,255,.7);text-align:center;padding:36px 24px;font-size:12px;margin-top:48px}
+.site-footer strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}
+.footer-note{display:inline-block;background:rgba(255,255,255,.1);padding:3px 14px;border-radius:20px;margin-top:8px;font-size:11px}
+
+@media(max-width:768px){
+  .toc-grid,.plan-grid{grid-template-columns:1fr}
+  .m-zm-search{display:none}
+}
+@media(max-width:480px){
+  .site-header{padding:48px 20px 40px}
+  .section{padding:44px 0}
+  th,td{padding:8px 10px}
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#111;--bg-off:#1a1a1a;--bg-off2:#222;
+    --text:#e8e8e8;--muted:#999;--border:rgba(255,255,255,.1);
+    --zm:#4da3ff;--zm-light:rgba(77,163,255,.12);--zm-border:rgba(77,163,255,.3);
+    --red-light:rgba(229,62,62,.1);--org-light:rgba(221,107,32,.1);--grn-light:rgba(0,184,120,.1);
+  }
+  .mockup-bar{background:#2a2a2a}
+  .mockup-body{background:#1c1c1c}
+  .faq-q{background:#1a1a1a}
+  .plan-card{background:#1a1a1a}
+  .plan-card.featured{background:rgba(77,163,255,.1)}
+  .toc-wrap{background:#1a1a1a}
+  .change-box{background:rgba(77,163,255,.08)}
+  .nav-wrap{background:#1a1a1a}
+  strong{color:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hd-new-badge">2026年版・新UI完全対応</div>
+  <div class="hd-badge">Complete Guide 2026</div>
+  <h1>Zoom Workplace<br>完全解説書</h1>
+  <p class="sub">「Zoom Workplace」への名称変更・UI刷新に完全対応。参加者側・ホスト側の両方をこの1本で完全網羅した2026年最新版ガイドです</p>
+  <div class="hd-meta">
+    <span>14 セクション</span>
+    <span>バージョン 6.7.x 対応</span>
+    <span>PC・スマホ両対応</span>
+    <span>AI Companion解説あり</span>
+    <span>完全無料</span>
+  </div>
+</header>
+
+<div class="ui-alert">
+  <div class="ui-alert-inner">
+    <div class="ui-alert-icon">⚠️</div>
+    <div><strong>UI大幅変更のお知らせ：</strong>2024年4月よりアプリ名が「Zoom」→「Zoom Workplace」に変わり、画面レイアウトが刷新されました。本ガイドは最新UI（v6.7.x）に対応しています。</div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <a href="#s01" class="nav-btn">01 概要・料金</a>
+    <a href="#s02" class="nav-btn">02 インストール</a>
+    <a href="#s03" class="nav-btn">03 新UI解説</a>
+    <a href="#s04" class="nav-btn">04 参加する</a>
+    <a href="#s05" class="nav-btn">05 開催する</a>
+    <a href="#s06" class="nav-btn">06 ミーティング中</a>
+    <a href="#s07" class="nav-btn">07 画面共有</a>
+    <a href="#s08" class="nav-btn">08 背景・フィルター</a>
+    <a href="#s09" class="nav-btn">09 チャット・リアクション</a>
+    <a href="#s10" class="nav-btn">10 ブレイクアウト</a>
+    <a href="#s11" class="nav-btn">11 レコーディング</a>
+    <a href="#s12" class="nav-btn">12 AI Companion</a>
+    <a href="#s13" class="nav-btn">13 スマホ版</a>
+    <a href="#s14" class="nav-btn">14 FAQ</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<nav class="toc-wrap">
+  <div class="toc-lbl">目次</div>
+  <ol class="toc-grid">
+    <li><a href="#s01">Zoom Workplaceとは・料金プラン</a></li>
+    <li><a href="#s02">インストール・アカウント作成</a></li>
+    <li><a href="#s03">新UI画面の見方（最新版）</a></li>
+    <li><a href="#s04">ミーティングに参加する</a></li>
+    <li><a href="#s05">ミーティングを開催する</a></li>
+    <li><a href="#s06">ミーティング中の操作完全解説</a></li>
+    <li><a href="#s07">画面共有の使い方（新UI対応）</a></li>
+    <li><a href="#s08">バーチャル背景・ぼかし・フィルター</a></li>
+    <li><a href="#s09">チャット・リアクション機能</a></li>
+    <li><a href="#s10">ブレイクアウトルーム</a></li>
+    <li><a href="#s11">レコーディング・文字起こし</a></li>
+    <li><a href="#s12">AI Companion（新機能）</a></li>
+    <li><a href="#s13">スマホ版の使い方</a></li>
+    <li><a href="#s14">よくあるトラブル・FAQ</a></li>
+  </ol>
+</nav>
+
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>Zoom Workplaceとは・料金プラン</h2></div>
+
+  <p>Zoom Workplaceは、2024年4月に「Zoom」から改名されたビデオ会議・コラボレーションツールです。単なる名称変更ではなく、<strong>AIを中心とした機能強化・UI刷新・チャットや予定管理との統合</strong>が行われた大型アップデートです。</p>
+
+  <div class="change-box">
+    <div class="cb-title">旧Zoom → Zoom Workplace 主な変更点</div>
+    <div class="change-row"><div class="change-old">アプリ名「Zoom」</div><div class="change-arrow">→</div><div class="change-new">「Zoom Workplace」に改称</div></div>
+    <div class="change-row"><div class="change-old">画面下部のコントロールバー（アイコン多数）</div><div class="change-arrow">→</div><div class="change-new">シンプル化・一部が「詳細」に集約</div></div>
+    <div class="change-row"><div class="change-old">上部ナビゲーションが複雑</div><div class="change-arrow">→</div><div class="change-new">ホーム・チャット・ミーティング等のタブ構造に整理</div></div>
+    <div class="change-row"><div class="change-old">ミーティング情報（緑のチェックマーク）</div><div class="change-arrow">→</div><div class="change-new">左上のインフォメーションマークに移動</div></div>
+    <div class="change-row"><div class="change-old">AIなし</div><div class="change-arrow">→</div><div class="change-new">AI Companion（議事録・要約・文字起こし）を搭載</div></div>
+  </div>
+
+  <h3>料金プラン比較（2026年版）</h3>
+  <div class="plan-grid">
+    <div class="plan-card featured">
+      <div class="plan-name">ベーシック（無料）</div>
+      <div class="plan-price">0<span>円</span></div>
+      <div class="plan-note">個人・少人数なら十分</div>
+      <ul>
+        <li>ミーティング時間：40分制限（3人以上）</li>
+        <li>参加人数：最大100人</li>
+        <li>1対1は無制限</li>
+        <li>画面共有・チャット可</li>
+        <li>バーチャル背景・ぼかし</li>
+        <li>クラウド録画：不可</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">プロ</div>
+      <div class="plan-price">2,125<span>円〜/月（年払い）</span></div>
+      <div class="plan-note">ビジネス・教育・セミナー向け</div>
+      <ul>
+        <li>ミーティング時間：無制限</li>
+        <li>参加人数：最大100人</li>
+        <li>クラウド録画：5GB</li>
+        <li>AI Companion付き</li>
+        <li>メールサポート</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">ビジネス</div>
+      <div class="plan-price">2,986<span>円〜/月（年払い）</span></div>
+      <div class="plan-note">チーム・法人向け</div>
+      <ul>
+        <li>参加人数：最大300人</li>
+        <li>クラウド録画：無制限</li>
+        <li>ホワイトボード無制限</li>
+        <li>管理者ダッシュボード</li>
+        <li>SSO対応</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note note-org">
+    <span class="lbl">無料プランの40分制限について</span>
+    3人以上のミーティングは40分で自動終了します。終了後に同じリンクで再度参加し直せば続けられます。個人事業主・発信者向けのセミナー開催にはプロプラン以上を推奨します。料金は公式サイト（zoom.com）で最新価格をご確認ください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>インストール・アカウント作成</h2></div>
+
+  <h3>PC版（デスクトップ）のインストール</h3>
+  <ol class="steps">
+    <li>zoom.com/jp/jp/download にアクセスして「Zoom Workplaceデスクトップアプリ」をダウンロードする</li>
+    <li>インストーラーを実行してインストールを完了させる</li>
+    <li>「サインアップ」からメールアドレスで新規登録、またはGoogleアカウント・SSOでログインする</li>
+    <li>登録メールに届いた確認リンクをクリックして認証する</li>
+  </ol>
+
+  <h3>アカウントなしで参加する場合</h3>
+  <p>会議の招待URLをクリックするだけで、アカウントなし・アプリなしでも<span class="tip" data-tip="ブラウザ上でZoomを使う方法。インストール不要だが一部機能が制限される">ブラウザ版</span>で参加できます。ただし機能が制限されるため、定期的に使う方はアプリのインストールを推奨します。</p>
+
+  <h3>常に最新バージョンを使う</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【手動アップデートの方法】
+PC版：右上のアイコン →「アップデートを確認」をクリック
+
+【自動アップデートの設定方法】
+PC版：右上のアイコン → 「設定」→「一般」
+→「Zoomデスクトップを自動更新する」にチェック
+
+現在の最新バージョン：6.7.x（2026年3月時点）
+古いバージョンのままだとUIが異なり、このガイドの説明と画面が違う場合があります。
+アップデートを定期的に確認してください。</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>新UI画面の見方（最新版）</h2></div>
+
+  <p>Zoom Workplaceへのアップデートで画面構成が大きく変わりました。「前と違う」と感じている方はここを確認してください。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span><span class="m-title">Zoom Workplace - ホーム画面</span></div>
+    <div class="mockup-body">
+      <div class="m-zoom">
+        <div class="m-zm-topbar">
+          <div class="m-zm-logo">Zoom Workplace</div>
+          <div class="m-zm-nav">
+            <div class="m-zm-tab on">ホーム</div>
+            <div class="m-zm-tab">チャット</div>
+            <div class="m-zm-tab">ミーティング</div>
+            <div class="m-zm-tab">連絡先</div>
+          </div>
+          <div class="m-zm-search">検索</div>
+        </div>
+        <div class="m-zm-body">
+          <div class="m-zm-actions">
+            <div class="m-zm-btn primary">🎥 新規ミーティング</div>
+            <div class="m-zm-btn secondary">🔗 参加</div>
+            <div class="m-zm-btn secondary">📅 スケジュール</div>
+            <div class="m-zm-btn secondary">📤 画面を共有</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>新UIの主要な変更点</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>エリア</th><th>旧UI（〜2024年3月）</th><th>新UI（2024年4月〜）</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ナビゲーション</strong></td><td>左サイドバー</td><td>上部タブ（ホーム・チャット・ミーティング・連絡先）</td></tr>
+      <tr><td><strong>ホーム画面</strong></td><td>シンプルな起動画面</td><td>ミーティング・チャット・予定を統合したダッシュボード</td></tr>
+      <tr><td><strong>設定画面</strong></td><td>「一般」に多くの項目</td><td>「ミーティングとウェビナー」という専用タブに整理</td></tr>
+      <tr><td><strong>各機能の設定</strong></td><td>設定画面から操作</td><td>各アイコン横の「Λ」から直接設定できる</td></tr>
+      <tr><td><strong>ミーティング情報</strong></td><td>緑のチェックマーク</td><td>左上のインフォメーションマーク（ⓘ）</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-grn">
+    <span class="lbl">旧UIに戻したい場合</span>
+    設定画面の下部に「新バージョンを試す」というトグルがある場合、OFFにすると旧デザインに戻せます。ただしこのオプションは将来的に廃止される予定です。新UIに慣れておくことをおすすめします。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>ミーティングに参加する（参加者側）</h2></div>
+
+  <p>Zoomのミーティングへの参加方法は主に3種類あります。どの方法でも同じ会議に参加できます。</p>
+
+  <h3>参加方法3種類</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>方法</th><th>手順</th><th>おすすめ場面</th></tr></thead>
+    <tbody>
+      <tr><td><strong>招待URLをクリック</strong></td><td>メール・LINEなどで届いたURLをクリックするだけ。最も簡単</td><td>初めて参加する人・スマホからの参加</td></tr>
+      <tr><td><strong>ミーティングIDを入力</strong></td><td>アプリホーム画面の「参加」→11桁のミーティングIDを入力→パスコードを入力</td><td>URLが届いていない場合</td></tr>
+      <tr><td><strong>zoom.new（新機能）</strong></td><td>ブラウザのアドレスバーに「zoom.new」と入力→即座にミーティング開始</td><td>自分が主催者として即席で始めたい時</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>参加前に確認すること</h3>
+  <ol class="steps">
+    <li><strong>マイク・カメラのテスト：</strong> 参加前のプレビュー画面でマイクとカメラが正常に動いているか確認する</li>
+    <li><strong>表示名の確認：</strong> 参加前の画面に名前が表示される。本名または活動名に変更しておく</li>
+    <li><strong>背景の設定：</strong> 自宅などプライベートな場所が映る場合は、バーチャル背景かぼかしを設定する（Section 08参照）</li>
+    <li><strong>待機室で待機：</strong> ホストが許可するまで「待機室」で待機する場合がある。ホストが入室を許可すると自動的に入れる</li>
+  </ol>
+
+  <h3>入室後の基本マナー</h3>
+  <ul>
+    <li><strong>発言しない時はミュートにする：</strong> 周囲の生活音・キーボード音が他の参加者に聞こえてしまう</li>
+    <li><strong>発言する時はミュート解除：</strong> スペースキーを長押しすることで一時的にミュート解除もできる</li>
+    <li><strong>退出時は「退出」ボタンを押す：</strong> 画面を閉じるだけでは退出にならない場合がある</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>ミーティングを開催する（ホスト側）</h2></div>
+
+  <p>ミーティングを主催する側（<span class="tip" data-tip="ミーティングを開始・管理する主催者。参加者のミュート・退出・画面共有の許可など特別な権限を持つ">ホスト</span>）の操作を解説します。</p>
+
+  <h3>ミーティングの開始方法</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>方法</th><th>手順</th></tr></thead>
+    <tbody>
+      <tr><td><strong>即席で開始</strong></td><td>ホーム画面の「新規ミーティング」をクリック→すぐにミーティング開始</td></tr>
+      <tr><td><strong>スケジュール登録して開始</strong></td><td>「スケジュール」から日時・参加人数・パスコードを設定→招待URLを参加者に共有→当日「ミーティング」タブから開始</td></tr>
+      <tr><td><strong>zoom.newで開始</strong></td><td>ブラウザのアドレスバーに「zoom.new」と入力するだけで即座にミーティング開始</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>招待URLの共有方法</h3>
+  <ol class="steps">
+    <li>ミーティング開始後、左上のインフォメーションマーク（ⓘ）をクリックする（旧UIでは緑のチェックマーク）</li>
+    <li>「招待リンクをコピー」をクリックしてURLをコピーする</li>
+    <li>メール・LINE・Slack等で参加者に送付する</li>
+  </ol>
+
+  <h3>ホストの主な管理機能</h3>
+  <ul>
+    <li><strong>待機室の管理：</strong> 参加者が待機室に入ったら「許可する」で入室させる。不審な参加者は「削除」できる</li>
+    <li><strong>全員ミュート：</strong> 「参加者」パネル→「全員をミュート」で一括ミュートできる</li>
+    <li><strong>共同ホストの指定：</strong> 参加者一覧で特定の人を右クリック→「共同ホストにする」で管理権限を共有できる</li>
+    <li><strong>録画の開始：</strong> コントロールバーの「レコーディング」から開始（ホストのみ）</li>
+    <li><strong>ミーティングの終了：</strong> 「終了」→「全員のミーティングを終了」で全員退出させる。「自分のみ退出」だと参加者は続けられる</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>ミーティング中の操作完全解説</h2></div>
+
+  <p>ミーティング中の画面下部にある<span class="tip" data-tip="ミーティング中に表示される操作ボタンの並び。新UIでは表示されるアイコンが減り、一部は「詳細」にまとめられた">コントロールバー</span>の操作を解説します。新UIでは表示アイコンが減り、スッキリしました。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span><span class="m-title">ミーティング中のコントロールバー（新UI）</span></div>
+    <div class="mockup-body">
+      <div class="m-zoom" style="min-height:80px">
+        <div style="flex:1;background:#1c1c1c"></div>
+        <div class="m-ctrl">
+          <div class="m-ctrl-btn">
+            <div class="m-ctrl-icon">🎤</div>
+            <div class="m-ctrl-label">ミュート</div>
+          </div>
+          <div class="m-ctrl-btn active">
+            <div class="m-ctrl-icon">📹</div>
+            <div class="m-ctrl-label">ビデオ停止</div>
+          </div>
+          <div class="m-ctrl-btn">
+            <div class="m-ctrl-icon">🔒</div>
+            <div class="m-ctrl-label">セキュリティ</div>
+          </div>
+          <div class="m-ctrl-btn">
+            <div class="m-ctrl-icon">👥</div>
+            <div class="m-ctrl-label">参加者</div>
+          </div>
+          <div class="m-ctrl-btn">
+            <div class="m-ctrl-icon">💬</div>
+            <div class="m-ctrl-label">チャット</div>
+          </div>
+          <div class="m-ctrl-btn">
+            <div class="m-ctrl-icon">📤</div>
+            <div class="m-ctrl-label">画面共有</div>
+          </div>
+          <div class="m-ctrl-btn">
+            <div class="m-ctrl-icon">⋯</div>
+            <div class="m-ctrl-label">詳細</div>
+          </div>
+          <div class="m-ctrl-btn red">
+            <div class="m-ctrl-icon">📵</div>
+            <div class="m-ctrl-label">退出</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>各ボタンの役割</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>ボタン</th><th>操作</th><th>ショートカット</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ミュート（マイク）</strong></td><td>自分のマイクをON/OFF。赤い斜線が入るとミュート状態</td><td>Alt+A（Win）/ ⌘+Shift+A（Mac）</td></tr>
+      <tr><td><strong>ビデオ停止（カメラ）</strong></td><td>自分のカメラをON/OFF</td><td>Alt+V（Win）/ ⌘+Shift+V（Mac）</td></tr>
+      <tr><td><strong>セキュリティ</strong></td><td>待機室・画面共有・チャットなどの参加者権限を管理（ホストのみ）</td><td>―</td></tr>
+      <tr><td><strong>参加者</strong></td><td>参加者一覧を表示。ホストは全員ミュート・退出操作が可能</td><td>Alt+U（Win）/ ⌘+U（Mac）</td></tr>
+      <tr><td><strong>チャット</strong></td><td>テキストチャットパネルを開く。全員またはDMで送れる</td><td>Alt+H（Win）/ ⌘+Shift+H（Mac）</td></tr>
+      <tr><td><strong>画面共有</strong></td><td>自分のPC画面・特定ウィンドウ・カメラ映像を共有</td><td>Alt+Shift+S（Win）/ ⌘+Shift+S（Mac）</td></tr>
+      <tr><td><strong>詳細（⋯）</strong></td><td>レコーディング・ブレイクアウト・バーチャル背景など追加機能</td><td>―</td></tr>
+      <tr><td><strong>退出（赤）</strong></td><td>ミーティングから退出。ホストは「全員のミーティングを終了」も選択可</td><td>Alt+Q（Win）/ ⌘+W（Mac）</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>ビュー（表示形式）の切り替え</h3>
+  <ul>
+    <li><strong>スピーカービュー：</strong> 発言中の人が大きく表示される。1対1・少人数向け</li>
+    <li><strong>ギャラリービュー：</strong> 全参加者が均等なサイズで表示される。グループ会議向け</li>
+    <li><strong>マルチスピーカービュー（新機能）：</strong> 発言中の複数人を強調表示。5人以上のミーティングで使用可能</li>
+    <li>切り替えは画面右上の「ビュー」ボタンから</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S07 -->
+<section class="section" id="s07">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>画面共有の使い方（新UI対応）</h2></div>
+
+  <p>画面共有のUIも新UIで大きく刷新されました。「画面・ドキュメント・詳細」の3タブ構造になり、カメラ映像との組み合わせが選びやすくなっています。</p>
+
+  <h3>画面共有の開始手順（新UI）</h3>
+  <ol class="steps">
+    <li>コントロールバーの「画面共有」ボタンをクリックする</li>
+    <li>共有方法の選択画面が開く（新UI：3タブ構造）
+      <br>・「<strong>画面</strong>」タブ：デスクトップ全体またはアプリウィンドウを選択
+      <br>・「<strong>ドキュメント</strong>」タブ：ホワイトボード・PDFなどのドキュメントを共有
+      <br>・「<strong>詳細</strong>」タブ：スマホ画面・コンテンツのみ・カメラ映像など高度な設定</li>
+    <li>共有したい画面・ウィンドウを選択して「共有」をクリック</li>
+    <li>共有中は画面上部に緑のバーが表示される</li>
+    <li>終了する時は上部の緑バーの「共有を停止」をクリック</li>
+  </ol>
+
+  <h3>画面共有中の新機能：カメラとの組み合わせレイアウト</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【新UIで選べる共有レイアウト（v6.5.5以降）】
+「前に立って解説」風  → 資料の前に自分が立っているような合成表示
+「肩越し」風          → 肩越しに画面を見せているような表示
+「左右並列」          → 画面と自分のカメラを横に並べて表示
+
+設定方法：
+共有中にツールバーの「共有」タブを選択
+→ レイアウトを選択してワンクリックで適用
+→ 設定は次回以降も記憶される</pre>
+  </div>
+
+  <div class="note note-org">
+    <span class="lbl">画面共有時の注意</span>
+    デスクトップ全体を共有すると通知・メッセージ・個人情報が見えてしまう場合があります。特定のウィンドウ（PowerPointのスライドショー・ブラウザの特定タブなど）だけを選択して共有することをおすすめします。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S08 -->
+<section class="section" id="s08">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>バーチャル背景・ぼかし・フィルター</h2></div>
+
+  <p>背景の設定は参加前のプレビュー画面またはミーティング中のカメラアイコン横の「Λ」から変更できます。</p>
+
+  <h3>背景の種類</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>種類</th><th>効果</th><th>おすすめ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ぼかし</strong></td><td>背景をぼかして自分だけを映す。自然で使いやすい</td><td><span class="tag tag-g">最もおすすめ</span></td></tr>
+      <tr><td><strong>バーチャル背景（静止画）</strong></td><td>好きな画像を背景にする。シンプルなオフィス系が無難</td><td>ビジネス用途向け</td></tr>
+      <tr><td><strong>バーチャル背景（動画）</strong></td><td>動く映像を背景にする。遊び心のある演出に</td><td>カジュアルな場面向け</td></tr>
+      <tr><td><strong>ポートレート照明（新機能）</strong></td><td>顔を明るく照らして映りを良くするAI補正</td><td>照明環境が悪い時</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>バーチャル背景の設定方法</h3>
+  <ol class="steps">
+    <li>ミーティング中：カメラアイコン横の「Λ」→「バーチャル背景を選択」をクリック</li>
+    <li>参加前：プレビュー画面のカメラアイコン横の矢印から設定</li>
+    <li>設定画面が開くので一覧から選択するか「+」で自分の画像・動画をアップロードする</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">グリーンバックがなくても使えます</span>
+    Zoomのバーチャル背景はグリーンバックなしで使えます。ただし背景と自分が似た色の服装だと境界線が乱れる場合があります。背景と対比のある服装の方がきれいに映ります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S09 -->
+<section class="section" id="s09">
+  <div class="sec-hd"><span class="sec-num">09</span><h2>チャット・リアクション機能</h2></div>
+
+  <h3>ミーティング中のチャット</h3>
+  <p>コントロールバーの「チャット」をクリックするとチャットパネルが開きます。新UIでは<strong>チャットウィンドウ上部にペンマークが追加</strong>され、特定の人へのダイレクトメッセージが送りやすくなりました。</p>
+
+  <ul>
+    <li><strong>全員に送る：</strong> 宛先「全員」のまま入力してEnter</li>
+    <li><strong>特定の人に送る（DM）：</strong> チャット上部のペンマーク→DMしたい相手を選択</li>
+    <li><strong>ファイルの送付：</strong> チャットのクリップアイコンからファイルを添付して送れる</li>
+  </ul>
+
+  <h3>リアクション機能</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【コントロールバーのリアクションから使える機能】
+👍 賛成   / 👏 拍手   / 🎉 祝福
+❤️ 好き   / 😂 笑い   / 😮 驚き
+
+「手を挙げる」：発言したい時に使う挙手機能
+→ ホスト側に「手が挙がっています」と通知される
+
+【ハンドジェスチャー認識（新機能・v6.6.0以降）】
+両手でハートを作る → ハートのリアクションが表示
+親指を上げる       → 👍リアクションが表示
+手を挙げる動作     → 挙手として認識される
+
+設定：リアクション横の「Λ」→「ハンドジェスチャー認識」にチェック</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S10 -->
+<section class="section" id="s10">
+  <div class="sec-hd"><span class="sec-num">10</span><h2>ブレイクアウトルーム</h2></div>
+
+  <p><span class="tip" data-tip="メインのミーティングから小グループに分割できる機能。ワークショップ・グループ作業に便利。ホストのみが作成できる">ブレイクアウトルーム</span>はメインのミーティングから小グループに分割できる機能です。セミナーのグループワーク・ワークショップで特に役立ちます。</p>
+
+  <h3>ブレイクアウトルームの作成手順</h3>
+  <ol class="steps">
+    <li>コントロールバーの「詳細（⋯）」→「ブレイクアウトルーム」をクリック（ホストのみ）</li>
+    <li>ルーム数と参加者の割り振り方法を選択する（自動・手動・参加者が選択）</li>
+    <li>「ブレイクアウトルームを開く」をクリックして全員を分割する</li>
+    <li>各ルームに個別でメッセージを送ったり、ルームを訪問したりできる</li>
+    <li>「全員を呼び戻す」でメインルームに全員を戻す</li>
+  </ol>
+
+  <h3>2025年の改善点</h3>
+  <div class="note note-grn">
+    <span class="lbl">待機室から直接ブレイクアウトルームへ移動可能に（v6.4.0以降）</span>
+    以前はメインルームを経由しないとブレイクアウトルームに入れませんでしたが、2025年3月のアップデートで待機室にいる参加者を直接ブレイクアウトルームへ移動できるようになりました。大規模セミナーの運営が効率化されました。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S11 -->
+<section class="section" id="s11">
+  <div class="sec-hd"><span class="sec-num">11</span><h2>レコーディング・文字起こし</h2></div>
+
+  <h3>レコーディングの種類</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>種類</th><th>保存場所</th><th>利用できるプラン</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ローカルレコーディング</strong></td><td>自分のPCに保存</td><td><span class="tag tag-g">無料プランでも可</span></td></tr>
+      <tr><td><strong>クラウドレコーディング</strong></td><td>Zoomのクラウドに保存。URLで共有できる</td><td><span class="tag tag-z">プロプラン以上</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>レコーディングの開始方法</h3>
+  <ol class="steps">
+    <li>コントロールバーの「詳細（⋯）」→「レコーディング」をクリック（ホストのみ）</li>
+    <li>ローカル保存またはクラウド保存を選択する</li>
+    <li>画面上部に「レコーディング中」の表示が出れば開始</li>
+    <li>終了する時はもう一度「詳細（⋯）」→「レコーディングを停止」をクリック</li>
+    <li>ミーティング終了後に自動でMP4ファイルとして書き出される</li>
+  </ol>
+
+  <div class="note note-red">
+    <span class="lbl">録画前に参加者への告知が必要です</span>
+    録画する場合は必ず参加者に事前に告知してください。無断録音・録画は法律的に問題になる可能性があります。Zoomでは録画開始時に参加者に「このミーティングは録画されています」という通知が自動表示されます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S12 -->
+<section class="section" id="s12">
+  <div class="sec-hd"><span class="sec-num">12</span><h2>AI Companion（新機能）<span class="new-tag">NEW</span></h2></div>
+
+  <p>AI Companionは<strong>有料プランに標準搭載されたAIアシスタント</strong>です。2024年以降のZoom Workplaceで大幅に機能が拡充されました。</p>
+
+  <h3>AI Companionの主な機能</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機能</th><th>内容</th><th>使いどころ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>会議の要約</strong></td><td>ミーティング終了後に議題・決定事項・アクションアイテムを自動でまとめる</td><td>議事録作成の時間を大幅短縮</td></tr>
+      <tr><td><strong>文字起こし（リアルタイム）</strong></td><td>会話をリアルタイムでテキスト化。ミーティング中に確認できる</td><td>聞き漏らし防止・議事録作成</td></tr>
+      <tr><td><strong>質問応答</strong></td><td>「今日の会議で〇〇についてどう決まった？」と質問するとAIが答える</td><td>後から確認したい内容を即座に検索</td></tr>
+      <tr><td><strong>チャット作成支援</strong></td><td>チャットメッセージの下書き・修正・要約をAIが補助</td><td>英語でのやり取り・長文メッセージ</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>AI Companionの使い方</h3>
+  <ol class="steps">
+    <li>ミーティング中にコントロールバーの「AI Companion」をクリック（有料プランのみ表示）</li>
+    <li>「要約を開始」または「文字起こしを開始」を選択する</li>
+    <li>ミーティング終了後にメールまたはZoomのクラウドに要約が自動送信される</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">AI Companionは追加料金なし</span>
+    AI Companionはプロプラン以上に追加費用なしで含まれています（2026年3月時点）。ただし機能・提供条件は変更される場合があります。最新情報はzoom.com公式サイトで確認してください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S13 -->
+<section class="section" id="s13">
+  <div class="sec-hd"><span class="sec-num">13</span><h2>スマホ版の使い方</h2></div>
+
+  <p>スマホ版「Zoom Workplace」はApp StoreまたはGoogle Playから無料でダウンロードできます。PC版と同じアカウントで使えます。</p>
+
+  <h3>PC版との主な違い</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機能</th><th>PC版</th><th>スマホ版</th></tr></thead>
+    <tbody>
+      <tr><td>ブレイクアウトルーム作成</td><td><span class="chk">可</span></td><td><span class="xmk">制限あり</span></td></tr>
+      <tr><td>画面共有</td><td><span class="chk">可（ウィンドウ指定可）</span></td><td>スマホ画面全体のみ</td></tr>
+      <tr><td>バーチャル背景</td><td><span class="chk">可</span></td><td>機種によっては不可</td></tr>
+      <tr><td>操作性</td><td>マウス・キーボードで精密操作</td><td>タップ操作で直感的</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>スマホ版の基本操作</h3>
+  <ul>
+    <li><strong>参加：</strong> 招待URLをタップするだけ。または「参加」からミーティングIDを入力</li>
+    <li><strong>コントロールバー：</strong> 画面をタップすると下部に操作ボタンが表示される（非表示時はタップで再表示）</li>
+    <li><strong>ビュー切り替え：</strong> 画面を左右にスワイプでギャラリービューとスピーカービューを切り替える</li>
+    <li><strong>画面共有：</strong> 「詳細」→「画面を共有」→スマホ画面全体を共有（Androidは追加の許可が必要）</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S14 -->
+<section class="section" id="s14">
+  <div class="sec-hd"><span class="sec-num">14</span><h2>よくあるトラブル・FAQ</h2></div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">アップデートしたら画面が全然違います。どこに何があるかわかりません。</div>
+    <div class="faq-a">Zoom WorkplaceへのアップデートでUIが大きく変わりました。最大の変更点は①ナビゲーションが左サイドバーから上部タブへ移動、②ミーティング情報の表示が緑のチェックマークから左上のⓘマークへ変更、③コントロールバーのアイコンが減って「詳細（⋯）」に集約された点です。このガイドのSection 03で新UIの全体像を確認してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">マイクが聞こえない・相手の声が聞こえません。</div>
+    <div class="faq-a">まず自分がミュートになっていないか確認してください（マイクアイコンに赤い斜線が入っていればミュート）。解決しない場合は、コントロールバーのマイクアイコン横の「Λ」→「マイクのテスト」で正しい入力デバイスが選択されているか確認してください。それでも解決しない場合は設定→音声→「音声設定をリセット」を試してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">40分で強制終了されてしまいます。</div>
+    <div class="faq-a">無料プランで3人以上のミーティングは40分制限があります。終了後に同じURLで再接続すれば続けられます。頻繁にミーティングをする場合は制限のないプロプラン（2,125円/月〜）へのアップグレードを検討してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">バーチャル背景が設定できません。グレーアウトしています。</div>
+    <div class="faq-a">PCのスペックが低い場合やグラフィックドライバが古い場合に設定できないことがあります。設定→背景とエフェクト→「仮想背景」タブが表示されない場合は、グリーンバック（緑の布）を用意することで使えるようになる場合があります。スマホ版は機種によっては対応していないことがあります。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">招待URLを参加者に送ったが「このミーティングは無効です」と表示されます。</div>
+    <div class="faq-a">ミーティングがまだ開始されていない状態ではこのメッセージが表示されることがあります。ホストがミーティングを開始してから参加者が接続するとスムーズです。また予約ミーティングの場合は設定した時間より前に参加しようとするとエラーになります。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">画面共有の操作が変わって戸惑っています。</div>
+    <div class="faq-a">新UIでは画面共有のダイアログが「画面・ドキュメント・詳細」の3タブ構造に変わりました。通常の画面やウィンドウを共有したい場合は「画面」タブ、ホワイトボードや資料を共有したい場合は「ドキュメント」タブを選択してください。共有中は画面上部の緑バーから操作できます。</div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+</div><!-- /wrapper -->
+
+<footer class="site-footer">
+  <strong>Zoom Workplace 完全解説書 2026年版</strong>
+  本ガイドはZoom Workplace v6.7.x（2026年3月時点）の情報を基に制作されています。Zoomは頻繁にアップデートされるため、画面・機能が変更される場合があります。最新情報はzoom.com公式サイトでご確認ください。
+  <br><span class="footer-note">完全版（無料）／ 最終更新：2026年3月</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.05});
+document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+function copyCode(btn){const text=btn.nextElementSibling.textContent;navigator.clipboard?navigator.clipboard.writeText(text).then(()=>showCopied(btn)):((ta=document.createElement('textarea')).value=text,document.body.appendChild(ta),ta.select(),document.execCommand('copy'),document.body.removeChild(ta),showCopied(btn))}
+function showCopied(btn){btn.textContent='COPIED';btn.classList.add('copied');setTimeout(()=>{btn.textContent='COPY';btn.classList.remove('copied')},2000)}
+function toggleFaq(el){el.parentElement.classList.toggle('open')}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})})
+</script>
+</body>
+</html>
