@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<title>X Pro アナリティクス 完全解説書 2026年版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --x:#0f0f0f;
+  --xb:#1d9bf0;
+  --xb2:#1570c1;
+  --xb-light:#e8f4fe;
+  --xb-border:#90cdf4;
+  --grn:#00ba7c;
+  --grn-light:#e6f9f2;
+  --red:#f4212e;
+  --red-light:#fef2f2;
+  --org:#ff7a00;
+  --org-light:#fff7ed;
+  --pur:#7856ff;
+  --pur-light:#f0ecff;
+  --bg:#ffffff;
+  --bg-off:#f7f9fa;
+  --bg-off2:#edf0f3;
+  --text:#0f1419;
+  --muted:#536471;
+  --border:#cfd9de;
+  --max:1000px;
+  --radius:8px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.8}
+a{color:var(--xb);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ===== HERO ===== */
+.hero{background:linear-gradient(150deg,#000000 0%,#0d1117 50%,#0a1929 100%);color:#fff;padding:64px 24px 52px;text-align:center}
+.hero-inner{max-width:var(--max);margin:0 auto}
+.hero-badge{display:inline-block;background:var(--xb);color:#fff;font-size:11px;font-weight:700;letter-spacing:.12em;padding:4px 14px;border-radius:20px;margin-bottom:18px}
+.hero h1{font-size:clamp(22px,4vw,36px);font-weight:700;line-height:1.3;margin-bottom:14px}
+.hero h1 span{color:var(--xb)}
+.hero-lead{font-size:14px;color:rgba(255,255,255,.75);max-width:560px;margin:0 auto 28px;line-height:1.9}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.hero-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.8)}
+.hero-stat strong{display:block;font-size:20px;color:#fff;font-weight:700}
+
+/* ===== STICKY NAV ===== */
+.nav-wrap{background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:10px 16px 6px;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:200;scrollbar-width:thin;scrollbar-color:var(--xb) var(--bg-off)}
+.nav-wrap::-webkit-scrollbar{height:3px}
+.nav-wrap::-webkit-scrollbar-track{background:var(--bg-off)}
+.nav-wrap::-webkit-scrollbar-thumb{background:var(--xb);border-radius:2px}
+.nav-inner{display:flex;gap:6px;max-width:var(--max);margin:0 auto;white-space:nowrap}
+.nav-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--border);color:var(--muted);background:var(--bg-off);transition:all .2s;flex-shrink:0}
+.nav-btn:hover,.nav-btn.active{background:var(--xb);border-color:var(--xb);color:#fff;text-decoration:none}
+.nav-btn .n-num{font-size:10px;opacity:.7}
+
+/* ===== LAYOUT ===== */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ===== TOC ===== */
+.toc-wrap{background:var(--bg-off);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;margin:40px 0}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-bottom:16px;text-transform:uppercase}
+.toc-grid{width:100%;overflow:hidden}
+.toc-grid::after{content:"";display:block;clear:both}
+.toc-col{float:left;width:50%;box-sizing:border-box}
+.toc-col:first-child{padding-right:16px}
+.toc-col:last-child{padding-left:8px}
+.toc-item{display:flex;align-items:flex-start;gap:6px;margin-bottom:8px;font-size:14px;color:var(--text);text-decoration:none}
+.toc-item:hover{color:var(--xb)}
+.toc-num{font-size:11px;font-weight:700;color:var(--xb);width:22px;flex-shrink:0;margin-top:3px}
+.toc-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0;white-space:nowrap;margin-top:2px;margin-left:4px}
+.toc-label{flex:1;min-width:0;line-height:1.5;word-break:break-all}
+.tt-basic{background:#e8f4fe;color:#1570c1}
+.tt-tab{background:#e6f9f2;color:#00875a}
+.tt-goal{background:#f0ecff;color:#5a35c7}
+.tt-adv{background:#fff7ed;color:#c2500a}
+@media(max-width:600px){.toc-grid{flex-direction:column}.toc-col{flex:none;max-width:100%}}
+
+/* ===== SECTION ===== */
+.section{padding:56px 0;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.sec-num{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--xb);color:#fff;font-size:14px;font-weight:700;flex-shrink:0}
+.sec-hd h2{font-size:clamp(18px,3vw,24px);font-weight:700;border-bottom:3px solid var(--xb);padding-bottom:6px}
+h3{font-size:17px;font-weight:700;margin:28px 0 12px;padding-left:12px;border-left:4px solid var(--xb)}
+h4{font-size:15px;font-weight:700;margin:20px 0 8px;color:var(--xb2)}
+p{margin-bottom:14px}
+ul,ol{padding-left:20px;margin-bottom:14px}
+li{margin-bottom:6px}
+.steps{counter-reset:step;list-style:none;padding-left:0}
+.steps li{counter-increment:step;display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
+.steps li::before{content:counter(step);display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--xb);color:#fff;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+
+/* ===== TABLE ===== */
+.tbl-wrap{overflow-x:auto;margin-bottom:20px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--x);color:#fff;padding:10px 14px;text-align:left;font-weight:700;white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:var(--bg-off)}
+
+/* ===== BOX ===== */
+.box{border-radius:var(--radius);padding:18px 22px;margin-bottom:18px}
+.box-info{background:var(--xb-light);border-left:4px solid var(--xb)}
+.box-grn{background:var(--grn-light);border-left:4px solid var(--grn)}
+.box-pur{background:var(--pur-light);border-left:4px solid var(--pur)}
+.box-org{background:var(--org-light);border-left:4px solid var(--org)}
+.box-title{font-weight:700;font-size:14px;margin-bottom:6px}
+.box-info .box-title{color:var(--xb2)}
+.box-grn .box-title{color:#00875a}
+.box-pur .box-title{color:#5a35c7}
+.box-org .box-title{color:#c2500a}
+
+/* ===== GOAL CARDS ===== */
+.goal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.goal-card{border-radius:var(--radius);padding:16px;border:1px solid var(--border)}
+.goal-card-num{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:6px}
+.goal-card-title{font-size:13px;font-weight:700;line-height:1.4}
+.gc-1{background:#e8f4fe;border-color:#90cdf4}.gc-1 .goal-card-num{color:var(--xb)}
+.gc-2{background:#e6f9f2;border-color:#6ee7c2}.gc-2 .goal-card-num{color:var(--grn)}
+.gc-3{background:#fff7ed;border-color:#fbbf83}.gc-3 .goal-card-num{color:var(--org)}
+.gc-4{background:#fef2f2;border-color:#fca5a5}.gc-4 .goal-card-num{color:var(--red)}
+.gc-5{background:#f0ecff;border-color:#c4b5fd}.gc-5 .goal-card-num{color:var(--pur)}
+
+/* ===== MOCKUP BASE ===== */
+.mockup-wrap{border:2px solid var(--border);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.mockup-bar{background:#16181c;padding:10px 16px;display:flex;align-items:center;gap:8px}
+.mockup-dot{width:10px;height:10px;border-radius:50%}
+.mockup-title-bar{color:rgba(255,255,255,.5);font-size:11px;margin-left:8px;flex:1;text-align:center}
+
+/* X Analytics UI Mockup */
+.xa-wrap{display:flex;background:#fff;min-height:320px;font-size:13px}
+.xa-sidebar{width:200px;background:#fff;border-right:1px solid var(--border);padding:16px 12px;flex-shrink:0}
+.xa-x-logo{font-size:20px;font-weight:900;margin-bottom:16px;color:#000}
+.xa-nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:20px;color:var(--text);font-size:13px;margin-bottom:2px;cursor:pointer}
+.xa-nav-item:hover{background:var(--bg-off)}
+.xa-nav-item.active{font-weight:700}
+.xa-post-btn{background:#000;color:#fff;border-radius:20px;padding:10px 0;text-align:center;font-weight:700;font-size:14px;margin-top:12px}
+.xa-main{flex:1;padding:16px 20px;min-width:0}
+.xa-page-title{font-size:18px;font-weight:700;margin-bottom:14px}
+.xa-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:16px;gap:0}
+.xa-tab{padding:10px 14px;font-size:13px;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px}
+.xa-tab.active{color:var(--text);font-weight:700;border-bottom-color:var(--xb)}
+.xa-tab:hover{background:var(--bg-off)}
+
+/* Stats row */
+.xa-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.xa-stat-card{background:var(--bg-off);border-radius:var(--radius);padding:12px}
+.xa-stat-label{font-size:11px;color:var(--muted);margin-bottom:4px}
+.xa-stat-val{font-size:20px;font-weight:700}
+.xa-stat-change{font-size:11px;margin-top:2px}
+.up{color:var(--grn)}.down{color:var(--red)}
+
+/* Chart area */
+.xa-chart-area{background:var(--bg-off);border-radius:var(--radius);padding:14px;margin-bottom:14px}
+.xa-chart-title{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:10px}
+.xa-bar-chart{display:flex;align-items:flex-end;gap:3px;height:80px}
+.xa-bar{background:var(--xb);border-radius:2px 2px 0 0;flex:1;opacity:.8;transition:opacity .2s}
+.xa-bar:hover{opacity:1}
+.xa-bar.low{background:var(--xb-border)}
+.xa-bar.high{background:var(--xb2)}
+
+/* Audience grid */
+.xa-aud-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.xa-aud-card{background:var(--bg-off);border-radius:var(--radius);padding:12px}
+.xa-aud-title{font-size:12px;font-weight:700;margin-bottom:8px}
+.xa-age-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px}
+.xa-age-label{width:60px;flex-shrink:0;color:var(--muted)}
+.xa-age-bar{height:6px;background:var(--xb);border-radius:3px}
+.xa-age-pct{width:36px;text-align:right;color:var(--muted)}
+.xa-donut{display:flex;align-items:center;gap:12px}
+.xa-donut-chart{width:60px;height:60px;border-radius:50%;background:conic-gradient(var(--xb) 0% 71%, #e879f9 71% 100%);flex-shrink:0}
+.xa-donut-legend{font-size:11px}
+.xa-donut-legend li{list-style:none;display:flex;align-items:center;gap:5px;padding:0;margin-bottom:3px}
+.xa-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* Content list */
+.xa-content-header{display:grid;grid-template-columns:1fr 80px 60px 50px 60px;gap:8px;font-size:11px;font-weight:700;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);margin-bottom:6px}
+.xa-content-row{display:grid;grid-template-columns:1fr 80px 60px 50px 60px;gap:8px;font-size:12px;padding:8px 0;border-bottom:1px solid var(--border);align-items:center}
+.xa-post-preview{display:flex;gap:8px;align-items:flex-start}
+.xa-post-thumb{width:36px;height:36px;border-radius:4px;object-fit:cover;flex-shrink:0;background:var(--bg-off2)}
+.xa-post-text{font-size:12px;color:var(--text);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.xa-num{font-weight:700;color:var(--text)}
+
+/* Video tab */
+.xa-vid-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.xa-vid-stat{background:var(--bg-off);border-radius:var(--radius);padding:10px;text-align:center}
+.xa-vid-val{font-size:18px;font-weight:700;color:var(--xb)}
+.xa-vid-label{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* Funnel bar */
+.funnel-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.funnel-label{width:50px;font-size:11px;color:var(--muted);text-align:right;flex-shrink:0}
+.funnel-bar-wrap{flex:1;background:var(--bg-off2);border-radius:3px;height:18px;overflow:hidden}
+.funnel-bar{height:100%;background:var(--xb);border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:11px;color:#fff;font-weight:700}
+
+/* Purpose section */
+.purpose-block{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden}
+.purpose-hd{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.purpose-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.purpose-title{font-weight:700;font-size:15px}
+.purpose-body{padding:0 18px 18px;border-top:1px solid var(--border)}
+.purpose-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+.purpose-item{background:var(--bg-off);border-radius:6px;padding:12px}
+.purpose-item-title{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.purpose-item ul{font-size:13px;padding-left:16px;margin:0}
+.purpose-item li{margin-bottom:4px}
+@media(max-width:640px){.purpose-row{grid-template-columns:1fr}}
+
+/* Cycle diagram */
+.cycle-wrap{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin:20px 0}
+.cycle-step{background:var(--bg-off);border:2px solid var(--border);border-radius:8px;padding:12px 16px;text-align:center;min-width:110px}
+.cycle-step.active{background:var(--xb);border-color:var(--xb);color:#fff}
+.cycle-step-num{font-size:10px;font-weight:700;margin-bottom:4px;opacity:.7}
+.cycle-step-label{font-size:12px;font-weight:700}
+.cycle-arrow{font-size:18px;color:var(--border);margin:0 4px;flex-shrink:0}
+
+/* Tooltip */
+[data-tip]{position:relative;border-bottom:1px dashed var(--muted);cursor:help}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + 6px);background:#0f1419;color:#fff;padding:6px 10px;border-radius:6px;font-size:12px;line-height:1.5;white-space:nowrap;z-index:100;min-width:160px;pointer-events:none}
+[data-tip]:hover::before{content:"";position:absolute;left:8px;top:calc(100% + 1px);border:5px solid transparent;border-bottom-color:#0f1419;z-index:101}
+
+/* Code block */
+.code-block{background:#0f1419;border-radius:var(--radius);padding:18px 20px;margin-bottom:18px;position:relative}
+.code-block pre{color:#8ecdf8;font-family:'Noto Sans JP',sans-serif;font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-all;padding-top:24px}
+.copy-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:4px;padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:background .2s}
+.copy-btn:hover{background:var(--xb)}
+
+/* TO-TOP */
+.to-top{display:inline-flex;align-items:center;justify-content:center;margin-top:32px;width:80px;height:36px;border-radius:20px;background:var(--bg-off);border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:700;transition:all .2s;text-decoration:none}
+.to-top:hover{background:var(--xb);border-color:var(--xb);color:#fff;text-decoration:none}
+
+/* FOOTER */
+.footer{background:var(--bg-off);border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-size:13px}
+.footer p{margin-bottom:6px}
+
+/* ANIMATION */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:680px){
+  .xa-sidebar{display:none}
+  .xa-stats-row{grid-template-columns:1fr 1fr}
+  .xa-aud-grid{grid-template-columns:1fr}
+  .xa-content-header,.xa-content-row{grid-template-columns:1fr 70px 50px}
+  .xa-content-header span:nth-child(n+4),.xa-content-row span:nth-child(n+4){display:none}
+  .xa-vid-stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">2026年版 完全解説書</div>
+    <h1>X Pro <span>アナリティクス</span><br>完全解説書</h1>
+    <p class="hero-lead">各タブの読み方から「認知・フォロワー・エンゲージメント・コンバージョン・バズ再現」5つの目的別分析サイクルまで、数字を成果に変えるための完全ガイドです。</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>8</strong>セクション</div>
+      <div class="hero-stat"><strong>6</strong>タブ完全解説</div>
+      <div class="hero-stat"><strong>5</strong>目的別分析フレーム</div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="nav-wrap" id="sticky-nav">
+  <div class="nav-inner">
+    <a class="nav-btn" href="#s01"><span class="n-num">01</span>概要・開き方</a>
+    <a class="nav-btn" href="#s02"><span class="n-num">02</span>概要タブ</a>
+    <a class="nav-btn" href="#s03"><span class="n-num">03</span>オーディエンス</a>
+    <a class="nav-btn" href="#s04"><span class="n-num">04</span>コンテンツ</a>
+    <a class="nav-btn" href="#s05"><span class="n-num">05</span>動画タブ</a>
+    <a class="nav-btn" href="#s06"><span class="n-num">06</span>ライブ・スペース</a>
+    <a class="nav-btn" href="#s07"><span class="n-num">07</span>5つの目的別分析</a>
+    <a class="nav-btn" href="#s08"><span class="n-num">08</span>数字→行動変換</a>
+    <a class="nav-btn" href="#s09"><span class="n-num">09</span>改善サイクル</a>
+    <a class="nav-btn" href="#s10" style="border-color:#34a853;color:#1a7a30"><span class="n-num">10</span>AppSheet連携</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- TOC -->
+  <div class="toc-wrap fade-in">
+    <div class="toc-title">目次</div>
+    <div class="toc-grid">
+      <div class="toc-col">
+        <a class="toc-item" href="#s01"><span class="toc-num">01</span><span class="toc-label">アナリティクスとは・開き方</span><span class="toc-tag tt-basic">基本</span></a>
+        <a class="toc-item" href="#s02"><span class="toc-num">02</span><span class="toc-label">概要タブの見方</span><span class="toc-tag tt-tab">タブ</span></a>
+        <a class="toc-item" href="#s03"><span class="toc-num">03</span><span class="toc-label">オーディエンスタブの見方</span><span class="toc-tag tt-tab">タブ</span></a>
+        <a class="toc-item" href="#s04"><span class="toc-num">04</span><span class="toc-label">コンテンツタブの見方</span><span class="toc-tag tt-tab">タブ</span></a>
+        <a class="toc-item" href="#s05"><span class="toc-num">05</span><span class="toc-label">動画タブの見方</span><span class="toc-tag tt-tab">タブ</span></a>
+      </div>
+      <div class="toc-col">
+        <a class="toc-item" href="#s06"><span class="toc-num">06</span><span class="toc-label">ライブ・スペースタブ</span><span class="toc-tag tt-tab">タブ</span></a>
+        <a class="toc-item" href="#s07"><span class="toc-num">07</span><span class="toc-label">5つの目的別・分析フレーム</span><span class="toc-tag tt-goal">目的別</span></a>
+        <a class="toc-item" href="#s08"><span class="toc-num">08</span><span class="toc-label">数字の読み方と行動変換</span><span class="toc-tag tt-goal">分析</span></a>
+        <a class="toc-item" href="#s09"><span class="toc-num">09</span><span class="toc-label">データから改善サイクルへ</span><span class="toc-tag tt-adv">実践</span></a>
+        <a class="toc-item" href="#s10"><span class="toc-num">10</span><span class="toc-label">AppSheet連携・アプリ化</span><span class="toc-tag tt-adv">応用</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- S01 -->
+  <section class="section fade-in" id="s01">
+    <div class="sec-hd"><span class="sec-num">01</span><h2>アナリティクスとは・開き方</h2></div>
+
+    <p>X（旧Twitter）のアナリティクスは、自分のアカウントの<span data-tip="ポストが何人のタイムラインに表示されたかの回数">インプレッション</span>・フォロワー属性・各ポストの反応数などを数値で確認できる無料の分析ツールです。X Pro（旧TweetDeck）プランに加入していると、より詳細なデータにアクセスできます。</p>
+
+    <h3>アナリティクスの開き方</h3>
+    <ol class="steps">
+      <li>左サイドバーの「もっと見る」をクリックする</li>
+      <li>メニューから「アナリティクス」を選択する（または analytics.twitter.com に直接アクセス）</li>
+      <li>「アカウントの概要」ページが開く。上部のタブで各分析項目に切り替えられる</li>
+    </ol>
+
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-title-bar">X アナリティクス - 概要</div>
+      </div>
+      <div class="xa-wrap">
+        <div class="xa-sidebar">
+          <div class="xa-x-logo">X</div>
+          <div class="xa-nav-item">ホーム</div>
+          <div class="xa-nav-item">話題を検索</div>
+          <div class="xa-nav-item">通知</div>
+          <div class="xa-nav-item">チャット</div>
+          <div class="xa-nav-item active">アナリティクス</div>
+          <div class="xa-nav-item">プロフィール</div>
+          <div class="xa-post-btn">ポストする</div>
+        </div>
+        <div class="xa-main">
+          <div class="xa-page-title">アナリティクス</div>
+          <div class="xa-tabs">
+            <div class="xa-tab active">概要</div>
+            <div class="xa-tab">オーディエンス</div>
+            <div class="xa-tab">コンテンツ</div>
+            <div class="xa-tab">動画</div>
+            <div class="xa-tab">ライブ</div>
+            <div class="xa-tab">スペース</div>
+          </div>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:700">アカウントの概要 <span style="background:var(--x);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px">3M</span></div>
+          <div class="xa-stats-row">
+            <div class="xa-stat-card"><div class="xa-stat-label">インプレッション数</div><div class="xa-stat-val">2.4M</div><div class="xa-stat-change up">+12%</div></div>
+            <div class="xa-stat-card"><div class="xa-stat-label">エンゲージメント</div><div class="xa-stat-val">28.6K</div><div class="xa-stat-change up">+380%</div></div>
+            <div class="xa-stat-card"><div class="xa-stat-label">フォロワー</div><div class="xa-stat-val">3,200</div><div class="xa-stat-change up">+8%</div></div>
+            <div class="xa-stat-card"><div class="xa-stat-label">プロフィール閲覧</div><div class="xa-stat-val">6.1K</div><div class="xa-stat-change up">+200%</div></div>
+          </div>
+          <div class="xa-chart-area">
+            <div class="xa-chart-title">インプレッション数（日次）</div>
+            <div class="xa-bar-chart">
+              <div class="xa-bar low" style="height:10%"></div><div class="xa-bar low" style="height:12%"></div><div class="xa-bar low" style="height:15%"></div>
+              <div class="xa-bar" style="height:18%"></div><div class="xa-bar" style="height:14%"></div><div class="xa-bar" style="height:20%"></div>
+              <div class="xa-bar" style="height:30%"></div><div class="xa-bar high" style="height:55%"></div><div class="xa-bar high" style="height:48%"></div>
+              <div class="xa-bar" style="height:38%"></div><div class="xa-bar" style="height:25%"></div><div class="xa-bar" style="height:22%"></div>
+              <div class="xa-bar" style="height:18%"></div><div class="xa-bar" style="height:15%"></div><div class="xa-bar" style="height:20%"></div>
+              <div class="xa-bar" style="height:25%"></div><div class="xa-bar" style="height:18%"></div><div class="xa-bar" style="height:22%"></div>
+              <div class="xa-bar high" style="height:90%"></div><div class="xa-bar high" style="height:75%"></div>
+              <div class="xa-bar" style="height:35%"></div><div class="xa-bar" style="height:28%"></div><div class="xa-bar" style="height:32%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>6つのタブ一覧</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>タブ名</th><th>主に確認できること</th><th>活用する目的</th></tr></thead>
+      <tbody>
+        <tr><td><strong>概要</strong></td><td>インプレッション・エンゲージメント・フォロワー推移のサマリー</td><td>全体の成長把握・異常値検知</td></tr>
+        <tr><td><strong>オーディエンス</strong></td><td>年齢・性別・国・アクティブ時間・端末の属性データ</td><td>ターゲット確認・投稿時間の最適化</td></tr>
+        <tr><td><strong>コンテンツ</strong></td><td>各ポストのインプレッション・いいね・返信・リポスト数の一覧</td><td>バズ分析・投稿パターンの発見</td></tr>
+        <tr><td><strong>動画</strong></td><td>再生数・完了率・平均再生時間の動画別データ</td><td>動画コンテンツの改善</td></tr>
+        <tr><td><strong>ライブ</strong></td><td>ライブ配信の視聴データ（配信実績がある場合）</td><td>ライブ視聴者の分析</td></tr>
+        <tr><td><strong>スペース</strong></td><td>Xスペース（音声配信）の参加者・リスナーデータ</td><td>音声配信の効果測定</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S02 -->
+  <section class="section fade-in" id="s02">
+    <div class="sec-hd"><span class="sec-num">02</span><h2>概要タブの見方</h2></div>
+
+    <p>「概要」タブはアカウント全体のパフォーマンスをひとつの画面で把握できるダッシュボードです。期間は7D・2W・4W・3M・1Yから選べます。</p>
+
+    <h3>主要指標の意味</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>指標名</th><th>意味</th><th>注目ポイント</th></tr></thead>
+      <tbody>
+        <tr><td><strong>インプレッション数</strong></td><td>ポストが画面上に表示された回数（閲覧されたかどうかは問わない）</td><td>認知拡大の基本指標。急増・急減に注目</td></tr>
+        <tr><td><strong>エンゲージメント数</strong></td><td>いいね・リポスト・返信・クリック・プロフィール閲覧などの合計アクション数</td><td>インプレッションとの比率（エンゲージメント率）が重要</td></tr>
+        <tr><td><strong>エンゲージメント率</strong></td><td>エンゲージメント数 ÷ インプレッション数 × 100（%）</td><td>1〜3%が平均的。高いほど「刺さるコンテンツ」</td></tr>
+        <tr><td><strong>認証済みフォロワー</strong></td><td>X Proなど有料プランに加入しているフォロワーの数</td><td>購買力・影響力が高い層の指標として参照</td></tr>
+        <tr><td><strong>プロフィールへのアクセス数</strong></td><td>ポストや検索からプロフィールページを訪れた回数</td><td>フォロー転換率（プロフアクセス÷フォロワー増加数）の算出に使う</td></tr>
+        <tr><td><strong>フォローの推移</strong></td><td>日別のフォロー数・アンフォロー数の増減グラフ</td><td>特定投稿後の急増・急減がある日を特定する</td></tr>
+        <tr><td><strong>いいね数</strong></td><td>期間中に獲得したいいねの合計</td><td>共感型コンテンツの評価指標</td></tr>
+        <tr><td><strong>リポスト数</strong></td><td>期間中に拡散されたリポストの合計</td><td>拡散力の評価。バズの主要ドライバー</td></tr>
+        <tr><td><strong>ブックマーク数</strong></td><td>「後で読む」としてブックマークされた回数</td><td>有益情報コンテンツの評価指標。外部導線との連動に重要</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>グラフの読み方</h3>
+    <div class="box box-info">
+      <div class="box-title">インプレッション数グラフで確認すること</div>
+      <ul>
+        <li>グラフが急上昇した日→その日のポストを確認してバズ要因を分析する</li>
+        <li>グラフが低迷している期間→投稿頻度・時間帯・テーマを振り返る</li>
+        <li>全体のトレンドが右肩上がりかどうかで「成長しているか」を判断する</li>
+      </ul>
+    </div>
+
+    <div class="box box-grn">
+      <div class="box-title">フォロー推移グラフで確認すること</div>
+      <ul>
+        <li>フォロワーが急増した日→何のポストが原因かをコンテンツタブで確認する</li>
+        <li>アンフォローが増えた日→ターゲット外のコンテンツを投稿していないかを確認する</li>
+        <li>フォロー増加数とプロフィールアクセス数を比較して「フォロー転換率」を把握する</li>
+      </ul>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S03 -->
+  <section class="section fade-in" id="s03">
+    <div class="sec-hd"><span class="sec-num">03</span><h2>オーディエンスタブの見方</h2></div>
+
+    <p>「オーディエンス」タブでは、自分のフォロワー（またはポストに反応した人）の属性データが確認できます。ターゲット層に届いているかどうかを判断する重要なタブです。</p>
+
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-title-bar">X アナリティクス - オーディエンス</div>
+      </div>
+      <div class="xa-wrap">
+        <div class="xa-sidebar">
+          <div class="xa-x-logo">X</div>
+          <div class="xa-nav-item active">アナリティクス</div>
+          <div class="xa-post-btn">ポストする</div>
+        </div>
+        <div class="xa-main" style="padding:12px 16px">
+          <div class="xa-tabs" style="margin-bottom:12px">
+            <div class="xa-tab">概要</div>
+            <div class="xa-tab active">オーディエンス</div>
+            <div class="xa-tab">コンテンツ</div>
+            <div class="xa-tab">動画</div>
+          </div>
+          <div class="xa-aud-grid">
+            <div class="xa-aud-card">
+              <div class="xa-aud-title">年齢層</div>
+              <div class="xa-age-row"><span class="xa-age-label">13〜17</span><div class="xa-age-bar" style="width:3%"></div><span class="xa-age-pct">0.3%</span></div>
+              <div class="xa-age-row"><span class="xa-age-label">18〜24</span><div class="xa-age-bar" style="width:12%"></div><span class="xa-age-pct">5.2%</span></div>
+              <div class="xa-age-row"><span class="xa-age-label">25〜34</span><div class="xa-age-bar" style="width:32%"></div><span class="xa-age-pct">18.4%</span></div>
+              <div class="xa-age-row"><span class="xa-age-label">35〜44</span><div class="xa-age-bar" style="width:44%"></div><span class="xa-age-pct">22.1%</span></div>
+              <div class="xa-age-row"><span class="xa-age-label">45〜54</span><div class="xa-age-bar" style="width:55%"></div><span class="xa-age-pct">30.6%</span></div>
+              <div class="xa-age-row"><span class="xa-age-label">55〜64</span><div class="xa-age-bar" style="width:40%"></div><span class="xa-age-pct">16.8%</span></div>
+              <div class="xa-age-row"><span class="xa-age-label">65+</span><div class="xa-age-bar" style="width:14%"></div><span class="xa-age-pct">6.6%</span></div>
+            </div>
+            <div class="xa-aud-card">
+              <div class="xa-aud-title">性別（推測）</div>
+              <div class="xa-donut">
+                <div class="xa-donut-chart" style="background:conic-gradient(var(--xb) 0% 68%,#e879f9 68% 100%)"></div>
+                <ul class="xa-donut-legend">
+                  <li><div class="xa-dot" style="background:var(--xb)"></div>男性 68%</li>
+                  <li><div class="xa-dot" style="background:#e879f9"></div>女性 31%</li>
+                  <li><div class="xa-dot" style="background:var(--bg-off2)"></div>未指定 1%</li>
+                </ul>
+              </div>
+              <div class="xa-aud-title" style="margin-top:12px">国</div>
+              <div class="xa-age-row"><span class="xa-age-label" style="width:50px">Japan</span><div class="xa-age-bar" style="width:90%"></div><span class="xa-age-pct">96.2%</span></div>
+              <div class="xa-age-row"><span class="xa-age-label" style="width:50px">US</span><div class="xa-age-bar" style="width:4%"></div><span class="xa-age-pct">1.8%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>各データ項目の読み方</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>項目</th><th>意味と活用法</th></tr></thead>
+      <tbody>
+        <tr><td><strong>年齢層</strong></td><td>想定しているターゲット年齢と実際の読者層がずれていないかを確認する。ずれている場合はコンテンツの切り口を見直す材料になる</td></tr>
+        <tr><td><strong>性別</strong></td><td>推測値のため参考程度に。ターゲットの性別比と大きく乖離している場合はトーンや話題を調整する</td></tr>
+        <tr><td><strong>国</strong></td><td>日本語アカウントなら日本が大半を占めるのが正常。海外フォロワーが多い場合は投稿言語の多言語化を検討できる</td></tr>
+        <tr><td><strong>アクティブな時間</strong></td><td>フォロワーが最もXを見ている曜日・時間帯のヒートマップ。色が濃いほどアクティブ。この時間帯に投稿することでインプレッション最大化が狙える</td></tr>
+        <tr><td><strong>端末</strong></td><td>iOS・Android・Web比率。スマートフォン比率が高い場合は長文より短文・画像優先の設計を意識する</td></tr>
+        <tr><td><strong>フォロー中</strong></td><td>自分のフォロワーがフォロワー同士かフォロワー以外かの比率。フォロワー以外からの反応が多いほど拡散力があると判断できる</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="box box-pur">
+      <div class="box-title">アクティブな時間の活用法</div>
+      <p><span data-tip="ヒートマップとは、数値の大小を色の濃淡で視覚化した図。色が濃い時間帯ほどフォロワーのアクティブ度が高い">ヒートマップ</span>で最も色が濃い曜日・時間帯を3〜5コマ特定し、その時間帯に投稿をスケジュールします。Xのスケジュール投稿機能を使えば、最適時間に確実に投稿できます。</p>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S04 -->
+  <section class="section fade-in" id="s04">
+    <div class="sec-hd"><span class="sec-num">04</span><h2>コンテンツタブの見方</h2></div>
+
+    <p>「コンテンツ」タブでは、期間内のすべてのポストのパフォーマンスを一覧で比較できます。どのポストが「当たったか・外れたか」を数値で把握し、バズのパターンを発見するための最重要タブです。</p>
+
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-title-bar">X アナリティクス - コンテンツ</div>
+      </div>
+      <div class="xa-wrap">
+        <div class="xa-sidebar">
+          <div class="xa-x-logo">X</div>
+          <div class="xa-nav-item active">アナリティクス</div>
+          <div class="xa-post-btn">ポストする</div>
+        </div>
+        <div class="xa-main" style="padding:12px 16px">
+          <div class="xa-tabs" style="margin-bottom:12px">
+            <div class="xa-tab">概要</div><div class="xa-tab">オーディエンス</div>
+            <div class="xa-tab active">コンテンツ</div><div class="xa-tab">動画</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center">
+            <div style="background:var(--bg-off);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px">ポスト</div>
+            <div style="margin-left:auto;display:flex;gap:6px;font-size:11px">
+              <div style="background:var(--x);color:#fff;border-radius:20px;padding:4px 10px;font-weight:700">7D</div>
+              <div style="background:var(--bg-off);border:1px solid var(--border);border-radius:20px;padding:4px 10px">2W</div>
+              <div style="background:var(--bg-off);border:1px solid var(--border);border-radius:20px;padding:4px 10px">4W</div>
+              <div style="background:var(--bg-off);border:1px solid var(--border);border-radius:20px;padding:4px 10px">3M</div>
+            </div>
+          </div>
+          <div class="xa-content-header">
+            <span>ポスト</span><span>インプレ</span><span>いいね</span><span>返信</span><span>リポスト</span>
+          </div>
+          <div class="xa-content-row">
+            <div class="xa-post-preview"><div class="xa-post-thumb" style="background:linear-gradient(135deg,#1d9bf0,#0d47a1)"></div><div class="xa-post-text">AIツールを使い始めて3年。初心者が最初に覚えるべき5つのコツをまとめました...</div></div>
+            <span class="xa-num">1.6K</span><span class="xa-num">33</span><span class="xa-num">9</span><span class="xa-num">6</span>
+          </div>
+          <div class="xa-content-row">
+            <div class="xa-post-preview"><div class="xa-post-thumb" style="background:linear-gradient(135deg,#00ba7c,#00875a)"></div><div class="xa-post-text">フォロワーが3ヶ月で3倍になった投稿パターンを公開します。意識したのはたった...</div></div>
+            <span class="xa-num">1.3K</span><span class="xa-num">37</span><span class="xa-num">12</span><span class="xa-num">6</span>
+          </div>
+          <div class="xa-content-row">
+            <div class="xa-post-preview"><div class="xa-post-thumb" style="background:linear-gradient(135deg,#7856ff,#4c2adb)"></div><div class="xa-post-text">ChatGPTを使っているのに思った答えが来ない方へ。原因はプロンプトの構造に...</div></div>
+            <span class="xa-num">1.1K</span><span class="xa-num">44</span><span class="xa-num">3</span><span class="xa-num">5</span>
+          </div>
+          <div class="xa-content-row">
+            <div class="xa-post-preview"><div class="xa-post-thumb" style="background:var(--bg-off2)"></div><div class="xa-post-text">noteに新しい記事を公開しました。https://t.co/xxxxx</div></div>
+            <span class="xa-num">459</span><span class="xa-num">14</span><span class="xa-num">6</span><span class="xa-num">3</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>各指標の意味と活用法</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>指標</th><th>意味</th><th>高いポストが示すもの</th></tr></thead>
+      <tbody>
+        <tr><td><strong>インプレッション数</strong></td><td>そのポストが表示された回数</td><td>アルゴリズムに評価されている・拡散されている</td></tr>
+        <tr><td><strong>いいね数</strong></td><td>共感・保存目的でのリアクション</td><td>共感される内容・感情を動かすコンテンツ</td></tr>
+        <tr><td><strong>返信数</strong></td><td>リプライが来た数</td><td>会話を生む・議論を起こす内容</td></tr>
+        <tr><td><strong>リポスト数</strong></td><td>他アカウントに拡散された数</td><td>他者が紹介したいと思う有益・面白いコンテンツ</td></tr>
+        <tr><td><strong>ブックマーク数</strong></td><td>後で読む・保存目的でのアクション</td><td>有益情報・チュートリアル系コンテンツ</td></tr>
+        <tr><td><strong>リンクのクリック数</strong></td><td>外部URL・プロフィールリンクがクリックされた数</td><td>外部導線としての機能度。コンバージョンに直結</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="box box-org">
+      <div class="box-title">コンテンツタブで「バズの型」を発見する方法</div>
+      <ol style="padding-left:18px;font-size:14px">
+        <li>期間を「3M」に設定して上位10件のポストを書き出す</li>
+        <li>各ポストの「文字数・画像有無・投稿曜日・時間・テーマ・フォーマット（箇条書き/問いかけ/体験談等）」を記録する</li>
+        <li>上位ポストに共通するパターンが「あなたのバズの型」になる</li>
+        <li>その型を別のテーマに当てはめて新しいポストを作る</li>
+      </ol>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S05 -->
+  <section class="section fade-in" id="s05">
+    <div class="sec-hd"><span class="sec-num">05</span><h2>動画タブの見方</h2></div>
+
+    <p>「動画」タブでは、投稿した動画コンテンツのパフォーマンスを専用の指標で分析できます。テキストポストとは異なる独自指標が揃っており、動画コンテンツを改善するための重要なタブです。</p>
+
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-title-bar">X アナリティクス - 動画</div>
+      </div>
+      <div class="xa-wrap">
+        <div class="xa-sidebar">
+          <div class="xa-x-logo">X</div>
+          <div class="xa-nav-item active">アナリティクス</div>
+          <div class="xa-post-btn">ポストする</div>
+        </div>
+        <div class="xa-main" style="padding:12px 16px">
+          <div class="xa-tabs" style="margin-bottom:12px">
+            <div class="xa-tab">概要</div><div class="xa-tab">オーディエンス</div>
+            <div class="xa-tab">コンテンツ</div><div class="xa-tab active">動画</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px">動画の概要</div>
+          <div class="xa-vid-stats">
+            <div class="xa-vid-stat"><div class="xa-vid-val">2.4K</div><div class="xa-vid-label">再生数</div></div>
+            <div class="xa-vid-stat"><div class="xa-vid-val">14.2h</div><div class="xa-vid-label">再生時間</div></div>
+            <div class="xa-vid-stat"><div class="xa-vid-val">18.5%</div><div class="xa-vid-label">完了率</div></div>
+            <div class="xa-vid-stat"><div class="xa-vid-val">0:21</div><div class="xa-vid-label">平均再生時間</div></div>
+          </div>
+          <div class="xa-chart-area">
+            <div class="xa-chart-title">動画再生完了率（例：1本の動画の離脱分布）</div>
+            <div style="margin-top:8px">
+              <div class="funnel-row"><span class="funnel-label">Start</span><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%">2,400</div></div></div>
+              <div class="funnel-row"><span class="funnel-label">25%</span><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:60%">1,440</div></div></div>
+              <div class="funnel-row"><span class="funnel-label">50%</span><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:38%">912</div></div></div>
+              <div class="funnel-row"><span class="funnel-label">75%</span><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:25%">600</div></div></div>
+              <div class="funnel-row"><span class="funnel-label">完了</span><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:18%">444</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>動画固有の指標と読み方</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>指標</th><th>意味</th><th>改善の着眼点</th></tr></thead>
+      <tbody>
+        <tr><td><strong>再生数</strong></td><td>動画が1回以上再生された回数</td><td>低い場合はサムネイル・冒頭のテキストを改善する</td></tr>
+        <tr><td><strong>再生時間（時間）</strong></td><td>全ユーザーの合計視聴時間</td><td>インプレッションが同じでも再生時間が長い動画はアルゴリズムに有利</td></tr>
+        <tr><td><strong>完了率</strong></td><td>最後まで視聴した人の割合（再生数÷完了視聴数）</td><td>15〜20%以上が目安。低い場合は動画の長さを短縮するか前半に本題を持ってくる</td></tr>
+        <tr><td><strong>平均再生時間</strong></td><td>1再生あたりの平均視聴秒数</td><td>動画尺の50%以上が理想。低い場合は冒頭の引きを強化する</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>再生完了率ファネルの読み方</h3>
+    <p>「Start → 25% → 50% → 75% → 完了」の<span data-tip="ファネルとは、段階的に数が絞られていく漏斗（じょうご）型の分析手法。どの段階で離脱が多いかを把握できる">ファネルグラフ</span>を見ると、視聴者がどの時点で離脱しているかがわかります。最も落差が大きい区間が「離脱ポイント」であり、その直前のシーンを改善することで完了率が向上します。</p>
+
+    <div class="box box-info">
+      <div class="box-title">Xの動画コンテンツで意識すること</div>
+      <ul>
+        <li>冒頭1〜2秒で「この動画で何が得られるか」を明示する</li>
+        <li>テキスト字幕を入れると音なし視聴ユーザーにも伝わり完了率が上がる</li>
+        <li>縦型（9:16）動画はスマートフォンで全画面表示されるため視認性が高い</li>
+        <li>Xで最もエンゲージメントが高い動画尺は30〜90秒とされている</li>
+      </ul>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S06 -->
+  <section class="section fade-in" id="s06">
+    <div class="sec-hd"><span class="sec-num">06</span><h2>ライブ・スペースタブ</h2></div>
+
+    <p>「ライブ」と「スペース」タブは、それぞれライブ動画配信と音声配信（Xスペース）のデータを確認するためのタブです。どちらも実績がない場合は「データがありません」と表示されます。</p>
+
+    <h3>ライブタブ</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>確認できる指標</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td>視聴者数（ピーク・平均）</td><td>ライブ中に同時視聴したユーザーのピーク数と平均数</td></tr>
+        <tr><td>総視聴時間</td><td>全視聴者の視聴時間の合計</td></tr>
+        <tr><td>チャット数</td><td>配信中に送られたコメント・リアクション数</td></tr>
+        <tr><td>新規フォロワー</td><td>ライブ配信経由で獲得したフォロワー数</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>スペースタブ</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>確認できる指標</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td>リスナー数</td><td>スペースを聴いたユーザーの総数</td></tr>
+        <tr><td>スピーカー数</td><td>マイクを使って発言した参加者の数</td></tr>
+        <tr><td>録音再生数</td><td>終了後にアーカイブ録音を再生した数</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="box box-grn">
+      <div class="box-title">「選択したフィルターに該当するデータはありません」と表示される場合</div>
+      <p>ライブ配信またはXスペースをまだ実施していない場合に表示されます。フィルターを「すべて」に変更しても表示されない場合は実績がない状態です。これは正常な表示です。</p>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S07 -->
+  <section class="section fade-in" id="s07">
+    <div class="sec-hd"><span class="sec-num">07</span><h2>5つの目的別・分析フレーム</h2></div>
+
+    <p>アナリティクスを「ただ眺める」から「目的ごとに使いこなす」に切り替えることが成長の鍵です。以下の5つの目的に応じて、見るべき指標とアクションを整理しています。</p>
+
+    <div class="goal-grid">
+      <div class="goal-card gc-1"><div class="goal-card-num">目的 01</div><div class="goal-card-title">認知拡大<br>インプレ最大化</div></div>
+      <div class="goal-card gc-2"><div class="goal-card-num">目的 02</div><div class="goal-card-title">フォロワー獲得<br>質の向上</div></div>
+      <div class="goal-card gc-3"><div class="goal-card-num">目的 03</div><div class="goal-card-title">エンゲージメント<br>深化</div></div>
+      <div class="goal-card gc-4"><div class="goal-card-num">目的 04</div><div class="goal-card-title">外部導線<br>コンバージョン</div></div>
+      <div class="goal-card gc-5"><div class="goal-card-num">目的 05</div><div class="goal-card-title">バズ再現<br>パターン発見</div></div>
+    </div>
+
+    <!-- 目的01 -->
+    <div class="purpose-block">
+      <div class="purpose-hd" style="background:#e8f4fe">
+        <div class="purpose-num" style="background:var(--xb)">01</div>
+        <div>
+          <div class="purpose-title">アカウントの認知拡大（インプレッションの最大化）</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:2px">どれだけ多くの人に見られているかを測り、露出を増やす</div>
+        </div>
+      </div>
+      <div class="purpose-body">
+        <div class="purpose-row">
+          <div class="purpose-item">
+            <div class="purpose-item-title">目標設定の例</div>
+            <ul>
+              <li>月間インプレッション数を〇〇万にする</li>
+              <li>3ヶ月でインプレッションを2倍にする</li>
+              <li>トレンドタグで上位表示される投稿を月1本作る</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">見るべき指標</div>
+            <ul>
+              <li>概要タブ：インプレッション数・推移グラフ</li>
+              <li>オーディエンスタブ：アクティブな時間（ヒートマップ）</li>
+              <li>コンテンツタブ：インプレッション上位ポスト</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">具体的なアクション</div>
+            <ul>
+              <li>ヒートマップで最もアクティブな時間帯に投稿をスケジュールする</li>
+              <li>インプレッション上位ポストのテーマ・フォーマットを分析して横展開する</li>
+              <li>ターゲット層が関心を持つトレンドテーマに乗った投稿を増やす</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 目的02 -->
+    <div class="purpose-block">
+      <div class="purpose-hd" style="background:#e6f9f2">
+        <div class="purpose-num" style="background:var(--grn)">02</div>
+        <div>
+          <div class="purpose-title">見込み客・ファンの獲得（フォロワーの増加と質の向上）</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:2px">単なる数字ではなく、自分の発信に価値を感じる人を増やす</div>
+        </div>
+      </div>
+      <div class="purpose-body">
+        <div class="purpose-row">
+          <div class="purpose-item">
+            <div class="purpose-item-title">目標設定の例</div>
+            <ul>
+              <li>フォロワー数を月〇〇人増やす</li>
+              <li>プロフィールアクセスからのフォロー転換率を5%以上にする</li>
+              <li>ターゲット層のフォロワー比率を上げる</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">見るべき指標</div>
+            <ul>
+              <li>概要タブ：フォローの推移グラフ・プロフィールアクセス数</li>
+              <li>オーディエンスタブ：年齢・性別（ターゲットとの一致確認）</li>
+              <li>コンテンツタブ：プロフィールクリックを生んだポスト</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">具体的なアクション</div>
+            <ul>
+              <li>フォロワーが急増した日のポストを特定してパターン化する</li>
+              <li>「まとめポスト」「図解ポスト」などフォローされやすい形式を試す</li>
+              <li>プロフィール文を定期的にABテストして転換率を計測する</li>
+            </ul>
+          </div>
+        </div>
+        <div class="box box-grn" style="margin-top:14px;margin-bottom:0">
+          <div class="box-title">フォロー転換率の計算方法</div>
+          <p style="margin:0;font-size:14px">フォロー転換率 ＝ フォロワー増加数 ÷ プロフィールアクセス数 × 100（%）<br>この数値が高いほど「プロフィールを見た人がフォローしたくなる」状態になっています。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 目的03 -->
+    <div class="purpose-block">
+      <div class="purpose-hd" style="background:#fff7ed">
+        <div class="purpose-num" style="background:var(--org)">03</div>
+        <div>
+          <div class="purpose-title">エンゲージメントの深化（反応率の向上）</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:2px">フォロワーとの信頼関係を構築し、アクティブな反応を引き出す</div>
+        </div>
+      </div>
+      <div class="purpose-body">
+        <div class="purpose-row">
+          <div class="purpose-item">
+            <div class="purpose-item-title">目標設定の例</div>
+            <ul>
+              <li>エンゲージメント率を常時2%以上に保つ</li>
+              <li>毎回のポストで〇件以上のリプライをもらう</li>
+              <li>ブックマーク数を月〇件以上にする</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">見るべき指標</div>
+            <ul>
+              <li>概要タブ：エンゲージメント数・エンゲージメント率</li>
+              <li>コンテンツタブ：いいね・返信・リポスト・ブックマーク数</li>
+              <li>オーディエンスタブ：フォロー中比率（ファン度の確認）</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">具体的なアクション</div>
+            <ul>
+              <li>問いかけ形式でポストを終わらせて返信を促す</li>
+              <li>有益なノウハウ・手順をまとめてブックマークを促す</li>
+              <li>返信が多いポストのトーン・構成を分析して再現する</li>
+            </ul>
+          </div>
+        </div>
+        <div class="box box-org" style="margin-top:14px;margin-bottom:0">
+          <div class="box-title">エンゲージメント率の目安</div>
+          <div class="tbl-wrap" style="margin:0">
+          <table style="margin:0">
+            <thead><tr><th>エンゲージメント率</th><th>評価</th></tr></thead>
+            <tbody>
+              <tr><td>0.5%未満</td><td>低い。コンテンツの見直しが必要</td></tr>
+              <tr><td>1〜3%</td><td>平均的。改善の余地あり</td></tr>
+              <tr><td>3〜6%</td><td>良好。ターゲットに刺さっている</td></tr>
+              <tr><td>6%以上</td><td>非常に高い。バズ・拡散の可能性大</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 目的04 -->
+    <div class="purpose-block">
+      <div class="purpose-hd" style="background:#fef2f2">
+        <div class="purpose-num" style="background:var(--red)">04</div>
+        <div>
+          <div class="purpose-title">外部導線への送客（コンバージョンの最大化）</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:2px">Xを集客の入り口として使い、最終的な収益ポイントへ誘導する</div>
+        </div>
+      </div>
+      <div class="purpose-body">
+        <div class="purpose-row">
+          <div class="purpose-item">
+            <div class="purpose-item-title">目標設定の例</div>
+            <ul>
+              <li>リンクのクリック数を月間〇〇件にする</li>
+              <li>固定ポストからの遷移率を〇%にする</li>
+              <li>noteやKindleへの誘導を月〇件成立させる</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">見るべき指標</div>
+            <ul>
+              <li>コンテンツタブ：リンクのクリック数・URLリンク付きポストのCTR</li>
+              <li>概要タブ：プロフィールアクセス数（プロフリンク経由を推定）</li>
+              <li>コンテンツタブ：ブックマーク数（後で読む→購買に繋がる予備軍）</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">具体的なアクション</div>
+            <ul>
+              <li>誘導文のコピーをABテストして<span data-tip="CTR（クリックスルーレート）＝リンクのクリック数÷インプレッション数×100(%)">CTR</span>が高い型を見つける</li>
+              <li>Kindle・note・ CoconalaなどのURL付きポストの反応データを比較する</li>
+              <li>無料キャンペーン時・告知時の告知文と通常時の数字を比較する</li>
+              <li>画像・動画ありポストとテキストのみポストのCTRを比較する</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 目的05 -->
+    <div class="purpose-block">
+      <div class="purpose-hd" style="background:#f0ecff">
+        <div class="purpose-num" style="background:var(--pur)">05</div>
+        <div>
+          <div class="purpose-title">バズポストの再現とパターンの発見</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:2px">まぐれ当たりではなく、意図的に拡散されるポストを作るための分析</div>
+        </div>
+      </div>
+      <div class="purpose-body">
+        <div class="purpose-row">
+          <div class="purpose-item">
+            <div class="purpose-item-title">目標設定の例</div>
+            <ul>
+              <li>月に1回、〇〇インプレッションを超えるポストを作る</li>
+              <li>バズポストの型を3パターン以上テンプレート化する</li>
+              <li>過去のトップ投稿を別テーマで横展開する</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">見るべき指標</div>
+            <ul>
+              <li>コンテンツタブ：上位ポスト（インプレッション順）</li>
+              <li>コンテンツタブ：リポスト・いいね・ブックマークの組み合わせ</li>
+              <li>概要タブ：インプレッション急増日と対応ポストの紐付け</li>
+            </ul>
+          </div>
+          <div class="purpose-item">
+            <div class="purpose-item-title">具体的なアクション</div>
+            <ul>
+              <li>上位10件のポストの「文字数・画像有無・曜日・時間・フォーマット・テーマ」を記録して共通点を探す</li>
+              <li>バズった構造を別テーマに当てはめて投稿し再現性を検証する</li>
+              <li>反応が低かったポストとの「差分」を言語化してテンプレートを磨く</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="background:var(--pur-light);border-left:4px solid var(--pur);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px">
+            <div style="font-weight:700;font-size:14px;color:#5a35c7;margin-bottom:4px">バズ分析シート（入力すると自動計算）</div>
+            <div style="font-size:13px;color:var(--muted)">数値を入力するとエンゲージメント率が自動計算されます。入力データはCSVでダウンロードしてGoogleスプレッドシートにインポートできます。</div>
+          </div>
+
+          <!-- シート本体 -->
+          <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+            <!-- 期間入力 -->
+            <div style="background:var(--bg-off);padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:13px;border-bottom:1px solid var(--border);flex-wrap:wrap">
+              <span style="font-weight:700;color:var(--pur)">分析期間</span>
+              <input id="bz-period-from" type="date" style="border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-size:13px;font-family:inherit">
+              <span style="color:var(--muted)">〜</span>
+              <input id="bz-period-to" type="date" style="border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-size:13px;font-family:inherit">
+              <div style="margin-left:auto;display:flex;gap:8px">
+                <button onclick="bzAddRow()" style="background:var(--pur);color:#fff;border:none;border-radius:4px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">+行追加</button>
+                <button onclick="bzExportCSV()" style="background:var(--grn);color:#fff;border:none;border-radius:4px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">CSVで保存</button>
+                <button onclick="bzClear()" style="background:var(--bg-off2);color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:inherit">リセット</button>
+              </div>
+            </div>
+
+            <!-- テーブル -->
+            <div style="overflow-x:auto">
+              <table id="bz-table" style="width:100%;border-collapse:collapse;font-size:12px;min-width:900px">
+                <thead>
+                  <tr style="background:var(--x);color:#fff">
+                    <th style="padding:8px 10px;text-align:center;width:36px">No.</th>
+                    <th style="padding:8px 10px;text-align:left;width:90px">投稿日</th>
+                    <th style="padding:8px 10px;text-align:right;width:80px">インプレ</th>
+                    <th style="padding:8px 10px;text-align:right;width:60px">いいね</th>
+                    <th style="padding:8px 10px;text-align:right;width:65px">リポスト</th>
+                    <th style="padding:8px 10px;text-align:right;width:60px">返信</th>
+                    <th style="padding:8px 10px;text-align:right;width:75px">ブックマーク</th>
+                    <th style="padding:8px 10px;text-align:right;width:80px;background:#1570c1">EG率(%)</th>
+                    <th style="padding:8px 10px;text-align:right;width:60px">文字数</th>
+                    <th style="padding:8px 10px;text-align:center;width:60px">画像</th>
+                    <th style="padding:8px 10px;text-align:center;width:60px">曜日</th>
+                    <th style="padding:8px 10px;text-align:center;width:70px">投稿時間</th>
+                    <th style="padding:8px 10px;text-align:left;width:100px">テーマ</th>
+                    <th style="padding:8px 10px;text-align:left;width:110px">フォーマット</th>
+                    <th style="padding:8px 10px;text-align:center;width:36px"></th>
+                  </tr>
+                </thead>
+                <tbody id="bz-tbody"></tbody>
+              </table>
+            </div>
+
+            <!-- 集計 -->
+            <div id="bz-summary" style="background:var(--bg-off);border-top:1px solid var(--border);padding:10px 14px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px">
+              <div><span style="color:var(--muted)">平均インプレ：</span><strong id="bz-avg-imp">—</strong></div>
+              <div><span style="color:var(--muted)">最高インプレ：</span><strong id="bz-max-imp" style="color:var(--pur)">—</strong></div>
+              <div><span style="color:var(--muted)">平均EG率：</span><strong id="bz-avg-eg" style="color:var(--xb)">—</strong></div>
+            </div>
+          </div>
+
+          <!-- フォーマット分類ヒント -->
+          <div style="margin-top:12px;background:var(--bg-off);border-radius:var(--radius);padding:12px 16px;font-size:12px;color:var(--muted)">
+            <span style="font-weight:700;color:var(--text)">フォーマット分類の例：</span>
+            箇条書き（〇選） / 問いかけ（〇〇な人は？） / 体験談（〇〇した結果） / 対比（AvsB） / Before/After / ステップ解説
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S08 数字の読み方と行動変換ガイド -->
+  <section class="section fade-in" id="s08">
+    <div class="sec-hd"><span class="sec-num">08</span><h2>数字の読み方と行動変換ガイド</h2></div>
+
+    <p>アナリティクスで一番大切なのは「数字を見ること」ではなく「数字を読んで動くこと」です。このセクションでは、X初心者でもすぐに実践できる「数字→洞察→仮説→行動」の4ステップで、各指標を徹底解説します。</p>
+
+    <!-- 4ステップフレームワーク -->
+    <div style="background:linear-gradient(135deg,#0f1419,#1a2535);border-radius:var(--radius);padding:22px 24px;margin:20px 0">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-bottom:14px;text-transform:uppercase">数字を行動に変える 4ステップ</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--xb);margin-bottom:6px">01</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">数字を見る</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6">アナリティクスを週1回開いて数値を確認する</div>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--grn);margin-bottom:6px">02</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">洞察を得る</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6">「なぜこの数字なのか」を考える</div>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--org);margin-bottom:6px">03</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">仮説を立てる</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6">「〇〇すれば改善するはず」を言語化する</div>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--red);margin-bottom:6px">04</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">行動する</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6">仮説を投稿で検証して結果を再び見る</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:rgba(255,255,255,.4)">このサイクルを回し続けることが、初心者とプロの唯一の違いです</div>
+    </div>
+
+    <h3>指標ごとの完全解読マップ</h3>
+
+    <!-- 指標01: インプレッション -->
+    <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
+      <div style="background:var(--xb);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 01</div>
+        <div style="font-size:16px;font-weight:700">インプレッション数</div>
+        <div style="margin-left:auto;font-size:12px;opacity:.8">ポストが表示された回数</div>
+      </div>
+      <div style="padding:16px 18px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+          <div style="background:#e8f5e9;border-radius:6px;padding:12px">
+            <div style="font-size:11px;font-weight:700;color:#1a7a30;margin-bottom:4px">良い状態</div>
+            <div style="font-size:13px">先週比・先月比で右肩上がり。1投稿あたり1,000以上を安定して超えている</div>
+          </div>
+          <div style="background:#fef2f2;border-radius:6px;padding:12px">
+            <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px">要注意の状態</div>
+            <div style="font-size:13px">先週比で30%以上の急落。または数週間横ばいが続いている</div>
+          </div>
+          <div style="background:#fff7ed;border-radius:6px;padding:12px">
+            <div style="font-size:11px;font-weight:700;color:var(--org);margin-bottom:4px">初心者の目安</div>
+            <div style="font-size:13px">フォロワー数の10〜30倍が1投稿の目安。フォロワー1,000人なら1万〜3万</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう読む（洞察）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li>急増した日 → その日の投稿がアルゴリズムに評価された。内容・時間・フォーマットを記録する</li>
+              <li>急減した日 → 投稿頻度が落ちた・反応が悪い投稿が続いた可能性。直近の投稿を振り返る</li>
+              <li>横ばいが続く → 同じ層にしかリーチできていない。新しいテーマや形式を試す時期</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう動く（行動）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li>急増した投稿のテーマ・フォーマット・投稿時間を「バズ分析シート」に記録する</li>
+              <li>インプレが低い日が3日続いたら、投稿時間をオーディエンスタブのアクティブ時間に合わせ直す</li>
+              <li>月間インプレが落ちていたら、新しいジャンルのポストを週1本試す</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 指標02: EG率 -->
+    <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
+      <div style="background:#1a6eb5;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 02</div>
+        <div style="font-size:16px;font-weight:700">エンゲージメント率（EG率）</div>
+        <div style="margin-left:auto;font-size:12px;opacity:.8">（いいね＋RT＋返信＋BM）÷ インプレ × 100</div>
+      </div>
+      <div style="padding:16px 18px">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px">
+          <div style="background:#fef2f2;border-radius:6px;padding:10px;text-align:center">
+            <div style="font-size:15px;font-weight:700;color:var(--red)">0.5%未満</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">要改善</div>
+          </div>
+          <div style="background:#fff7ed;border-radius:6px;padding:10px;text-align:center">
+            <div style="font-size:15px;font-weight:700;color:var(--org)">0.5〜1%</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">やや低い</div>
+          </div>
+          <div style="background:var(--xb-light);border-radius:6px;padding:10px;text-align:center">
+            <div style="font-size:15px;font-weight:700;color:var(--xb)">1〜3%</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">平均的</div>
+          </div>
+          <div style="background:#e8f5e9;border-radius:6px;padding:10px;text-align:center">
+            <div style="font-size:15px;font-weight:700;color:#34a853">3〜6%</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">良好</div>
+          </div>
+          <div style="background:#f0ecff;border-radius:6px;padding:10px;text-align:center">
+            <div style="font-size:15px;font-weight:700;color:var(--pur)">6%超</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px">バズ級</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう読む（洞察）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li>インプレが高いのにEG率が低い → 多くの人に表示されたが刺さらなかった。タイトル・冒頭文の弱さを疑う</li>
+              <li>インプレが低いのにEG率が高い → 届いた人には深く刺さっている。そのテーマを広げる余地あり</li>
+              <li>EG率が一定期間低下 → コンテンツがターゲット層からずれてきているサイン</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう動く（行動）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li>EG率1%未満が3投稿続いたら、投稿の最初の1行（フック）を見直す</li>
+              <li>EG率6%超の投稿が出たら、その構成（冒頭・中盤・末尾の型）を分解して次の投稿に再利用する</li>
+              <li>テキストのみの投稿と画像付き投稿のEG率を比較して、自分のアカウントに合う形式を見極める</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 指標03: フォロワー推移 -->
+    <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
+      <div style="background:#00875a;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 03</div>
+        <div style="font-size:16px;font-weight:700">フォロワー増減（推移グラフ）</div>
+        <div style="margin-left:auto;font-size:12px;opacity:.8">概要タブ → フォローの推移</div>
+      </div>
+      <div style="padding:16px 18px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <div style="background:var(--grn-light);border-radius:6px;padding:12px">
+            <div style="font-size:12px;font-weight:700;color:#00875a;margin-bottom:6px">急増した日にすること</div>
+            <ol style="font-size:13px;padding-left:16px">
+              <li>その日に何を投稿したかをコンテンツタブで確認する</li>
+              <li>テーマ・フォーマット・投稿時間・文字数をメモする</li>
+              <li>「フォロワーが増えた型」として記録してテンプレ化する</li>
+            </ol>
+          </div>
+          <div style="background:#fef2f2;border-radius:6px;padding:12px">
+            <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:6px">急減（アンフォロー）が増えた日にすること</div>
+            <ol style="font-size:13px;padding-left:16px">
+              <li>その日前後の投稿内容を確認する</li>
+              <li>ターゲット層と関係ないテーマの投稿がなかったか振り返る</li>
+              <li>投稿頻度が急に増えすぎていないか確認する</li>
+            </ol>
+          </div>
+        </div>
+        <div class="box box-grn" style="margin:0">
+          <div class="box-title">初心者がよくやるミス：フォロワー数だけを見る</div>
+          <p style="margin:0;font-size:13px">重要なのは<strong>増加の傾向（トレンド）</strong>です。フォロワー数が1,000人でも毎週50人増えているアカウントは、5,000人で横ばいのアカウントより健全です。「今日の総数」ではなく「先週比・先月比の変化」で判断してください。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 指標04: プロフィールアクセス -->
+    <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
+      <div style="background:var(--org);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 04</div>
+        <div style="font-size:16px;font-weight:700">プロフィールへのアクセス数</div>
+        <div style="margin-left:auto;font-size:12px;opacity:.8">概要タブ → プロフィールへのアクセス数</div>
+      </div>
+      <div style="padding:16px 18px">
+        <p style="font-size:13px;margin-bottom:12px">プロフィールアクセス数は「あなたのことをもっと知りたいと思った人の数」です。フォロワー獲得とコンバージョン（外部導線への誘導）の両方に直結する重要指標です。</p>
+        <div style="background:var(--bg-off);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px">
+          <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:10px">フォロー転換率の計算</div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px">
+            <div style="background:var(--org-light);border:1px solid var(--org-border);border-radius:6px;padding:8px 12px;white-space:nowrap">フォロワー増加数</div>
+            <div style="color:var(--muted)">÷</div>
+            <div style="background:var(--org-light);border:1px solid var(--org-border);border-radius:6px;padding:8px 12px;white-space:nowrap">プロフィールアクセス数</div>
+            <div style="color:var(--muted)">× 100 ＝</div>
+            <div style="background:var(--org);color:#fff;border-radius:6px;padding:8px 14px;font-weight:700;white-space:nowrap">フォロー転換率（%）</div>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--muted)">目安：5%以上が理想。3%未満の場合はプロフィール文・固定投稿・アイコンのどれかを改善する</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう読む（洞察）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li>プロフィールアクセスが多い日 → その投稿のテーマが「フォロー動機」を生んでいる。積極的に横展開する</li>
+              <li>インプレは高いがプロフィールアクセスが低い → バズっているが「誰が書いたか」まで興味を持たれていない</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう動く（行動）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li>転換率が3%未満ならプロフィールの最初の1行（名前・肩書き）を変更して2週間様子を見る</li>
+              <li>固定投稿を「あなたが何者か一目でわかる自己紹介投稿」に差し替える</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 指標05: 4指標の使い分け -->
+    <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
+      <div style="background:var(--pur);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 05</div>
+        <div style="font-size:16px;font-weight:700">リポスト・いいね・ブックマーク・返信の使い分け</div>
+      </div>
+      <div style="padding:16px 18px">
+        <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>指標</th><th>ユーザーの心理</th><th>高い投稿の特徴</th><th>低かったときの行動</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>リポスト数</strong></td>
+              <td>「これは他の人にも教えたい」という拡散衝動。<span data-tip="情報を広める・役に立てるという他者貢献の気持ちで押される">利他的な動機</span>で押される</td>
+              <td>有益情報・驚き・共感・ユーモア。シェアすることで自分の評判が上がると感じさせる内容</td>
+              <td>投稿に「これを知らないと損」「〇〇な人は保存して」など拡散動機を作る一言を添える</td>
+            </tr>
+            <tr>
+              <td><strong>いいね数</strong></td>
+              <td>「共感した・応援したい・記録しておきたい」という反応。拡散より気軽に押せるため量が多い</td>
+              <td>共感ポスト・体験談・悩み代弁型・感情を動かす内容</td>
+              <td>投稿を「あるある体験談」や「ターゲットの心の声を代弁する」形式に変えてみる</td>
+            </tr>
+            <tr>
+              <td><strong>ブックマーク数</strong></td>
+              <td>「後でじっくり読みたい・使いたい」という実用的な保存行動。最も<span data-tip="購入・登録・クリックなどの具体的なアクションのこと">コンバージョン</span>に近い指標</td>
+              <td>ハウツー・チェックリスト・テンプレート・まとめ系コンテンツ</td>
+              <td>「保存して使ってください」という一言を末尾に追加する。リンク先への誘導も加える</td>
+            </tr>
+            <tr>
+              <td><strong>返信数</strong></td>
+              <td>「意見を言いたい・会話に参加したい」という双方向コミュニケーション欲求</td>
+              <td>問いかけ型・賛否が生まれる内容・悩み相談形式・意外な主張</td>
+              <td>投稿の末尾を「あなたはどう思いますか？」「〇〇派 or △△派？」などの問いかけで締める</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="box box-pur" style="margin-top:14px;margin-bottom:0">
+          <div class="box-title">初心者向け：4指標の優先順位</div>
+          <p style="margin:0;font-size:13px">ゼロからアカウントを育てる段階では <strong>リポスト → ブックマーク → いいね → 返信</strong> の順に重視してください。リポストとブックマークは「拡散」と「購買予備軍の獲得」に直結するため、まずこの2つを増やすコンテンツ設計を意識するだけで成長速度が変わります。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 指標06: 動画完了率 -->
+    <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
+      <div style="background:#0f1419;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 06</div>
+        <div style="font-size:16px;font-weight:700">動画完了率・平均再生時間</div>
+        <div style="margin-left:auto;font-size:12px;opacity:.8">動画タブ</div>
+      </div>
+      <div style="padding:16px 18px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう読む（洞察）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li><strong>完了率50%未満</strong> → 動画の途中で視聴者が離れている。離脱が多い区間の直前シーンを改善する</li>
+              <li><strong>平均再生時間が尺の25%以下</strong> → 冒頭の引きが弱い。最初の1〜2秒で「この動画で何が得られるか」を見せられていない</li>
+              <li><strong>再生数は多いが完了率が低い</strong> → サムネイルや冒頭が期待を煽りすぎていて内容とギャップがある可能性</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう動く（行動）</div>
+            <ul style="font-size:13px;padding-left:16px">
+              <li>完了率の高い動画の「尺・構成・テーマ・冒頭の入り方」を分析して型にする</li>
+              <li>60秒以上の動画で完了率が低い場合、同じ内容を30秒に圧縮して再投稿し完了率を比較する</li>
+              <li>動画の冒頭に「最後まで見ると〇〇がわかります」とベネフィットを先出しする</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- よくある分析ミス -->
+    <h3>X初心者がよくやる分析の落とし穴</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>よくあるミス</th><th>正しい読み方・対処法</th></tr></thead>
+      <tbody>
+        <tr><td><strong>フォロワー数だけを見て一喜一憂する</strong></td><td>フォロワー数は<span data-tip="現象が数字に現れるまでにタイムラグがある指標のこと">遅行指標</span>。今日の投稿の結果は2〜7日後に出ることが多い。トレンド（傾き）で判断する</td></tr>
+        <tr><td><strong>インプレが低い投稿を「失敗」と捨てる</strong></td><td>インプレが低くてもEG率・ブックマーク率が高い投稿は「濃いターゲットに刺さっている」優良コンテンツ。そのテーマを深掘りするべきサイン</td></tr>
+        <tr><td><strong>1投稿だけを見て結論を出す</strong></td><td>最低でも10〜20投稿のデータを集めてから傾向を判断する。1投稿の結果は誤差の範囲内</td></tr>
+        <tr><td><strong>他アカウントと数字を比較する</strong></td><td>フォロワー数・ジャンル・投稿頻度が違えば数字は全く参考にならない。比較するのは「自分の先週・先月」だけ</td></tr>
+        <tr><td><strong>数字を見たまま行動しない</strong></td><td>アナリティクスは見るだけでは0円。「この数字だからこの行動をする」まで決めないと時間の無駄になる</td></tr>
+        <tr><td><strong>期間を7Dしか見ない</strong></td><td>7Dはノイズが多く傾向が読みにくい。中期トレンドは3Mで確認し、特定投稿の深掘りだけ7Dを使う</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- 診断チェック -->
+    <h3>数字別・今すぐできる週次診断チェック</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+      <pre>【アナリティクス 週次診断チェック（初心者向け・5分で完了）】
+
+Step1: 概要タブ → 期間「3M」で開く
+
+□ インプレッション数が先月より増えているか
+  YES → 今の方向性を維持する
+  NO  → 投稿時間とテーマを見直す（オーディエンスタブのヒートマップを確認）
+
+□ エンゲージメント率が1%以上あるか
+  YES → コンテンツの質はOK。投稿頻度を上げる
+  NO  → 投稿の冒頭1行（フック）を強化する。問いかけや数字で始める
+
+□ フォロワーが先月より増えているか
+  YES → プロフィールアクセス数も確認してフォロー転換率を計算する
+  NO  → バズ分析シートで過去の増加日を調べてその型を再現する
+
+Step2: コンテンツタブ → 期間「7D」で開く
+
+□ 今週のインプレ1位の投稿を特定した
+  → 構成・時間・テーマをバズ分析シートに記録する
+
+□ 今週最もブックマークが多い投稿を特定した
+  → その内容を外部導線（note・Brain等）への誘導に再利用する
+
+□ 今週最もリポストが多い投稿を特定した
+  → その「型」を別テーマで1本作成する予定を立てる
+
+Step3: 来週の投稿計画を1行書いて終わる
+  「来週は〔フォーマット〕で、〔テーマ〕を、〔時間〕に投稿する」</pre>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+  <!-- S09 (旧S08) -->
+  <section class="section fade-in" id="s09">
+    <div class="sec-hd"><span class="sec-num">09</span><h2>データから改善サイクルへ</h2></div>
+
+    <p>アナリティクスは「見て満足」では意味がありません。数字を行動に変えるサイクルを回すことが成長の本質です。</p>
+
+    <h3>改善サイクルの全体図</h3>
+    <div class="cycle-wrap">
+      <div class="cycle-step active"><div class="cycle-step-num">STEP 1</div><div class="cycle-step-label">目的を決める</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step"><div class="cycle-step-num">STEP 2</div><div class="cycle-step-label">KPIを設定する</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step"><div class="cycle-step-num">STEP 3</div><div class="cycle-step-label">投稿する</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step"><div class="cycle-step-num">STEP 4</div><div class="cycle-step-label">データを見る</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step"><div class="cycle-step-num">STEP 5</div><div class="cycle-step-label">仮説を立てる</div></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step"><div class="cycle-step-num">STEP 6</div><div class="cycle-step-label">改善して投稿</div></div>
+    </div>
+
+    <h3>週次レビューの推奨チェックリスト</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+      <pre>【毎週チェック（5〜10分）】
+概要タブ（期間：7D）
+  □ インプレッション数は先週より増えているか
+  □ エンゲージメント率は2%以上を維持しているか
+  □ フォロワーは増加しているか
+
+コンテンツタブ（期間：7D）
+  □ 今週のトップポストを1本特定した
+  □ 最も反応が低かったポストを1本特定した
+  □ トップポストと低ポストの差分を言語化した
+
+オーディエンスタブ（月1回）
+  □ 年齢・性別がターゲット層と一致しているか
+  □ アクティブ時間のヒートマップを確認して投稿時間を調整した
+
+アクション（翌週の投稿計画）
+  □ トップポストの型を別テーマで1本作成する
+  □ 次回の投稿スケジュールをアクティブ時間に合わせて設定した</pre>
+    </div>
+
+    <h3>期間別チェックの使い分け</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>確認頻度</th><th>推奨期間設定</th><th>主な確認内容</th></tr></thead>
+      <tbody>
+        <tr><td>毎週</td><td>7D</td><td>今週のトップ・ワーストポスト・インプレ増減の確認</td></tr>
+        <tr><td>月1回</td><td>4W・3M</td><td>月間の成長トレンド・オーディエンス属性の確認</td></tr>
+        <tr><td>四半期ごと</td><td>3M・1Y</td><td>戦略レベルの振り返り・フォロワー質の変化・目的の見直し</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="box box-info">
+      <div class="box-title">数字が動かない時に確認すること</div>
+      <ul>
+        <li><strong>投稿頻度が落ちていないか</strong>：アルゴリズムは継続的な投稿を評価する</li>
+        <li><strong>投稿時間がアクティブ時間とずれていないか</strong>：オーディエンスタブで再確認する</li>
+        <li><strong>コンテンツのテーマがターゲット層と合っているか</strong>：年齢・性別データと照合する</li>
+        <li><strong>フォーマットが単調になっていないか</strong>：箇条書き・問いかけ・体験談などを組み合わせる</li>
+      </ul>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+
+  <!-- S10 -->
+  <section class="section fade-in" id="s10">
+    <div class="sec-hd"><span class="sec-num" style="background:#34a853">10</span><h2>CSV → Googleスプレッドシート → AppSheet アプリ化</h2></div>
+
+    <p>バズ分析シートで蓄積したデータは、Googleスプレッドシートを経由して<span data-tip="AppSheetはGoogleが提供するノーコードアプリ開発ツール。スプレッドシートのデータをスマートフォンアプリに変換できる">AppSheet</span>でモバイルアプリ化できます。コードを一切書かずに、スマートフォンからいつでもデータを入力・閲覧できる専用アプリが完成します。</p>
+
+    <!-- フロー図 -->
+    <div style="background:var(--bg-off);border-radius:var(--radius);padding:20px 24px;margin:20px 0">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:14px;text-transform:uppercase;letter-spacing:.08em">全体フロー</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <div style="background:#0f1419;color:#fff;border-radius:8px;padding:10px 16px;text-align:center;font-size:12px;font-weight:700;min-width:110px">バズ分析シート<br><span style="font-size:10px;font-weight:400;color:rgba(255,255,255,.6)">このマニュアル上</span></div>
+        <div style="font-size:18px;color:var(--border)">→</div>
+        <div style="background:#1d9bf0;color:#fff;border-radius:8px;padding:10px 16px;text-align:center;font-size:12px;font-weight:700;min-width:110px">CSVダウンロード<br><span style="font-size:10px;font-weight:400;color:rgba(255,255,255,.6)">「CSVで保存」ボタン</span></div>
+        <div style="font-size:18px;color:var(--border)">→</div>
+        <div style="background:#34a853;color:#fff;border-radius:8px;padding:10px 16px;text-align:center;font-size:12px;font-weight:700;min-width:110px">Googleスプレッドシート<br><span style="font-size:10px;font-weight:400;color:rgba(255,255,255,.6)">インポート・整形</span></div>
+        <div style="font-size:18px;color:var(--border)">→</div>
+        <div style="background:#4285f4;color:#fff;border-radius:8px;padding:10px 16px;text-align:center;font-size:12px;font-weight:700;min-width:110px">AppSheet<br><span style="font-size:10px;font-weight:400;color:rgba(255,255,255,.6)">ノーコードでアプリ化</span></div>
+        <div style="font-size:18px;color:var(--border)">→</div>
+        <div style="background:#ea4335;color:#fff;border-radius:8px;padding:10px 16px;text-align:center;font-size:12px;font-weight:700;min-width:110px">スマホアプリ完成<br><span style="font-size:10px;font-weight:400;color:rgba(255,255,255,.6)">iOS / Android</span></div>
+      </div>
+    </div>
+
+    <h3>STEP 1：CSVをGoogleスプレッドシートにインポートする</h3>
+    <ol class="steps">
+      <li>バズ分析シートの「CSVで保存」ボタンをクリックして <code style="background:var(--bg-off);padding:2px 6px;border-radius:4px;font-size:12px">buzz-analysis.csv</code> をダウンロードする</li>
+      <li>Googleドライブを開き「新規」→「Googleスプレッドシート」で新しいシートを作成する</li>
+      <li>メニューの「ファイル」→「インポート」→「アップロード」タブを開く</li>
+      <li>ダウンロードしたCSVファイルをドラッグ&ドロップする</li>
+      <li>区切り文字：「カンマ」／既存のシートを置き換える を選択して「データをインポート」をクリック</li>
+      <li>1行目（バズ分析シート）・2行目（分析期間）・3行目（空行）を削除し、4行目のヘッダーが1行目になるよう整形する</li>
+    </ol>
+
+    <div class="box box-grn">
+      <div class="box-title">AppSheet連携のためのスプレッドシート整形ポイント</div>
+      <ul>
+        <li>1行目を必ずヘッダー行にする（No. / 投稿日 / インプレッション数 … の列名）</li>
+        <li>「No.」列をキー列として使うため、値が重複しないよう通し番号を確認する</li>
+        <li>「投稿日」列はYYYY-MM-DD形式（例：2026-03-24）になっているか確認する</li>
+        <li>数値列（インプレッション数・いいね数など）に文字が混在していないか確認する</li>
+      </ul>
+    </div>
+
+    <!-- Spreadsheet Mockup -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-title-bar">Googleスプレッドシート - バズ分析シート（整形後）</div>
+      </div>
+      <div style="background:#fff;padding:0;overflow-x:auto">
+        <!-- Sheet tabs -->
+        <div style="background:#f1f3f4;border-bottom:1px solid var(--border);padding:6px 12px;display:flex;gap:8px;align-items:center">
+          <div style="background:#fff;border:1px solid var(--border);border-bottom:none;border-radius:4px 4px 0 0;padding:4px 14px;font-size:12px;font-weight:700;color:#34a853">バズ分析</div>
+          <div style="padding:4px 14px;font-size:12px;color:var(--muted)">+ シートを追加</div>
+        </div>
+        <!-- Frozen header row -->
+        <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:700px">
+          <thead>
+            <tr style="background:#e8f5e9">
+              <th style="border:1px solid var(--border);padding:6px 10px;text-align:center;width:36px;color:#1a7a30">No.</th>
+              <th style="border:1px solid var(--border);padding:6px 10px;white-space:nowrap;color:#1a7a30">投稿日</th>
+              <th style="border:1px solid var(--border);padding:6px 10px;white-space:nowrap;color:#1a7a30">インプレ</th>
+              <th style="border:1px solid var(--border);padding:6px 10px;white-space:nowrap;color:#1a7a30">いいね</th>
+              <th style="border:1px solid var(--border);padding:6px 10px;white-space:nowrap;color:#1a7a30">リポスト</th>
+              <th style="border:1px solid var(--border);padding:6px 10px;white-space:nowrap;color:#1a7a30">EG率(%)</th>
+              <th style="border:1px solid var(--border);padding:6px 10px;white-space:nowrap;color:#1a7a30">フォーマット</th>
+              <th style="border:1px solid var(--border);padding:6px 10px;white-space:nowrap;color:#1a7a30">テーマ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="border:1px solid var(--border);padding:5px 10px;text-align:center">1</td><td style="border:1px solid var(--border);padding:5px 10px">2026-03-18</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">1600</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">33</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">6</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right;color:#34a853;font-weight:700">2.44%</td><td style="border:1px solid var(--border);padding:5px 10px">体験談</td><td style="border:1px solid var(--border);padding:5px 10px">AI活用</td></tr>
+            <tr style="background:var(--bg-off)"><td style="border:1px solid var(--border);padding:5px 10px;text-align:center">2</td><td style="border:1px solid var(--border);padding:5px 10px">2026-03-20</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">1300</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">37</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">6</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right;color:#34a853;font-weight:700">3.31%</td><td style="border:1px solid var(--border);padding:5px 10px">箇条書き</td><td style="border:1px solid var(--border);padding:5px 10px">フォロワー</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:5px 10px;text-align:center">3</td><td style="border:1px solid var(--border);padding:5px 10px">2026-03-19</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">1100</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">44</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right">5</td><td style="border:1px solid var(--border);padding:5px 10px;text-align:right;color:#1d9bf0;font-weight:700">4.45%</td><td style="border:1px solid var(--border);padding:5px 10px">問いかけ</td><td style="border:1px solid var(--border);padding:5px 10px">プロンプト</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <h3>STEP 2：AppSheetでアプリを作成する</h3>
+    <ol class="steps">
+      <li>Googleスプレッドシートのメニューから「拡張機能」→「AppSheet」→「アプリを作成」をクリックする</li>
+      <li>AppSheetが自動的にスプレッドシートの構造を読み取り、アプリの初期設定を行う（約30秒）</li>
+      <li>左側の「Data」メニューで列の型を確認・修正する（投稿日→Date、数値列→Number など）</li>
+      <li>「Views」メニューでアプリの画面レイアウトを選択する（一覧表示・カード表示・詳細表示など）</li>
+      <li>「Save」→「Deploy」→「Move app to deployed state」でアプリを公開する</li>
+      <li>スマートフォンでAppSheetアプリを開き、共有されたリンクからアクセスする</li>
+    </ol>
+
+    <h3>AppSheetで設定しておくと便利な機能</h3>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>機能</th><th>設定場所</th><th>活用法</th></tr></thead>
+      <tbody>
+        <tr><td><strong>フォーム入力ビュー</strong></td><td>Views → + → Form</td><td>スマートフォンからポスト直後に数値を入力できるフォーム画面を作る</td></tr>
+        <tr><td><strong>グラフビュー</strong></td><td>Views → + → Chart</td><td>インプレッション・EG率の推移を折れ線グラフで可視化する</td></tr>
+        <tr><td><strong>フィルター・ソート</strong></td><td>Views → Slice設定</td><td>「EG率3%以上のポストだけ表示」などの絞り込み画面を作る</td></tr>
+        <tr><td><strong>通知（Automation）</strong></td><td>Automation → Bot</td><td>インプレッションが一定数を超えたときにメール通知を受け取る</td></tr>
+        <tr><td><strong>ダッシュボード</strong></td><td>Views → Dashboard</td><td>複数のビューを1画面にまとめてKPIを一目で把握する</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- AppSheet UI Mockup -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-title-bar">AppSheet - バズ分析アプリ（スマートフォンイメージ）</div>
+      </div>
+      <div style="background:#f1f3f4;padding:20px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap">
+        <!-- Phone 1: List View -->
+        <div style="background:#fff;border-radius:16px;width:200px;box-shadow:0 4px 20px rgba(0,0,0,.15);overflow:hidden">
+          <div style="background:#4285f4;color:#fff;padding:12px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px">
+            <div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6)"></div>
+            バズ分析 - 一覧
+          </div>
+          <div style="padding:8px">
+            <div style="background:var(--bg-off);border-radius:6px;padding:8px 10px;margin-bottom:6px;border-left:3px solid #34a853">
+              <div style="font-size:11px;font-weight:700">2026-03-18</div>
+              <div style="font-size:11px;color:var(--muted)">インプレ：1,600</div>
+              <div style="font-size:11px;color:#34a853;font-weight:700">EG率：2.44%</div>
+            </div>
+            <div style="background:var(--bg-off);border-radius:6px;padding:8px 10px;margin-bottom:6px;border-left:3px solid #1d9bf0">
+              <div style="font-size:11px;font-weight:700">2026-03-20</div>
+              <div style="font-size:11px;color:var(--muted)">インプレ：1,300</div>
+              <div style="font-size:11px;color:#1d9bf0;font-weight:700">EG率：3.31%</div>
+            </div>
+            <div style="background:var(--bg-off);border-radius:6px;padding:8px 10px;border-left:3px solid #fbbc04">
+              <div style="font-size:11px;font-weight:700">2026-03-19</div>
+              <div style="font-size:11px;color:var(--muted)">インプレ：1,100</div>
+              <div style="font-size:11px;color:#fbbc04;font-weight:700">EG率：4.45%</div>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0">
+            <div style="text-align:center;font-size:10px;color:#4285f4;font-weight:700">一覧</div>
+            <div style="text-align:center;font-size:10px;color:var(--muted)">入力</div>
+            <div style="text-align:center;font-size:10px;color:var(--muted)">グラフ</div>
+          </div>
+        </div>
+        <!-- Phone 2: Form View -->
+        <div style="background:#fff;border-radius:16px;width:200px;box-shadow:0 4px 20px rgba(0,0,0,.15);overflow:hidden">
+          <div style="background:#4285f4;color:#fff;padding:12px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px">
+            <div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6)"></div>
+            新規データ入力
+          </div>
+          <div style="padding:10px">
+            <div style="margin-bottom:8px">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:2px">投稿日</div>
+              <div style="border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;color:var(--muted)">2026-03-24</div>
+            </div>
+            <div style="margin-bottom:8px">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:2px">インプレッション数</div>
+              <div style="border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px;color:var(--muted)">数値を入力</div>
+            </div>
+            <div style="margin-bottom:8px">
+              <div style="font-size:10px;color:var(--muted);margin-bottom:2px">フォーマット</div>
+              <div style="border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:11px;color:var(--muted)">体験談 ▼</div>
+            </div>
+            <div style="background:#4285f4;color:#fff;border-radius:6px;padding:8px;text-align:center;font-size:12px;font-weight:700;margin-top:10px">保存する</div>
+          </div>
+          <div style="border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0">
+            <div style="text-align:center;font-size:10px;color:var(--muted)">一覧</div>
+            <div style="text-align:center;font-size:10px;color:#4285f4;font-weight:700">入力</div>
+            <div style="text-align:center;font-size:10px;color:var(--muted)">グラフ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>AppSheet 無料プランで利用できる機能</h3>
+    <div class="box box-info">
+      <div class="box-title">個人利用・小規模チームなら無料プランで十分</div>
+      <p>AppSheetは<strong>Googleアカウントがあれば無料で利用開始できます</strong>。無料プランでも一覧表示・フォーム入力・グラフ・通知などほぼすべての機能が使えます。有料プランが必要になるのは、主に社外ユーザーへの公開やエンタープライズ向けセキュリティが必要な場合です。個人のバズ分析用途では無料プランで十分です。</p>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+      <pre>【AppSheet アプリ化の推奨列型設定】
+
+列名              AppSheetの型
+---------------------------------
+No.             → Number（キー列に設定）
+投稿日           → Date
+インプレッション数  → Number
+いいね数          → Number
+リポスト数         → Number
+返信数            → Number
+ブックマーク数     → Number
+EG率(%)          → Decimal
+文字数            → Number
+画像/動画         → Enum（あり / なし）
+投稿曜日          → Enum（月 / 火 / 水 / 木 / 金 / 土 / 日）
+投稿時間          → Time
+テーマ            → Text
+フォーマット       → Enum（箇条書き / 問いかけ / 体験談 / 対比 / Before-After / ステップ解説）
+
+※ Enum型にすると入力時にドロップダウンで選択できるようになる</pre>
+    </div>
+
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+  </section>
+
+</div>
+
+<div style="background:linear-gradient(135deg,#1a0a2e,#2d1a4e);padding:28px 24px">
+  <div style="max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px">Coconala</div>
+      <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.4">このクオリティの解説書を<br>あなたのサービス向けに制作します</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7">設置サポート・GitHub代行オプションあり。<br>まずはお気軽にご相談ください。</div>
+    </div>
+    <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener" style="display:inline-block;background:#9147ff;color:#fff;font-size:14px;font-weight:700;padding:13px 28px;border-radius:6px;text-decoration:none;white-space:nowrap;flex-shrink:0">Coconalaで見る →</a>
+  </div>
+</div>
+
+<div class="footer">
+  <p>X Pro アナリティクス完全解説書 2026年版</p>
+  <p>本ガイドの内容は2026年3月時点の情報をもとに作成しています。最新情報はX公式サイトをご確認ください。</p>
+</div>
+
+<script>
+// ナビバー アクティブ連動
+(function(){
+  var btns = document.querySelectorAll('.nav-btn[href^="#"]');
+  var sections = Array.from(btns).map(function(b){return document.querySelector(b.getAttribute('href'));});
+  function update(){
+    var scrollY = window.scrollY + 80;
+    var current = 0;
+    sections.forEach(function(s,i){if(s && s.offsetTop <= scrollY) current = i;});
+    btns.forEach(function(b,i){b.classList.toggle('active', i === current);});
+    var activeBtn = btns[current];
+    if(activeBtn){
+      var nav = document.getElementById('sticky-nav');
+      var inner = nav.querySelector('.nav-inner');
+      inner.scrollTo({left: activeBtn.offsetLeft - nav.offsetWidth/2 + activeBtn.offsetWidth/2, behavior:'smooth'});
+    }
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+})();
+
+// スクロールアニメーション
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:0.06});
+  document.querySelectorAll('.fade-in').forEach(function(el){io.observe(el);});
+})();
+
+// コピーボタン
+function copyCode(btn){
+  var pre = btn.nextElementSibling;
+  var txt = pre ? pre.textContent : '';
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(function(){flash(btn);});
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta); flash(btn);
+  }
+}
+function flash(btn){
+  var orig = btn.textContent;
+  var origBg = window.getComputedStyle(btn).backgroundColor;
+  btn.textContent='COPIED'; btn.style.background='#1d9bf0';
+  setTimeout(function(){btn.textContent=orig; btn.style.background=origBg;}, 2000);
+}
+
+// ===== バズ分析シート =====
+var bzRows = [];
+var bzRowId = 0;
+var BZ_DAYS = ['月','火','水','木','金','土','日'];
+var BZ_FMTS = ['','箇条書き（〇選）','問いかけ','体験談','対比（AvsB）','Before/After','ステップ解説','その他'];
+var BZ_IMG  = ['','あり','なし'];
+
+function bzMakeRow(id){
+  var tr = document.createElement('tr');
+  tr.id = 'bz-row-'+id;
+  tr.style.borderBottom = '1px solid var(--border)';
+  var even = (bzRows.length % 2 === 1);
+  if(even) tr.style.background = 'var(--bg-off)';
+
+  function td(content, align){
+    var cell = document.createElement('td');
+    cell.style.padding = '5px 6px';
+    cell.style.textAlign = align||'left';
+    cell.style.verticalAlign = 'middle';
+    cell.innerHTML = content;
+    return cell;
+  }
+  function numInput(cls){
+    return '<input type="number" min="0" class="bz-inp '+cls+'" data-id="'+id+'" style="width:100%;border:1px solid var(--border);border-radius:3px;padding:4px 5px;font-size:12px;text-align:right;font-family:inherit;background:transparent">';
+  }
+  function selInput(opts, cls){
+    var s = '<select class="bz-inp '+cls+'" data-id="'+id+'" style="width:100%;border:1px solid var(--border);border-radius:3px;padding:4px 4px;font-size:11px;font-family:inherit;background:transparent">';
+    opts.forEach(function(o){ s += '<option>'+o+'</option>'; });
+    s += '</select>';
+    return s;
+  }
+  function textInput(cls){
+    return '<input type="text" class="bz-inp '+cls+'" data-id="'+id+'" style="width:100%;border:1px solid var(--border);border-radius:3px;padding:4px 5px;font-size:12px;font-family:inherit;background:transparent">';
+  }
+
+  var noTd   = td('<span style="color:var(--muted);font-size:11px;font-weight:700">'+(bzRows.length+1)+'</span>','center');
+  var dateTd = td('<input type="date" class="bz-inp bz-date" data-id="'+id+'" style="width:100%;border:1px solid var(--border);border-radius:3px;padding:4px 4px;font-size:11px;font-family:inherit;background:transparent">');
+  var impTd  = td(numInput('bz-imp'),'right');
+  var likeTd = td(numInput('bz-like'),'right');
+  var rtTd   = td(numInput('bz-rt'),'right');
+  var repTd  = td(numInput('bz-rep'),'right');
+  var bmTd   = td(numInput('bz-bm'),'right');
+  var egTd   = td('<span class="bz-eg" data-id="'+id+'" style="font-weight:700;color:var(--xb)">—</span>','right');
+  egTd.style.background = 'var(--xb-light)';
+  var lenTd  = td(numInput('bz-len'),'right');
+  var imgTd  = td(selInput(BZ_IMG,'bz-img'),'center');
+  var dayTd  = td(selInput([''].concat(BZ_DAYS),'bz-day'),'center');
+  var timeTd = td('<input type="time" class="bz-inp bz-time" data-id="'+id+'" style="width:100%;border:1px solid var(--border);border-radius:3px;padding:4px 4px;font-size:11px;font-family:inherit;background:transparent">');
+  var themeTd = td(textInput('bz-theme'));
+  var fmtTd  = td(selInput(BZ_FMTS,'bz-fmt'));
+  var delTd  = td('<button onclick="bzDelRow('+id+')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:2px 6px" title="削除">x</button>','center');
+
+  [noTd,dateTd,impTd,likeTd,rtTd,repTd,bmTd,egTd,lenTd,imgTd,dayTd,timeTd,themeTd,fmtTd,delTd].forEach(function(c){ tr.appendChild(c); });
+  return tr;
+}
+
+function bzAddRow(){
+  var id = ++bzRowId;
+  bzRows.push(id);
+  var tbody = document.getElementById('bz-tbody');
+  tbody.appendChild(bzMakeRow(id));
+  tbody.addEventListener('input', bzCalc);
+  bzCalc();
+}
+
+function bzDelRow(id){
+  var tr = document.getElementById('bz-row-'+id);
+  if(tr) tr.remove();
+  bzRows = bzRows.filter(function(r){ return r !== id; });
+  document.querySelectorAll('#bz-tbody tr').forEach(function(r, i){
+    var sp = r.querySelector('span[style*="muted"]');
+    if(sp) sp.textContent = i+1;
+  });
+  bzCalc();
+}
+
+function bzGetNum(id, cls){
+  var el = document.querySelector('.'+cls+'[data-id="'+id+'"]');
+  return el ? (parseFloat(el.value)||0) : 0;
+}
+
+function bzCalc(){
+  var impVals=[], egVals=[];
+  bzRows.forEach(function(id){
+    var imp  = bzGetNum(id,'bz-imp');
+    var like = bzGetNum(id,'bz-like');
+    var rt   = bzGetNum(id,'bz-rt');
+    var rep  = bzGetNum(id,'bz-rep');
+    var bm   = bzGetNum(id,'bz-bm');
+    var eg   = document.querySelector('.bz-eg[data-id="'+id+'"]');
+    if(!eg) return;
+    if(imp > 0){
+      var rate = Math.round((like+rt+rep+bm)/imp*10000)/100;
+      eg.textContent = rate.toFixed(2)+'%';
+      eg.style.color = rate>=6 ? 'var(--pur)' : rate>=3 ? 'var(--grn)' : rate>=1 ? 'var(--xb)' : 'var(--muted)';
+      impVals.push(imp); egVals.push(rate);
+    } else {
+      eg.textContent='—'; eg.style.color='var(--muted)';
+    }
+  });
+  var avgImp = impVals.length ? Math.round(impVals.reduce(function(a,b){return a+b;},0)/impVals.length) : null;
+  var maxImp = impVals.length ? Math.max.apply(null,impVals) : null;
+  var avgEg  = egVals.length  ? Math.round(egVals.reduce(function(a,b){return a+b;},0)/egVals.length*100)/100 : null;
+  document.getElementById('bz-avg-imp').textContent = avgImp!==null ? avgImp.toLocaleString() : '—';
+  document.getElementById('bz-max-imp').textContent = maxImp!==null ? maxImp.toLocaleString() : '—';
+  document.getElementById('bz-avg-eg').textContent  = avgEg!==null  ? avgEg.toFixed(2)+'%' : '—';
+}
+
+function bzClear(){
+  if(!confirm('入力データをすべてリセットしますか？')) return;
+  bzRows=[]; bzRowId=0;
+  document.getElementById('bz-tbody').innerHTML='';
+  ['bz-avg-imp','bz-max-imp','bz-avg-eg'].forEach(function(id){ document.getElementById(id).textContent='—'; });
+  document.getElementById('bz-period-from').value='';
+  document.getElementById('bz-period-to').value='';
+}
+
+function bzExportCSV(){
+  var from = document.getElementById('bz-period-from').value||'____';
+  var to   = document.getElementById('bz-period-to').value  ||'____';
+  var lines = [
+    'バズ分析シート',
+    '分析期間,'+from+' 〜 '+to,
+    '',
+    'No.,投稿日,インプレッション数,いいね数,リポスト数,返信数,ブックマーク数,EG率(%),文字数,画像,投稿曜日,投稿時間,テーマ,フォーマット'
+  ];
+  var no=1;
+  bzRows.forEach(function(id){
+    function v(cls){ var el=document.querySelector('.'+cls+'[data-id="'+id+'"]'); return el?el.value:''; }
+    var eg=document.querySelector('.bz-eg[data-id="'+id+'"]');
+    var egVal=eg?eg.textContent.replace('%',''):'';
+    lines.push([no++,v('bz-date'),v('bz-imp'),v('bz-like'),v('bz-rt'),v('bz-rep'),v('bz-bm'),egVal,v('bz-len'),v('bz-img'),v('bz-day'),v('bz-time'),'"'+v('bz-theme')+'"','"'+v('bz-fmt')+'"'].join(','));
+  });
+  var blob=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='buzz-analysis-'+from+'.csv'; a.click();
+}
+
+// 初期3行
+bzAddRow(); bzAddRow(); bzAddRow();
+</script>
+</body>
+</html>

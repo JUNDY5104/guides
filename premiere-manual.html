@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex, nofollow">
-<title>Adobe Premiere Pro 完全ガイド | はじめての本格動画編集</title>
+<title>Adobe Premiere Pro 完全ガイド 2026 | 基礎から実務・AI機能・クライアントワークまで</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -854,6 +854,8 @@
   /* ===== コピーボタン ===== */
   .copy-wrap{position:relative;margin:16px 0}
   .copy-wrap pre{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 52px 16px 18px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-all}
+  .code-block{position:relative;margin:16px 0;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 52px 16px 18px;overflow-x:auto}
+  .code-block pre{font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-all;margin:0;padding:0}
   .copy-btn{position:absolute;top:8px;right:8px;background:var(--gold);color:#000;border:none;padding:5px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border-radius:3px;transition:background .2s;white-space:nowrap}
   .copy-btn:hover{background:var(--gold-dim)}
   .copy-btn.copied{background:var(--green);color:#fff}
@@ -898,6 +900,17 @@
     /* ヒーローバッジ */
     .badge{color:var(--text-mid)}
   }
+
+  /* ===== STICKY NAV ===== */
+  .snav-btn{display:inline-flex;align-items:center;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid rgba(200,146,10,.3);color:rgba(240,236,230,.6);background:transparent;transition:all .2s;flex-shrink:0;font-family:'Noto Sans JP',sans-serif}
+  .snav-btn:hover,.snav-btn.active{background:var(--gold);border-color:var(--gold);color:#000;text-decoration:none}
+  .snav-ai{border-color:rgba(26,95,168,.5);color:rgba(150,190,255,.8)}
+  .snav-ai:hover,.snav-ai.active{background:#1a5fa8;border-color:#1a5fa8;color:#fff}
+  .snav-gold{border-color:rgba(200,146,10,.6);color:var(--gold)}
+  .snav-gold:hover,.snav-gold.active{background:var(--gold);border-color:var(--gold);color:#000}
+  #sticky-nav::-webkit-scrollbar{height:3px}
+  #sticky-nav::-webkit-scrollbar-track{background:#1a1614}
+  #sticky-nav::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 </style>
 </head>
 <body>
@@ -913,7 +926,7 @@
         <div class="badge gold">2026 最新版</div>
         <div class="badge">Mac / Windows 対応</div>
         <div class="badge"><span class="tt" data-tip="Adobeのサブスクリプションサービス。月額または年額で全Adobeアプリを使える">Creative Cloud</span></div>
-        <div class="badge">初心者〜中級者向け</div>
+        <div class="badge">初心者〜上級者向け</div>
       </div>
     </div>
     <div class="hero-version">
@@ -925,6 +938,29 @@
     </div>
   </div>
 </div>
+
+<!-- ===== STICKY NAV ===== -->
+<nav id="sticky-nav" style="background:rgba(26,22,20,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(200,146,10,.3);padding:8px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:200;scrollbar-width:thin;scrollbar-color:#c8920a #1a1614">
+  <div style="display:flex;gap:6px;max-width:1020px;margin:0 auto;white-space:nowrap">
+    <a class="snav-btn" href="#s1">01 概要</a>
+    <a class="snav-btn" href="#s2">02 インストール</a>
+    <a class="snav-btn" href="#s3">03 画面の見方</a>
+    <a class="snav-btn" href="#s4">04 プロジェクト</a>
+    <a class="snav-btn" href="#s5">05 素材読み込み</a>
+    <a class="snav-btn" href="#s6">06 シーケンス</a>
+    <a class="snav-btn" href="#s7">07 タイムライン</a>
+    <a class="snav-btn" href="#s8">08 エフェクト</a>
+    <a class="snav-btn" href="#s9">09 テキスト</a>
+    <a class="snav-btn" href="#s10">10 オーディオ</a>
+    <a class="snav-btn" href="#s11">11 カラー</a>
+    <a class="snav-btn" href="#s12">12 書き出し</a>
+    <a class="snav-btn" href="#s13">13 ショートカット</a>
+    <a class="snav-btn" href="#s14">14 トラブル</a>
+    <a class="snav-btn snav-ai" href="#s15">15 AI機能</a>
+    <a class="snav-btn snav-ai" href="#s16">16 SNS書き出し</a>
+    <a class="snav-btn snav-gold" href="#s17">17 クライアント実務</a>
+  </div>
+</nav>
 
 <!-- ===== TOC ===== -->
 <div class="toc-wrap reveal">
@@ -945,6 +981,9 @@
       <a href="#s12" class="toc-item"><span class="toc-n">12</span>書き出し（メディアエンコーダー）</a>
       <a href="#s13" class="toc-item"><span class="toc-n">13</span>ショートカット一覧</a>
       <a href="#s14" class="toc-item"><span class="toc-n">14</span>よくあるトラブルと対処</a>
+      <a href="#s15" class="toc-item"><span class="toc-n">15</span>Adobe AI機能完全活用</a>
+      <a href="#s16" class="toc-item"><span class="toc-n">16</span>SNS別・書き出し完全チートシート</a>
+      <a href="#s17" class="toc-item"><span class="toc-n">17</span>クライアントワーク実務完全ガイド</a>
     </div>
   </div>
 </div>
@@ -1710,7 +1749,332 @@
 
 </div><!-- /.page -->
 
-<!-- ===== FOOTER ===== -->
+<!-- ===== S15 Adobe AI機能完全活用 ===== -->
+<div class="page">
+<div class="sec reveal" id="s15">
+  <div class="sec-head">
+    <div class="sec-num">15</div>
+    <div>
+      <h2>Adobe AI機能完全活用（2026年版）</h2>
+      <p class="sec-sub">自動字幕・AIカラー・Firefly連携——今すぐ使える5つのAI機能</p>
+    </div>
+  </div>
+
+  <div class="note info">
+    <p>Premiere Pro 2025/2026には<span class="tt" data-tip="Adobe Senseiは、Adobeが開発したAI・機械学習プラットフォーム。自動化・補助機能の多くに使われている">Adobe Sensei</span>をはじめとするAI機能が標準搭載されています。これらを使いこなすだけで編集速度が劇的に上がります。</p>
+  </div>
+
+  <h3>AI機能① 自動文字起こし・字幕生成</h3>
+  <p>Premiere Pro単体で、音声から字幕を自動生成できます。外部サービス不要・追加料金なしで使えます。</p>
+  <div class="step-list">
+    <div class="step-item"><span class="step-n">1</span><div><strong>テキストパネルを開く</strong>：メニュー「ウィンドウ」→「テキスト」でパネルを表示する</div></div>
+    <div class="step-item"><span class="step-n">2</span><div><strong>文字起こしを開始</strong>：「文字起こし」タブ→「文字起こしを開始」をクリック。言語を「日本語」に設定する</div></div>
+    <div class="step-item"><span class="step-n">3</span><div><strong>字幕を作成</strong>：文字起こし完了後「キャプションを作成」をクリックするとタイムラインに字幕クリップが自動生成される</div></div>
+    <div class="step-item"><span class="step-n">4</span><div><strong>スタイルを調整</strong>：エッセンシャルグラフィクスパネルでフォント・サイズ・色を一括変更できる</div></div>
+  </div>
+
+  <div class="note tip">
+    <p><strong>精度を上げるコツ：</strong>音声が明瞭なほど精度が上がります。ノイズが多い場合は後述の「AI音声クリーンアップ」を先に適用してから文字起こしを実行してください。精度が大幅に改善します。</p>
+  </div>
+
+  <h3>AI機能② AIカラーマッチング</h3>
+  <p>異なるカメラ・異なるシーンで撮影した複数クリップの色味を、AIが自動で統一します。カラーグレーディングの時間を大幅短縮できます。</p>
+  <div class="step-list">
+    <div class="step-item"><span class="step-n">1</span><div><strong>カラーワークスペースに切り替える</strong>：上部「カラー」タブをクリック</div></div>
+    <div class="step-item"><span class="step-n">2</span><div><strong>基準クリップを選ぶ</strong>：色味の基準にしたいクリップを選択する</div></div>
+    <div class="step-item"><span class="step-n">3</span><div><strong>カラーマッチを適用</strong>：<span class="tt" data-tip="Premiere Pro内蔵のカラーグレーディングパネル。明るさ・色合い・コントラストを細かく調整できる">ルメトリカラー</span>パネル→「カラーホイールとマッチ」→「一致を適用」をクリック</div></div>
+    <div class="step-item"><span class="step-n">4</span><div><strong>微調整する</strong>：マッチ後にスライダーで細かく調整して完成</div></div>
+  </div>
+
+  <h3>AI機能③ 自動リフレーム（SNS縦型変換）</h3>
+  <p>横型（16:9）で編集した動画をTikTok・Reels用の縦型（9:16）に、AIが被写体を追跡しながら自動変換します。</p>
+  <div class="step-list">
+    <div class="step-item"><span class="step-n">1</span><div><strong>シーケンスを右クリック</strong>：「自動リフレームシーケンス」を選択</div></div>
+    <div class="step-item"><span class="step-n">2</span><div><strong>アスペクト比を選択</strong>：9:16（縦型）・1:1（正方形）などから選ぶ</div></div>
+    <div class="step-item"><span class="step-n">3</span><div><strong>モーショントラッキングを設定</strong>：「デフォルト」「遅い動き」「速い動き」から映像に合わせて選択</div></div>
+    <div class="step-item"><span class="step-n">4</span><div><strong>確認・修正</strong>：自動生成されたシーケンスをプレビューし、ずれている箇所のキーフレームを手動修正する</div></div>
+  </div>
+
+  <h3>AI機能④ AI音声クリーンアップ（ノイズ除去）</h3>
+  <p>収録環境のノイズ・エアコン音・環境音をAIが判別して自動除去します。外部プラグイン不要です。</p>
+  <div class="step-list">
+    <div class="step-item"><span class="step-n">1</span><div><strong>音声クリップを選択</strong>してエフェクトパネルを開く</div></div>
+    <div class="step-item"><span class="step-n">2</span><div><strong>「ノイズを除去」エフェクトを適用</strong>：エフェクト検索欄に「ノイズ」と入力し、「ノイズを除去（クリエイティブ）」をドラッグ&ドロップ</div></div>
+    <div class="step-item"><span class="step-n">3</span><div><strong>強度を調整</strong>：エフェクトコントロールで「ノイズ低減量」を調整。やりすぎると声が不自然になるため50〜70%が目安</div></div>
+  </div>
+
+  <h3>AI機能⑤ Adobe Firefly連携（AI画像生成）</h3>
+  <p>Premiere Pro 2026では<span class="tt" data-tip="AdobeのAI画像生成サービス。商用利用が安全な学習データのみで訓練されており、著作権リスクが低い">Adobe Firefly</span>とのネイティブ連携が強化されています。テロップ背景・サムネイル素材・BGを生成テキストから作成してタイムラインに直接配置できます。</p>
+  <div class="note warn" style="background:rgba(212,160,0,.08);border-left:3px solid var(--gold);">
+    <p><strong>商用利用について：</strong>Adobe FireflyはAdobe Stockの画像・著作権切れコンテンツ等で学習されており、Creative Cloudライセンス内での商用利用が可能です。クライアントワークでも安心して使えます。</p>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">▲ TOP</a>
+</div>
+</div>
+
+<!-- ===== S16 SNS別・書き出し完全チートシート ===== -->
+<div class="page">
+<div class="sec reveal" id="s16">
+  <div class="sec-head">
+    <div class="sec-num">16</div>
+    <div>
+      <h2>SNS別・書き出し完全チートシート</h2>
+      <p class="sec-sub">YouTube・TikTok・Reels・Shorts——プラットフォーム別の最適設定を完全網羅</p>
+    </div>
+  </div>
+
+  <div class="note info">
+    <p>書き出し設定は「どこで再生されるか」によって最適解が変わります。間違った設定で納品すると画質劣化・音割れ・再エンコードによる品質低下が起きます。このチートシートをそのまま使ってください。</p>
+  </div>
+
+  <h3>YouTube（横型・16:9）</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>推奨設定</th><th>補足</th></tr></thead>
+    <tbody>
+      <tr><td>形式</td><td>H.264</td><td>最も互換性が高い。ProRes・HEVCより再生環境を選ばない</td></tr>
+      <tr><td>解像度</td><td>1920×1080（FHD）</td><td>4K素材でも基本FHD書き出しで十分。4K配信は別途設定</td></tr>
+      <tr><td>フレームレート</td><td>29.97fps（一般）/ 23.976fps（映画風）</td><td>撮影時と合わせるのが基本</td></tr>
+      <tr><td>ビットレート</td><td>VBR 2パス・ターゲット16Mbps・最大24Mbps</td><td>2パスは時間がかかるが品質が安定する</td></tr>
+      <tr><td>音声</td><td>AAC・320kbps・48kHz・ステレオ</td><td>YouTubeは-14LUFSの音量正規化あり。-2dBTP以内に収める</td></tr>
+      <tr><td>カラースペース</td><td>Rec.709</td><td>HDRコンテンツはHDR設定が別途必要</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>YouTube Shorts・TikTok・Instagram Reels（縦型・9:16）</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>項目</th><th>推奨設定</th><th>補足</th></tr></thead>
+    <tbody>
+      <tr><td>形式</td><td>H.264</td><td>MP4コンテナ</td></tr>
+      <tr><td>解像度</td><td>1080×1920</td><td>縦型は幅×高さの順に注意。逆にしないこと</td></tr>
+      <tr><td>フレームレート</td><td>29.97fps または 30fps</td><td>TikTokは60fpsも対応。Reelsは30fps推奨</td></tr>
+      <tr><td>ビットレート</td><td>VBR 2パス・ターゲット8Mbps・最大12Mbps</td><td>各プラットフォームが再エンコードするため高すぎても無意味</td></tr>
+      <tr><td>音声</td><td>AAC・192kbps・48kHz</td><td>TikTokは-14LUFS・Reelsは-16LUFS目安</td></tr>
+      <tr><td>尺</td><td>Shorts/TikTok：60秒以内 / Reels：90秒以内</td><td>60秒以下の方がアルゴリズム評価が高い傾向あり</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>クライアント納品用（高品質マスター）</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>用途</th><th>推奨形式</th><th>設定</th></tr></thead>
+    <tbody>
+      <tr><td>汎用納品マスター</td><td>H.264 MP4</td><td>解像度：元素材に合わせる・ビットレート：VBR 最大50Mbps</td></tr>
+      <tr><td>放送・高品質用</td><td>ProRes 422</td><td>macOS環境でのみ書き出し可能。ファイルサイズは大きいが最高品質</td></tr>
+      <tr><td>Web埋め込み用</td><td>H.264 MP4</td><td>ビットレートを5〜10Mbpsに抑えてファイルサイズを小さくする</td></tr>
+      <tr><td>クライアント確認用</td><td>H.264 MP4（低ビットレート）</td><td>3〜5Mbps・確認専用と明記して納品。本番と区別すること</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>書き出し失敗あるある10選</h3>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">書き出した動画が緑・ピンクになる</div><div class="faq-a"><p><strong>原因：</strong>GPUドライバーの問題またはHEVCコーデックの不具合。<br><strong>対処：</strong>書き出し形式をH.264に変更、またはGPUアクセラレーションをソフトウェアのみに変更して再書き出し。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">音声がずれる・映像と合わない</div><div class="faq-a"><p><strong>原因：</strong>素材の<span class="tt" data-tip="1秒間に含まれる音声サンプル数。映像は44.1kHzまたは48kHzが一般的。混在するとズレが生じる">サンプルレート</span>が混在している。<br><strong>対処：</strong>シーケンス設定とすべての音声素材のサンプルレートを48kHzに統一する。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">書き出しが途中でエラーになる</div><div class="faq-a"><p><strong>原因：</strong>タイムラインに読み込めていないメディアがある（オフラインクリップ）。<br><strong>対処：</strong>タイムラインを確認して赤いバーのクリップを右クリック→「メディアをリンク」で素材を再接続する。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">ファイルサイズが異常に大きい</div><div class="faq-a"><p><strong>原因：</strong>ビットレート設定が高すぎるまたはProResなど非圧縮系コーデックを選んでいる。<br><strong>対処：</strong>H.264のVBRモードで目的に合ったビットレートに下げる。Web納品なら5〜10Mbpsで十分。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">書き出し後に色が違う（暗い・くすんでいる）</div><div class="faq-a"><p><strong>原因：</strong>カラースペースの設定ミス。プレビューと書き出し後でカラープロファイルが異なる。<br><strong>対処：</strong>シーケンス設定とメディアエンコーダーの両方でRec.709を指定する。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">字幕が書き出し後に消える</div><div class="faq-a"><p><strong>原因：</strong>字幕クリップが「バーン・イン」設定になっていない。<br><strong>対処：</strong>書き出し設定の「キャプション」タブ→「バーン・イン（焼き込み）」を選択する。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">SNSにアップすると画質が劣化する</div><div class="faq-a"><p><strong>原因：</strong>SNS側が再エンコードする際にさらに圧縮されるため。元データのビットレートが低いと劣化が目立つ。<br><strong>対処：</strong>SNS向け書き出し設定を本チートシートの推奨値に合わせる。Shorts・TikTokはビットレートを上げても改善しない場合がある。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">書き出し速度が異常に遅い</div><div class="faq-a"><p><strong>原因：</strong>GPUアクセラレーションが無効になっている、またはVBR2パスを使用している。<br><strong>対処：</strong>プロジェクト設定でGPUレンダラーを有効化。急ぎの場合はVBR1パスに変更する（品質は若干落ちる）。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">縦型動画が横型で書き出される</div><div class="faq-a"><p><strong>原因：</strong>シーケンス設定が横型のまま。<br><strong>対処：</strong>縦型専用シーケンスを新規作成（1080×1920）するか、S15の「自動リフレーム」を使って縦型変換する。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">書き出したMP4がWindowsで開けない</div><div class="faq-a"><p><strong>原因：</strong>HEVCコーデックがWindowsにインストールされていない。<br><strong>対処：</strong>書き出し形式をH.264に変更する。またはクライアントにHEVC拡張機能のインストールを依頼する。</p></div></div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">▲ TOP</a>
+</div>
+</div>
+
+<!-- ===== S17 クライアントワーク実務完全ガイド ===== -->
+<div class="page">
+<div class="sec reveal" id="s17">
+  <div class="sec-head">
+    <div class="sec-num">17</div>
+    <div>
+      <h2>クライアントワーク実務完全ガイド</h2>
+      <p class="sec-sub">受注から納品まで——高額コンサルが教えることをここに全部書きます</p>
+    </div>
+  </div>
+
+  <div class="note warn" style="background:rgba(212,160,0,.08);border-left:3px solid var(--gold);">
+    <p>このセクションは「某動画講座のサポート講師として100名以上の受講者を見てきた」経験から書いています。失敗パターンも成功パターンも、全部実話です。</p>
+  </div>
+
+  <h3>受注前：ヒアリングシートの使い方</h3>
+  <p>クライアントから「動画作ってほしい」と言われたとき、最初のヒアリングで確認しないと後で必ず修正地獄に入ります。以下をコピーしてそのまま使ってください。</p>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【動画制作ヒアリングシート】
+
+■ 基本情報
+・動画の目的（採用・商品紹介・社内研修・SNS拡散 など）
+・ターゲット視聴者（年齢・職業・どんな課題を抱えているか）
+・公開先・媒体（YouTube・TikTok・自社サイト・社内限定 など）
+・納品形式（MP4・MOV・解像度・縦型/横型）
+・納品期日
+
+■ 素材・仕様
+・素材は用意されているか（映像・写真・音声・ロゴ・BGM）
+・尺の希望（〇分以内 など）
+・字幕は必要か
+・ナレーションは必要か（誰が録音するか）
+
+■ デザイン・テイスト
+・参考にしたい動画URL（3本以上あると理想）
+・NGな表現・色・音楽のジャンルはあるか
+・会社のブランドガイドライン・カラーコードはあるか
+
+■ 修正ルール（必ず合意を取る）
+・修正回数（例：初稿確認後2回まで無料）
+・修正対応期間
+・追加費用が発生する条件
+
+■ 権利・使用範囲
+・BGM・フォント・素材の使用許諾は誰が取るか
+・完成動画の二次利用（他媒体転用・加工）はあるか</pre>
+  </div>
+
+  <div class="note tip">
+    <p><strong>失敗談（実話）：</strong>ヒアリングをせずに「とりあえず作ります」と進めた受講者が、納品後に「うちのカラーコードと違う」「尺が長すぎる」「ナレーションが必要だった」と3回修正が発生。最終的に赤字案件になりました。最初の30分が全てを決めます。</p>
+  </div>
+
+  <h3>ビジネス系動画の鉄則</h3>
+  <p>企業VP・採用動画・研修動画・製品紹介に共通するルールです。</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-ico">01</div>
+      <h4>冒頭15秒で「誰のための動画か」を明示する</h4>
+      <p>「〇〇でお困りの方へ」「〇〇を目指す方に」という一文を最初に入れるだけで離脱率が下がります。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">02</div>
+      <h4>BGMは主張しないものを選ぶ</h4>
+      <p>ビジネス系はコーポレートBGM（ピアノ・ストリングス系）が基本。視聴者がナレーションに集中できる音量（映像音声の-20dB程度）で使う。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">03</div>
+      <h4>テロップは「読まれる前提」で設計する</h4>
+      <p>音なし視聴が多い。重要情報は字幕だけでなくテロップとしても画面に残す。フォントはゴシック系・サイズは再生画面の1/20以上。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">04</div>
+      <h4>カラーグレーディングは「信頼感」を意識する</h4>
+      <p>ビジネス系はコントラストを強くしすぎず、彩度を少し抑えた落ち着いた印象に。ルメトリカラーで「フェード量」を5〜10%入れるだけで格段にプロらしくなる。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">05</div>
+      <h4>尺は「必要最低限」が正義</h4>
+      <p>クライアントは長い動画を好む傾向があるが、視聴完了率は尺に反比例する。「2分で伝えられるなら2分にすべき」と提案できるのがプロ。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">06</div>
+      <h4>修正前に「何が問題か」を言語化させる</h4>
+      <p>「なんか違う」という修正依頼は最も危険。「どのシーンの・何が・どうなっていれば理想か」を必ず確認してから修正に入る。</p>
+    </div>
+  </div>
+
+  <h3>エンタメ系動画の鉄則</h3>
+  <p>YouTube・TikTok・Reels・イベント映像に共通するルールです。</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-ico">01</div>
+      <h4>冒頭3秒で「続きを見る理由」を作る</h4>
+      <p>「オチ」「驚き」「問いかけ」のどれかを冒頭に持ってくる。「〇〇してみた結果」「これを知らないと損」など。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">02</div>
+      <h4>カット数を増やして「飽き」を防ぐ</h4>
+      <p>エンタメ系はビジネス系より3〜5倍カット数が多い。同じ話が5秒以上続くと離脱するイメージで編集する。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">03</div>
+      <h4>BGMは「ノリ」が全て</h4>
+      <p>視聴者が最初に受け取るのは映像ではなくBGMのテンポ感。本編の雰囲気と合ったBGMをまず選んでから編集を始める方が早い。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">04</div>
+      <h4>カラーグレーディングは「世界観」を作る</h4>
+      <p>エンタメ系はLUTを使って独自の色味を作るのが効果的。Vlog系はオレンジ×ティール・映画風はシャドウにブルーを乗せるのが定番。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">05</div>
+      <h4>サムネイルと動画の一体設計</h4>
+      <p>サムネイルで期待させた内容を動画の冒頭で必ず回収する。「詐欺サムネ」は短期的に再生数が取れても長期的にチャンネルを壊す。</p>
+    </div>
+    <div class="card">
+      <div class="card-ico">06</div>
+      <h4>エンドカードは「次のアクション」を1つだけ</h4>
+      <p>「チャンネル登録・いいね・コメント・次の動画」を全部求めない。一番重要なもの1つだけに絞る方が実際のアクション率が上がる。</p>
+    </div>
+  </div>
+
+  <h3>納品前チェックリスト</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【納品前 最終チェックリスト】
+
+■ 映像
+□ 解像度・アスペクト比はヒアリング通りか
+□ フレームレートは素材と書き出し設定で統一されているか
+□ 最初と最後に不要なフレームがないか（黒フレーム・静止フレーム）
+□ テロップ・字幕の誤字脱字はないか
+□ テロップが画面端に切れていないか（セーフゾーン内に収まっているか）
+□ カラーグレーディングは全カット統一されているか
+
+■ 音声
+□ 音量レベルは適切か（会話が聞き取れるか・音割れしていないか）
+□ BGMが冒頭・末尾でフェードイン・フェードアウトされているか
+□ ノイズ・雑音が残っていないか
+□ ナレーションと映像の口パクがずれていないか
+
+■ 書き出し・納品
+□ 書き出し形式はヒアリングシートの指定通りか
+□ ファイル名は指定通りか（日付・バージョン番号を含めると管理しやすい）
+□ 確認用と本番用を区別しているか
+□ クライアントが再生できる形式か（WindowsかMacか確認）
+□ 納品方法（WeTransfer・Google Drive・USB等）は合意済みか</pre>
+  </div>
+
+  <h3>サムが100人以上の受講者を見て気づいた「10の失敗パターン」</h3>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗① ヒアリングをしないで着手する</div><div class="faq-a"><p>「なんとなく動画を作り始める」受講者が一番多い失敗です。最終的に「イメージと違う」と言われ全部やり直しになります。ヒアリングシートを使うだけで修正回数が半分以下になります。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗② 修正回数を決めずに受注する</div><div class="faq-a"><p>「何回でも修正します」という言葉が自分を苦しめます。修正が5回・10回と続き、時給換算すると赤字になるケースが頻発します。必ず「無料修正〇回まで」と明記して受注してください。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗③ 素材の権利確認をしない</div><div class="faq-a"><p>クライアントが持ってきた写真・BGM・フォントに著作権がある場合があります。「クライアントが用意したから大丈夫」ではなく、商用利用可能かを必ず確認してください。問題が起きたときの責任は制作側に来る場合があります。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗④ 参考動画を確認しない</div><div class="faq-a"><p>「おしゃれな感じで」「プロっぽく」という言葉ほど危険なものはありません。必ず参考動画URLを3本以上もらってから制作を開始してください。イメージのすり合わせは言葉より映像の方が100倍速いです。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗⑤ 初稿を完成品として出す</div><div class="faq-a"><p>最初から完璧なものを出そうとする受講者ほど、結果的に時間がかかります。初稿は「方向性の確認」です。「荒編集ですが方向性を確認してください」として早めに出す方が修正が少なくなります。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗⑥ 納品後のサポートを無制限にする</div><div class="faq-a"><p>「納品後1ヶ月は無料でサポートします」という言葉が、納品から3ヶ月後の「ちょっとテロップ変えてほしい」につながります。サポート期間と対応範囲を明確にしてください。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗⑦ プロジェクトファイルを整理しない</div><div class="faq-a"><p>素材をデスクトップに散乱させたまま編集すると、後で「メディアオフライン」になります。プロジェクトフォルダを作り、素材・プロジェクトファイル・書き出しフォルダを分けて管理してください。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗⑧ バックアップを取らない</div><div class="faq-a"><p>Premiere Proはクラッシュします。定期的にクラウド保存（Creative Cloudストレージ）またはローカルバックアップをしていない受講者が、数時間分の作業を失うケースを何度も見ています。自動保存設定を必ず確認してください。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗⑨ 単価を上げるタイミングを逃す</div><div class="faq-a"><p>「実績が積み上がっても単価を上げない」受講者が多いです。3案件完了したら単価見直し、5案件でポートフォリオ整備、10案件で値上げ交渉、というサイクルを意識してください。</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">失敗⑩ ツールの習得に時間をかけすぎる</div><div class="faq-a"><p>「全機能を覚えてから受注しよう」という思考が一番の敵です。S01〜S14の基本操作が使えれば、実際の案件の90%は対応できます。残りは案件をこなしながら覚えればいい。完璧を待っていると永遠に始まりません。</p></div></div>
+  </div>
+
+  <div class="note info" style="margin-top:32px">
+    <p><strong>最後に：</strong>このガイドに書いたことは、10万円・20万円の動画編集コンサルが「ノウハウ」として売っている内容とほぼ同じです。違いは「実際に案件をこなすかどうか」だけです。ガイドを読んだ次の日に、1件目の受注に動いてください。</p>
+  </div>
+
+  <!-- LINE登録バナー -->
+  <div style="background:linear-gradient(135deg,#06c755,#00a040);border-radius:12px;padding:28px 32px;margin:32px 0;text-align:center">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:10px">LINE登録者限定特典</div>
+    <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.4">ヒアリングシート＋納品前チェックリスト<br>PDF版を無料プレゼント</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.85);margin-bottom:20px;line-height:1.7">印刷してそのまま使える記入式PDFです。<br>受注前・納品前の2枚があれば修正地獄には入りません。</div>
+    <a href="https://lin.ee/vcDiMKO" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:10px;background:#fff;color:#06c755;font-size:15px;font-weight:700;padding:14px 32px;border-radius:30px;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.2)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#06c755" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.04 2 11c0 3.04 1.6 5.72 4.08 7.44-.16.56-.52 2.04-.6 2.36-.1.4.14.4.3.28.12-.08 1.96-1.32 2.76-1.88.44.06.9.08 1.36.08 5.52 0 10-4.04 10-9S17.52 2 12 2z"/></svg>
+      LINE登録して特典を受け取る
+    </a>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">▲ TOP</a>
+</div>
+</div>
 
 <!-- Coconala バナー -->
 <div style="background:linear-gradient(135deg,#1a0a2e,#2d1a4e);padding:28px 32px;margin-top:0">
@@ -1725,7 +2089,7 @@
 </div>
 
 <footer>
-  <p>Adobe Premiere Pro 完全ガイド — 初心者のための本格動画編集マニュアル</p>
+  <p>Adobe Premiere Pro 完全ガイド 2026 — 基礎から実務・AI機能・クライアントワークまで</p>
   <p>このガイドは <strong>Adobe Premiere Pro 2025/2026（v25.x）</strong> を基に作成されています。</p>
   <p><span>Adobe、Premiere Pro、After Effects、Creative CloudはAdobe Inc.の商標です。</span></p>
 </footer>
@@ -1734,6 +2098,27 @@
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // スティッキーナビ アクティブ連動
+  (function(){
+    var btns = document.querySelectorAll('#sticky-nav .snav-btn');
+    var ids = Array.from(btns).map(b => b.getAttribute('href').replace('#',''));
+    function update(){
+      var scrollY = window.scrollY + 100;
+      var current = 0;
+      ids.forEach(function(id, i){
+        var el = document.getElementById(id);
+        if(el && el.offsetTop <= scrollY) current = i;
+      });
+      btns.forEach(function(b,i){ b.classList.toggle('active', i===current); });
+      var nav = document.getElementById('sticky-nav');
+      var active = btns[current];
+      if(active) nav.scrollTo({left: active.offsetLeft - nav.offsetWidth/2 + active.offsetWidth/2, behavior:'smooth'});
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    update();
+  })();
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
   function toggleFaq(el) {
