@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canva 完全解説書 2025年版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --acc:#7c3aed;--acc2:#9333ea;--sub:#06b6d4;
+  --sub-light:#e0f7fa;--acc-light:#f3eeff;--acc-border:#d8b4fe;
+  --green:#059669;--green-light:#ecfdf5;
+  --orange:#d97706;--orange-light:#fffbeb;
+  --red:#dc2626;--red-light:#fef2f2;
+  --bg:#ffffff;--bg-off:#f9f9f7;
+  --text:#1a1a1a;--muted:#666;--border:#e5e5e5;
+  --code-bg:#f4f4f2;--max:1000px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.85}
+
+/* ヘッダー */
+.site-header{
+  background:linear-gradient(135deg,#0f0020 0%,#2d0a5e 40%,#0a1a4e 100%);
+  color:#fff;padding:64px 24px 54px;text-align:center;position:relative;overflow:hidden
+}
+.site-header::before{content:'';position:absolute;top:-120px;right:-80px;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 70%)}
+.site-header::after{content:'';position:absolute;bottom:-100px;left:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.25),transparent 70%)}
+.hd-badge{display:inline-block;background:var(--acc);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;padding:4px 16px;border-radius:2px;margin-bottom:20px;text-transform:uppercase;position:relative;z-index:1}
+.site-header h1{font-size:clamp(28px,5vw,44px);font-weight:700;letter-spacing:-.01em;line-height:1.25;margin-bottom:12px;position:relative;z-index:1}
+.site-header .sub{font-size:14px;color:rgba(255,255,255,.62);max-width:540px;margin:0 auto 24px;position:relative;z-index:1}
+.hd-meta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hd-meta span{font-size:12px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);padding:4px 14px;border-radius:20px}
+
+/* ラッパー */
+.wrapper{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* 目次 */
+.toc-wrap{background:var(--bg-off);border-left:4px solid var(--sub);padding:26px 30px;margin:48px 0 40px;border-radius:0 4px 4px 0}
+.toc-wrap h2{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:16px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;list-style:none;counter-reset:toc}
+.toc-grid li{counter-increment:toc;border-bottom:1px solid var(--border)}
+.toc-grid li:nth-last-child(-n+2){border-bottom:none}
+.toc-grid a{display:flex;align-items:center;gap:8px;padding:8px 4px;color:var(--text);text-decoration:none;font-size:13px;transition:color .2s}
+.toc-grid a::before{content:counter(toc,decimal-leading-zero);font-size:11px;font-weight:700;color:var(--sub);min-width:24px}
+.toc-grid a:hover{color:var(--acc)}
+
+/* セクション */
+.section{padding:60px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:last-of-type{border-bottom:none}
+.sec-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-num{background:var(--acc);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 11px;border-radius:2px;flex-shrink:0;min-width:44px;text-align:center}
+.sec-hd h2{font-size:clamp(19px,3vw,23px);font-weight:700;border-bottom:2px solid var(--acc);padding-bottom:6px;flex:1;line-height:1.35}
+
+/* 本文 */
+p{margin-bottom:16px}
+p:last-child{margin-bottom:0}
+h3{font-size:16px;font-weight:700;margin:30px 0 12px;padding-left:12px;border-left:3px solid var(--acc);color:var(--text)}
+h4{font-size:14px;font-weight:700;margin:20px 0 8px;color:var(--muted)}
+ul,ol{padding-left:20px;margin-bottom:16px}
+li{margin-bottom:7px}
+
+/* ノート */
+.note{background:var(--acc-light);border-left:4px solid var(--acc);padding:14px 20px;margin:18px 0;border-radius:0 4px 4px 0;font-size:14px}
+.note strong{display:block;color:var(--acc);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px}
+.note-green{background:var(--green-light);border-left-color:var(--green)}
+.note-green strong{color:var(--green)}
+.note-orange{background:var(--orange-light);border-left-color:var(--orange)}
+.note-orange strong{color:var(--orange)}
+.note-red{background:var(--red-light);border-left-color:var(--red)}
+.note-red strong{color:var(--red)}
+.note-cyan{background:var(--sub-light);border-left-color:var(--sub)}
+.note-cyan strong{color:#0891b2}
+
+/* テーブル */
+.tbl-wrap{overflow-x:auto;margin:18px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:360px}
+th{background:var(--acc);color:#fff;padding:10px 14px;text-align:left;font-weight:700;font-size:13px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:var(--bg-off)}
+.chk{color:var(--green);font-weight:700}
+.xmark{color:#ccc}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700}
+.tag-p{background:var(--acc-light);color:var(--acc)}
+.tag-g{background:var(--green-light);color:var(--green)}
+.tag-o{background:var(--orange-light);color:var(--orange)}
+.tag-c{background:var(--sub-light);color:#0891b2}
+
+/* コードブロック */
+.code-block{position:relative;margin:16px 0}
+.code-block pre{background:var(--code-bg);border:1px solid var(--border);border-radius:4px;padding:16px 52px 16px 18px;overflow-x:auto;font-family:'Courier New',monospace;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;word-break:break-all}
+.copy-btn{position:absolute;top:8px;right:8px;background:var(--acc);color:#fff;border:none;padding:5px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans JP',sans-serif;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:background .2s;white-space:nowrap}
+.copy-btn:hover{background:var(--sub)}
+.copy-btn.copied{background:#059669}
+
+/* ステップ */
+.steps{list-style:none;padding:0;counter-reset:step}
+.steps li{counter-increment:step;padding:12px 12px 12px 50px;position:relative;border-bottom:1px solid var(--border);margin-bottom:0}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:10px;top:12px;width:26px;height:26px;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%}
+
+/* ショートカットグリッド */
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
+.sc-item{background:var(--bg-off);border:1px solid var(--border);border-radius:4px;padding:9px 14px;display:flex;align-items:center;gap:10px;font-size:13px}
+.sc-key{background:var(--acc);color:#fff;font-family:'Courier New',monospace;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px;white-space:nowrap;flex-shrink:0}
+
+/* AIフィーチャーグリッド */
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.ai-card{background:var(--bg-off);border:1px solid var(--border);border-radius:6px;padding:16px 18px}
+.ai-card-title{font-size:13px;font-weight:700;color:var(--acc);margin-bottom:6px}
+.ai-card p{font-size:13px;line-height:1.7;margin:0}
+
+/* プランカード */
+.plan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}
+.plan-card{border:1.5px solid var(--border);border-radius:6px;padding:16px 14px;font-size:13px}
+.plan-card.featured{border-color:var(--acc);background:var(--acc-light)}
+.plan-name{font-size:13px;font-weight:700;margin-bottom:4px}
+.plan-price{font-size:19px;font-weight:700;color:var(--acc);margin-bottom:2px;line-height:1.2}
+.plan-price span{font-size:11px;font-weight:400;color:var(--muted)}
+.plan-note{font-size:11px;color:var(--muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.plan-card ul{padding-left:0;list-style:none}
+.plan-card li{padding:3px 0 3px 14px;position:relative;font-size:11px}
+.plan-card li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--border)}
+.plan-card.featured li::before{background:var(--acc)}
+
+/* フォントカード */
+.font-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0}
+.font-card{border:1px solid var(--border);border-radius:6px;padding:14px 16px;text-align:center}
+.font-sample{font-size:22px;margin-bottom:6px;color:var(--acc)}
+.font-name{font-size:11px;color:var(--muted)}
+.font-tag{display:inline-block;font-size:10px;background:var(--acc-light);color:var(--acc);padding:2px 8px;border-radius:10px;margin-top:4px}
+
+/* FAQ */
+.faq-item{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden}
+.faq-q{background:var(--bg-off);padding:13px 46px 13px 18px;font-weight:700;font-size:14px;cursor:pointer;position:relative;user-select:none;line-height:1.5}
+.faq-q::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--acc);font-weight:400;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{display:none;padding:14px 18px;font-size:14px;line-height:1.85;border-top:1px solid var(--border)}
+.faq-item.open .faq-a{display:block}
+
+/* --- モックアップ共通 --- */
+.mockup-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:22px 0;font-size:12px;box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.mockup-bar{background:#e8e8e6;padding:8px 14px;display:flex;gap:6px;align-items:center}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.mockup-bar span:nth-child(1){background:#ff6058}
+.mockup-bar span:nth-child(2){background:#ffbd2e}
+.mockup-bar span:nth-child(3){background:#28c840}
+.mockup-body{background:#fff;overflow:hidden}
+
+/* Canva エディタ */
+.m-editor{display:flex;min-height:260px}
+.m-toolbar{width:54px;background:#f5f0ff;border-right:1px solid var(--acc-border);display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:6px}
+.m-tool{width:38px;height:38px;background:#fff;border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);cursor:default}
+.m-tool.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.m-canvas{flex:1;background:#ddd;display:flex;align-items:center;justify-content:center;padding:20px}
+.m-design{background:#fff;width:200px;height:150px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden}
+.m-design-bg{position:absolute;top:0;left:0;right:0;bottom:0}
+.m-design-title{font-size:14px;font-weight:700;color:#fff;position:relative;z-index:1;text-align:center;padding:0 10px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.m-design-sub{font-size:9px;color:rgba(255,255,255,.8);position:relative;z-index:1}
+.m-panel{width:170px;background:#f9f9f7;border-left:1px solid var(--border);padding:12px}
+.m-panel-title{font-size:10px;font-weight:700;color:var(--acc);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.m-colors{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.m-color{width:18px;height:18px;border-radius:50%;cursor:default}
+.m-font-row{background:#fff;border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:11px;color:var(--muted);margin-bottom:5px}
+
+/* <span class="tip" data-tip="企業・個人ブランドのカラー・フォント・ロゴをまとめて登録・管理できる機能">ブランドキット</span> */
+.m-brand{padding:16px 20px}
+.m-brand-title{font-size:14px;font-weight:700;margin-bottom:14px;color:var(--text)}
+.m-brand-section{margin-bottom:14px}
+.m-brand-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#aaa;margin-bottom:6px}
+.m-brand-colors{display:flex;gap:6px;align-items:center}
+.m-brand-color{width:28px;height:28px;border-radius:50%;cursor:default;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.m-brand-fonts{display:flex;flex-direction:column;gap:4px}
+.m-brand-font{background:#fff;border:1px solid var(--border);border-radius:4px;padding:6px 10px;font-size:12px}
+.m-brand-logo{width:80px;height:40px;background:var(--acc-light);border:1.5px dashed var(--acc-border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--acc)}
+
+/* Magic Studio */
+.m-magic{padding:16px 20px}
+.m-magic-title{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.m-magic-tools{display:flex;flex-wrap:wrap;gap:8px}
+.m-magic-tool{background:linear-gradient(135deg,var(--acc-light),#fdf4ff);border:1.5px solid var(--acc-border);border-radius:6px;padding:10px 14px;cursor:default}
+.m-magic-tool-name{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:2px}
+.m-magic-tool-desc{font-size:10px;color:var(--muted)}
+
+/* Visual Suite */
+.m-vs{padding:14px 18px;min-height:160px}
+.m-vs-title{font-size:14px;font-weight:700;margin-bottom:10px;color:var(--text)}
+.m-vs-pages{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.m-vs-page{flex-shrink:0;border:1.5px solid var(--border);border-radius:4px;overflow:hidden;cursor:default}
+.m-vs-page.sel{border-color:var(--acc)}
+.m-vs-page-type{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px}
+.m-vs-page-thumb{width:90px;height:60px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+
+/* チーム */
+.m-team{padding:16px 20px}
+.m-team-title{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.m-team-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.m-team-row:last-child{border-bottom:none}
+.m-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.m-team-name{flex:1;font-weight:500}
+.m-team-role{font-size:11px;padding:2px 8px;border-radius:3px;font-weight:700}
+.role-owner{background:var(--acc-light);color:var(--acc)}
+.role-editor{background:var(--green-light);color:var(--green)}
+.role-viewer{background:#f0f0f0;color:#888}
+
+/* フッター */
+.site-footer{background:#0f0020;color:rgba(255,255,255,.45);text-align:center;padding:36px 24px;font-size:12px;margin-top:48px}
+.site-footer strong{display:block;color:#fff;font-size:14px;margin-bottom:6px}
+.footer-note{display:inline-block;background:rgba(255,255,255,.1);padding:3px 14px;border-radius:20px;margin-top:8px;font-size:11px}
+
+/* レスポンシブ */
+@media(max-width:768px){
+  .toc-grid{grid-template-columns:1fr}
+  .ai-grid{grid-template-columns:1fr}
+  .plan-grid{grid-template-columns:1fr 1fr}
+  .sc-grid{grid-template-columns:1fr}
+  .font-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .site-header{padding:48px 20px 40px}
+  .toc-wrap{padding:18px}
+  .section{padding:44px 0}
+  th,td{padding:8px 10px}
+  .plan-grid{grid-template-columns:1fr}
+  .m-panel{display:none}
+}
+
+  /* ===== TOPボタン ===== */
+  .to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 36px;
+    padding: 7px 16px;
+    background: var(--bg-off);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: background .2s, color .2s, border-color .2s;
+    cursor: pointer;
+  }
+  .to-top::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid currentColor;
+  }
+  .to-top:hover {
+    background: var(--accent, var(--acc, #2d2d2d));
+    color: #fff;
+    border-color: var(--accent, var(--acc, #2d2d2d));
+  }
+
+  /* ===== ツールチップ注釈 ===== */
+  .tip {
+    border-bottom: 1.5px dotted var(--accent, var(--acc, #2d2d2d));
+    cursor: help;
+    position: relative;
+    display: inline;
+  }
+  .tip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.65;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    max-width: 280px;
+    white-space: normal;
+    width: max-content;
+    max-width: 260px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0;
+  }
+  .tip::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a1a1a;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .18s ease;
+    z-index: 9999;
+  }
+  .tip:hover::after,
+  .tip:hover::before {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hd-badge">Complete Guide 2025</div>
+  <h1>Canva 完全解説書</h1>
+  <p class="sub">基本操作から Magic Studio AI・<span class="tip" data-tip="2025年4月に発表されたCanvaの大型アップデート。複数フォーマットを1プロジェクトで管理できる">Visual Suite 2.0</span>・チーム活用まで、2025年最新情報を完全網羅した決定版ガイドです</p>
+  <div class="hd-meta">
+    <span>16 セクション</span>
+    <span>2025年最新対応</span>
+    <span>初心者から上級者まで</span>
+    <span>Visual Suite 2.0 対応</span>
+    <span>Magic Studio AI 全機能収録</span>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- 目次 -->
+<nav class="toc-wrap">
+  <h2>目次</h2>
+  <ol class="toc-grid">
+    <li><a href="#s01">Canvaとは・他ツールとの徹底比較</a></li>
+    <li><a href="#s02">アカウント作成・画面の見方</a></li>
+    <li><a href="#s03">テンプレート活用と選び方</a></li>
+    <li><a href="#s04">テキスト・フォント・配色の基本</a></li>
+    <li><a href="#s05">画像・素材・写真編集の基本</a></li>
+    <li><a href="#s06">Magic Studio AI 機能完全解説</a></li>
+    <li><a href="#s07">ブランドキットの設定と活用</a></li>
+    <li><a href="#s08">Visual Suite 2.0（2025年大型アップデート）</a></li>
+    <li><a href="#s09">Canvaシート・マジックグラフ</a></li>
+    <li><a href="#s10">動画・アニメーション作成</a></li>
+    <li><a href="#s11">プレゼンテーション機能</a></li>
+    <li><a href="#s12">チーム機能・共同編集・承認フロー</a></li>
+    <li><a href="#s13">書き出し・ダウンロード・Web公開</a></li>
+    <li><a href="#s14">料金プラン完全比較（2025年版）</a></li>
+    <li><a href="#s15">商用利用・ライセンス規約</a></li>
+    <li><a href="#s16">ショートカット一覧・FAQ</a></li>
+  </ol>
+</nav>
+
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>Canvaとは・他ツールとの徹底比較</h2></div>
+
+  <p>Canvaは2013年にオーストラリアで創業されたオンラインデザインプラットフォームです。2025年現在、月間アクティブユーザー<strong>2億3,000万人超</strong>を誇り、190か国以上で利用されています。「デザインの民主化」をミッションに掲げ、専門知識なしにプロ品質のビジュアルを誰でも作れる環境を提供しています。</p>
+
+  <p>2025年4月には年次イベント「Canva Create 2025」で過去最大規模のアップデート「<strong>Visual Suite 2.0</strong>」が発表され、デザインツールの枠を超えた総合生産性プラットフォームへと進化しました。</p>
+
+  <h3>Canva vs 主要ツール 徹底比較</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>比較項目</th><th>Canva</th><th>Adobe Illustrator</th><th>PowerPoint</th><th>Figma</th></tr></thead>
+    <tbody>
+      <tr><td>習得難易度</td><td><span class="tag tag-g">かんたん</span></td><td><span class="tag tag-o">難しい</span></td><td><span class="tag tag-c">普通</span></td><td><span class="tag tag-o">難しい</span></td></tr>
+      <tr><td>月額費用</td><td>無料〜691円〜</td><td>約3,280円〜</td><td>Microsoft 365に含む</td><td>無料〜1,740円〜</td></tr>
+      <tr><td>テンプレート数</td><td>60万点以上</td><td>少ない</td><td>数百種</td><td>少ない</td></tr>
+      <tr><td>AI機能</td><td><span class="tag tag-g">充実</span></td><td><span class="tag tag-c">Firefly連携</span></td><td><span class="tag tag-c">Copilot</span></td><td><span class="tag tag-o">限定的</span></td></tr>
+      <tr><td>チーム共同編集</td><td><span class="chk">無料から可</span></td><td><span class="xmark">クラウド版のみ</span></td><td><span class="chk">可</span></td><td><span class="chk">無料から可</span></td></tr>
+      <tr><td>印刷入稿品質</td><td><span class="tag tag-g">Pro以上で高品質</span></td><td><span class="tag tag-g">プロ品質</span></td><td><span class="tag tag-c">普通</span></td><td><span class="tag tag-c">別途書き出し必要</span></td></tr>
+      <tr><td>動画編集</td><td><span class="tag tag-g">標準搭載</span></td><td><span class="xmark">非対応</span></td><td><span class="tag tag-c">動画挿入のみ</span></td><td><span class="xmark">非対応</span></td></tr>
+      <tr><td>インストール</td><td>不要（ブラウザ）</td><td>必要</td><td>必要</td><td>不要（ブラウザ）</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Canvaが特に強い用途</h3>
+  <ul>
+    <li><strong>SNSコンテンツ制作：</strong> Instagram・X・TikTok・YouTube向けテンプレートが豊富で、サイズ自動変換まで対応</li>
+    <li><strong>マーケティング素材：</strong> バナー・チラシ・プレゼン資料を非デザイナーが短時間で高品質に仕上げられる</li>
+    <li><strong>チームでのブランド管理：</strong> ブランドキットでフォント・カラー・ロゴを一元管理し、誰が作っても統一感を保てる</li>
+    <li><strong>コンテンツの大量生産：</strong> Magic Studio一括編集で同じデザインを多言語・多サイズに瞬時に展開</li>
+  </ul>
+
+  <div class="note note-cyan">
+    <strong>Canvaの弱点も押さえておく</strong>
+    ロゴの商標登録・高精度の印刷入稿（Illustratorレベル）・複雑な<span class="tip" data-tip="拡大・縮小しても画質が劣化しないデータ形式。SVGやAIファイルが代表例">ベクター</span>パスの編集・映像のプロ編集は不得意です。これらの用途ではAdobe製品の方が適しています。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>アカウント作成・画面の見方</h2></div>
+
+  <p>Canvaはインストール不要でブラウザからすぐ使えます。アカウント作成から最初のデザイン作成まで、最短5分で始められます。</p>
+
+  <h3>アカウント作成</h3>
+  <ol class="steps">
+    <li>canva.com にアクセスし「無料で登録する」をクリックする</li>
+    <li>メール・Google・Appleアカウントから登録方法を選ぶ</li>
+    <li>使用目的（個人・小規模ビジネス・大企業・教育・非営利など）を選択する</li>
+    <li>ホーム画面が表示されれば完了。すぐに無料で使い始められる</li>
+  </ol>
+
+  <h3>エディタ（編集画面）の完全解説</h3>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-editor">
+        <div class="m-toolbar">
+          <div class="m-tool on">素材</div>
+          <div class="m-tool">テキ</div>
+          <div class="m-tool">写真</div>
+          <div class="m-tool">図形</div>
+          <div class="m-tool" style="color:var(--acc);border-color:var(--acc-border)">AI</div>
+          <div class="m-tool">↑</div>
+          <div class="m-tool">アプ</div>
+        </div>
+        <div class="m-canvas">
+          <div class="m-design">
+            <div class="m-design-bg" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)"></div>
+            <div class="m-design-title">デザインタイトル</div>
+            <div class="m-design-sub">サブテキスト・説明</div>
+          </div>
+        </div>
+        <div class="m-panel">
+          <div class="m-panel-title">カラー</div>
+          <div class="m-colors">
+            <div class="m-color" style="background:#7c3aed"></div>
+            <div class="m-color" style="background:#06b6d4"></div>
+            <div class="m-color" style="background:#059669"></div>
+            <div class="m-color" style="background:#f59e0b"></div>
+            <div class="m-color" style="background:#ef4444"></div>
+            <div class="m-color" style="background:#1a1a1a"></div>
+          </div>
+          <div class="m-panel-title">フォント</div>
+          <div class="m-font-row">Noto Sans JP</div>
+          <div class="m-font-row">Playfair Display</div>
+          <div class="m-font-row" style="margin-bottom:0">Poppins</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>エリア</th><th>役割・主な操作</th></tr></thead>
+    <tbody>
+      <tr><td><strong>左サイドバー（ツール）</strong></td><td>素材・テキスト・写真・動画・AI・アップロード・アプリなど追加コンテンツのパネル</td></tr>
+      <tr><td><strong>中央キャンバス</strong></td><td>デザインの編集エリア。ここにすべての要素を配置する</td></tr>
+      <tr><td><strong>右パネル</strong></td><td>選択中の要素のカラー・フォント・サイズ・透明度・フィルターなどのプロパティ</td></tr>
+      <tr><td><strong>上部ツールバー</strong></td><td>元に戻す・ファイル名・コメント・プレゼン・共有・ダウンロードボタン</td></tr>
+      <tr><td><strong>下部ページパネル</strong></td><td>ページの追加・複製・削除・並べ替え（Visual Suite 2.0で複数フォーマットも管理）</td></tr>
+      <tr><td><strong>ルーラー・ガイド</strong></td><td>Proプランで利用可。精密なレイアウト配置に使う定規と補助線</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-green">
+    <strong>2025年「Glow Up」UI刷新</strong>
+    2025年4月のアップデートで左サイドバーのアイコンが白基調の洗練されたデザインに刷新されました。Proプランで先行提供され、その後すべてのユーザーに展開されています。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>テンプレート活用と選び方</h2></div>
+
+  <p>60万点以上のテンプレートを効率よく使いこなすには、検索・絞り込みのコツと、テンプレートを「素材」として使いこなす発想が重要です。</p>
+
+  <h3>テンプレート検索の上級テクニック</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【検索キーワードの組み合わせ例】
+「Instagram ミニマル 白」     → シンプルな白ベースのSNS投稿
+「プレゼン プロフェッショナル 紺」 → ビジネス向けのネイビー系スライド
+「YouTube サムネイル ゲーム」   → ゲーム系のサムネイル
+「チラシ 和風 秋」           → 和テイストの季節デザイン
+
+【カテゴリ絞り込み】
+左パネルの「スタイル」「色」「特徴」フィルターを組み合わせると
+数十万点から数十件に絞り込める
+
+【プレビューの活用】
+テンプレートにカーソルを当てると動くものはプレビュー表示される
+「アニメーション」タブでアニメーション付きを優先表示できる</pre>
+  </div>
+
+  <h3>テンプレートのカスタマイズ上級技</h3>
+
+  <ol class="steps">
+    <li><strong>カラーパレットを一括変更する：</strong> デザイン全体を選択してページの「カラー変更」を使うと、テンプレートのカラーパレットをワンクリックで別の配色に置き換えられる</li>
+    <li><strong>スタイルの適用：</strong> 「スタイル」タブから別のフォントセット・カラースキームを選ぶと、デザイン全体に一括でスタイルを適用できる</li>
+    <li><strong>ページを「ブランドに置き換え」：</strong> ブランドキットが設定済みであれば、テンプレートのカラー・フォントをブランドカラーに一括変換できる（後述）</li>
+    <li><strong>フレームとグリッドを使う：</strong> 素材パネルの「フレーム」に写真をドロップすると、形に合わせてトリミングされた画像が配置できる</li>
+  </ol>
+
+  <h3>ゼロからデザインを作る（テンプレートなし）</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【ゼロ作成の基本ステップ】
+1. 「空のデザインを作成」または「カスタムサイズ」を選択
+2. 背景色を設定：「背景」タブから色またはグラデーションを選択
+3. レイアウトを決める：左パネル「素材」→「グリッド」から
+   分割レイアウトを選ぶとスペースが整理しやすい
+4. テキストを追加：「テキスト」パネルから見出し・本文を追加
+5. 整列ツールを使う：複数選択して「整列」→中央・均等配置で
+   プロっぽい揃いが簡単に作れる
+6. 「ポジション」パネルでX・Y座標を数値入力して精密配置</pre>
+  </div>
+
+  <div class="note">
+    <strong>テンプレートの賢い使い方</strong>
+    テンプレートは「完成品の流用」ではなく「レイアウトの借用」として使うのがプロの発想です。色・フォント・写真をすべて変えれば、元のテンプレートとは全く異なるオリジナルデザインになります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>テキスト・フォント・配色の基本</h2></div>
+
+  <p>デザイン品質を左右する最も重要な2要素がフォントと配色です。Canvaではどちらも豊富な選択肢から選べます。</p>
+
+  <h3>フォントの選び方と組み合わせ</h3>
+
+  <div class="font-grid">
+    <div class="font-card">
+      <div class="font-sample" style="font-weight:700">見出し</div>
+      <div class="font-name">Noto Sans JP</div>
+      <div class="font-tag">無料・日本語</div>
+    </div>
+    <div class="font-card">
+      <div class="font-sample" style="font-style:italic">Serif</div>
+      <div class="font-name">Playfair Display</div>
+      <div class="font-tag">無料・英字</div>
+    </div>
+    <div class="font-card">
+      <div class="font-sample">Bold</div>
+      <div class="font-name">Poppins</div>
+      <div class="font-tag">無料・英字</div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【フォントペアリングの鉄則】
+見出し：インパクトのある太めのフォント（例：Poppins Bold）
+本文 ：読みやすいシンプルなフォント（例：Noto Sans JP）
+→ 組み合わせは2種類まで。3種以上は散漫に見える
+
+【日本語フォントのおすすめ】
+Noto Sans JP     : 読みやすい万能ゴシック体
+Noto Serif JP    : 上品な明朝体。雑誌・高級感を出したい時
+M PLUS Rounded 1c: 丸みがあって親しみやすい
+BIZ UDPGothic   : ビジネス・プレゼン向け
+
+【英字フォントのおすすめ】
+Poppins   : スタイリッシュ・SNS向き
+Playfair  : エレガント・ブランディング向き
+Montserrat: ミニマル・モダン
+DM Sans   : 読みやすい・Tech系向き</pre>
+  </div>
+
+  <h3>テキストエフェクト（Pro機能）</h3>
+  <p>テキストを選択して「エフェクト」パネルから適用できます。</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>エフェクト名</th><th>効果</th><th>向いている用途</th></tr></thead>
+    <tbody>
+      <tr><td>シャドウ</td><td>文字に影をつけて立体感を演出</td><td>バナー・サムネイル</td></tr>
+      <tr><td>リフト</td><td>影をやや離してシャープに見せる</td><td>見出し・タイトル</td></tr>
+      <tr><td>グロー</td><td>文字をぼんやり光らせる</td><td>ダーク背景・ゲーム系</td></tr>
+      <tr><td>中空</td><td>文字の内側を抜いてアウトラインのみにする</td><td>スタイリッシュな見出し</td></tr>
+      <tr><td>スプライス</td><td>ずらした影で立体的に見せる</td><td>インパクト系デザイン</td></tr>
+      <tr><td>背景</td><td>文字の後ろに色付き背景をつける</td><td>写真上の文字の視認性確保</td></tr>
+      <tr><td>曲線テキスト</td><td>文字をアーチ状に曲げる</td><td>ロゴ風デザイン・バッジ</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>配色の基本</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【3色ルール（迷ったらこれ）】
+メインカラー（60%）: 背景や主要エリアに使う主役の色
+サブカラー（30%） : 見出し・アクセントに使う補助色
+アクセントカラー（10%）: CTAボタン・強調部分のみに使う差し色
+
+【配色のコツ】
+- カラーピッカーで直接<span class="tip" data-tip="#ffffff のような16進数で色を指定するコード。Webデザインで広く使われる">HEX</span>コードを入力すると正確な色を指定できる
+- 素材の「フォトカラー」機能：使用中の写真から自動で配色を抽出できる
+- 「カラーパレット提案」：Canvaが自動でおすすめのカラーセットを提案
+- Adobe Color・Coolors等の外部ツールで作ったパレットのHEXをそのまま使える</pre>
+  </div>
+
+  <div class="note note-green">
+    <strong>グラデーションの作り方</strong>
+    テキスト・図形・背景の色設定パネルで「グラデーション」タブを選択するとグラデーションカラーを適用できます。2色から多色グラデーションまで設定でき、角度も自由に変更可能です。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>画像・素材・写真編集の基本</h2></div>
+
+  <p>Canvaでは外部から持ち込んだ画像も、Canvaのストック素材も、豊富な編集機能で加工できます。</p>
+
+  <h3>写真編集機能一覧</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機能</th><th>内容</th><th>プラン</th></tr></thead>
+    <tbody>
+      <tr><td>フィルター</td><td>写真のトーンを一括変更。ビンテージ・モノクロ・鮮やかなど</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>明るさ・<span class="tip" data-tip="明るい部分と暗い部分の差。強いほど見やすく・くっきりした印象になる">コントラスト</span>調整</td><td>露出・コントラスト・彩度・シャープネスなど詳細調整</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>切り抜き・フレーム</td><td>フレームに写真をはめて自動トリミング</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>背景除去（Magic Eraser）</td><td>AIで背景を一瞬で削除。人物・商品の切り抜き</td><td><span class="tag tag-p">Pro</span></td></tr>
+      <tr><td>マジック消しゴム</td><td>不要な部分をブラシでなぞって消去</td><td><span class="tag tag-p">Pro</span></td></tr>
+      <tr><td>マジックグラブ</td><td>画像の特定部分を選択して移動・削除</td><td><span class="tag tag-p">Pro</span></td></tr>
+      <tr><td>AI余白拡張（Expand）</td><td>画像の外側をAIで自然に拡張して余白を埋める</td><td><span class="tag tag-p">Pro</span></td></tr>
+      <tr><td>プロの写真編集</td><td>HSL・カーブ・<span class="tip" data-tip="重なった要素の色をどう合成するかを指定する設定。乗算・スクリーン等がある">ブレンドモード</span>など高度な写真調整</td><td><span class="tag tag-p">Pro</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>画像の操作テクニック</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【フレームとフォトグリッドの使い方】
+1. 左「素材」パネル → 「フレーム」タブを開く
+2. 丸・星・テキスト形状のフレームを選択してキャンバスに配置
+3. 写真・イラストをフレームにドラッグ&ドロップ → 形に合わせて自動配置
+4. フレーム内でダブルクリックすると位置・サイズの微調整ができる
+
+【透明度・ブレンドモード】
+要素を選択 → 上部「透明度」スライダーまたは数値入力
+ブレンドモード（Proのみ）: 乗算・スクリーン・オーバーレイなど
+背景と写真を組み合わせたアーティスティックな表現に使う
+
+【位置揃えの数値入力】
+要素を選択 → 右パネル「ポジション」でX・Y座標をピクセル指定
+複数要素を数値で正確に配置できる（グラフィックデザイナー向け）</pre>
+  </div>
+
+  <h3>Canvaのストック素材</h3>
+  <ul>
+    <li><strong>無料写真：</strong> 470万点以上のロイヤリティフリー写真（Pexels・Pixabay提携）</li>
+    <li><strong>プレミアム写真（Pro）：</strong> 1億点以上の高品質ストック写真</li>
+    <li><strong>アイコン・イラスト：</strong> 数百万点のSVGベクターイラスト・アイコン</li>
+    <li><strong>動画クリップ：</strong> 無料・有料のストック動画。背景映像としても使用可</li>
+    <li><strong>音楽・効果音：</strong> 動画・プレゼン用の著作権フリー音源</li>
+    <li><strong>3D素材：</strong> 2025年に大幅拡充された3Dオブジェクト・モックアップ</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>Magic Studio AI 機能完全解説</h2></div>
+
+  <p>Magic Studioは、Canvaに統合されたAI機能群の総称です。2025年のアップデートでさらに強化され、デザイン・テキスト・画像のすべてにAIが介入して作業を劇的に効率化します。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-magic">
+        <div class="m-magic-title">Magic Studio（AI機能一覧）</div>
+        <div class="m-magic-tools">
+          <div class="m-magic-tool"><div class="m-magic-tool-name">Magic Media</div><div class="m-magic-tool-desc">テキストから画像・動画生成</div></div>
+          <div class="m-magic-tool"><div class="m-magic-tool-name">背景除去</div><div class="m-magic-tool-desc">ワンクリックで背景を削除</div></div>
+          <div class="m-magic-tool"><div class="m-magic-tool-name">Magic Eraser</div><div class="m-magic-tool-desc">不要な部分をブラシで消去</div></div>
+          <div class="m-magic-tool"><div class="m-magic-tool-name">Magic Expand</div><div class="m-magic-tool-desc">画像の余白をAIで拡張</div></div>
+          <div class="m-magic-tool"><div class="m-magic-tool-name">マジックリサイズ</div><div class="m-magic-tool-desc">別サイズに自動変換</div></div>
+          <div class="m-magic-tool"><div class="m-magic-tool-name">Magic Write</div><div class="m-magic-tool-desc">AIによる文章生成・改善</div></div>
+          <div class="m-magic-tool"><div class="m-magic-tool-name">Magic Design</div><div class="m-magic-tool-desc">AIがデザインを自動生成</div></div>
+          <div class="m-magic-tool"><div class="m-magic-tool-name">一括編集</div><div class="m-magic-tool-desc">スプシ連携で大量生成</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-grid">
+    <div class="ai-card">
+      <div class="ai-card-title">Magic Media（テキストから画像生成）</div>
+      <p>プロンプトを入力するだけでオリジナルの画像・動画を生成。スタイル（フォト・イラスト・3D等）も選択可能。無料版でも限定使用可、Pro以上で無制限（Proは月500<span class="tip" data-tip="AI機能などを使うための消費ポイント。プランごとに月ごとの付与量が異なる">クレジット</span>）</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-title">背景除去（Background Remover）</div>
+      <p>人物・商品・ロゴなどの背景を1クリックで自動削除。透明PNG書き出しと組み合わせることでどんな背景にも合成できる。Proプランで利用可能</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-title">マジックリサイズ</div>
+      <p>作成したデザインをInstagram・YouTube・A4など別のサイズに一瞬で変換。レイアウトを自動調整して再配置。SNS別に複数サイズを一括生成する時に特に有効</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-title">Magic Write（AI文章生成）</div>
+      <p>テキストボックスで「/」を入力してAIに文章生成を依頼。キャプション・見出し・商品説明・プレゼン台本など。翻訳・要約・言い換え・トーン変更も可能</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-title">Magic Eraser（消しゴム）</div>
+      <p>写真の邪魔なものをブラシでなぞるだけでAIが自然に消去。電柱・看板・人物・背景の不要物を削除して、クリーンな写真を短時間で作成</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-title">Magic Expand（余白拡張）</div>
+      <p>縦位置の写真を横位置に、正方形を横長にしたい時などに画像の外側をAIが自然に生成して拡張。背景の色や風景を自動補完する</p>
+    </div>
+  </div>
+
+  <h3>Magic Studio 一括編集（大量コンテンツ生成）</h3>
+  <p>2025年のアップデートで強化された機能で、スプレッドシートのデータを元に大量のデザインを自動生成します。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【一括編集の使い方例：商品バナーを10言語で生成する場合】
+
+1. まず1枚のデザインテンプレートを作る
+2. 動的に変えたい部分（商品名・説明文・価格）を選択して
+   「データを接続する」を設定する
+3. CSVまたはCanvaシートにデータを入力：
+   商品名（英語）、商品名（日本語）、商品名（中国語）...
+   説明文（英語）、説明文（日本語）...
+4. 「一括生成」をクリックすると全パターンが自動生成される
+5. 全バリエーションを一括ダウンロード
+
+→ 例：10商品×5言語=50枚のバナーが数分で完成</pre>
+  </div>
+
+  <div class="note note-orange">
+    <strong>Magic Studio の利用クレジットについて</strong>
+    AI画像生成などはクレジット制です。Proプランでは月500クレジット程度が付与されます。一部機能（背景除去・マジックリサイズ）はクレジット不要で使い放題です。最新のクレジット数は公式サイトでご確認ください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S07 -->
+<section class="section" id="s07">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>ブランドキットの設定と活用</h2></div>
+
+  <p>ブランドキットは、企業・個人ブランドのカラー・フォント・ロゴを一元管理する機能です。設定しておくことで、誰が作っても統一感のあるデザインを維持できます。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-brand">
+        <div class="m-brand-title">ブランドキット - My Brand</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px">
+            <div class="m-brand-label">ブランドカラー</div>
+            <div class="m-brand-colors">
+              <div class="m-brand-color" style="background:#7c3aed"></div>
+              <div class="m-brand-color" style="background:#06b6d4"></div>
+              <div class="m-brand-color" style="background:#1a1a1a"></div>
+              <div class="m-brand-color" style="background:#ffffff;border:1px solid var(--border)"></div>
+            </div>
+          </div>
+          <div style="flex:1;min-width:140px">
+            <div class="m-brand-label">フォント</div>
+            <div class="m-brand-fonts">
+              <div class="m-brand-font" style="font-weight:700;font-size:14px">Poppins Bold（見出し）</div>
+              <div class="m-brand-font">Noto Sans JP（本文）</div>
+            </div>
+          </div>
+          <div style="flex:1;min-width:100px">
+            <div class="m-brand-label">ロゴ</div>
+            <div class="m-brand-logo">LOGO</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>ブランドキットに登録できるもの</h3>
+  <ul>
+    <li><strong>カラーパレット：</strong> ブランドカラーを最大100色まで登録。HEXコードで正確に指定</li>
+    <li><strong>フォント：</strong> 見出し・サブ見出し・本文の3種を登録。Canvaフォントだけでなく独自フォントのアップロードも可（Pro以上）</li>
+    <li><strong>ロゴ：</strong> PNG（透明背景）で複数バリエーションを登録（カラー版・モノクロ版・アイコンのみなど）</li>
+    <li><strong>ブランドテンプレート：</strong> よく使うデザイン構成を登録して再利用（ビジネスプラン以上でロック設定も可）</li>
+  </ul>
+
+  <h3>ブランドキットの活用方法</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【テンプレートをブランドカラーに一括変換する手順】
+1. 既存テンプレートを開く
+2. 右パネルの「スタイル」タブをクリック
+3. 「ブランドを適用する」を選択
+4. テンプレートのカラー・フォントがブランドキットの設定で上書きされる
+→ どんなテンプレートでも瞬時に自社デザインになる
+
+【複数ブランドキットの使い方（Proプラン以上）】
+左サイドバー「ブランドキット」から「+ 新しいブランドを追加」
+→ 複数クライアント・複数ブランドをそれぞれ管理できる
+→ フリーランスのデザイナーが複数クライアントを扱う時に最適</pre>
+  </div>
+
+  <div class="note note-cyan">
+    <strong>ブランドキットの管理権限（ビジネスプラン）</strong>
+    ビジネスプランでは「ブランドデザイナー」権限を設定でき、チームメンバーがブランドキットを閲覧・利用できますが、変更できるのは管理者のみという制限をかけられます。ブランドの一貫性を組織全体で保つための重要な機能です。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S08 -->
+<section class="section" id="s08">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>Visual Suite 2.0（2025年4月大型アップデート）</h2></div>
+
+  <p>2025年4月10日に開催された「Canva Create 2025」で発表された<strong>Visual Suite 2.0</strong>は、Canva史上最大規模のアップデートです。プレゼン・ドキュメント・SNS投稿・Webサイトなど<strong>異なるフォーマットを1つのプロジェクトで統合管理</strong>できるようになりました。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-vs">
+        <div class="m-vs-title">Visual Suite 2.0 - 1つのプロジェクトで複数フォーマットを管理</div>
+        <div class="m-vs-pages">
+          <div class="m-vs-page sel">
+            <div class="m-vs-page-type" style="background:var(--acc-light);color:var(--acc)">プレゼン</div>
+            <div class="m-vs-page-thumb" style="background:linear-gradient(135deg,#7c3aed,#9333ea)">スライド</div>
+          </div>
+          <div class="m-vs-page">
+            <div class="m-vs-page-type" style="background:var(--green-light);color:var(--green)">ドキュメント</div>
+            <div class="m-vs-page-thumb" style="background:var(--green)">資料</div>
+          </div>
+          <div class="m-vs-page">
+            <div class="m-vs-page-type" style="background:var(--sub-light);color:#0891b2">SNS投稿</div>
+            <div class="m-vs-page-thumb" style="background:var(--sub)">SNS</div>
+          </div>
+          <div class="m-vs-page">
+            <div class="m-vs-page-type" style="background:var(--orange-light);color:var(--orange)">Webサイト</div>
+            <div class="m-vs-page-thumb" style="background:var(--orange)">Web</div>
+          </div>
+          <div class="m-vs-page">
+            <div class="m-vs-page-type" style="background:#f0f0f0;color:#666">ホワイトボード</div>
+            <div class="m-vs-page-thumb" style="background:#666">WB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Visual Suite 2.0 の主要機能</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機能</th><th>内容・できること</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ツールキット in ワンデザイン</strong></td><td>1プロジェクト内にプレゼン・ドキュメント・SNS・Webなど異なるフォーマットを混在させて管理できる。世界初の技術</td></tr>
+      <tr><td><strong>フォーマット変換</strong></td><td>ページ追加時に「+」から任意のフォーマットを選べる。プレゼンページの後にSNS用画像ページを挿入するなど自由に組み合わせ可能</td></tr>
+      <tr><td><strong>ブランド一貫性</strong></td><td>1プロジェクト内のすべてのフォーマットに同じブランドキットが適用される</td></tr>
+      <tr><td><strong>チーム分担作業</strong></td><td>同じプロジェクトの異なるページを複数メンバーが同時編集できる</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Canvaコーディング（Canva Code）</h3>
+  <p>2025年の新機能。コーディングの知識なしに、テキストで指示するだけでインタラクティブなコンテンツをデザインに追加できます。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【Canvaコーディングでできること】
+- アンケートフォーム・お問い合わせフォームの作成
+- 計算ツール（BMI計算・価格見積もりなど）
+- ミニゲーム・クイズ
+- インタラクティブなデータビジュアライゼーション
+- 簡単な業務支援アプリ
+
+【使い方】
+1. デザイン内で「/code」または左パネルからCanva Codeを選択
+2. テキストで作りたい機能を指示する
+   例：「シンプルなBMI計算フォームを作って。身長と体重を入力すると結果が表示される」
+3. AIがコードを自動生成してデザインに組み込む
+4. WebサイトやプレゼンにそのままEmbed（埋め込み）できる</pre>
+  </div>
+
+  <div class="note">
+    <strong>Canva AI（音声でデザイン）</strong>
+    Visual Suite 2.0の一部として、口頭や音声入力で「青いグラデーションの背景にしたい」「この写真を左に移動して」のような指示でリアルタイムにデザインが変わる「Canva AI」も発表されました（順次展開中）。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S09 -->
+<section class="section" id="s09">
+  <div class="sec-hd"><span class="sec-num">09</span><h2>Canvaシート・マジックグラフ</h2></div>
+
+  <p>2025年4月に導入された「<strong>Canvaシート</strong>」は、Excelやスプレッドシートの機能をCanvaのデザイン環境に統合したものです。データとデザインを行き来する手間がなくなります。</p>
+
+  <h3>Canvaシートでできること</h3>
+  <ul>
+    <li><strong>スプレッドシート作成：</strong> セルへのデータ入力・数式の自動補完・テーブル整形</li>
+    <li><strong>Magic Insights：</strong> AIがデータを分析してインサイト（傾向・外れ値・推奨アクション）を自動提示</li>
+    <li><strong>Magic Formulas：</strong> 「先月比の増減率を計算して」のように自然言語で数式を生成</li>
+    <li><strong>デザインとシームレス連携：</strong> シートのデータをそのままマジックグラフ・一括編集に流用</li>
+  </ul>
+
+  <h3>マジックグラフ（Magic Charts）</h3>
+  <p>データをグラフ・<span class="tip" data-tip="情報やデータを図・グラフ・イラストで視覚的にまとめたコンテンツ">インフォグラフィック</span>に即座に変換する機能です。Excelで作ったグラフとは異なり、Canvaのデザインに馴染む美しいビジュアルが自動生成されます。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【マジックグラフの使い方】
+1. デザイン内にデータをコピーペースト、またはCanvaシートを接続
+2. データを選択して「マジックグラフ」をクリック
+3. AIが最適なグラフタイプ（棒・折れ線・円・レーダー等）を推薦
+4. グラフのカラー・フォントはブランドキットが自動適用される
+5. データが更新されると（シート連携の場合）グラフも自動更新される
+
+【対応グラフの種類】
+棒グラフ・横棒グラフ・折れ線グラフ・円グラフ・ドーナツグラフ
+散布図・バブルチャート・レーダーチャート・インフォグラフィック
+
+【活用シーン】
+- 月次レポート：売上データをそのままプレゼンに視覚化
+- SNS投稿：データを使ったインフォグラフィック投稿
+- 提案資料：競合比較・市場シェアのビジュアル化</pre>
+  </div>
+
+  <div class="note note-green">
+    <strong>データコネクタ機能</strong>
+    Canvaシートはリアルタイムデータとの接続にも対応。Google Sheets・Airtableとの連携で、データが更新されると自動でCanvaのデザインにも反映される常時最新グラフが作れます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S10 -->
+<section class="section" id="s10">
+  <div class="sec-hd"><span class="sec-num">10</span><h2>動画・アニメーション作成</h2></div>
+
+  <p>Canvaは動画編集ツールとしても優秀です。スマートフォンで撮影した映像のカット編集から、SNS向けショート動画・YouTube動画・アニメーション付きプレゼンまで、ひとつのプラットフォームで完結します。</p>
+
+  <h3>動画編集の基本操作</h3>
+  <ol class="steps">
+    <li>「動画」フォーマットを選択してプロジェクトを作成する（または既存デザインに動画ページを追加）</li>
+    <li>左パネルの「アップロード」から自分の動画ファイルを追加するか、素材のストック動画を使う</li>
+    <li>動画をタイムラインに配置し、クリップの端をドラッグしてトリミング（カット）する</li>
+    <li>テキスト・音楽・効果音・トランジションを追加する</li>
+    <li>「共有」→「ダウンロード」→「MP4動画」で書き出す</li>
+  </ol>
+
+  <h3>動画機能の詳細</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機能</th><th>内容</th><th>プラン</th></tr></thead>
+    <tbody>
+      <tr><td>動画トリミング</td><td>クリップの前後をカット。タイムラインで視覚的に編集</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>テキストオーバーレイ</td><td>動画上にテキスト・字幕を追加。アニメーション付きも可能</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>音楽・効果音追加</td><td>著作権フリーの音楽・効果音ライブラリから選択</td><td><span class="tag tag-g">無料（一部Pro）</span></td></tr>
+      <tr><td>トランジション</td><td>シーン切り替えの視覚効果。フェード・スライド等</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td>動画背景除去</td><td>動画の背景をリアルタイムで削除（グリーンバック不要）</td><td><span class="tag tag-p">Pro</span></td></tr>
+      <tr><td>自動字幕生成</td><td>音声を自動で文字起こしして字幕を追加</td><td><span class="tag tag-p">Pro</span></td></tr>
+      <tr><td>AI動画生成</td><td>テキストプロンプトから短い動画クリップをAIが生成</td><td><span class="tag tag-p">Pro</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>アニメーション機能</h3>
+  <p>静止画デザインにアニメーションを追加してSNSや動画コンテンツとして活用できます。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【アニメーションの種類】
+ページアニメーション：ページ全体に入場・退場アニメーションを設定
+  例：フェードイン・スライドイン・ズームイン・パン
+
+要素アニメーション：テキスト・画像など個別要素に設定
+  例：バウンス・フロート・ライズ・ワープ・ブリーズ
+
+【使い方】
+1. テキストまたは要素を選択
+2. 上部「アニメーション」タブをクリック
+3. アニメーションの種類・速度・タイミングを設定
+4. 「ページのアニメーション」で全体の動きを調整
+
+【書き出し形式】
+アニメーション付き → MP4動画またはGIFでダウンロード
+Webサイト埋め込みなら「パブリッシュ」から直接公開も可能</pre>
+  </div>
+
+  <div class="note note-cyan">
+    <strong>TikTok・Reels向けショート動画の作り方</strong>
+    「TikTok動画（縦向き1080×1920px）」テンプレートから始めるのが最速です。テキストアニメーション・ミュージック・トランジションを数分でセットアップでき、字幕も自動追加できます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S11 -->
+<section class="section" id="s11">
+  <div class="sec-hd"><span class="sec-num">11</span><h2>プレゼンテーション機能</h2></div>
+
+  <p>Canvaのプレゼンテーション機能は、スライド作成だけでなく発表・録画・共有まで一気通貫で行えます。PowerPointに近い機能をブラウザだけで実現できます。</p>
+
+  <h3>プレゼンの作成ポイント</h3>
+  <ol class="steps">
+    <li>「プレゼンテーション（16:9）」フォーマットでプロジェクトを作成する</li>
+    <li>テンプレートを選んでスライド構成の骨格を作る</li>
+    <li>ページ下部の「+」でスライドを追加、右クリックで複製・削除・並べ替え</li>
+    <li>スライドノート（発表者用メモ）を各ページに記入しておく</li>
+    <li>右上「プレゼンテーション」ボタンからそのまま発表を開始する</li>
+  </ol>
+
+  <h3>プレゼン発表モード</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>発表モード</th><th>内容・使いどころ</th></tr></thead>
+    <tbody>
+      <tr><td>通常プレゼン</td><td>ブラウザ全画面でスライドショーを実行。スペースキーかクリックで次のスライドへ</td></tr>
+      <tr><td>プレゼンター表示</td><td>発表者だけにノートとタイマーが見え、聴衆には本スライドのみが表示される</td></tr>
+      <tr><td>ライブQ&amp;A</td><td>QRコードを表示して聴衆がスマホから質問を送れる双方向プレゼン（Pro機能）</td></tr>
+      <tr><td>録画プレゼン</td><td>スライドとウェブカメラ映像・音声を同時録画してMP4で書き出し・共有できる</td></tr>
+      <tr><td>自動スライドショー</td><td>一定時間で自動ページ送りする展示・デジタルサイネージ用モード</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>プレゼンをAIで自動生成（Magic Design for Presentation）</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【AI自動生成の手順】
+1. 「プレゼンテーション」フォーマットを選択
+2. 「AIでプレゼンを作成する」を選択
+3. テーマ・目的・聴衆・スライド枚数を入力する
+   例：「SaaS製品の新規顧客向け提案書。12スライド。
+        問題提起→解決策→実績→料金の流れで」
+4. スタイル（配色・フォント）を選ぶ
+5. 数秒でスライド構成・内容・デザインが自動生成される
+6. 内容を確認して必要な部分だけ手修正する
+
+→ スライド作成時間を最大80%短縮できる</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S12 -->
+<section class="section" id="s12">
+  <div class="sec-hd"><span class="sec-num">12</span><h2>チーム機能・共同編集・承認フロー</h2></div>
+
+  <p>Canvaはリアルタイムの共同編集をすべてのプランで無料でサポートしています。ビジネスプランではさらに高度な権限管理・承認<span class="tip" data-tip="作業の流れ・手順を定義した仕組み。承認・確認のステップを自動化できる">ワークフロー</span>が利用できます。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-team">
+        <div class="m-team-title">チームメンバー管理</div>
+        <div class="m-team-row">
+          <div class="m-avatar" style="background:#7c3aed">A</div>
+          <div class="m-team-name">田中 美咲（管理者）</div>
+          <div class="m-team-role role-owner">オーナー</div>
+        </div>
+        <div class="m-team-row">
+          <div class="m-avatar" style="background:#059669">B</div>
+          <div class="m-team-name">鈴木 健太</div>
+          <div class="m-team-role role-editor">編集者</div>
+        </div>
+        <div class="m-team-row">
+          <div class="m-avatar" style="background:#06b6d4">C</div>
+          <div class="m-team-name">山田 さくら</div>
+          <div class="m-team-role role-editor">編集者</div>
+        </div>
+        <div class="m-team-row">
+          <div class="m-avatar" style="background:#d97706">D</div>
+          <div class="m-team-name">佐藤 拓也（外部クライアント）</div>
+          <div class="m-team-role role-viewer">閲覧者</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>共同編集の操作方法</h3>
+  <ol class="steps">
+    <li>デザイン右上の「共有」をクリックする</li>
+    <li>招待したい人のメールアドレスを入力し、権限（編集・コメント・閲覧）を設定する</li>
+    <li>招待されたメンバーが同時にデザインを開くと、リアルタイムで互いのカーソルが見える</li>
+    <li>コメント機能を使ってデザイン上の特定箇所にフィードバックを残せる</li>
+  </ol>
+
+  <h3>ブランドテンプレートのロック（ビジネスプラン以上）</h3>
+  <p>重要なデザイン要素（ロゴ・特定のテキストエリア・レイアウト）をロックすることで、メンバーが意図しない変更をできないようにできます。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【ロック設定の使い方】
+1. ロックしたい要素を選択する
+2. 右クリック →「ロック」を選択
+→ ロックされた要素はクリックしても移動・変更できなくなる
+
+【実用例】
+- SNS投稿テンプレートを作成
+- ロゴ・ハッシュタグ・フォント・配色をすべてロック
+- テキスト内容と写真だけを変更できるようにする
+→ 複数メンバーが毎回同じルックでコンテンツを量産できる</pre>
+  </div>
+
+  <h3>承認ワークフロー（ビジネスプラン以上）</h3>
+  <p>デザインを公開・使用する前に、管理者・承認者のレビューを必須にする機能です。</p>
+  <ul>
+    <li>デザイン完成後「承認のリクエスト」を送信</li>
+    <li>承認者がコメントまたは「承認」「差し戻し」を選択</li>
+    <li>承認済みのデザインのみダウンロード・公開が可能になる</li>
+    <li>承認履歴がログとして残る</li>
+  </ul>
+
+  <h3>ゲストリンクの活用</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>リンクの種類</th><th>内容</th><th>使いどころ</th></tr></thead>
+    <tbody>
+      <tr><td>閲覧専用リンク</td><td>URLを知っている人が閲覧のみ可能</td><td>クライアントへの確認依頼</td></tr>
+      <tr><td>コメントリンク</td><td>コメントの追加が可能</td><td>フィードバックの収集</td></tr>
+      <tr><td>編集リンク</td><td>リンクを持つ人が誰でも編集できる</td><td>チームメンバーへの共有</td></tr>
+      <tr><td>テンプレートリンク</td><td>リンクからデザインをコピーして使える</td><td>テンプレートの配布・販売</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S13 -->
+<section class="section" id="s13">
+  <div class="sec-hd"><span class="sec-num">13</span><h2>書き出し・ダウンロード・Web公開</h2></div>
+
+  <p>デザインが完成したら、目的に応じた形式で書き出します。印刷・Web・SNS・プレゼンそれぞれに最適なフォーマットが異なります。</p>
+
+  <h3>全ファイル形式の完全解説</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>形式</th><th>特徴</th><th>おすすめ用途</th><th>プラン</th></tr></thead>
+    <tbody>
+      <tr><td><strong>PNG</strong></td><td>高画質・透明背景対応（Pro）</td><td>SNS投稿・Webバナー</td><td>無料（透明背景はPro）</td></tr>
+      <tr><td><strong>JPG</strong></td><td>ファイルサイズ小・透明背景不可</td><td>写真中心デザイン</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td><strong>PDF（印刷用）</strong></td><td>高<span class="tip" data-tip="画像の細かさを示す数値（dpi）。印刷は300dpi以上が必要">解像度</span>・<span class="tip" data-tip="印刷で使われる4色（シアン・マゼンタ・イエロー・黒）の色表現方式">CMYK</span>対応・複数ページ対応</td><td>チラシ・名刺・入稿データ</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td><strong>PDF（標準）</strong></td><td>通常品質PDF</td><td>デジタル配布資料</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td><strong>SVG</strong></td><td>ベクター形式・拡大縮小で劣化しない</td><td>ロゴ・アイコン・印刷素材</td><td><span class="tag tag-p">Pro</span></td></tr>
+      <tr><td><strong>MP4（動画）</strong></td><td>アニメーション・動画書き出し</td><td>SNS動画・アニメーション</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td><strong>GIF</strong></td><td>ループアニメーション</td><td>ステッカー・バナー</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td><strong>PPTX</strong></td><td>PowerPointファイル形式</td><td>PowerPointで編集継続</td><td><span class="tag tag-g">無料</span></td></tr>
+      <tr><td><strong>MP3（音声）</strong></td><td>音声のみを書き出し</td><td>ポッドキャスト・音声コンテンツ</td><td><span class="tag tag-p">Pro</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>印刷入稿のための設定（Proプラン）</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【印刷用PDF書き出しの設定】
+1. 「共有」→「ダウンロード」→「PDF（印刷用）」を選択
+2. 以下のオプションを確認・設定する：
+
+<span class="tip" data-tip="印刷物の裁断位置を示す目印。入稿データに含めることで正確な断裁ができる">トリムマーク</span>（トンボ）：チェックを入れると裁断位置の目印が追加される
+<span class="tip" data-tip="裁断のズレに対応するため、デザインをページ端より少し外側まで伸ばすこと">塗り足し</span>：デザインの端まで色・画像が届くよう余白を設定
+カラープロファイル：CMYKに変換（印刷機はCMYKで処理する）
+<span class="tip" data-tip="レイヤーや透明度などの情報を1枚の画像にまとめて単純化すること">フラット化</span>：フォントを<span class="tip" data-tip="テキストを図形データに変換すること。フォントがなくても文字化けしなくなる">アウトライン化</span>して文字化けを防ぐ
+
+3. 「ダウンロード」をクリック
+4. 生成されたPDFを印刷会社（ラクスル・グラフィック等）にアップロードして入稿
+
+【注意事項】
+フォントサイズ：本文は最低8pt以上にする
+細線：0.5pt以下の線は印刷で消える場合がある
+画像解像度：300dpi以上が印刷の目安</pre>
+  </div>
+
+  <h3>CanvaでWebサイトを公開する</h3>
+  <ol class="steps">
+    <li>「ウェブサイト」フォーマットでデザインを作成するか、既存デザインをWeb用に変換する</li>
+    <li>右上「共有」→「Webサイトを公開」をクリックする</li>
+    <li>canva.site ドメインのURLが発行され、即座に公開される（無料）</li>
+    <li>有料プランでは独自ドメインを接続でき（別途$8/月〜）、Notionブランドも非表示にできる</li>
+  </ol>
+
+  <div class="note note-cyan">
+    <strong>SNSへの直接投稿</strong>
+    「共有」→「SNSに公開」からInstagram・Facebook・Pinterestなどに直接投稿できます（連携設定が必要）。Canvaのスケジュール投稿機能を使えば投稿日時を予約することも可能です。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S14 -->
+<section class="section" id="s14">
+  <div class="sec-hd"><span class="sec-num">14</span><h2>料金プラン完全比較（2025年最新版）</h2></div>
+
+  <p>2025年11月にプラン体系が改定され、旧「Canva Teams」が廃止・「Canvaビジネス」に統合されました。現在は<strong>無料・Pro・ビジネス・エンタープライズ</strong>の4プランです。</p>
+
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-name">無料</div>
+      <div class="plan-price">0円</div>
+      <div class="plan-note">個人・試し使いに</div>
+      <ul>
+        <li>テンプレート（一部）</li>
+        <li>無料素材470万点以上</li>
+        <li>ストレージ5GB</li>
+        <li>リアルタイム共同編集</li>
+        <li>PNG・JPG・PDF書き出し</li>
+        <li>Webサイト公開</li>
+      </ul>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-name">Pro ★推奨</div>
+      <div class="plan-price">691円<span>/月（年払い 8,300円）<br>月払い 1,180円</span></div>
+      <div class="plan-note">個人・フリーランス向け。30日無料トライアルあり</div>
+      <ul>
+        <li><strong>テンプレート60万点以上</strong></li>
+        <li><strong>素材1億点以上</strong></li>
+        <li><strong>ストレージ1TB</strong></li>
+        <li><strong>背景除去・Magic Studio全AI機能</strong></li>
+        <li><strong>ブランドキット（複数）</strong></li>
+        <li><strong>SVG・透明PNG書き出し</strong></li>
+        <li>マジックリサイズ</li>
+        <li>独自フォントアップロード</li>
+        <li>月500AIクレジット</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">ビジネス</div>
+      <div class="plan-price">1,500円〜<span>/人・月（年払い）<br>2025年11月〜新プラン</span></div>
+      <div class="plan-note">チーム・企業向け</div>
+      <ul>
+        <li>Proの全機能</li>
+        <li>ブランドテンプレートのロック</li>
+        <li>承認ワークフロー</li>
+        <li>チームブランドキット管理</li>
+        <li>同期データベース機能</li>
+        <li>管理者ダッシュボード</li>
+        <li>SSO（シングルサインオン）</li>
+        <li>ストレージ1TB/人</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">エンタープライズ</div>
+      <div class="plan-price">要問合せ</div>
+      <div class="plan-note">大規模組織向け</div>
+      <ul>
+        <li>ビジネスの全機能</li>
+        <li>高度なセキュリティ</li>
+        <li>専用サポート</li>
+        <li>カスタム連携</li>
+        <li><span class="tip" data-tip="企業向けシングルサインオンの標準規格。1つのIDで複数サービスにログインできる">SAML SSO</span></li>
+        <li>監査ログ</li>
+        <li>SOC2 Type II 準拠</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>プランの選び方</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>ケース</th><th>おすすめ</th><th>理由</th></tr></thead>
+    <tbody>
+      <tr><td>個人でSNS投稿やスライドを作る</td><td><span class="tag tag-g">無料</span></td><td>基本機能で十分。まず無料で試す</td></tr>
+      <tr><td>透明背景PNG・AI機能を使いたい</td><td><span class="tag tag-p">Pro</span></td><td>月691円で1億点以上の素材とAIが使い放題</td></tr>
+      <tr><td>フリーランスで複数クライアントのデザインを作る</td><td><span class="tag tag-p">Pro</span></td><td>ブランドキット複数管理・SVG書き出しが使える</td></tr>
+      <tr><td>3人以上のチームでデザイン制作をする</td><td><span class="tag tag-o">ビジネス</span></td><td>ブランド統一・承認フロー・権限管理が必要</td></tr>
+      <tr><td>大企業での全社展開</td><td><span class="tag tag-c">エンタープライズ</span></td><td>セキュリティ・SAML SSO・監査ログが必須</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>教育・非営利向け無料プラン</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>プログラム</th><th>対象</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>Canva for Education</td><td>K-12教員・生徒</td><td>Proの全機能を無料。教室管理ツール付き</td></tr>
+      <tr><td>Canva for Nonprofits</td><td>認定NPO・非営利団体</td><td>Proプラン相当の機能を無料提供</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-orange">
+    <strong>旧Teamsプランからの移行について</strong>
+    2025年10月以前から「Canva Teams」を利用していたユーザーは、旧料金のまま継続利用できます。プラン変更時から新料金体系（ビジネスプラン）が適用されます。詳細は公式サポートページをご確認ください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S15 -->
+<section class="section" id="s15">
+  <div class="sec-hd"><span class="sec-num">15</span><h2>商用利用・ライセンス規約</h2></div>
+
+  <p>Canvaで作成したデザインをビジネスや販売に使う際には、ライセンス規約を正しく理解することが重要です。基本的に商用利用は可能ですが、いくつかの禁止事項があります。</p>
+
+  <h3>商用利用が可能なこと</h3>
+  <ul>
+    <li>自社のSNS投稿・広告バナー・Webサイト素材としての使用</li>
+    <li>クライアント向けの制作物・納品物への使用（フリーランス・制作会社）</li>
+    <li>印刷物（チラシ・ポスター・名刺・パンフレット）の作成・配布</li>
+    <li>Canvaで作成したデザインを商品パッケージ・商品写真として使用</li>
+    <li>デザインをメディア（Webサイト・雑誌・YouTube）で公開・販売</li>
+    <li>プレミアム素材を使ったデザインを顧客に納品</li>
+  </ul>
+
+  <h3>禁止されていること（重要）</h3>
+  <div class="note note-red">
+    <strong>必ず確認してください</strong>
+    以下の行為はCanvaの利用規約で禁止されています。
+  </div>
+  <ul>
+    <li><strong>素材の単体再配布・素材そのものの販売：</strong> デザインの一部として使うことは可能だが、素材ファイル単体を販売・配布することは不可</li>
+    <li><strong>ロゴへの使用と商標登録：</strong> Canvaの共有素材（テンプレート・写真・イラスト）を含むデザインは、商標登録の対象にできない</li>
+    <li><strong>デザインをストックフォト・素材として販売：</strong> Canvaの素材を含む作品をそのまま素材サイトで売ることは不可</li>
+    <li><strong><span class="tip" data-tip="ブロックチェーン上で管理されるデジタル資産の所有権証明書">NFT</span>への使用：</strong> Canvaの素材を含むデザインをNFTとして販売することは禁止</li>
+    <li><strong>AI生成コンテンツの一部制限：</strong> AIで生成した素材に固有人物・実在ブランドが含まれる場合は別途制限がある</li>
+  </ul>
+
+  <h3>独自コンテンツ（自分でアップロードした素材）の扱い</h3>
+  <p>自分で撮影した写真・自分で作成したイラストなど、Canvaにアップロードした独自素材は当然ながら自分の著作物です。Canvaのテンプレートを使ってもアップロードした素材の権利は自分に帰属します。</p>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【ロゴを商標登録したい場合の対応策】
+Canvaの共有素材（フォント含む）を使ったロゴは商標登録不可
+→ 対策1：自分で作成・アップロードした図形・文字のみで構成する
+→ 対策2：Canvaで素案を作り、最終的なロゴはIllustrator等でベクター制作する
+→ 対策3：商標登録に対応したロゴ制作の専門デザイナーに依頼する
+
+【フリーランスがクライアント向けに制作する場合】
+- Canvaのプレミアム素材を使った制作物は商用利用可能
+- 完成したデザインファイルをクライアントに渡す場合は
+  クライアントもCanvaを使用するか、PDFなど編集不可の形式で納品する
+- Canvaプロジェクトを直接共有すると編集権が渡る点に注意</pre>
+  </div>
+
+  <div class="note note-green">
+    <strong>ライセンスの最新情報は公式で確認を</strong>
+    CanvaのライセンスはURLにより変わる場合があります。重要な商業利用の前は必ずCanva公式の利用規約（canva.com/policies/content-license-agreement）で最新情報をご確認ください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+
+<!-- S16 -->
+<section class="section" id="s16">
+  <div class="sec-hd"><span class="sec-num">16</span><h2>ショートカット一覧・FAQ</h2></div>
+
+  <p>作業効率を上げる主要ショートカットと、よくある疑問をまとめます。</p>
+
+  <h3>必須ショートカット完全一覧</h3>
+
+  <div class="sc-grid">
+    <div class="sc-item"><span class="sc-key">Ctrl + Z</span>元に戻す</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + Shift + Z</span>やり直す</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + C</span>コピー</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + V</span>貼り付け</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + D</span>要素を複製</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + A</span>全て選択</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + G</span>グループ化</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + Shift + G</span>グループ解除</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + [</span>一層背面へ</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + ]</span>一層前面へ</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + Alt + [</span>最背面へ</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + Alt + ]</span>最前面へ</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + B</span>太字</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + I</span>イタリック</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + E</span>テキストを中央揃え</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + Shift + K</span>テキストをすべて大文字</div>
+    <div class="sc-item"><span class="sc-key">Shift + 矢印</span>要素を10px移動</div>
+    <div class="sc-item"><span class="sc-key">Shift + ドラッグ</span>縦横比を固定してリサイズ</div>
+    <div class="sc-item"><span class="sc-key">Alt + ドラッグ</span>中心から等倍リサイズ</div>
+    <div class="sc-item"><span class="sc-key">L</span>直線ツールを選択</div>
+    <div class="sc-item"><span class="sc-key">P</span>鉛筆ツールを選択</div>
+    <div class="sc-item"><span class="sc-key">T</span>テキストを追加</div>
+    <div class="sc-item"><span class="sc-key">R</span>長方形を追加</div>
+    <div class="sc-item"><span class="sc-key">Ctrl + Enter</span>プレゼンテーションを開始</div>
+    <div class="sc-item"><span class="sc-key">F</span>選択要素をフリップ（反転）</div>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-top:8px">※ Mac の場合は Ctrl を Cmd に読み替えてください</p>
+
+  <h3>よくある質問（FAQ）</h3>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Canvaで作ったデザインのデータは自分のものですか？</div>
+    <div class="faq-a">はい、Canvaが保有するわけではありません。ただし、デザインに使用したCanvaの素材（写真・アイコンなど）はCanvaまたは提携先の著作物であり、Canvaの利用規約の範囲内でのみ使用できます。自分でアップロードした写真やイラストの著作権は自分に帰属します。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Canvaのデータはオフラインでも使えますか？</div>
+    <div class="faq-a">基本的にインターネット接続が必要です。モバイルアプリでは一部のデザインをダウンロードしておけばオフラインで閲覧できますが、編集にはオンライン環境が必要です。デスクトップアプリ版でも基本的な操作には接続が必要です。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">他の人が作ったテンプレートを使うのは著作権的に問題ありませんか？</div>
+    <div class="faq-a">Canvaが公式に提供しているテンプレートは、利用規約の範囲内で商用利用を含めて使用できます。ただし、テンプレートをそのままの状態で（独自性を加えずに）販売することは規約で禁止されています。自分の内容に変えて使う分には問題ありません。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Canvaはスマートフォンでも使いやすいですか？</div>
+    <div class="faq-a">iOS・Android向けの専用アプリが提供されており、基本的な作成・編集は快適に行えます。ただし複数要素の精密な配置調整や詳細な書き出し設定はPCのほうが作業しやすいです。クイックメモ・テンプレート選択・投稿予約などはモバイルでも十分です。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Canvaと他のAdobeツールを併用することはできますか？</div>
+    <div class="faq-a">はい、連携して使えます。CanvaでSVGやPDFとして書き出し、IllustratorやPhotoshopでさらに精密な加工をする流れが一般的です。逆にIllustratorで作ったロゴをSVGでCanvaにアップロードして使うことも可能です。2025年現在、Affinityとの連携も公式に対応しています。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">アカウントを削除するとデータはどうなりますか？</div>
+    <div class="faq-a">アカウントを削除するとすべてのデザインデータは消去されます。削除前に必要なデザインをダウンロードしておいてください。チームワークスペースのオーナーがアカウント削除する場合は、先に所有権を別のメンバーに移譲する必要があります。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Canvaのフォントを印刷物で安全に使えますか？</div>
+    <div class="faq-a">Canvaが提供するフォントを使ったデザインはPDF書き出し時にフォントが埋め込まれるため、印刷会社でのフォント問題は基本的に発生しません。ただし独自フォントをアップロードして使う場合は、そのフォントのライセンスが商用印刷を許可しているか別途確認が必要です。</div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+</section>
+
+</div><!-- /wrapper -->
+
+
+<!-- Coconala バナー -->
+<div class="coconala-banner-wrap" style="background:linear-gradient(135deg,#1a0a2e,#2d1a4e);padding:28px 24px;margin:0">
+  <div style="max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px">Coconala</div>
+      <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.4">このクオリティの解説書を<br>あなたのサービス向けに制作します</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7">設置サポート・GitHub代行オプションあり。<br>まずはお気軽にご相談ください。</div>
+    </div>
+    <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener" style="display:inline-block;background:#9147ff;color:#fff;font-size:14px;font-weight:700;padding:12px 28px;border-radius:6px;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .2s" onmouseover="this.style.background='#7a2ee0'" onmouseout="this.style.background='#9147ff'">Coconalaで見る →</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <strong>Canva 完全解説書 2025年版</strong>
+  本ガイドは2025年3月時点の情報を基に制作されています。Canvaのアップデートにより画面・機能・料金が変更される場合があります。料金・規約の最新情報は公式サイト（canva.com）でご確認ください。
+  <br><span class="footer-note">完全版 ／ 最終更新：2025年3月</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, { threshold: 0.05 });
+document.querySelectorAll('.section').forEach(el => obs.observe(el));
+
+function copyCode(btn) {
+  const text = btn.nextElementSibling.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showCopied(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
+}
+function showCopied(btn) {
+  btn.textContent = 'COPIED';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+}
+
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+</body>
+</html>
