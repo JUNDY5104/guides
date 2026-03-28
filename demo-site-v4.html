@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>触って体験するHTMLマニュアルの世界 | 元飲食店店長サム</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a2a4a;
+  --navy-mid: #243558;
+  --navy-light: #2e4270;
+  --gold: #c9a84c;
+  --gold-light: #e4c97a;
+  --gold-pale: #f5ecd0;
+  --cream: #faf8f3;
+  --white: #ffffff;
+  --text: #1a2a4a;
+  --text-mid: #4a5568;
+  --text-light: #8896a8;
+  --border: #e8e0d0;
+  --nav-h: 56px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 20px); }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  background: var(--navy);
+  padding: 80px 24px 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.15);
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.1);
+}
+.header-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.header-label::before,
+.header-label::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.site-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.4;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+.site-header h1 em {
+  font-style: normal;
+  color: var(--gold-light);
+}
+.site-header .sub {
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+.gold-line {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin: 28px auto;
+  opacity: 0.6;
+}
+
+/* ===== STICKY NAV ===== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  height: var(--nav-h);
+}
+.nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 0 20px;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-link {
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  padding: 7px 16px;
+  border-radius: 2px;
+  transition: all .25s;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--gold-light);
+  border-color: rgba(201,168,76,0.3);
+}
+
+/* ===== WRAP ===== */
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== INTRO ===== */
+.intro {
+  text-align: center;
+  padding: 72px 24px 56px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.intro p {
+  font-size: 16px;
+  color: var(--text-mid);
+  line-height: 2;
+  margin-bottom: 16px;
+}
+.intro p:last-child { margin-bottom: 0; }
+
+/* ===== SECTION ===== */
+.demo-section {
+  background: var(--white);
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  margin: 0 auto 40px;
+  max-width: 960px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .6s, transform .6s;
+  overflow: hidden;
+}
+.demo-section.visible { opacity: 1; transform: translateY(0); }
+
+.section-head {
+  background: var(--navy);
+  padding: 36px 48px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.section-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--gold);
+  opacity: 0.5;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.section-head-text {}
+.section-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.section-head h2 {
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.4;
+}
+.section-head p {
+  color: rgba(255,255,255,0.55);
+  font-size: 13px;
+  margin-top: 8px;
+  font-weight: 300;
+}
+
+.section-body { padding: 48px; }
+
+/* ===== QUIZ A: Step-by-step ===== */
+.quiz-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+.qp-dot {
+  flex: 1;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  transition: background .3s;
+}
+.qp-dot.done { background: var(--gold); }
+.qp-dot.active { background: var(--navy); }
+
+.quiz-step { display: none; }
+.quiz-step.active { display: block; }
+
+.quiz-q {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.quiz-sub {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 28px;
+}
+.quiz-options {
+  display: grid;
+  gap: 10px;
+}
+.quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--white);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  text-align: left;
+  width: 100%;
+}
+.quiz-opt:hover {
+  border-color: var(--navy);
+  background: #f8f9fc;
+}
+.quiz-opt-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gold-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* Quiz result */
+.quiz-result {
+  display: none;
+  text-align: center;
+  padding: 8px 0;
+}
+.quiz-result.show { display: block; }
+.result-type {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.result-type-ja {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+.result-badge {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--gold-light);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+}
+.result-desc {
+  font-size: 15px;
+  color: var(--text-mid);
+  line-height: 2;
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+.result-advice {
+  background: var(--gold-pale);
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.8;
+  text-align: left;
+  border-radius: 0 2px 2px 0;
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+.retry-btn {
+  background: none;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 9px 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.retry-btn:hover { background: var(--navy); color: var(--white); }
+
+/* ===== QUIZ B: Sliders ===== */
+.slider-section { margin-bottom: 28px; }
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+.slider-label .sl-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  display: block;
+  margin-bottom: 10px;
+}
+.slider-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.slider-wrap {
+  position: relative;
+  padding: 6px 0;
+}
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 3px solid var(--gold);
+  cursor: pointer;
+  transition: transform .2s;
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 3px solid var(--gold);
+  cursor: pointer;
+}
+
+.slider-result-preview {
+  background: var(--navy);
+  color: var(--white);
+  border-radius: 2px;
+  padding: 20px 24px;
+  margin-top: 32px;
+  text-align: center;
+}
+.srp-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.srp-type {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+}
+.srp-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+}
+
+/* ===== QUIZ C: Checklist ===== */
+.check-list { list-style: none; margin-bottom: 32px; }
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.check-list li:last-child { border-bottom: none; }
+.check-box {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+.check-box.checked {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.check-box.checked::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: 2px solid var(--gold-light);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+.check-text {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.7;
+  transition: color .2s;
+}
+.check-text.checked { color: var(--text-light); text-decoration: line-through; }
+
+.score-bar-wrap { margin-bottom: 12px; }
+.score-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+.score-bar-label span:first-child { font-weight: 700; color: var(--navy); }
+.score-bar-bg {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--navy), var(--gold));
+  border-radius: 3px;
+  transition: width .5s ease;
+  width: 0%;
+}
+
+.score-result {
+  background: var(--navy);
+  border-radius: 2px;
+  padding: 24px 28px;
+  margin-top: 24px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all .4s;
+}
+.score-result.show { opacity: 1; transform: translateY(0); }
+.sr-score {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--gold-light);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.sr-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.sr-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 10px;
+}
+.sr-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.85;
+}
+
+/* ===== TOOLTIP ===== */
+.tt {
+  border-bottom: 1px dashed var(--gold);
+  cursor: help;
+  position: relative;
+}
+.tt::after {
+  content: attr(data-tt);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: var(--white);
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 2px;
+  width: max-content;
+  max-width: 240px;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+  z-index: 200;
+  font-weight: 400;
+  line-height: 1.6;
+  border: 1px solid rgba(201,168,76,0.3);
+}
+.tt:hover::after { opacity: 1; }
+
+/* ===== TOP BTN ===== */
+.top-btn-wrap { text-align: right; margin-top: 16px; }
+.top-btn {
+  display: inline-block;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-light);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 18px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all .2s;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.top-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ===== COCONALA BANNER ===== */
+.coconala-banner {
+  background: linear-gradient(135deg, #6b21d9 0%, #9747ff 100%);
+  margin: 0 auto 48px;
+  max-width: 960px;
+  padding: 40px 48px;
+  text-align: center;
+}
+.coconala-banner h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.coconala-banner p {
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+.coconala-btn {
+  display: inline-block;
+  background: #fff;
+  color: #6b21d9;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 13px 32px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all .2s;
+}
+.coconala-btn:hover { background: #f0e6ff; transform: translateY(-1px); }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 36px 24px;
+  font-size: 12px;
+}
+.site-footer strong { color: rgba(255,255,255,0.7); display: block; margin-bottom: 6px; }
+
+/* ===== DIVIDER ===== */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  opacity: 0.3;
+}
+.gold-divider::before, .gold-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+}
+.gold-divider span {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:680px){
+  .section-head { padding: 28px 24px; gap: 16px; }
+  .section-num { font-size: 36px; }
+  .section-body { padding: 32px 24px; }
+  .coconala-banner { padding: 32px 24px; }
+}
+
+/* ===== TEXT SECTIONS ===== */
+.text-section {
+  background: var(--white);
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  margin: 0 auto 40px;
+  max-width: 960px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .6s, transform .6s;
+  overflow: hidden;
+}
+.text-section.visible { opacity: 1; transform: translateY(0); }
+
+.text-body {
+  padding: 52px 56px;
+}
+.text-body p {
+  font-size: 15px;
+  color: var(--text-mid);
+  line-height: 2;
+  margin-bottom: 20px;
+}
+.text-body p:last-child { margin-bottom: 0; }
+
+/* テキスト表現パーツ */
+.text-lead {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.9;
+  margin-bottom: 28px !important;
+}
+.text-em {
+  font-weight: 700;
+  color: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 1px;
+}
+.text-quote {
+  border-left: 3px solid var(--gold);
+  padding: 16px 24px;
+  margin: 28px 0;
+  background: var(--gold-pale);
+  border-radius: 0 2px 2px 0;
+}
+.text-quote p {
+  font-size: 15px;
+  color: var(--navy);
+  font-style: italic;
+  margin-bottom: 8px !important;
+  line-height: 1.85;
+}
+.text-quote .quote-src {
+  font-size: 12px;
+  color: var(--text-light);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.point-box {
+  background: var(--navy);
+  border-radius: 2px;
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.point-box-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.point-box p {
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 14px !important;
+  line-height: 1.85;
+}
+.point-box strong { color: var(--gold-light); }
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.feature-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 20px;
+}
+.feature-card .fc-icon {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.feature-card .fc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.feature-card .fc-desc {
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+/* コラム用 */
+.column-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.column-meta .cm-author {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.column-meta .cm-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+.column-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+.text-h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 32px 0 14px;
+  padding-left: 14px;
+  border-left: 3px solid var(--gold);
+}
+
+@media(max-width:680px){
+  .text-body { padding: 32px 24px; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Reset button */
+.reset-link {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 6px 0;
+  margin-top: 20px;
+  transition: color .2s;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reset-link:hover { color: var(--navy); }
+
+/* LINE バナー */
+.line-subtle {
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+  padding-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.line-subtle-text {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+.line-subtle-text strong {
+  color: var(--text-mid);
+  display: block;
+  margin-bottom: 2px;
+}
+.line-subtle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #00B900;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 2px;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.line-subtle-btn:hover { background: #009900; }
+
+/* ===== CONTACT FORM ===== */
+.form-field {
+  margin-bottom: 20px;
+}
+.form-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.form-field label .req {
+  color: var(--gold);
+  margin-left: 4px;
+}
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  transition: border-color .2s;
+  outline: none;
+  appearance: none;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--navy);
+  background: var(--white);
+}
+.form-field textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.8;
+}
+.form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238896a8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-submit {
+  background: var(--navy);
+  color: var(--gold-light);
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .2s;
+  width: 100%;
+  margin-top: 8px;
+}
+.form-submit:hover {
+  background: var(--navy-light);
+  color: var(--gold);
+}
+.form-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.form-note {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+.form-success.show { display: block; }
+.form-success-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+.form-success h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.form-success p {
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 1.85;
+}
+.form-error {
+  display: none;
+  background: #fff0f0;
+  border: 1px solid #ffcccc;
+  border-radius: 2px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #cc3333;
+  margin-top: 12px;
+  text-align: center;
+}
+.form-error.show { display: block; }
+
+@media(max-width:680px){
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="top"></div>
+
+<!-- HEADER -->
+<div class="site-header">
+  <div class="header-label">Interactive Demo</div>
+  <h1>触って体験する<br><em>HTMLマニュアルの世界</em></h1>
+  <div class="gold-line"></div>
+  <p class="sub">元飲食店店長サム &nbsp;|&nbsp; @sum_tenchou</p>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#sec-about" class="nav-link">HTMLマニュアルとは</a>
+    <a href="#sec-column" class="nav-link">続けることの技術</a>
+    <a href="#quiz-a" class="nav-link">X運用スタイル診断</a>
+    <a href="#quiz-b" class="nav-link">店長キャラ診断</a>
+    <a href="#quiz-c" class="nav-link">SNS疲れ度チェック</a>
+    <a href="#sec-form" class="nav-link">お問い合わせ</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="intro">
+    <p>このページ自体が、HTMLマニュアルでできることの<span class="tt" data-tt="これがツールチップです。文字にカーソルを合わせると補足説明が出てきます。このページ全体に散りばめています">体験版</span>です。</p>
+    <p><span class="tt" data-tt="答えを選ぶだけで結果が変わる形式。このページで3種類体験できます">診断</span>・<span class="tt" data-tt="チェックを入れるたびにスコアが変動します。操作する楽しさが学習効果を高めます">チェックリスト</span>・<span class="tt" data-tt="左右に動かすと結果がリアルタイムで変わります。数値の調整に向いています">スライダー</span>。<br>3種類の<span class="tt" data-tt="クリックやスライドなど、操作に対してリアルタイムで反応する仕掛けのこと">インタラクティブな仕掛け</span>を、気軽に触ってみてください。</p>
+  </div>
+</div>
+
+
+<!-- SEC ABOUT -->
+<section class="text-section" id="sec-about">
+  <div class="section-head">
+    <div class="section-num">01</div>
+    <div class="section-head-text">
+      <div class="section-tag">Text Expression Demo</div>
+      <h2>HTMLマニュアルでできること</h2>
+      <p>このセクション自体が、テキスト表現のショールームです。</p>
+    </div>
+  </div>
+  <div class="text-body">
+    <p class="text-lead">HTMLマニュアルは「読むもの」ではなく、<span class="text-em">体験するもの</span>です。</p>
+
+    <p>PDFや紙のマニュアルと何が違うのか。一言で言えば、<span class="tt" data-tt="クリックやスクロールに反応して動くUI部品のこと。チェックボックス・スライダー・ツールチップなどが代表例">インタラクティブな仕掛け</span>を入れられることです。読者が<span class="tt" data-tt="これも仕掛けのひとつ。テキストにマウスを乗せると補足が出てきます">操作</span>するたびに反応する。それだけで、情報の伝わり方がまったく変わります。</p>
+
+    <div class="text-quote">
+      <p>「マニュアルを作っても誰も読まない」という声をよく聞きます。読まないのではなく、読む気にならないマニュアルになっているだけです。</p>
+      <div class="quote-src">— 元飲食店店長サム</div>
+    </div>
+
+    <p>たとえばこのページにも、いくつかの仕掛けが入っています。文字にカーソルを合わせると説明が出る<span class="tt" data-tt="これがツールチップです。難しい用語をその場で補足説明できます">ツールチップ</span>、重要な言葉に入れる<span class="tt" data-tt="下線のある文字が強調テキストです。視線を引きつけて読み飛ばしを防ぎます"><span class="text-em">下線強調</span></span>、<span class="tt" data-tt="背景色と左ボーダーで区切った引用・コメント表示。重要な一言を目立たせるのに使います">引用ブロック</span>。どれも特別な知識なしに実装できます。</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon">💬</div>
+        <div class="fc-title">ツールチップ</div>
+        <div class="fc-desc">難しい用語をホバーで補足。読み手が止まらない。</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">✅</div>
+        <div class="fc-title">チェックリスト</div>
+        <div class="fc-desc">操作できるチェックボックスで達成感を演出。</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📊</div>
+        <div class="fc-title">診断ツール</div>
+        <div class="fc-desc">入力すると結果が変わるインタラクティブ診断。</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🔖</div>
+        <div class="fc-title">強調・引用</div>
+        <div class="fc-desc">大事な部分を視覚的に際立たせるテキスト表現。</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📌</div>
+        <div class="fc-title">ポイントボックス</div>
+        <div class="fc-desc">要点を独立したブロックで伝える。飛ばし読みにも対応。</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🧭</div>
+        <div class="fc-title">目次・ナビ</div>
+        <div class="fc-desc">スクロールに追従するナビで迷子にならない設計。</div>
+      </div>
+    </div>
+
+    <div class="point-box">
+      <div class="point-box-title">Point</div>
+      <p>HTMLマニュアルは<strong>一度作れば何度でも使える資産</strong>になります。印刷コスト不要、更新も即時反映、URLひとつで共有できる。紙やPDFでは実現できない体験を、低コストで提供できます。</p>
+    </div>
+
+    <p>このページ全体が、その<span class="tt" data-tt="実際に存在する事例・見本のこと。このサイト自体がHTMLマニュアルの実例として機能しています">実例</span>です。触りながら読み進めてみてください。</p>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">Page Top</a></div>
+  </div>
+</section>
+
+<div class="gold-divider"><span>&#10022;</span></div>
+
+<!-- SEC COLUMN -->
+<section class="text-section" id="sec-column">
+  <div class="section-head">
+    <div class="section-num">02</div>
+    <div class="section-head-text">
+      <div class="section-tag">Column</div>
+      <h2>続けることの技術</h2>
+      <p>30年の飲食店経験から。</p>
+    </div>
+  </div>
+  <div class="text-body">
+    <div class="column-meta">
+      <span class="cm-tag">Essay</span>
+      <span class="cm-author">元飲食店店長サム</span>
+    </div>
+
+    <div class="column-title">続けられる人と続けられない人の、たったひとつの違い</div>
+
+    <p class="text-lead">30年間、<span class="tt" data-tt="調理・接客・仕込み・発注・スタッフ管理まで、すべてが現場で同時進行する世界">飲食店の現場</span>にいました。その間、数えきれないほどの「やめていく人」を見てきました。</p>
+
+    <p>料理人もホールスタッフも、最初はみんな熱量があります。「絶対にうまくなる」「絶対に店を持つ」。そういう言葉を何度聞いたかわかりません。でも多くの人が、半年もしないうちにいなくなります。</p>
+
+    <p>長く続く人と、すぐやめる人。何が違うのか。ずっと<span class="tt" data-tt="ただ眺めるのではなく、なぜそうなるのかを考えながら見ること。現場で身につく最大のスキル">観察</span>してきた答えは、意外とシンプルです。</p>
+
+    <div class="text-h3">「完璧にやろうとする人」がやめていく</div>
+
+    <p>続けられない人に共通しているのは、<span class="text-em">「完璧にやろうとする」</span>ことです。</p>
+
+    <p>毎日完璧な仕込みをして、完璧な接客をして、完璧な後片付けをする。それができない日が続くと、「自分はダメだ」と感じてやめていきます。</p>
+
+    <div class="text-quote">
+      <p>完璧を目指すより、昨日より少しだけましな今日を積み重ねる方が、はるかに遠くに行ける。</p>
+      <div class="quote-src">— 20年以上働いてくれたベテランスタッフの言葉</div>
+    </div>
+
+    <p>長く続く人は、手を抜いているわけではありません。「今日できる範囲でやる」ことを自分に許せている。それだけです。</p>
+
+    <div class="text-h3">習慣は「量」ではなく「頻度」で作る</div>
+
+    <p>飲食店で新人に教えるとき、最初に言うのは「毎日少しだけやれ」ということです。一週間に一度完璧にやるより、毎日5分だけやる方が身につく。</p>
+
+    <p>包丁の研ぎ方、ホールの清掃、発注のチェック。どれも「毎日の小さな反復」で染み付いていくものです。</p>
+
+    <p>X運用も同じだと気づいたのは、自分でやり始めてからです。週に一度、完璧な投稿をしようとするより、<span class="tt" data-tt="毎週決まった時間に決まった作業をする習慣のこと。意志力に頼らず動ける仕組みを作ることが目的"><span class="text-em">毎週15分のルーティンを守る</span></span>方が、アカウントは確実に育ちます。</p>
+
+    <div class="point-box">
+      <div class="point-box-title">続けるための3原則</div>
+      <p><strong>1. 量より頻度。</strong> 少なくていいから、止めない。<br>
+      <strong>2. 完璧より継続。</strong> 今日できる範囲でやる。<br>
+      <strong>3. 仕組みで動く。</strong> 意志力に頼らない。</p>
+    </div>
+
+    <div class="text-h3">意志力に頼らないこと</div>
+
+    <p>飲食店で続けられる人がもうひとつやっていること。それは「<span class="tt" data-tt="やる気がある日もない日も、同じ行動ができる段取りを事前に作っておくこと。プロが最初にやることです">仕組みを作る</span>」ことです。</p>
+
+    <p>やる気があるときもないときも、同じことができる。そういう段取りを最初に作っておく。意志力に頼ると、疲れた日・忙しい日に必ず止まります。</p>
+
+    <p>毎週月曜の朝にソーシャルドッグを開く、と決める。カレンダーに繰り返し予定を入れる。それだけで、続けられる確率が劇的に上がります。</p>
+
+    <p>続けることは才能ではありません。<span class="text-em">設計の問題です。</span></p>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">Page Top</a></div>
+  </div>
+</section>
+
+<div class="gold-divider"><span>&#10022;</span></div>
+
+<!-- QUIZ A -->
+<section class="demo-section" id="quiz-a">
+  <div class="section-head">
+    <div class="section-num">03</div>
+    <div class="section-head-text">
+      <div class="section-tag">Step-by-step Quiz</div>
+      <h2>あなたのX運用スタイル診断</h2>
+      <p>5問に答えるだけ。あなたのタイプと、そのタイプが陥りやすい落とし穴をお伝えします。</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="quiz-progress" id="qa-progress">
+      <div class="qp-dot active" id="qa-p1"></div>
+      <div class="qp-dot" id="qa-p2"></div>
+      <div class="qp-dot" id="qa-p3"></div>
+      <div class="qp-dot" id="qa-p4"></div>
+      <div class="qp-dot" id="qa-p5"></div>
+    </div>
+
+    <div class="quiz-step active" id="qa-s1">
+      <div class="quiz-q">Q1. 投稿するとき、一番意識していることは？</div>
+      <div class="quiz-sub">直感で選んでください</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="qaNext(1,'craft')"><span class="quiz-opt-icon">✍️</span>文章の質・表現にこだわる</button>
+        <button class="quiz-opt" onclick="qaNext(1,'timing')"><span class="quiz-opt-icon">📅</span>投稿するタイミング・頻度</button>
+        <button class="quiz-opt" onclick="qaNext(1,'reaction')"><span class="quiz-opt-icon">📊</span>反応数やエンゲージメント</button>
+        <button class="quiz-opt" onclick="qaNext(1,'vibe')"><span class="quiz-opt-icon">✨</span>その日の気分・ノリ</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qa-s2">
+      <div class="quiz-q">Q2. フォロワーが増えないとき、まず何をしますか？</div>
+      <div class="quiz-sub">いちばん近いものを選んでください</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="qaNext(2,'analyze')"><span class="quiz-opt-icon">🔍</span>データを見て原因を分析する</button>
+        <button class="quiz-opt" onclick="qaNext(2,'more')"><span class="quiz-opt-icon">🚀</span>とにかく投稿数を増やす</button>
+        <button class="quiz-opt" onclick="qaNext(2,'interact')"><span class="quiz-opt-icon">💬</span>リプライやいいねを積極的にする</button>
+        <button class="quiz-opt" onclick="qaNext(2,'wait')"><span class="quiz-opt-icon">☕</span>しばらく様子を見る</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qa-s3">
+      <div class="quiz-q">Q3. フォロー管理について、正直なところは？</div>
+      <div class="quiz-sub">本音で選んでください</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="qaNext(3,'regular')"><span class="quiz-opt-icon">🗂️</span>定期的にチェックして整理している</button>
+        <button class="quiz-opt" onclick="qaNext(3,'sometimes')"><span class="quiz-opt-icon">🤔</span>気になったときだけ見ている</button>
+        <button class="quiz-opt" onclick="qaNext(3,'almost')"><span class="quiz-opt-icon">😅</span>ほとんど管理できていない</button>
+        <button class="quiz-opt" onclick="qaNext(3,'notcare')"><span class="quiz-opt-icon">🙈</span>フォロー管理の必要性を感じていない</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qa-s4">
+      <div class="quiz-q">Q4. 予約投稿を使っていますか？</div>
+      <div class="quiz-sub">現在の状況を選んでください</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="qaNext(4,'heavy')"><span class="quiz-opt-icon">⚡</span>毎日のように使っている</button>
+        <button class="quiz-opt" onclick="qaNext(4,'sometimes')"><span class="quiz-opt-icon">📌</span>たまに使う程度</button>
+        <button class="quiz-opt" onclick="qaNext(4,'tryit')"><span class="quiz-opt-icon">🌱</span>使ってみたいが設定が面倒</button>
+        <button class="quiz-opt" onclick="qaNext(4,'never')"><span class="quiz-opt-icon">❓</span>使ったことがない</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qa-s5">
+      <div class="quiz-q">Q5. X運用を続けられているいちばんの理由は？</div>
+      <div class="quiz-sub">正直に選んでください</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="qaFinish('strategist')"><span class="quiz-opt-icon">🎯</span>明確な目標があるから</button>
+        <button class="quiz-opt" onclick="qaFinish('creator')"><span class="quiz-opt-icon">🎨</span>書くこと自体が好きだから</button>
+        <button class="quiz-opt" onclick="qaFinish('connector')"><span class="quiz-opt-icon">🤝</span>人とつながれる感覚があるから</button>
+        <button class="quiz-opt" onclick="qaFinish('habit')"><span class="quiz-opt-icon">🔄</span>習慣になっているから・なんとなく</button>
+      </div>
+    </div>
+
+    <div class="quiz-result" id="qa-result"></div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">Page Top</a></div>
+  </div>
+</section>
+
+<div class="gold-divider"><span>&#10022;</span></div>
+
+<!-- QUIZ B -->
+<section class="demo-section" id="quiz-b">
+  <div class="section-head">
+    <div class="section-num">04</div>
+    <div class="section-head-text">
+      <div class="section-tag">Slider Diagnosis</div>
+      <h2>あなたの飲食店店長キャラ診断</h2>
+      <p>5本のスライダーを動かすと、あなたのタイプがリアルタイムで変わります。</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="slider-section">
+      <div class="sl-title">直感 ←→ データ</div>
+      <div class="slider-ends"><span>感覚で動く</span><span>数字で判断</span></div>
+      <input type="range" id="sl1" min="1" max="5" value="3" oninput="updateSliderResult()">
+    </div>
+    <div class="slider-section">
+      <div class="sl-title">守り ←→ 攻め</div>
+      <div class="slider-ends"><span>リスク回避派</span><span>挑戦・実験派</span></div>
+      <input type="range" id="sl2" min="1" max="5" value="3" oninput="updateSliderResult()">
+    </div>
+    <div class="slider-section">
+      <div class="sl-title">職人 ←→ 経営者</div>
+      <div class="slider-ends"><span>現場に立つ</span><span>全体を動かす</span></div>
+      <input type="range" id="sl3" min="1" max="5" value="3" oninput="updateSliderResult()">
+    </div>
+    <div class="slider-section">
+      <div class="sl-title">継続 ←→ 革新</div>
+      <div class="slider-ends"><span>定番・安定重視</span><span>変化・新しもの好き</span></div>
+      <input type="range" id="sl4" min="1" max="5" value="3" oninput="updateSliderResult()">
+    </div>
+    <div class="slider-section">
+      <div class="sl-title">個人 ←→ チーム</div>
+      <div class="slider-ends"><span>一人でやり切る</span><span>人と動く</span></div>
+      <input type="range" id="sl5" min="1" max="5" value="3" oninput="updateSliderResult()">
+    </div>
+
+    <div class="slider-result-preview" id="slider-result">
+      <div class="srp-label">Your Type</div>
+      <div class="srp-type" id="srp-type">スライダーを動かしてみてください</div>
+      <div class="srp-desc" id="srp-desc"></div>
+    </div>
+    <div style="text-align:center;">
+      <button class="reset-link" onclick="resetSliders()">スライダーをリセットする</button>
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">Page Top</a></div>
+  </div>
+</section>
+
+<div class="gold-divider"><span>&#10022;</span></div>
+
+<!-- QUIZ C -->
+<section class="demo-section" id="quiz-c">
+  <div class="section-head">
+    <div class="section-num">05</div>
+    <div class="section-head-text">
+      <div class="section-tag">Checklist Score</div>
+      <h2>SNS疲れ度チェック</h2>
+      <p>当てはまるものにチェックを入れてください。あなたの疲れ度スコアと処方箋をお伝えします。</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="score-bar-wrap">
+      <div class="score-bar-label">
+        <span id="score-count">0 / 10</span>
+        <span>チェックした項目</span>
+      </div>
+      <div class="score-bar-bg">
+        <div class="score-bar-fill" id="score-bar"></div>
+      </div>
+    </div>
+
+    <ul class="check-list" id="check-list">
+      <li onclick="toggleCheck(0)">
+        <div class="check-box" id="cb0"></div>
+        <div class="check-text" id="ct0">投稿する内容がないと焦ることがある</div>
+      </li>
+      <li onclick="toggleCheck(1)">
+        <div class="check-box" id="cb1"></div>
+        <div class="check-text" id="ct1">いいねの数が少ないと気になってしまう</div>
+      </li>
+      <li onclick="toggleCheck(2)">
+        <div class="check-box" id="cb2"></div>
+        <div class="check-text" id="ct2">フォロワーが減ると理由を考えてしまう</div>
+      </li>
+      <li onclick="toggleCheck(3)">
+        <div class="check-box" id="cb3"></div>
+        <div class="check-text" id="ct3">他の人のアカウントと比べてしまうことがある</div>
+      </li>
+      <li onclick="toggleCheck(4)">
+        <div class="check-box" id="cb4"></div>
+        <div class="check-text" id="ct4">投稿後しばらくスマホが気になってしまう</div>
+      </li>
+      <li onclick="toggleCheck(5)">
+        <div class="check-box" id="cb5"></div>
+        <div class="check-text" id="ct5">「もっと投稿しなければ」と義務感を感じる</div>
+      </li>
+      <li onclick="toggleCheck(6)">
+        <div class="check-box" id="cb6"></div>
+        <div class="check-text" id="ct6">バズった投稿とそうでない投稿の差が気になる</div>
+      </li>
+      <li onclick="toggleCheck(7)">
+        <div class="check-box" id="cb7"></div>
+        <div class="check-text" id="ct7">SNSを見ていると時間があっという間に過ぎる</div>
+      </li>
+      <li onclick="toggleCheck(8)">
+        <div class="check-box" id="cb8"></div>
+        <div class="check-text" id="ct8">更新が止まると「終わった」気がして怖い</div>
+      </li>
+      <li onclick="toggleCheck(9)">
+        <div class="check-box" id="cb9"></div>
+        <div class="check-text" id="ct9">そもそも何のためにやってるのかわからなくなることがある</div>
+      </li>
+    </ul>
+
+    <div class="score-result" id="score-result">
+      <div class="sr-score" id="sr-score">0</div>
+      <div class="sr-label">Fatigue Score</div>
+      <div class="sr-title" id="sr-title"></div>
+      <div class="sr-desc" id="sr-desc"></div>
+    </div>
+    <div style="text-align:center;">
+      <button class="reset-link" onclick="resetChecks()">チェックをリセットする</button>
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">Page Top</a></div>
+  </div>
+</section>
+
+<!-- SEC FORM -->
+<section class="text-section" id="sec-form">
+  <div class="section-head">
+    <div class="section-num">06</div>
+    <div class="section-head-text">
+      <div class="section-tag">Contact Form Demo</div>
+      <h2>HTMLマニュアルのお問い合わせ</h2>
+      <p>制作に関するご質問・ご相談をお気軽にどうぞ。このフォーム自体もHTMLマニュアルで作れる仕掛けのひとつです。</p>
+    </div>
+  </div>
+  <div class="text-body">
+
+    <div id="form-wrap">
+      <form
+        action="https://formspree.io/f/mjgpybjk"
+        method="POST"
+        id="contact-form"
+        onsubmit="handleSubmit(event)"
+      >
+        <div class="form-row">
+          <div class="form-field">
+            <label>お名前<span class="req">*</span></label>
+            <input type="text" name="name" placeholder="山田 太郎" required>
+          </div>
+          <div class="form-field">
+            <label>メールアドレス<span class="req">*</span></label>
+            <input type="email" name="email" placeholder="example@mail.com" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>お問い合わせ種別<span class="req">*</span></label>
+          <select name="type" required>
+            <option value="" disabled selected>選択してください</option>
+            <option value="coconala">Coconalaのサービスについて</option>
+            <option value="price">料金・プランについて</option>
+            <option value="demo">このデモサイトについて</option>
+            <option value="custom">オーダーメイドの相談</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>ご要望・ご質問<span class="req">*</span></label>
+          <textarea name="message" placeholder="どのようなHTMLマニュアルを作りたいか、現在お困りのことなど、お気軽にご記入ください。" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit" id="form-btn">
+          送信する
+        </button>
+
+        <p class="form-note">
+          通常2〜3営業日以内にご返信します。<br>
+          お急ぎの方は<span class="tt" data-tt="LINEからのお問い合わせはこちら：https://lin.ee/O25f4Cn　タップでLINEが開きます">公式LINE</span>からどうぞ。
+        </p>
+        <div class="form-error" id="form-error">送信に失敗しました。時間をおいて再度お試しください。</div>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon">✉</div>
+        <h3>送信が完了しました</h3>
+        <p>お問い合わせいただきありがとうございます。<br>通常2〜3営業日以内にご連絡いたします。<br><br>お急ぎの場合は公式LINEよりご連絡ください。<br><a href="https://lin.ee/O25f4Cn" target="_blank" style="color:var(--gold);font-weight:700;">https://lin.ee/O25f4Cn</a></p>
+      </div>
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">Page Top</a></div>
+  </div>
+</section>
+
+<div class="gold-divider"><span>&#10022;</span></div>
+
+<!-- LINE subtle -->
+<div class="wrap" style="margin-bottom:40px;">
+  <div class="line-subtle">
+    <div class="line-subtle-text">
+      <strong>ツールについてもっと詳しく知りたい方へ</strong>
+      公式LINEでご質問を受け付けています。お気軽にどうぞ。
+    </div>
+    <a href="https://lin.ee/O25f4Cn" target="_blank" class="line-subtle-btn">
+      LINE で聞いてみる
+    </a>
+  </div>
+</div>
+
+<!-- COCONALA BANNER -->
+<div class="coconala-banner">
+  <h3>オリジナルHTMLマニュアルを制作します</h3>
+  <p>あなたのサービス・業務フローを、このようなインタラクティブなHTMLガイドにまとめます。<br>Coconalaにてご相談受け付け中です。</p>
+  <a href="https://coconala.com/services/3034205" target="_blank" class="coconala-btn">Coconalaでサービスを見る</a>
+</div>
+
+<footer class="site-footer">
+  <strong>触って体験するHTMLマニュアルの世界</strong>
+  元飲食店店長サム（@sum_tenchou）制作 / 無断転載・再配布禁止
+</footer>
+
+<script>
+// ===== SCROLL ANIMATION =====
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.demo-section, .text-section').forEach(s => observer.observe(s));
+
+// ===== ACTIVE NAV =====
+const sections = document.querySelectorAll('[id^="quiz-"], [id^="sec-"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 80) current = s.id; });
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+
+// ===== QUIZ A =====
+let qaAnswers = [];
+let qaStep = 1;
+
+function qaNext(q, answer) {
+  qaAnswers[q] = answer;
+  document.getElementById('qa-s'+q).classList.remove('active');
+  document.getElementById('qa-p'+q).classList.remove('active');
+  document.getElementById('qa-p'+q).classList.add('done');
+  if(q < 5) {
+    qaStep = q + 1;
+    document.getElementById('qa-s'+qaStep).classList.add('active');
+    document.getElementById('qa-p'+qaStep).classList.add('active');
+  }
+}
+
+function qaFinish(finalAnswer) {
+  qaAnswers[5] = finalAnswer;
+  document.getElementById('qa-s5').classList.remove('active');
+  document.getElementById('qa-p5').classList.remove('active');
+  document.getElementById('qa-p5').classList.add('done');
+
+  const types = {
+    strategist: {
+      en: 'The Strategist',
+      ja: '戦略家タイプ',
+      badge: 'GOAL-DRIVEN',
+      desc: '目標から逆算して行動できる、X運用の中でも数少ない「設計できる人」です。ただし、計画に縛られすぎてリアルタイムの流れに乗り遅れることも。',
+      advice: '処方箋：週1ルーティンに「今週のトレンドを1件拾う」を加えてみてください。設計力に即興性が加わると、さらに強くなります。'
+    },
+    creator: {
+      en: 'The Creator',
+      ja: 'クリエイタータイプ',
+      badge: 'CONTENT-FIRST',
+      desc: '発信の質へのこだわりが強く、フォロワーからの信頼も厚いタイプ。ただし「いいものを作れば伝わる」という思い込みで、届け方の工夫が後回しになりがちです。',
+      advice: '処方箋：投稿時間帯のデータを一度確認してみてください。同じコンテンツでも、届く時間が変わるだけで反応が倍になることがあります。'
+    },
+    connector: {
+      en: 'The Connector',
+      ja: 'コネクタータイプ',
+      badge: 'PEOPLE-FIRST',
+      desc: 'リプライやいいねへの反応が早く、人と人をつなぐことが自然とできるタイプ。エンゲージメント率は高いはずですが、フォロワーの絶対数が伸びにくい課題があります。',
+      advice: '処方箋：コミュニケーションの得意さを活かしたまま、週に1〜2本「情報発信型の投稿」を混ぜると、新規フォロワーが増えやすくなります。'
+    },
+    habit: {
+      en: 'The Survivor',
+      ja: 'サバイバータイプ',
+      badge: 'CONSISTENT',
+      desc: '続けているだけで実はすごい。継続できていること自体が、最大の武器です。ただし「なんとなく続けている」状態は、ある日突然やめてしまうリスクも抱えています。',
+      advice: '処方箋：小さくていいので「3ヶ月後の目標」を一つ決めてみてください。目標があると、同じ投稿でも意味が変わります。'
+    }
+  };
+
+  const t = types[finalAnswer];
+  const html = `
+    <div class="result-type">${t.en}</div>
+    <div class="result-type-ja">${t.ja}</div>
+    <div class="result-badge">${t.badge}</div>
+    <div class="result-desc">${t.desc}</div>
+    <div class="result-advice">${t.advice}</div>
+    <button class="retry-btn" onclick="qaRetry()">もう一度やり直す</button>
+  `;
+  const result = document.getElementById('qa-result');
+  result.innerHTML = html;
+  result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function qaRetry() {
+  qaAnswers = [];
+  qaStep = 1;
+  for(let i=1;i<=5;i++){
+    document.getElementById('qa-s'+i).classList.remove('active');
+    document.getElementById('qa-p'+i).classList.remove('active','done');
+  }
+  document.getElementById('qa-s1').classList.add('active');
+  document.getElementById('qa-p1').classList.add('active');
+  document.getElementById('qa-result').classList.remove('show');
+  document.getElementById('qa-result').innerHTML = '';
+}
+
+// ===== QUIZ B: SLIDERS =====
+const sliderTypes = [
+  { name: 'データ職人', desc: '数字と現場感覚を両立できる稀有なタイプ。分析結果を即座に現場に落とし込める。' },
+  { name: '直感の革新者', desc: 'スピード感と発想力で周囲を引っ張る。計画より実行で結果を出すタイプ。' },
+  { name: '守りの経営者', desc: 'リスクを見極めながら全体を動かす。チームの安定感の要になる存在。' },
+  { name: '攻めの職人', desc: '品質への妥協なく、新しい手法を取り入れ続ける。尖った専門性を持つ。' },
+  { name: 'チームの番頭', desc: '人の力を引き出すのが得意。縁の下の力持ちとして組織を支える。' },
+  { name: '孤高の一匹狼', desc: '誰にも頼らず結果を出す。スピードと集中力は群を抜いている。' },
+  { name: '安定の大黒柱', desc: '変わらない価値を守り続ける。信頼と継続で長期的な成果を上げる。' },
+  { name: '風雲の改革者', desc: '既存の枠を壊して新しいものを作る。変化の激しい時代に強いタイプ。' },
+  { name: 'バランスの達人', desc: 'どの要素も偏りなく持つオールラウンダー。状況に応じて役割を変えられる。' },
+];
+
+function updateSliderResult() {
+  const v = [
+    parseInt(document.getElementById('sl1').value),
+    parseInt(document.getElementById('sl2').value),
+    parseInt(document.getElementById('sl3').value),
+    parseInt(document.getElementById('sl4').value),
+    parseInt(document.getElementById('sl5').value),
+  ];
+  const avg = v.reduce((a,b)=>a+b,0)/5;
+  const data = v[0] > 3;
+  const attack = v[1] > 3;
+  const manager = v[2] > 3;
+  const innov = v[3] > 3;
+  const team = v[4] > 3;
+
+  let typeIdx = 8; // default: バランスの達人
+  if(data && !attack && manager && !innov) typeIdx = 0;
+  else if(!data && attack && !manager && innov) typeIdx = 1;
+  else if(!data && !attack && manager && !innov) typeIdx = 2;
+  else if(data && attack && !manager && innov) typeIdx = 3;
+  else if(!data && !attack && !manager && !innov && team) typeIdx = 4;
+  else if(data && attack && !team) typeIdx = 5;
+  else if(!innov && !attack && !team) typeIdx = 6;
+  else if(innov && attack) typeIdx = 7;
+
+  const t = sliderTypes[typeIdx];
+  document.getElementById('srp-type').textContent = t.name;
+  document.getElementById('srp-desc').textContent = t.desc;
+}
+
+// Init slider
+updateSliderResult();
+
+// ===== QUIZ C: CHECKLIST =====
+let checks = new Array(10).fill(false);
+
+function toggleCheck(i) {
+  checks[i] = !checks[i];
+  const cb = document.getElementById('cb'+i);
+  const ct = document.getElementById('ct'+i);
+  cb.classList.toggle('checked', checks[i]);
+  ct.classList.toggle('checked', checks[i]);
+  updateScore();
+}
+
+function updateScore() {
+  const count = checks.filter(Boolean).length;
+  document.getElementById('score-count').textContent = count + ' / 10';
+  document.getElementById('score-bar').style.width = (count * 10) + '%';
+
+  const result = document.getElementById('score-result');
+  const sr_score = document.getElementById('sr-score');
+  const sr_title = document.getElementById('sr-title');
+  const sr_desc = document.getElementById('sr-desc');
+
+  sr_score.textContent = count;
+
+  if(count === 0) {
+    result.classList.remove('show');
+    return;
+  }
+
+  result.classList.add('show');
+
+  if(count <= 2) {
+    sr_title.textContent = '健全な距離感タイプ';
+    sr_desc.textContent = 'SNSとの距離感がちょうどいい状態です。ツールとして使いこなせています。この感覚を大切にしながら、運用の仕組み化を進めると長続きします。';
+  } else if(count <= 4) {
+    sr_title.textContent = 'じわじわ疲労タイプ';
+    sr_desc.textContent = '自覚はないかもしれませんが、SNSへの依存度が少し高くなっています。週1回「SNSを見ない日」を作るだけでリフレッシュできます。投稿は予約機能に任せて、自分はログアウトしておくのがコツです。';
+  } else if(count <= 6) {
+    sr_title.textContent = '本格疲労タイプ';
+    sr_desc.textContent = 'かなり消耗しているサインです。「義務感でやっている」状態になると、発信の質も下がります。一度ルーティンを見直して、やることを絞ってください。週1・15分だけに減らしても、アカウントは死にません。';
+  } else {
+    sr_title.textContent = '限界突破タイプ';
+    sr_desc.textContent = 'お疲れ様です、本当に。今すぐ3日間SNSから離れてください。アカウントより自分が大事です。戻ってきたくなったとき、仕組みを整えてから再スタートすれば必ず取り戻せます。';
+  }
+}
+
+// ===== RESET SLIDERS =====
+function resetSliders() {
+  ['sl1','sl2','sl3','sl4','sl5'].forEach(id => {
+    document.getElementById(id).value = 3;
+  });
+  document.getElementById('srp-type').textContent = 'スライダーを動かしてみてください';
+  document.getElementById('srp-desc').textContent = '';
+}
+
+// ===== RESET CHECKS =====
+function resetChecks() {
+  checks = new Array(10).fill(false);
+  for(let i=0;i<10;i++){
+    document.getElementById('cb'+i).classList.remove('checked');
+    document.getElementById('ct'+i).classList.remove('checked');
+  }
+  document.getElementById('score-count').textContent = '0 / 10';
+  document.getElementById('score-bar').style.width = '0%';
+  document.getElementById('score-result').classList.remove('show');
+}
+
+// ===== CONTACT FORM =====
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('form-btn');
+  const error = document.getElementById('form-error');
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+  error.classList.remove('show');
+
+  try {
+    const res = await fetch(e.target.action, {
+      method: 'POST',
+      body: new FormData(e.target),
+      headers: { 'Accept': 'application/json' }
+    });
+    if(res.ok) {
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('form-success').classList.add('show');
+    } else {
+      throw new Error('Server error');
+    }
+  } catch(err) {
+    error.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = '送信する';
+  }
+}
+</script>
+</body>
+</html>
