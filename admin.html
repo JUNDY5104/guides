@@ -323,7 +323,10 @@ input:focus, select:focus { border-color: var(--navy); }
     <div class="header-title">管理画面</div>
     <div class="store-name" id="hd-store">読み込み中...</div>
   </div>
-  <div class="header-badge">店長専用</div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="nav-link" id="reload-btn" onclick="reloadData()" style="border:1px solid var(--gold);background:transparent;cursor:pointer;display:none;">🔄 更新</button>
+    <div class="header-badge">店長専用</div>
+  </div>
 </header>
 
 <!-- パスワード画面 -->
@@ -559,9 +562,8 @@ async function login() {
 
     if (data.success) {
       password = pw;
-      document.getElementById('pw-screen').style.display   = 'none';
-      document.getElementById('main-screen').style.display = 'block';
-      await initMain();
+      sessionStorage.setItem('shift_pw_admin', pw);
+      await showMainScreen();
     } else {
       document.getElementById('pw-error').style.display = 'block';
     }
@@ -572,6 +574,46 @@ async function login() {
     btn.disabled    = false;
   }
 }
+
+async function showMainScreen() {
+  document.getElementById('pw-screen').style.display   = 'none';
+  document.getElementById('main-screen').style.display = 'block';
+  document.getElementById('reload-btn').style.display  = 'block';
+  await initMain();
+}
+
+async function reloadData() {
+  const btn = document.getElementById('reload-btn');
+  btn.textContent = '更新中...';
+  btn.disabled    = true;
+  try {
+    await loadShifts();
+    ok('最新データに更新しました');
+  } catch(e) {
+    err('更新に失敗しました');
+  } finally {
+    btn.textContent = '🔄 更新';
+    btn.disabled    = false;
+  }
+}
+
+// 自動ログイン
+window.addEventListener('DOMContentLoaded', async () => {
+  const saved = sessionStorage.getItem('shift_pw_admin');
+  if (!saved) return;
+  try {
+    const res  = await fetch(GAS_URL + '?' + new URLSearchParams({
+      action: 'verify', password: saved, role: 'admin'
+    }));
+    const data = await res.json();
+    if (data.success) {
+      password = saved;
+      await showMainScreen();
+    } else {
+      sessionStorage.removeItem('shift_pw_admin');
+    }
+  } catch (e) { /* silent */ }
+});
 
 // ============================================================
 // 初期化
