@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>店長管理画面</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #1a2a4a;
+  --gold:   #c9a84c;
+  --gold-l: #e8c96a;
+  --white:  #ffffff;
+  --gray1:  #f4f5f7;
+  --gray2:  #e0e4ea;
+  --gray3:  #9aa3b0;
+  --text:   #1e2530;
+  --green:  #2e7d52;
+  --green-l:#eaf5ef;
+  --red:    #c0392b;
+  --red-l:  #fdecea;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(26,42,74,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--gray1); color: var(--text); min-height: 100vh; }
+
+header {
+  background: var(--navy);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-title { color: var(--gold); font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; }
+.store-name   { color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-top: 2px; }
+.header-badge {
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* パスワード */
+#pw-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 56px);
+  padding: 24px 20px;
+}
+.pw-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+.pw-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
+.pw-card h2   { color: var(--navy); font-size: 1.1rem; margin-bottom: 6px; }
+.pw-card p    { color: var(--gray3); font-size: 0.82rem; margin-bottom: 24px; }
+.pw-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid var(--gray2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
+  letter-spacing: 0.15em;
+  transition: border-color 0.2s;
+}
+.pw-input:focus { border-color: var(--navy); }
+.pw-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pw-error { margin-top: 10px; color: var(--red); font-size: 0.85rem; display: none; }
+
+/* メイン */
+#main-screen { display: none; padding: 16px 14px 60px; max-width: 600px; margin: 0 auto; }
+
+/* タブ */
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.tab-btn {
+  padding: 10px 4px;
+  border: 2px solid var(--gray2);
+  background: var(--white);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--gray3);
+  text-align: center;
+  transition: all 0.2s;
+  line-height: 1.3;
+}
+.tab-btn.active { border-color: var(--navy); background: var(--navy); color: var(--white); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* カード */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.card-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gray2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 月ナビ */
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.month-display { font-size: 1rem; font-weight: 700; color: var(--navy); min-width: 100px; text-align: center; }
+.nav-btn {
+  width: 32px; height: 32px;
+  border: 2px solid var(--gray2);
+  background: var(--white);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.nav-btn:hover { border-color: var(--navy); background: var(--navy); color: var(--white); }
+
+/* シフトリスト */
+.shift-list { list-style: none; }
+.shift-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--gray2);
+  font-size: 0.87rem;
+}
+.shift-item:last-child { border-bottom: none; }
+.shift-date  { color: var(--gray3); font-size: 0.8rem; min-width: 60px; }
+.shift-staff { font-weight: 700; flex: 1; }
+.shift-time  { color: var(--gray3); font-size: 0.8rem; white-space: nowrap; }
+.shift-adj   { font-size: 0.68rem; color: var(--gold); border: 1px solid var(--gold); padding: 1px 4px; border-radius: 4px; }
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+.status-badge:hover { opacity: 0.75; }
+.status-pending    { background: var(--gray2);   color: var(--gray3); }
+.status-confirmed  { background: var(--green-l); color: var(--green); }
+.status-rejected   { background: var(--red-l);   color: var(--red); }
+
+.del-btn {
+  width: 28px; height: 28px;
+  border: none;
+  background: var(--red-l);
+  color: var(--red);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+.del-btn:hover { opacity: 0.75; }
+
+/* フォーム */
+.form-group { margin-bottom: 14px; }
+.form-group:last-child { margin-bottom: 0; }
+label { display: block; font-size: 0.83rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+input[type="text"], input[type="number"], input[type="password"], select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 2px solid var(--gray2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.93rem;
+  outline: none;
+  transition: border-color 0.2s;
+  background: var(--white);
+  color: var(--text);
+  appearance: none;
+  -webkit-appearance: none;
+}
+input:focus, select:focus { border-color: var(--navy); }
+
+.btn {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn:hover   { opacity: 0.85; }
+.btn-primary { background: var(--navy); color: var(--white); }
+.btn-gold    { background: var(--gold); color: var(--navy); }
+.btn-danger  { background: var(--red);  color: var(--white); }
+.btn-block   { width: 100%; }
+
+/* スタッフリスト */
+.staff-list { list-style: none; }
+.staff-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--gray2);
+  font-size: 0.88rem;
+}
+.staff-item:last-child { border-bottom: none; }
+.staff-name  { font-weight: 700; flex: 1; }
+.staff-meta  { color: var(--gray3); font-size: 0.8rem; }
+
+/* 統計 */
+.stat-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.stat-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 700;
+}
+.stat-table td { padding: 9px 10px; border-bottom: 1px solid var(--gray2); }
+.stat-table tr:last-child td { border-bottom: none; }
+.stat-num { font-weight: 700; color: var(--navy); }
+.stat-high { color: var(--green); font-weight: 700; }
+
+/* 警告バナー */
+.alert-banner {
+  background: var(--red-l);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  font-size: 0.84rem;
+  color: var(--red);
+  font-weight: 500;
+}
+
+/* ローディング */
+.loading { text-align: center; padding: 30px; color: var(--gray3); font-size: 0.88rem; }
+.empty   { text-align: center; padding: 24px; color: var(--gray3); font-size: 0.88rem; }
+
+/* トースト */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  z-index: 999;
+  background: var(--navy);
+  color: var(--white);
+}
+.toast.show          { transform: translateX(-50%) translateY(0); }
+.toast.toast-success { background: var(--green); }
+.toast.toast-error   { background: var(--red); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">管理画面</div>
+    <div class="store-name" id="hd-store">読み込み中...</div>
+  </div>
+  <div class="header-badge">店長専用</div>
+</header>
+
+<!-- パスワード画面 -->
+<div id="pw-screen">
+  <div class="pw-card">
+    <div class="icon">🔑</div>
+    <h2>店長専用ページ</h2>
+    <p>管理者パスワードを入力してください</p>
+    <input type="password" id="pw-input" class="pw-input" placeholder="管理者パスワード" autocomplete="current-password">
+    <button class="pw-btn" onclick="login()">ログイン</button>
+    <div class="pw-error" id="pw-error">パスワードが違います</div>
+  </div>
+</div>
+
+<!-- メイン画面 -->
+<div id="main-screen">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('shifts')">シフト<br>承認</button>
+    <button class="tab-btn" onclick="switchTab('staff')">スタッフ<br>管理</button>
+    <button class="tab-btn" onclick="switchTab('stats')">貢献度<br>集計</button>
+    <button class="tab-btn" onclick="switchTab('settings')">設定</button>
+  </div>
+
+  <!-- ① シフト承認タブ -->
+  <div class="tab-panel active" id="tab-shifts">
+    <div class="month-nav">
+      <button class="nav-btn" onclick="changeShiftMonth(-1)">◀</button>
+      <div class="month-display" id="shift-month-display">---</div>
+      <button class="nav-btn" onclick="changeShiftMonth(1)">▶</button>
+    </div>
+    <div id="shortage-alerts"></div>
+    <div class="card">
+      <div class="card-title">
+        シフト一覧
+        <span id="shift-count" style="font-size:0.75rem;color:var(--gray3);font-weight:400;"></span>
+      </div>
+      <ul class="shift-list" id="shift-list">
+        <li class="loading">読み込み中...</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ② スタッフ管理タブ -->
+  <div class="tab-panel" id="tab-staff">
+    <div class="card">
+      <div class="card-title">スタッフ追加</div>
+      <div class="form-group">
+        <label>名前</label>
+        <input type="text" id="add-name" placeholder="例：田中 花子">
+      </div>
+      <div class="form-group">
+        <label>時給（円）</label>
+        <input type="number" id="add-rate" placeholder="例：1100" value="1100">
+      </div>
+      <div class="form-group">
+        <label>役割</label>
+        <select id="add-role">
+          <option value="スタッフ">スタッフ</option>
+          <option value="ホール">ホール</option>
+          <option value="キッチン">キッチン</option>
+          <option value="リーダー">リーダー</option>
+          <option value="社員">社員</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="addStaff()">追加する</button>
+    </div>
+    <div class="card">
+      <div class="card-title">登録スタッフ一覧</div>
+      <ul class="staff-list" id="staff-list">
+        <li class="loading">読み込み中...</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ③ 貢献度集計タブ -->
+  <div class="tab-panel" id="tab-stats">
+    <div class="month-nav">
+      <button class="nav-btn" onclick="changeStatsMonth(-1)">◀</button>
+      <div class="month-display" id="stats-month-display">---</div>
+      <button class="nav-btn" onclick="changeStatsMonth(1)">▶</button>
+    </div>
+    <div class="card">
+      <div class="card-title">貢献度集計</div>
+      <div id="stats-table"><div class="loading">読み込み中...</div></div>
+    </div>
+    <div class="card" style="font-size:0.82rem;color:var(--gray3);line-height:1.7;">
+      <strong style="color:var(--navy);">集計の見方</strong><br>
+      ・土日：土曜・日曜の出勤回数<br>
+      ・深夜：22時以降まで勤務した回数<br>
+      ・合計：その月の合計シフト数<br>
+      査定・時給改定の根拠データとして活用してください。
+    </div>
+  </div>
+
+  <!-- ④ 設定タブ -->
+  <div class="tab-panel" id="tab-settings">
+    <div class="card">
+      <div class="card-title">店舗設定</div>
+      <div class="form-group">
+        <label>店舗名</label>
+        <input type="text" id="set-store" placeholder="例：サム食堂 渋谷店">
+      </div>
+      <div class="form-group">
+        <label>1日の必要最低人数</label>
+        <input type="number" id="set-min" placeholder="例：2" min="1" max="20">
+      </div>
+      <div class="form-group">
+        <label>シフト締め切り日（毎月）</label>
+        <input type="number" id="set-deadline" placeholder="例：20" min="1" max="28">
+      </div>
+      <div class="form-group">
+        <label>LINE Notify トークン</label>
+        <input type="text" id="set-line" placeholder="LINE Notifyのトークンを貼り付け">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="saveSettings()">設定を保存</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">パスワード変更</div>
+      <div class="form-group">
+        <label>スタッフ共通パスワード</label>
+        <input type="text" id="set-staffpw" placeholder="新しいスタッフパスワード">
+      </div>
+      <div class="form-group">
+        <label>管理者パスワード</label>
+        <input type="text" id="set-adminpw" placeholder="新しい管理者パスワード">
+      </div>
+      <button class="btn btn-gold btn-block" onclick="savePasswords()">パスワードを変更</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">データ管理</div>
+      <button class="btn btn-primary btn-block" onclick="doBackup()" style="margin-bottom:10px;">
+        バックアップを作成
+      </button>
+      <div style="font-size:0.8rem;color:var(--gray3);margin-top:8px;line-height:1.6;">
+        ※ Googleドライブにスプレッドシートのコピーを作成します。<br>
+        毎月末に実行することをおすすめします。
+      </div>
+    </div>
+
+    <div class="card" style="font-size:0.82rem;">
+      <div class="card-title">スタッフ共有リンク</div>
+      <div style="margin-bottom:10px;color:var(--gray3);line-height:1.7;">
+        以下のURLをスタッフに共有してください。<br>
+        パスワードは別途口頭で伝えてください。
+      </div>
+      <div style="display:grid;gap:8px;">
+        <div>
+          <div style="font-size:0.75rem;font-weight:700;color:var(--navy);margin-bottom:4px;">シフト入力フォーム</div>
+          <div id="url-staff" style="background:var(--gray1);padding:9px 12px;border-radius:6px;word-break:break-all;font-size:0.78rem;color:var(--gray3);">---</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem;font-weight:700;color:var(--navy);margin-bottom:4px;">カレンダー確認</div>
+          <div id="url-calendar" style="background:var(--gray1);padding:9px 12px;border-radius:6px;word-break:break-all;font-size:0.78rem;color:var(--gray3);">---</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const GAS_URL    = 'https://script.google.com/macros/s/AKfycbx_g0T_ZYxWq4b6stgx55w5YgyQCNu6sSCORt2yBOFqQQmpKtvy7eQdpQ3diTitnB6M/exec'; // ← GASのデプロイURLに変更
+const DOW_LABEL  = ['日','月','火','水','木','金','土'];
+
+let password      = '';
+let shiftYear, shiftMonth;
+let statsYear, statsMonth;
+let settings = {};
+
+// ============================================================
+// ユーティリティ
+// ============================================================
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type ? 'toast-' + type : ''}`;
+  setTimeout(() => t.classList.add('show'), 10);
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+const ok  = msg => showToast(msg, 'success');
+const err = msg => showToast(msg, 'error');
+
+async function gasGet(params) {
+  const url = GAS_URL + '?' + new URLSearchParams({ ...params, password, role: 'admin' });
+  return (await fetch(url)).json();
+}
+async function gasPost(data) {
+  const res = await fetch(GAS_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body:    JSON.stringify({ ...data, password })
+  });
+  return res.json();
+}
+
+function fmtTime(t) {
+  if (!t) return '';
+  const h = parseInt(t.split(':')[0]);
+  const m = t.split(':')[1];
+  if (h >= 24) return `翌${String(h-24).padStart(2,'0')}:${m}`;
+  return `${String(h).padStart(2,'0')}:${m}`;
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+
+  if (id === 'staff')    loadStaff();
+  if (id === 'stats')    loadStats();
+  if (id === 'settings') loadSettingsForm();
+}
+
+// ============================================================
+// ログイン
+// ============================================================
+async function login() {
+  const pw = document.getElementById('pw-input').value.trim();
+  if (!pw) return;
+  const btn = document.querySelector('.pw-btn');
+  btn.textContent = '確認中...';
+  btn.disabled    = true;
+
+  try {
+    const res = await fetch(GAS_URL + '?' + new URLSearchParams({
+      action: 'verify', password: pw, role: 'admin'
+    }));
+    const data = await res.json();
+
+    if (data.success) {
+      password = pw;
+      document.getElementById('pw-screen').style.display   = 'none';
+      document.getElementById('main-screen').style.display = 'block';
+      await initMain();
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+    }
+  } catch (e) {
+    err('通信エラーが発生しました');
+  } finally {
+    btn.textContent = 'ログイン';
+    btn.disabled    = false;
+  }
+}
+
+// ============================================================
+// 初期化
+// ============================================================
+async function initMain() {
+  const now    = new Date();
+  shiftYear    = now.getFullYear();
+  shiftMonth   = now.getMonth() + 1;
+  statsYear    = now.getFullYear();
+  statsMonth   = now.getMonth() + 1;
+
+  // 設定取得
+  try {
+    const res = await gasGet({ action: 'getSettings' });
+    if (res.success) {
+      settings = res.data;
+      document.getElementById('hd-store').textContent = settings.storeName;
+    }
+  } catch (e) { /* silent */ }
+
+  // URL表示
+  const base = location.href.replace('admin.html','');
+  document.getElementById('url-staff').textContent    = base + 'staff.html';
+  document.getElementById('url-calendar').textContent = base + 'calendar.html';
+
+  await loadShifts();
+}
+
+// ============================================================
+// シフト管理
+// ============================================================
+async function changeShiftMonth(delta) {
+  shiftMonth += delta;
+  if (shiftMonth > 12) { shiftMonth = 1;  shiftYear++; }
+  if (shiftMonth < 1)  { shiftMonth = 12; shiftYear--; }
+  await loadShifts();
+}
+
+async function loadShifts() {
+  document.getElementById('shift-month-display').textContent =
+    `${shiftYear}年${shiftMonth}月`;
+  document.getElementById('shift-list').innerHTML = '<li class="loading">読み込み中...</li>';
+  document.getElementById('shortage-alerts').innerHTML = '';
+
+  try {
+    const res = await gasGet({ action: 'getShifts', year: shiftYear, month: shiftMonth });
+    if (!res.success) { err('シフトの取得に失敗しました'); return; }
+
+    // 欠員アラート
+    const alertHtml = Object.entries(res.alerts || {}).map(([date, a]) => {
+      const d   = new Date(date + 'T00:00:00');
+      const dow = DOW_LABEL[d.getDay()];
+      return `<div class="alert-banner">⚠️ ${d.getMonth()+1}/${d.getDate()}（${dow}）：人手不足（${a.count}人/${a.required}人必要）</div>`;
+    }).join('');
+    document.getElementById('shortage-alerts').innerHTML = alertHtml;
+
+    const shifts = res.data || [];
+    document.getElementById('shift-count').textContent = `全${shifts.length}件`;
+
+    if (shifts.length === 0) {
+      document.getElementById('shift-list').innerHTML = '<li class="empty">シフトはありません</li>';
+      return;
+    }
+
+    // 日付順ソート
+    shifts.sort((a, b) => a.date.localeCompare(b.date));
+
+    const listHtml = shifts.map(s => {
+      const d    = new Date(s.date + 'T00:00:00');
+      const label= `${d.getMonth()+1}/${d.getDate()}（${DOW_LABEL[d.getDay()]}）`;
+      const cls  = s.status === '確定' ? 'status-confirmed' : s.status === '却下' ? 'status-rejected' : 'status-pending';
+
+      return `
+        <li class="shift-item">
+          <span class="shift-date">${label}</span>
+          <span class="shift-staff">${s.staffName}</span>
+          <span class="shift-time">${fmtTime(s.startTime)}〜${fmtTime(s.endTime)}</span>
+          ${s.adjustable ? '<span class="shift-adj">調整可</span>' : ''}
+          <button class="status-badge ${cls}" onclick="cycleStatus('${s.id}','${s.status}')">${s.status}</button>
+          <button class="del-btn" onclick="deleteShift('${s.id}')" title="削除">✕</button>
+        </li>
+      `;
+    }).join('');
+
+    document.getElementById('shift-list').innerHTML = listHtml;
+  } catch (e) {
+    err('通信エラーが発生しました');
+  }
+}
+
+async function cycleStatus(id, current) {
+  const next = current === '未確定' ? '確定' : current === '確定' ? '却下' : '未確定';
+  try {
+    const res = await gasPost({ action: 'confirmShift', id, status: next });
+    if (res.success) { ok(`→ ${next} に変更しました`); await loadShifts(); }
+    else err(res.error || '更新に失敗しました');
+  } catch (e) { err('通信エラー'); }
+}
+
+async function deleteShift(id) {
+  if (!confirm('このシフトを削除しますか？')) return;
+  try {
+    const res = await gasPost({ action: 'deleteShift', id });
+    if (res.success) { ok('削除しました'); await loadShifts(); }
+    else err(res.error || '削除に失敗しました');
+  } catch (e) { err('通信エラー'); }
+}
+
+// ============================================================
+// スタッフ管理
+// ============================================================
+async function loadStaff() {
+  document.getElementById('staff-list').innerHTML = '<li class="loading">読み込み中...</li>';
+  try {
+    const res = await gasGet({ action: 'getStaff' });
+    if (!res.success || !res.data.length) {
+      document.getElementById('staff-list').innerHTML = '<li class="empty">スタッフが登録されていません</li>';
+      return;
+    }
+    document.getElementById('staff-list').innerHTML = res.data.map(s => `
+      <li class="staff-item">
+        <span class="staff-name">${s.name}</span>
+        <span class="staff-meta">${s.role} / ¥${Number(s.hourlyRate).toLocaleString()}</span>
+        <button class="del-btn" onclick="removeStaff('${s.name}')" title="削除">✕</button>
+      </li>
+    `).join('');
+  } catch (e) {
+    err('通信エラー');
+  }
+}
+
+async function addStaff() {
+  const name = document.getElementById('add-name').value.trim();
+  const rate = document.getElementById('add-rate').value;
+  const role = document.getElementById('add-role').value;
+  if (!name) { err('名前を入力してください'); return; }
+  try {
+    const res = await gasPost({ action: 'addStaff', name, hourlyRate: rate, role });
+    if (res.success) { ok(res.message); document.getElementById('add-name').value = ''; await loadStaff(); }
+    else err(res.error || '追加に失敗しました');
+  } catch (e) { err('通信エラー'); }
+}
+
+async function removeStaff(name) {
+  if (!confirm(`${name} を削除しますか？`)) return;
+  try {
+    const res = await gasPost({ action: 'removeStaff', name });
+    if (res.success) { ok(res.message); await loadStaff(); }
+    else err(res.error || '削除に失敗しました');
+  } catch (e) { err('通信エラー'); }
+}
+
+// ============================================================
+// 貢献度集計
+// ============================================================
+async function changeStatsMonth(delta) {
+  statsMonth += delta;
+  if (statsMonth > 12) { statsMonth = 1;  statsYear++; }
+  if (statsMonth < 1)  { statsMonth = 12; statsYear--; }
+  await loadStats();
+}
+
+async function loadStats() {
+  document.getElementById('stats-month-display').textContent =
+    `${statsYear}年${statsMonth}月`;
+  document.getElementById('stats-table').innerHTML = '<div class="loading">集計中...</div>';
+  try {
+    const res = await gasGet({ action: 'getStats', year: statsYear, month: statsMonth });
+    if (!res.success || !Object.keys(res.data).length) {
+      document.getElementById('stats-table').innerHTML = '<div class="empty">データがありません</div>';
+      return;
+    }
+    const rows = Object.entries(res.data)
+      .sort((a, b) => b[1].total - a[1].total)
+      .map(([name, d]) => `
+        <tr>
+          <td>${name}</td>
+          <td class="stat-num">${d.total}</td>
+          <td class="${d.weekend >= 2 ? 'stat-high' : 'stat-num'}">${d.weekend}</td>
+          <td class="${d.lateNight >= 2 ? 'stat-high' : 'stat-num'}">${d.lateNight}</td>
+        </tr>
+      `).join('');
+    document.getElementById('stats-table').innerHTML = `
+      <table class="stat-table">
+        <thead><tr><th>名前</th><th>合計</th><th>土日</th><th>深夜</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  } catch (e) { err('通信エラー'); }
+}
+
+// ============================================================
+// 設定
+// ============================================================
+async function loadSettingsForm() {
+  try {
+    const res = await gasGet({ action: 'getSettings' });
+    if (res.success) {
+      const s = res.data;
+      document.getElementById('set-store').value    = s.storeName || '';
+      document.getElementById('set-min').value      = s.minStaff  || 2;
+      document.getElementById('set-deadline').value = s.deadline  || 20;
+    }
+  } catch (e) { /* silent */ }
+}
+
+async function saveSettings() {
+  const s = {
+    '店舗名':       document.getElementById('set-store').value.trim(),
+    '必要最低人数': document.getElementById('set-min').value,
+    '締め切り日':   document.getElementById('set-deadline').value,
+    'LINE通知トークン': document.getElementById('set-line').value.trim()
+  };
+  try {
+    const res = await gasPost({ action: 'updateSettings', settings: s });
+    if (res.success) { ok('設定を保存しました'); document.getElementById('hd-store').textContent = s['店舗名']; }
+    else err(res.error || '保存に失敗しました');
+  } catch (e) { err('通信エラー'); }
+}
+
+async function savePasswords() {
+  const sp = document.getElementById('set-staffpw').value.trim();
+  const ap = document.getElementById('set-adminpw').value.trim();
+  if (!sp && !ap) { err('パスワードを入力してください'); return; }
+  const s = {};
+  if (sp) s['スタッフパスワード'] = sp;
+  if (ap) s['管理者パスワード']   = ap;
+  try {
+    const res = await gasPost({ action: 'updateSettings', settings: s });
+    if (res.success) {
+      ok('パスワードを変更しました。次回ログイン時に新しいパスワードをお使いください');
+      document.getElementById('set-staffpw').value = '';
+      document.getElementById('set-adminpw').value = '';
+      if (ap) { password = ap; }
+    } else err(res.error || '変更に失敗しました');
+  } catch (e) { err('通信エラー'); }
+}
+
+async function doBackup() {
+  const btn = event.currentTarget;
+  btn.textContent = 'バックアップ中...';
+  btn.disabled    = true;
+  try {
+    const res = await gasPost({ action: 'backup' });
+    if (res.success) ok(res.message);
+    else err(res.error || 'バックアップに失敗しました');
+  } catch (e) { err('通信エラー'); }
+  finally { btn.textContent = 'バックアップを作成'; btn.disabled = false; }
+}
+
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+</script>
+</body>
+</html>

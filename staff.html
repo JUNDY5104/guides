@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>シフト希望入力</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #1a2a4a;
+  --gold:   #c9a84c;
+  --gold-l: #e8c96a;
+  --white:  #ffffff;
+  --gray1:  #f4f5f7;
+  --gray2:  #e0e4ea;
+  --gray3:  #9aa3b0;
+  --text:   #1e2530;
+  --green:  #2e7d52;
+  --red:    #c0392b;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(26,42,74,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--gray1);
+  color: var(--text);
+  min-height: 100vh;
+}
+/* ---- Header ---- */
+header {
+  background: var(--navy);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-title {
+  color: var(--gold);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.store-name {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+.nav-link {
+  color: var(--gold);
+  font-size: 0.8rem;
+  text-decoration: none;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 5px 10px;
+  transition: all 0.2s;
+}
+.nav-link:hover { background: var(--gold); color: var(--navy); }
+
+/* ---- Password Screen ---- */
+#pw-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 60px);
+  padding: 24px 20px;
+}
+.pw-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+.pw-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+.pw-card h2 {
+  color: var(--navy);
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+.pw-card p {
+  color: var(--gray3);
+  font-size: 0.82rem;
+  margin-bottom: 24px;
+}
+.pw-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid var(--gray2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  text-align: center;
+  letter-spacing: 0.15em;
+}
+.pw-input:focus { border-color: var(--navy); }
+.pw-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-btn:hover { background: #233a6a; }
+.pw-error {
+  margin-top: 10px;
+  color: var(--red);
+  font-size: 0.85rem;
+  display: none;
+}
+
+/* ---- Main Form ---- */
+#main-screen { display: none; padding: 20px 16px 40px; max-width: 520px; margin: 0 auto; }
+
+.greeting {
+  background: var(--navy);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+.greeting h2 { font-size: 1rem; font-weight: 700; }
+.greeting p  { font-size: 0.82rem; color: rgba(255,255,255,0.75); margin-top: 4px; }
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 20px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gray2);
+}
+.form-group { margin-bottom: 18px; }
+.form-group:last-child { margin-bottom: 0; }
+label {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+label .req {
+  color: var(--red);
+  font-size: 0.72rem;
+  margin-left: 4px;
+}
+select, input[type="date"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--gray2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a2a4a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+input[type="date"] { background-image: none; }
+select:focus, input[type="date"]:focus { border-color: var(--navy); }
+select:disabled { color: var(--gray3); background-color: var(--gray1); cursor: not-allowed; }
+
+.time-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
+.time-sep { text-align: center; font-weight: 700; color: var(--gray3); padding-top: 2px; }
+
+/* チェックボックス */
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 12px 14px;
+  border: 2px solid var(--gray2);
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.check-label:hover { border-color: var(--navy); background: var(--gray1); }
+.check-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--navy);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.check-text { font-size: 0.88rem; color: var(--text); line-height: 1.4; }
+.check-note { font-size: 0.76rem; color: var(--gray3); display: block; margin-top: 2px; }
+
+/* 送信ボタン */
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 14px rgba(201,168,76,0.35);
+}
+.submit-btn:hover  { background: var(--gold-l); }
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled { background: var(--gray2); color: var(--gray3); cursor: not-allowed; box-shadow: none; }
+
+/* トースト通知 */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--navy);
+  color: var(--white);
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  z-index: 999;
+  white-space: nowrap;
+  max-width: calc(100vw - 40px);
+  text-align: center;
+}
+.toast.show         { transform: translateX(-50%) translateY(0); }
+.toast.toast-error  { background: var(--red); }
+.toast.toast-success{ background: var(--green); }
+
+/* ローディング */
+.loading { text-align: center; padding: 40px; color: var(--gray3); font-size: 0.9rem; }
+
+/* 確認ダイアログ */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.overlay.show { display: flex; }
+.dialog {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+}
+.dialog h3 { color: var(--navy); font-size: 1rem; margin-bottom: 16px; }
+.dialog-detail {
+  background: var(--gray1);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 20px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.dialog-detail strong { color: var(--navy); }
+.dialog-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn-cancel {
+  padding: 13px;
+  border: 2px solid var(--gray2);
+  background: var(--white);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--gray3);
+}
+.btn-ok {
+  padding: 13px;
+  border: none;
+  background: var(--gold);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--navy);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">シフト希望入力</div>
+    <div class="store-name" id="hd-store">読み込み中...</div>
+  </div>
+  <a href="calendar.html" class="nav-link">カレンダー確認</a>
+</header>
+
+<!-- パスワード画面 -->
+<div id="pw-screen">
+  <div class="pw-card">
+    <div class="icon">🔐</div>
+    <h2>スタッフ専用ページ</h2>
+    <p>店舗から共有された<br>パスワードを入力してください</p>
+    <input type="password" id="pw-input" class="pw-input" placeholder="パスワード" autocomplete="current-password">
+    <button class="pw-btn" onclick="login()">ログイン</button>
+    <div class="pw-error" id="pw-error">パスワードが違います</div>
+  </div>
+</div>
+
+<!-- メイン画面 -->
+<div id="main-screen">
+  <div class="greeting">
+    <h2 id="greeting-text">こんにちは！</h2>
+    <p>シフト希望を入力してください。締め切りを守りましょう。</p>
+  </div>
+
+  <!-- フォーム -->
+  <div class="card">
+    <div class="card-title">シフト希望入力</div>
+
+    <div class="form-group">
+      <label for="sel-name">名前 <span class="req">必須</span></label>
+      <select id="sel-name">
+        <option value="">-- 名前を選択 --</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="sel-date">日付 <span class="req">必須</span></label>
+      <input type="date" id="sel-date">
+    </div>
+
+    <div class="form-group">
+      <label>時間帯 <span class="req">必須</span></label>
+      <div class="time-row">
+        <select id="sel-start">
+          <option value="">出勤</option>
+        </select>
+        <div class="time-sep">〜</div>
+        <select id="sel-end">
+          <option value="">退勤</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>時間調整について</label>
+      <label class="check-label" for="chk-adj">
+        <input type="checkbox" id="chk-adj">
+        <span class="check-text">
+          時間調整可（前後1時間）
+          <span class="check-note">チェックを入れると、店長がシフトを調整できます</span>
+        </span>
+      </label>
+    </div>
+  </div>
+
+  <button class="submit-btn" id="submit-btn" onclick="confirmSubmit()">シフトを送信する</button>
+</div>
+
+<!-- 確認ダイアログ -->
+<div class="overlay" id="overlay">
+  <div class="dialog">
+    <h3>送信内容の確認</h3>
+    <div class="dialog-detail" id="confirm-detail"></div>
+    <div class="dialog-btns">
+      <button class="btn-cancel" onclick="closeDialog()">キャンセル</button>
+      <button class="btn-ok" onclick="submitShift()">送信する</button>
+    </div>
+  </div>
+</div>
+
+<!-- トースト -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// 設定（デプロイ後に変更してください）
+// ============================================================
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx_g0T_ZYxWq4b6stgx55w5YgyQCNu6sSCORt2yBOFqQQmpKtvy7eQdpQ3diTitnB6M/exec'; // ← GASのデプロイURLに変更
+
+// ============================================================
+// 状態
+// ============================================================
+let password    = '';
+let staffList   = [];
+let settings    = {};
+
+// ============================================================
+// ユーティリティ
+// ============================================================
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast toast-${type}`;
+  setTimeout(() => t.classList.add('show'), 10);
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function showToastSuccess(msg) { showToast(msg, 'success'); }
+function showToastError(msg)   { showToast(msg, 'error'); }
+
+async function gasGet(params) {
+  const url = GAS_URL + '?' + new URLSearchParams({ ...params, password });
+  const res = await fetch(url);
+  return res.json();
+}
+
+async function gasPost(data) {
+  const res = await fetch(GAS_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body:    JSON.stringify({ ...data, password })
+  });
+  return res.json();
+}
+
+// ============================================================
+// 時間リスト生成（6:00〜翌3:00、30分刻み）
+// ============================================================
+function buildTimeOptions(selectEl, defaultVal = '') {
+  const options = [{ label: '選択してください', value: '' }];
+  for (let h = 6; h <= 27; h++) {
+    for (let m = 0; m < 60; m += 30) {
+      const displayH = h >= 24 ? h - 24 : h;
+      const prefix   = h >= 24 ? '翌' : '';
+      const label    = `${prefix}${String(displayH).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+      const value    = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+      options.push({ label, value });
+    }
+  }
+  selectEl.innerHTML = options.map(o =>
+    `<option value="${o.value}" ${o.value === defaultVal ? 'selected' : ''}>${o.label}</option>`
+  ).join('');
+}
+
+// ============================================================
+// 日付デフォルト（明日）
+// ============================================================
+function setDefaultDate() {
+  const d    = new Date();
+  d.setDate(d.getDate() + 1);
+  const yyyy = d.getFullYear();
+  const mm   = String(d.getMonth() + 1).padStart(2, '0');
+  const dd   = String(d.getDate()).padStart(2, '0');
+  document.getElementById('sel-date').value = `${yyyy}-${mm}-${dd}`;
+}
+
+// ============================================================
+// ログイン
+// ============================================================
+async function login() {
+  const pw = document.getElementById('pw-input').value.trim();
+  if (!pw) return;
+
+  document.querySelector('.pw-btn').textContent = '確認中...';
+  document.querySelector('.pw-btn').disabled    = true;
+
+  try {
+    const res = await fetch(GAS_URL + '?' + new URLSearchParams({
+      action: 'verify', password: pw, role: 'staff'
+    }));
+    const data = await res.json();
+
+    if (data.success) {
+      password = pw;
+      document.getElementById('pw-screen').style.display  = 'none';
+      document.getElementById('main-screen').style.display = 'block';
+      await initMain();
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+    }
+  } catch (e) {
+    showToastError('通信エラーが発生しました');
+  } finally {
+    document.querySelector('.pw-btn').textContent = 'ログイン';
+    document.querySelector('.pw-btn').disabled    = false;
+  }
+}
+
+// ============================================================
+// メイン初期化
+// ============================================================
+async function initMain() {
+  // 設定取得
+  try {
+    const res = await gasGet({ action: 'getSettings', role: 'staff' });
+    if (res.success) {
+      settings = res.data;
+      document.getElementById('hd-store').textContent = settings.storeName;
+      document.getElementById('greeting-text').textContent =
+        `${settings.storeName}のシフト入力ページ`;
+    }
+  } catch (e) { /* silent */ }
+
+  // スタッフリスト取得
+  try {
+    const res = await gasGet({ action: 'getStaff', role: 'staff' });
+    if (res.success) {
+      staffList = res.data;
+      const sel = document.getElementById('sel-name');
+      sel.innerHTML = '<option value="">-- 名前を選択 --</option>' +
+        staffList.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+    }
+  } catch (e) {
+    showToastError('スタッフ情報の取得に失敗しました');
+  }
+
+  // 時間リスト生成
+  buildTimeOptions(document.getElementById('sel-start'), '17:00');
+  buildTimeOptions(document.getElementById('sel-end'),   '22:00');
+  setDefaultDate();
+}
+
+// ============================================================
+// 送信確認
+// ============================================================
+function confirmSubmit() {
+  const name  = document.getElementById('sel-name').value;
+  const date  = document.getElementById('sel-date').value;
+  const start = document.getElementById('sel-start').value;
+  const end   = document.getElementById('sel-end').value;
+  const adj   = document.getElementById('chk-adj').checked;
+
+  if (!name)  return showToastError('名前を選択してください');
+  if (!date)  return showToastError('日付を選択してください');
+  if (!start) return showToastError('出勤時間を選択してください');
+  if (!end)   return showToastError('退勤時間を選択してください');
+  if (start >= end && parseInt(start) < 24)
+    return showToastError('退勤時間は出勤時間より後にしてください');
+
+  // 表示用時間変換
+  const fmtTime = t => {
+    const h = parseInt(t.split(':')[0]);
+    const m = t.split(':')[1];
+    if (h >= 24) return `翌${String(h-24).padStart(2,'0')}:${m}`;
+    return `${String(h).padStart(2,'0')}:${m}`;
+  };
+
+  const d = new Date(date + 'T00:00:00');
+  const dateLabel = `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${'日月火水木金土'[d.getDay()]}）`;
+
+  document.getElementById('confirm-detail').innerHTML = `
+    <strong>名前：</strong>${name}<br>
+    <strong>日付：</strong>${dateLabel}<br>
+    <strong>時間：</strong>${fmtTime(start)} 〜 ${fmtTime(end)}<br>
+    <strong>調整：</strong>${adj ? '時間調整可（前後1時間）' : '調整不可'}
+  `;
+
+  document.getElementById('overlay').classList.add('show');
+}
+
+function closeDialog() {
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ============================================================
+// 送信
+// ============================================================
+async function submitShift() {
+  closeDialog();
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled    = true;
+  btn.textContent = '送信中...';
+
+  try {
+    const res = await gasPost({
+      action:     'submitShift',
+      staffName:  document.getElementById('sel-name').value,
+      date:       document.getElementById('sel-date').value,
+      startTime:  document.getElementById('sel-start').value,
+      endTime:    document.getElementById('sel-end').value,
+      adjustable: document.getElementById('chk-adj').checked
+    });
+
+    if (res.success) {
+      showToastSuccess('シフトを送信しました！');
+      document.getElementById('sel-name').value  = '';
+      document.getElementById('chk-adj').checked = false;
+      setDefaultDate();
+    } else {
+      showToastError(res.error || '送信に失敗しました');
+    }
+  } catch (e) {
+    showToastError('通信エラーが発生しました');
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'シフトを送信する';
+  }
+}
+
+// ============================================================
+// Enterキー対応
+// ============================================================
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+</script>
+</body>
+</html>

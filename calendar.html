@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>シフト確認カレンダー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #1a2a4a;
+  --gold:    #c9a84c;
+  --gold-l:  #e8c96a;
+  --white:   #ffffff;
+  --gray1:   #f4f5f7;
+  --gray2:   #e0e4ea;
+  --gray3:   #9aa3b0;
+  --text:    #1e2530;
+  --green:   #2e7d52;
+  --green-l: #eaf5ef;
+  --red:     #c0392b;
+  --red-l:   #fdecea;
+  --blue:    #1a5fa8;
+  --radius:  10px;
+  --shadow:  0 2px 12px rgba(26,42,74,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--gray1); color: var(--text); min-height: 100vh; }
+
+header {
+  background: var(--navy);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-title { color: var(--gold); font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; }
+.store-name   { color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-top: 2px; }
+.nav-link {
+  color: var(--gold);
+  font-size: 0.8rem;
+  text-decoration: none;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 5px 10px;
+  transition: all 0.2s;
+}
+.nav-link:hover { background: var(--gold); color: var(--navy); }
+
+/* パスワード画面 */
+#pw-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 56px);
+  padding: 24px 20px;
+}
+.pw-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+.pw-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
+.pw-card h2   { color: var(--navy); font-size: 1.1rem; margin-bottom: 6px; }
+.pw-card p    { color: var(--gray3); font-size: 0.82rem; margin-bottom: 24px; }
+.pw-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid var(--gray2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
+  letter-spacing: 0.15em;
+  transition: border-color 0.2s;
+}
+.pw-input:focus { border-color: var(--navy); }
+.pw-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pw-btn:hover { background: #233a6a; }
+.pw-error { margin-top: 10px; color: var(--red); font-size: 0.85rem; display: none; }
+
+/* メイン */
+#main-screen { display: none; }
+
+/* 月ナビゲーション */
+.month-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray2);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 56px;
+  z-index: 90;
+}
+.month-display {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  text-align: center;
+  flex: 1;
+}
+.nav-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--gray2);
+  background: var(--white);
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.nav-btn:hover { border-color: var(--navy); background: var(--navy); color: var(--white); }
+
+/* 凡例 */
+.legend {
+  display: flex;
+  gap: 14px;
+  padding: 10px 20px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray2);
+  overflow-x: auto;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: var(--text); white-space: nowrap; }
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.dot-pending   { background: #8fa3c0; }
+.dot-confirmed { background: var(--green); }
+.dot-shortage  { background: var(--red-l); border: 2px solid var(--red); }
+
+/* カレンダーコンテナ */
+.cal-container { padding: 12px 12px 40px; }
+
+/* カレンダーグリッド */
+.cal-grid {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.cal-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--navy);
+}
+.cal-header-cell {
+  text-align: center;
+  padding: 10px 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+}
+.cal-header-cell.sun { color: #ff8a80; }
+.cal-header-cell.sat { color: #82b1ff; }
+
+.cal-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid var(--gray2);
+}
+.cal-day {
+  min-height: 80px;
+  border-right: 1px solid var(--gray2);
+  border-bottom: 1px solid var(--gray2);
+  padding: 6px 4px 4px;
+  position: relative;
+  transition: background 0.15s;
+}
+.cal-day:nth-child(7n) { border-right: none; }
+.cal-day.empty         { background: var(--gray1); }
+.cal-day.today         { background: #fffdf0; }
+.cal-day.shortage      { background: var(--red-l); }
+
+.day-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.cal-day.sun .day-num  { color: var(--red); }
+.cal-day.sat .day-num  { color: var(--blue); }
+.cal-day.today .day-num{ color: var(--gold); }
+
+.shortage-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.shift-chip {
+  display: block;
+  background: #8fa3c0;
+  color: var(--white);
+  font-size: 0.65rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.shift-chip:hover     { opacity: 0.8; }
+.shift-chip.confirmed { background: var(--green); }
+.shift-chip.adjustable{ outline: 2px dashed rgba(255,255,255,0.6); outline-offset: -2px; }
+
+.more-count {
+  font-size: 0.65rem;
+  color: var(--gray3);
+  text-align: right;
+  margin-top: 2px;
+}
+
+/* ローディング */
+.loading { text-align: center; padding: 60px; color: var(--gray3); }
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--gray2);
+  border-top-color: var(--navy);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 詳細パネル */
+.detail-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  align-items: flex-end;
+  justify-content: center;
+}
+.detail-overlay.show { display: flex; }
+.detail-panel {
+  background: var(--white);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 24px 20px 32px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 -4px 30px rgba(0,0,0,0.15);
+  animation: slideUp 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.detail-date { font-size: 1rem; font-weight: 700; color: var(--navy); }
+.detail-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--gray1);
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray3);
+}
+.detail-list { list-style: none; }
+.detail-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray2);
+  font-size: 0.9rem;
+}
+.detail-list li:last-child { border-bottom: none; }
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.status-confirmed { background: var(--green-l); color: var(--green); }
+.status-pending   { background: var(--gray2);   color: var(--gray3); }
+.detail-staff     { font-weight: 700; flex: 1; }
+.detail-time      { color: var(--gray3); font-size: 0.82rem; white-space: nowrap; }
+.detail-adj       { font-size: 0.7rem; color: var(--gold); border: 1px solid var(--gold); padding: 1px 5px; border-radius: 4px; white-space: nowrap; }
+
+.detail-empty { text-align: center; color: var(--gray3); padding: 20px; font-size: 0.9rem; }
+.shortage-alert {
+  background: var(--red-l);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 0.84rem;
+  color: var(--red);
+  font-weight: 500;
+}
+
+/* トースト */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--navy);
+  color: var(--white);
+  padding: 12px 22px;
+  border-radius: 100px;
+  font-size: 0.88rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  z-index: 999;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 480px) {
+  .cal-day   { min-height: 66px; }
+  .shift-chip{ font-size: 0.6rem; padding: 1px 4px; }
+  .day-num   { font-size: 0.72rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-title">シフト確認</div>
+    <div class="store-name" id="hd-store">読み込み中...</div>
+  </div>
+  <a href="staff.html" class="nav-link">シフト入力</a>
+</header>
+
+<!-- パスワード画面 -->
+<div id="pw-screen">
+  <div class="pw-card">
+    <div class="icon">📅</div>
+    <h2>シフト確認カレンダー</h2>
+    <p>パスワードを入力してください</p>
+    <input type="password" id="pw-input" class="pw-input" placeholder="パスワード" autocomplete="current-password">
+    <button class="pw-btn" onclick="login()">確認する</button>
+    <div class="pw-error" id="pw-error">パスワードが違います</div>
+  </div>
+</div>
+
+<!-- メイン画面 -->
+<div id="main-screen">
+  <div class="month-nav">
+    <button class="nav-btn" onclick="changeMonth(-1)">◀</button>
+    <div class="month-display" id="month-display">---</div>
+    <button class="nav-btn" onclick="changeMonth(1)">▶</button>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot dot-pending"></div>未確定</div>
+    <div class="legend-item"><div class="legend-dot dot-confirmed"></div>確定済</div>
+    <div class="legend-item"><div class="legend-dot dot-shortage"></div>人手不足</div>
+  </div>
+
+  <div class="cal-container">
+    <div id="calendar" class="cal-grid">
+      <div class="loading"><div class="spinner"></div>読み込み中...</div>
+    </div>
+  </div>
+</div>
+
+<!-- 詳細パネル -->
+<div class="detail-overlay" id="detail-overlay" onclick="closeDetail(event)">
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-header">
+      <div class="detail-date" id="detail-date"></div>
+      <button class="detail-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div id="detail-content"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const GAS_URL   = 'https://script.google.com/macros/s/AKfycbx_g0T_ZYxWq4b6stgx55w5YgyQCNu6sSCORt2yBOFqQQmpKtvy7eQdpQ3diTitnB6M/exec'; // ← GASのデプロイURLに変更
+const DOW_LABEL = ['日','月','火','水','木','金','土'];
+
+let password = '';
+let currentYear;
+let currentMonth;
+let allShifts  = [];
+let allAlerts  = {};
+let minStaff   = 2;
+let settings   = {};
+
+// ============================================================
+// ユーティリティ
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+async function gasGet(params) {
+  const url = GAS_URL + '?' + new URLSearchParams({ ...params, password });
+  const res = await fetch(url);
+  return res.json();
+}
+
+function fmtTime(t) {
+  if (!t) return '';
+  const h = parseInt(t.split(':')[0]);
+  const m = t.split(':')[1];
+  if (h >= 24) return `翌${String(h-24).padStart(2,'0')}:${m}`;
+  return `${String(h).padStart(2,'0')}:${m}`;
+}
+
+// ============================================================
+// ログイン
+// ============================================================
+async function login() {
+  const pw  = document.getElementById('pw-input').value.trim();
+  if (!pw) return;
+
+  const btn = document.querySelector('.pw-btn');
+  btn.textContent = '確認中...';
+  btn.disabled    = true;
+
+  try {
+    const res = await fetch(GAS_URL + '?' + new URLSearchParams({
+      action: 'verify', password: pw, role: 'staff'
+    }));
+    const data = await res.json();
+
+    if (data.success) {
+      password = pw;
+      document.getElementById('pw-screen').style.display   = 'none';
+      document.getElementById('main-screen').style.display = 'block';
+      await initMain();
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+    }
+  } catch (e) {
+    showToast('通信エラーが発生しました');
+  } finally {
+    btn.textContent = '確認する';
+    btn.disabled    = false;
+  }
+}
+
+// ============================================================
+// 初期化
+// ============================================================
+async function initMain() {
+  const now   = new Date();
+  currentYear  = now.getFullYear();
+  currentMonth = now.getMonth() + 1;
+
+  try {
+    const res = await gasGet({ action: 'getSettings', role: 'staff' });
+    if (res.success) {
+      settings = res.data;
+      document.getElementById('hd-store').textContent = settings.storeName;
+      minStaff = settings.minStaff;
+    }
+  } catch (e) { /* silent */ }
+
+  await loadCalendar();
+}
+
+// ============================================================
+// 月変更
+// ============================================================
+async function changeMonth(delta) {
+  currentMonth += delta;
+  if (currentMonth > 12) { currentMonth = 1;  currentYear++; }
+  if (currentMonth < 1)  { currentMonth = 12; currentYear--; }
+  await loadCalendar();
+}
+
+// ============================================================
+// カレンダー読み込み
+// ============================================================
+async function loadCalendar() {
+  document.getElementById('month-display').textContent =
+    `${currentYear}年${currentMonth}月`;
+
+  document.getElementById('calendar').innerHTML =
+    '<div class="loading"><div class="spinner"></div>読み込み中...</div>';
+
+  try {
+    const res = await gasGet({
+      action: 'getShifts',
+      role:   'staff',
+      year:   currentYear,
+      month:  currentMonth
+    });
+
+    if (!res.success) { showToast('データの取得に失敗しました'); return; }
+
+    allShifts = res.data  || [];
+    allAlerts = res.alerts || {};
+    renderCalendar();
+  } catch (e) {
+    showToast('通信エラーが発生しました');
+  }
+}
+
+// ============================================================
+// カレンダー描画
+// ============================================================
+function renderCalendar() {
+  const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
+  const lastDate  = new Date(currentYear, currentMonth, 0).getDate();
+  const today     = new Date();
+  const todayKey  = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
+  // 日付ごとにシフトをグループ化
+  const byDate = {};
+  for (const s of allShifts) {
+    if (!byDate[s.date]) byDate[s.date] = [];
+    byDate[s.date].push(s);
+  }
+
+  let html = `
+    <div class="cal-header">
+      <div class="cal-header-cell sun">日</div>
+      <div class="cal-header-cell">月</div>
+      <div class="cal-header-cell">火</div>
+      <div class="cal-header-cell">水</div>
+      <div class="cal-header-cell">木</div>
+      <div class="cal-header-cell">金</div>
+      <div class="cal-header-cell sat">土</div>
+    </div>
+    <div class="cal-body">
+  `;
+
+  // 先頭の空白
+  for (let i = 0; i < firstDay; i++) {
+    html += '<div class="cal-day empty"></div>';
+  }
+
+  for (let d = 1; d <= lastDate; d++) {
+    const dateKey = `${currentYear}-${String(currentMonth).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dow     = new Date(currentYear, currentMonth - 1, d).getDay();
+    const shifts  = byDate[dateKey] || [];
+    const alert   = allAlerts[dateKey];
+    const isToday = dateKey === todayKey;
+
+    let cls = 'cal-day';
+    if (dow === 0)  cls += ' sun';
+    if (dow === 6)  cls += ' sat';
+    if (isToday)    cls += ' today';
+    if (alert)      cls += ' shortage';
+
+    const MAX_VISIBLE = 3;
+    const visible   = shifts.slice(0, MAX_VISIBLE);
+    const remaining = shifts.length - MAX_VISIBLE;
+
+    const chips = visible.map(s => {
+      const st    = fmtTime(s.startTime);
+      const et    = fmtTime(s.endTime);
+      const adjCls = s.adjustable ? ' adjustable' : '';
+      const cfmCls = s.status === '確定' ? ' confirmed' : '';
+      return `<span class="shift-chip${adjCls}${cfmCls}" onclick="openDetail('${dateKey}',event)" title="${s.staffName} ${st}〜${et}">
+        ${s.staffName}
+      </span>`;
+    }).join('');
+
+    const shortage = alert
+      ? `<div class="shortage-badge">要${alert.required}人<br>${alert.count}人</div>`
+      : '';
+
+    const more = remaining > 0
+      ? `<div class="more-count">+${remaining}件</div>`
+      : '';
+
+    html += `
+      <div class="${cls}" onclick="openDetail('${dateKey}',event)">
+        <div class="day-num">${d}</div>
+        ${shortage}
+        ${chips}
+        ${more}
+      </div>
+    `;
+  }
+
+  html += '</div></div>';
+  document.getElementById('calendar').innerHTML = `<div class="cal-grid">${html}</div>`;
+}
+
+// ============================================================
+// 詳細パネル
+// ============================================================
+function openDetail(dateKey, event) {
+  event.stopPropagation();
+
+  const [y, m, d] = dateKey.split('-').map(Number);
+  const dow       = new Date(y, m - 1, d).getDay();
+  const alert     = allAlerts[dateKey];
+  const shifts    = allShifts.filter(s => s.date === dateKey);
+
+  document.getElementById('detail-date').textContent =
+    `${y}年${m}月${d}日（${DOW_LABEL[dow]}）`;
+
+  let content = '';
+  if (alert) {
+    content += `<div class="shortage-alert">⚠️ 人手不足：現在${alert.count}人 / 必要${alert.required}人</div>`;
+  }
+
+  if (shifts.length === 0) {
+    content += '<div class="detail-empty">シフトの入力はありません</div>';
+  } else {
+    content += '<ul class="detail-list">';
+    for (const s of shifts) {
+      const cfm = s.status === '確定';
+      const st  = fmtTime(s.startTime);
+      const et  = fmtTime(s.endTime);
+      content += `
+        <li>
+          <span class="status-badge ${cfm ? 'status-confirmed' : 'status-pending'}">${s.status}</span>
+          <span class="detail-staff">${s.staffName}</span>
+          <span class="detail-time">${st}〜${et}</span>
+          ${s.adjustable ? '<span class="detail-adj">調整可</span>' : ''}
+        </li>
+      `;
+    }
+    content += '</ul>';
+  }
+
+  document.getElementById('detail-content').innerHTML = content;
+  document.getElementById('detail-overlay').classList.add('show');
+}
+
+function closeDetail(event) {
+  if (event && event.target !== document.getElementById('detail-overlay')) return;
+  document.getElementById('detail-overlay').classList.remove('show');
+}
+
+// ============================================================
+// Enterキー対応
+// ============================================================
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+</script>
+</body>
+</html>
