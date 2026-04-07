@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>無料プレゼント｜やきさかな式 第２弾 キャンペーン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E8832A;
+    --orange-light: #F5A84B;
+    --orange-pale: #FEF3E8;
+    --orange-pale2: #FDF0DC;
+    --cream: #FDFAF5;
+    --cream2: #F7F2E8;
+    --cream3: #F0E8D8;
+    --brown: #5C3D1E;
+    --brown-mid: #8B5E35;
+    --brown-light: #C4956A;
+    --text: #3A2A1A;
+    --text-mid: #7A6050;
+    --text-light: #B09A85;
+    --white: #FFFFFF;
+    --green: #16A34A;
+    --green-pale: #F0FDF4;
+    --shadow: rgba(92,61,30,0.1);
+    --shadow-md: rgba(92,61,30,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── お知らせバー ─── */
+  .announce-bar {
+    background: var(--orange);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .announce-bar span {
+    background: rgba(255,255,255,0.2);
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-right: 8px;
+    font-size: 11px;
+  }
+
+  /* ─── ヘッダー ─── */
+  .site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--cream2);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-light));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .brand-name {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.3;
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    color: var(--text-light);
+  }
+
+  .header-btn {
+    background: var(--orange);
+    color: white;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .header-btn:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+  /* ─── ヒーローセクション ─── */
+  .hero {
+    background: linear-gradient(160deg, #FFF8EE 0%, var(--cream) 70%);
+    padding: 60px 24px 52px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(232,131,42,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(232,131,42,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange-pale);
+    color: var(--orange);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(232,131,42,0.2);
+    margin-bottom: 28px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 900;
+    line-height: 1.5;
+    color: var(--brown);
+    margin-bottom: 16px;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--orange);
+  }
+
+  .hero-title .highlight {
+    background: linear-gradient(to bottom, transparent 60%, rgba(232,131,42,0.25) 60%);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-mid);
+    line-height: 1.9;
+    margin-bottom: 36px;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  /* ステータス数字 */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto 40px;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+
+  .stat-item {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 16px 8px;
+    box-shadow: 0 3px 12px var(--shadow);
+    border: 1px solid rgba(92,61,30,0.06);
+  }
+
+  .stat-num {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 900;
+    color: var(--orange);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  .hero-cta {
+    animation: fadeUp 0.7s ease 0.35s both;
+  }
+
+  .btn-hero {
+    display: inline-block;
+    padding: 20px 48px;
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+    color: white;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(232,131,42,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  .btn-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(232,131,42,0.5);
+  }
+
+  .hero-note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  /* ─── コンテンツ共通 ─── */
+  .section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 56px 24px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--orange);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: clamp(20px, 4.5vw, 26px);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  /* ─── 特典内容 ─── */
+  .gift-section {
+    background: linear-gradient(160deg, #FFF8EE 0%, var(--cream) 100%);
+    border-top: 1px solid var(--cream3);
+    border-bottom: 1px solid var(--cream3);
+  }
+
+  .gift-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 20px var(--shadow);
+    border: 2px solid rgba(232,131,42,0.12);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .gift-icon {
+    font-size: 40px;
+    min-width: 48px;
+    text-align: center;
+    padding-top: 4px;
+  }
+
+  .gift-info {}
+
+  .gift-tag {
+    display: inline-block;
+    background: var(--orange-pale);
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+  .gift-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .gift-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+
+  .gift-points {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .gift-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .point-check {
+    color: var(--orange);
+    font-weight: 700;
+    margin-top: 1px;
+    min-width: 16px;
+  }
+
+  /* ─── 受け取り方 ─── */
+  .how-section {}
+
+  .step-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .toggle-btn {
+    padding: 16px 12px;
+    border-radius: 14px;
+    border: 2px solid var(--cream3);
+    background: var(--white);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.25s ease;
+    font-family: 'Zen Maru Gothic', sans-serif;
+  }
+
+  .toggle-btn.active {
+    border-color: var(--orange);
+    background: var(--orange-pale);
+  }
+
+  .toggle-icon { font-size: 24px; display: block; margin-bottom: 6px; }
+  .toggle-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brown);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .toggle-btn.active .toggle-label { color: var(--orange); }
+  .toggle-sub { font-size: 11px; color: var(--text-light); display: block; }
+
+  /* パス：SNSシェア */
+  .path-panel {
+    display: none;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .path-panel.active { display: block; }
+
+  /* ステップ */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 42px;
+    bottom: 0;
+    width: 2px;
+    background: var(--cream3);
+  }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    background: var(--orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-body { flex: 1; padding-top: 8px; }
+
+  .step-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  /* シェアサンプル */
+  .share-sample {
+    background: var(--cream2);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--cream3);
+  }
+
+  .sample-label {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .sample-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .btn-share-x {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 0;
+    background: #000000;
+    color: white;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    margin-bottom: 8px;
+  }
+
+  .btn-share-x:hover { background: #1a1a1a; transform: translateY(-1px); }
+
+  .share-caution {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: #92400E;
+    line-height: 1.7;
+    display: flex;
+    gap: 8px;
+  }
+
+  /* 購入パス */
+  .store-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .store-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--white);
+    border: 2px solid var(--cream3);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .store-btn:hover {
+    border-color: var(--orange-light);
+    background: var(--orange-pale);
+    transform: translateX(4px);
+  }
+
+  .store-icon { font-size: 22px; }
+
+  /* ─── フォームセクション ─── */
+  .form-section {
+    background: var(--white);
+    border-top: 3px solid var(--orange);
+  }
+
+  .form-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 56px 24px;
+  }
+
+  .form-card {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 36px 28px;
+    border: 1px solid var(--cream3);
+  }
+
+  .upload-area {
+    border: 2px dashed var(--brown-light);
+    border-radius: 14px;
+    padding: 32px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: var(--white);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .upload-area:hover, .upload-area.dragover {
+    border-color: var(--orange);
+    background: var(--orange-pale);
+  }
+
+  .upload-area input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload-icon { font-size: 36px; margin-bottom: 10px; }
+
+  .upload-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 4px;
+  }
+
+  .upload-sub { font-size: 12px; color: var(--text-light); }
+
+  .upload-preview {
+    display: none;
+    margin-top: 12px;
+  }
+
+  .upload-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .preview-name {
+    font-size: 12px;
+    color: var(--green);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  /* フォーム入力 */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+
+  .form-label .required {
+    color: var(--orange);
+    font-size: 10px;
+    margin-left: 4px;
+    background: var(--orange-pale);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--white);
+    border: 2px solid var(--cream3);
+    border-radius: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+
+  .form-input:focus { border-color: var(--orange); }
+  .form-input::placeholder { color: var(--text-light); }
+
+  .form-select {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--white);
+    border: 2px solid var(--cream3);
+    border-radius: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B09A85' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  }
+
+  .form-select:focus { border-color: var(--orange); }
+
+  /* 同意チェック */
+  .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px;
+    background: var(--white);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    cursor: pointer;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    accent-color: var(--orange);
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  .checkbox-label {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    cursor: pointer;
+  }
+
+  /* 送信ボタン */
+  .btn-submit {
+    display: block;
+    width: 100%;
+    padding: 20px 0;
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+    color: white;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(232,131,42,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  .btn-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(232,131,42,0.45);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .submit-note {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ─── 送信完了 ─── */
+  #success-screen {
+    display: none;
+    text-align: center;
+    padding: 48px 0;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .success-emoji { font-size: 52px; margin-bottom: 16px; }
+
+  .success-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: clamp(20px, 4.5vw, 26px);
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .success-desc {
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  .success-box {
+    background: var(--green-pale);
+    border: 1px solid #86EFAC;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .success-box p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* ─── エラー ─── */
+  #error-screen {
+    display: none;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 16px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .error-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #B91C1C;
+    margin-bottom: 8px;
+  }
+
+  .error-desc {
+    font-size: 13px;
+    color: #7F1D1D;
+    line-height: 1.8;
+  }
+
+  /* ─── キャンペーン期間 ─── */
+  .period-bar {
+    background: var(--brown);
+    color: white;
+    text-align: center;
+    padding: 16px 24px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .period-bar span {
+    color: var(--orange-light);
+  }
+
+  /* ─── フッター ─── */
+  .site-footer {
+    background: var(--brown);
+    color: rgba(255,255,255,0.6);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .footer-text { font-size: 12px; line-height: 1.8; }
+
+  /* ─── アニメーション ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── レスポンシブ ─── */
+  @media (max-width: 480px) {
+    .hero { padding: 44px 20px 40px; }
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    .btn-hero { padding: 18px 32px; font-size: 16px; }
+    .section { padding: 44px 20px; }
+    .form-card { padding: 24px 18px; }
+    .form-row { grid-template-columns: 1fr; }
+    .step-toggle { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- お知らせバー -->
+<div class="announce-bar">
+  <span>🎁 期間限定</span>
+  SNSでシェアまたはご購入で「AI診断ツール」を無料プレゼント！
+</div>
+
+<!-- ヘッダー -->
+<header class="site-header">
+  <div class="brand">
+    <div class="brand-icon">🐟</div>
+    <div>
+      <div class="brand-name">やきさかな式 第２弾</div>
+      <div class="brand-sub">元飲食店店長サム</div>
+    </div>
+  </div>
+  <a href="#form-section" class="header-btn">🎁 受け取る</a>
+</header>
+
+<!-- ヒーロー -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">🎉 出版記念キャンペーン実施中</div>
+
+    <h1 class="hero-title">
+      AIはまだ<em>本気を出していない</em>。<br>
+      <span class="highlight">あなた専用の引き出し方</span>を<br>
+      無料でプレゼントします。
+    </h1>
+
+    <p class="hero-sub">
+      SNSでシェア、または書籍をご購入いただいた方に<br>
+      「AI診断ツール＋制御プロンプト」を無料でお届けします。
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">1分</span>
+        <span class="stat-label">診断にかかる<br>時間</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">¥0</span>
+        <span class="stat-label">完全<br>無料</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">即日</span>
+        <span class="stat-label">メールで<br>お届け</span>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#form-section" class="btn-hero">✨ 今すぐ受け取る →</a>
+      <p class="hero-note">📱 スマホでも快適に利用できます</p>
+    </div>
+  </div>
+</section>
+
+<!-- 特典内容 -->
+<section class="gift-section">
+  <div class="section">
+    <p class="section-label">🎁 WHAT YOU GET</p>
+    <h2 class="section-title">受け取れる特典の内容</h2>
+
+    <div class="gift-card">
+      <div class="gift-icon">🔍</div>
+      <div class="gift-info">
+        <span class="gift-tag">特典</span>
+        <p class="gift-title">AI物足りなさ診断ツール<br>＋あなた専用・制御プロンプト（簡易版）</p>
+        <p class="gift-desc">
+          3つの質問に答えるだけで、あなたのAIの傾向を診断。
+          今すぐコピーして使える「制御プロンプト」が手に入ります。
+        </p>
+        <div class="gift-points">
+          <div class="gift-point">
+            <span class="point-check">✓</span>
+            <span>登録不要・ブラウザで即利用できます</span>
+          </div>
+          <div class="gift-point">
+            <span class="point-check">✓</span>
+            <span>ChatGPT・Claude・Gemini どれにも使えます</span>
+          </div>
+          <div class="gift-point">
+            <span class="point-check">✓</span>
+            <span>完全版は書籍『やきさかな式 第２弾』で公開</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 受け取り方 -->
+<section>
+  <div class="section how-section">
+    <p class="section-label">📋 HOW TO GET</p>
+    <h2 class="section-title">特典の受け取り方</h2>
+    <p class="section-desc">以下のどちらかの方法でお受け取りいただけます。</p>
+
+    <div class="step-toggle">
+      <button class="toggle-btn active" id="toggle-share" onclick="switchPath('share')">
+        <span class="toggle-icon">📢</span>
+        <span class="toggle-label">SNSでシェア</span>
+        <span class="toggle-sub">Xポストで受け取る</span>
+      </button>
+      <button class="toggle-btn" id="toggle-buy" onclick="switchPath('buy')">
+        <span class="toggle-icon">📖</span>
+        <span class="toggle-label">書籍を購入</span>
+        <span class="toggle-sub">Amazonなどで受け取る</span>
+      </button>
+    </div>
+
+    <!-- SNSシェアパス -->
+    <div class="path-panel active" id="path-share">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <p class="step-title">以下のボタンでコメント付きシェア</p>
+            <p class="step-desc">下のボタンを押すと、シェア用のコメント見本が入った状態でXが開きます。</p>
+            <div class="share-sample">
+              <p class="sample-label">💬 コメント見本（こんな感じでシェアしてください）</p>
+              <p class="sample-text" id="share-text-display">
+                「やきさかな式 第２弾が出た！AIの使い方が変わる診断ツールが無料でもらえるキャンペーン中。AIに物足りなさを感じたことがある方はぜひ！」
+              </p>
+            </div>
+            <a href="#" class="btn-share-x" id="share-x-btn" onclick="openXShare(event)">
+              𝕏 Xでポストする
+            </a>
+            <div class="share-caution">
+              <span>⚠️</span>
+              <span>コメントなしのURL単体シェアは対象外です。必ず一言コメントを添えてシェアしてください。</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <p class="step-title">シェアした画面のスクショを撮る</p>
+            <p class="step-desc">投稿が完了した画面をスクリーンショットで保存してください。投稿内容・アカウント名が確認できるものをお願いします。</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <p class="step-title">下のフォームからスクショを送信</p>
+            <p class="step-desc">お名前・メールアドレスとともにスクショをアップロードして送信してください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 購入パス -->
+    <div class="path-panel" id="path-buy">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <p class="step-title">書籍を購入する</p>
+            <p class="step-desc">以下のストアからお好みの方法でご購入ください。</p>
+            <div class="store-links">
+              <a href="#" class="store-btn">
+                <span class="store-icon">📦</span>
+                <span>Amazon（Kindle・紙）</span>
+              </a>
+              <a href="#" class="store-btn">
+                <span class="store-icon">📚</span>
+                <span>楽天ブックス</span>
+              </a>
+              <a href="#" class="store-btn">
+                <span class="store-icon">🏪</span>
+                <span>その他書店</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <p class="step-title">購入完了画面のスクショを撮る</p>
+            <p class="step-desc">購入完了・注文確認画面をスクリーンショットで保存してください。書籍名・日付が確認できるものをお願いします。</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <p class="step-title">下のフォームからスクショを送信</p>
+            <p class="step-desc">お名前・メールアドレスとともにスクショをアップロードして送信してください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- フォームセクション -->
+<section class="form-section" id="form-section">
+  <div class="form-inner">
+    <p class="section-label" style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--orange);letter-spacing:0.15em;margin-bottom:16px;">📬 RECEIVE YOUR GIFT</p>
+    <h2 class="section-title">スクリーンショットを送る</h2>
+    <p class="section-desc">確認後、メールで特典URLをお送りします。通常1時間以内にお届けします。</p>
+
+    <div class="form-card" id="form-container">
+
+      <!-- アップロードエリア -->
+      <div class="form-group">
+        <label class="form-label">スクリーンショット <span class="required">必須</span></label>
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="screenshot-input" accept="image/*" onchange="handleFileSelect(event)">
+          <div id="upload-placeholder">
+            <div class="upload-icon">📸</div>
+            <p class="upload-title">クリックまたはドラッグ＆ドロップ</p>
+            <p class="upload-sub">PNG・JPG・HEIC対応</p>
+          </div>
+          <div class="upload-preview" id="upload-preview">
+            <img id="preview-img" src="" alt="プレビュー">
+            <p class="preview-name" id="preview-name">✅ ファイルを選択しました</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 氏名 -->
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">姓 <span class="required">必須</span></label>
+          <input type="text" class="form-input" id="input-sei" placeholder="山田">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">名 <span class="required">必須</span></label>
+          <input type="text" class="form-input" id="input-mei" placeholder="太郎">
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;"></div>
+
+      <!-- メールアドレス -->
+      <div class="form-group">
+        <label class="form-label">メールアドレス <span class="required">必須</span></label>
+        <input type="email" class="form-input" id="input-email" placeholder="you@example.com">
+      </div>
+
+      <!-- 受け取り方法 -->
+      <div class="form-group">
+        <label class="form-label">受け取り方法 <span class="required">必須</span></label>
+        <select class="form-select" id="input-method">
+          <option value="">選択してください</option>
+          <option value="share_x">Xでシェアした</option>
+          <option value="buy_amazon">Amazon（Kindle）で購入した</option>
+          <option value="buy_amazon_paper">Amazon（紙）で購入した</option>
+          <option value="buy_rakuten">楽天ブックスで購入した</option>
+          <option value="buy_other">その他の書店で購入した</option>
+        </select>
+      </div>
+
+      <!-- 同意 -->
+      <label class="checkbox-group">
+        <input type="checkbox" id="agree-check">
+        <span class="checkbox-label">
+          特典の配信のためにメールアドレスを利用することに同意します。
+          第三者への提供・スパムメールの送信はいたしません。
+        </span>
+      </label>
+
+      <!-- 送信ボタン -->
+      <button class="btn-submit" id="submit-btn" onclick="submitForm()">
+        🎁 特典を受け取る
+      </button>
+
+      <p class="submit-note">
+        📧 送信後、入力いただいたメールアドレスに特典URLをお送りします<br>
+        ※スクリーンショットの確認に少々お時間をいただく場合があります
+      </p>
+
+      <!-- エラー -->
+      <div id="error-screen">
+        <p class="error-title">⚠️ 確認できませんでした</p>
+        <p class="error-desc" id="error-message"></p>
+      </div>
+
+    </div>
+
+    <!-- 成功画面 -->
+    <div id="success-screen">
+      <div class="success-emoji">🎉</div>
+      <p class="success-title">送信完了しました！</p>
+      <p class="success-desc">
+        スクリーンショットを確認後、<br>
+        メールで特典URLをお送りします。
+      </p>
+      <div class="success-box">
+        <p>📧 しばらくしてもメールが届かない場合は、迷惑メールフォルダをご確認ください。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- キャンペーン期間 -->
+<div class="period-bar">
+  🗓 キャンペーン期間：<span id="period-display">設定中</span>
+</div>
+
+<!-- フッター -->
+<footer class="site-footer">
+  <p class="footer-brand">🐟 やきさかな式 第２弾</p>
+  <p class="footer-text">
+    元飲食店店長サム（@sum_tenchou）<br>
+    © 2026 やきさかな式 All rights reserved.
+  </p>
+</footer>
+
+<script>
+  // ─── 設定（ここだけ変更すればOK）───
+  const CONFIG = {
+    GAS_URL: 'https://script.google.com/macros/s/AKfycbzhvXeNNoiqkxM24RKnlaMT0VjC9d3El6NdOJa_xLW-7NeBNGwGsL4_5lGtejPRfTzJ7w/exec',
+    CAMPAIGN_START: '2026-06-01',
+    CAMPAIGN_END:   '2026-12-31',
+    BOOK_URL:       '#', // Amazonリンク
+    PAGE_URL:       window.location.href,
+    SHARE_TEXT:     '「やきさかな式 第２弾が出た！AIの使い方が変わる診断ツールが無料でもらえるキャンペーン中。AIに物足りなさを感じたことがある方はぜひ！」'
+  };
+
+  // ─── 初期化 ───
+  window.addEventListener('DOMContentLoaded', () => {
+    updatePeriodDisplay();
+    document.getElementById('share-text-display').textContent = CONFIG.SHARE_TEXT;
+    document.querySelectorAll('a[href="#"]').forEach(a => {
+      if (a.id !== 'share-x-btn') a.href = CONFIG.BOOK_URL;
+    });
+    // ドラッグ＆ドロップ
+    const area = document.getElementById('upload-area');
+    area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
+    area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+    area.addEventListener('drop', e => {
+      e.preventDefault();
+      area.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) showPreview(file);
+    });
+  });
+
+  function updatePeriodDisplay() {
+    const s = new Date(CONFIG.CAMPAIGN_START);
+    const e = new Date(CONFIG.CAMPAIGN_END);
+    const fmt = d => `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+    document.getElementById('period-display').textContent = `${fmt(s)} 〜 ${fmt(e)}`;
+  }
+
+  // ─── パス切替 ───
+  function switchPath(path) {
+    document.getElementById('toggle-share').classList.toggle('active', path === 'share');
+    document.getElementById('toggle-buy').classList.toggle('active', path === 'buy');
+    document.getElementById('path-share').classList.toggle('active', path === 'share');
+    document.getElementById('path-buy').classList.toggle('active', path === 'buy');
+  }
+
+  // ─── Xシェア ───
+  function openXShare(e) {
+    e.preventDefault();
+    const text = encodeURIComponent(CONFIG.SHARE_TEXT + '\n' + CONFIG.PAGE_URL);
+    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+  }
+
+  // ─── ファイル選択 ───
+  let selectedFile = null;
+
+  function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) showPreview(file);
+  }
+
+  function showPreview(file) {
+    selectedFile = file;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('upload-placeholder').style.display = 'none';
+      const preview = document.getElementById('upload-preview');
+      preview.style.display = 'block';
+      document.getElementById('preview-img').src = ev.target.result;
+      document.getElementById('preview-name').textContent = `✅ ${file.name}`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ─── フォーム送信 ───
+  async function submitForm() {
+    const sei    = document.getElementById('input-sei').value.trim();
+    const mei    = document.getElementById('input-mei').value.trim();
+    const email  = document.getElementById('input-email').value.trim();
+    const method = document.getElementById('input-method').value;
+    const agree  = document.getElementById('agree-check').checked;
+
+    // バリデーション
+    if (!selectedFile) return showError('スクリーンショットをアップロードしてください。');
+    if (!sei || !mei)  return showError('お名前を入力してください。');
+    if (!email)        return showError('メールアドレスを入力してください。');
+    if (!method)       return showError('受け取り方法を選択してください。');
+    if (!agree)        return showError('同意チェックボックスにチェックを入れてください。');
+
+    // GAS URLが未設定の場合（開発中）
+    if (!CONFIG.GAS_URL) {
+      showSuccess();
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = '送信中...';
+
+    try {
+      const reader = new FileReader();
+      reader.onload = async ev => {
+        const base64 = ev.target.result.split(',')[1];
+        const payload = { sei, mei, email, method,
+          fileName: selectedFile.name,
+          fileType: selectedFile.type,
+          fileData: base64
+        };
+        const res = await fetch(CONFIG.GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showSuccess();
+        } else {
+          showError(data.message || '確認できませんでした。もう一度お試しください。');
+          btn.disabled = false;
+          btn.textContent = '🎁 特典を受け取る';
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+    } catch (err) {
+      showError('通信エラーが発生しました。しばらく後にお試しください。');
+      btn.disabled = false;
+      btn.textContent = '🎁 特典を受け取る';
+    }
+  }
+
+  function showSuccess() {
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('error-screen');
+    el.style.display = 'block';
+    document.getElementById('error-message').textContent = msg;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+
+</body>
+</html>
