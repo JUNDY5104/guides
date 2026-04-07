@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>SoundOn分析ツール セットアップマニュアル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a2a4a;
+  --navy-light: #243860;
+  --gold: #c9a84c;
+  --bg: #f5f5f2;
+  --white: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #555;
+  --border: #ddd;
+  --accent: #c9a84c;
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ヘッダー */
+.site-header {
+  background: var(--navy);
+  padding: 1.25rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 2px solid var(--gold);
+}
+.site-header-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+}
+.site-header-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 1px;
+}
+
+/* ナビ */
+.nav-bar {
+  background: var(--navy-light);
+  padding: 0 2rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.nav-bar a {
+  display: block;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.nav-bar a:hover, .nav-bar a.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* メイン */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* セクション */
+.section {
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.section.visible { opacity: 1; transform: none; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--gold);
+}
+.section-num {
+  width: 32px;
+  height: 32px;
+  background: var(--navy);
+  color: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+/* カード */
+.card {
+  background: var(--white);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ステップリスト */
+.steps { list-style: none; }
+.steps li {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--border);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.steps li:last-child { border-bottom: none; }
+.step-num {
+  width: 24px;
+  height: 24px;
+  background: var(--navy);
+  color: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* コード */
+.code-block {
+  background: var(--navy);
+  color: #e8dfc8;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  position: relative;
+}
+.code-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  border: 0.5px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius);
+  font-size: 11px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* 注意書き */
+.note-box {
+  background: #fdf8ee;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.75rem 1rem;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0.75rem 0;
+  line-height: 1.7;
+}
+.warn-box {
+  background: #fff3f3;
+  border-left: 3px solid #e05c5c;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.75rem 1rem;
+  font-size: 13px;
+  color: #7a2a2a;
+  margin: 0.75rem 0;
+  line-height: 1.7;
+}
+
+/* スクショUI */
+.ui-mock {
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 0.75rem 0;
+}
+.ui-mock-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.ui-select-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ui-select {
+  background: var(--white);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text);
+}
+.ui-badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--navy);
+  color: var(--gold);
+}
+
+/* TOPボタン */
+.top-btn {
+  display: block;
+  text-align: right;
+  margin-top: 1rem;
+}
+.top-btn a {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--white);
+  border: 0.5px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+.top-btn a:hover { border-color: var(--gold); color: var(--navy); }
+
+/* ツールチップ */
+.tt {
+  border-bottom: 1px dotted var(--text-muted);
+  cursor: help;
+  position: relative;
+}
+.tt:hover::after {
+  content: attr(data-tt);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+  z-index: 99;
+  pointer-events: none;
+}
+
+/* Coconalaバナー */
+.coconala-banner {
+  background: linear-gradient(135deg, #6200ea, #9c27b0);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+.coconala-banner p {
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  margin-bottom: 1rem;
+}
+.coconala-banner a {
+  display: inline-block;
+  background: #fff;
+  color: #6200ea;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* フッター */
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 2rem 1rem;
+}
+</style>
+</head>
+<body id="top">
+
+<header class="site-header">
+  <div>
+    <div class="site-header-title">やきさかな式 SoundOn分析ツール セットアップマニュアル</div>
+    <div class="site-header-sub">元飲食店店長サム</div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <a href="#s1">はじめに</a>
+  <a href="#s2">APIキー取得</a>
+  <a href="#s3">GASセットアップ</a>
+  <a href="#s4">使い方</a>
+  <a href="#s5">対応画面</a>
+  <a href="#s6">よくある質問</a>
+</nav>
+
+<div class="main">
+
+  <!-- S1 はじめに -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">はじめに</div>
+    </div>
+    <div class="card">
+      <p>このツールはSoundOnのスクリーンショットをアップロードするだけで、収益分析・CML候補曲の抽出・改善アドバイスを自動で出力するウェブアプリです。</p>
+      <br>
+      <p>初回のセットアップは10〜15分で完了します。一度設定すれば毎月スクショを貼るだけで使えます。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">必要なもの</div>
+      <ul class="steps">
+        <li><span class="step-num">1</span>Googleアカウント（GmailのアカウントでOK）</li>
+        <li><span class="step-num">2</span>Gemini APIキー（無料で取得できます）</li>
+        <li><span class="step-num">3</span>SoundOnのスクリーンショット</li>
+      </ul>
+    </div>
+    <div class="note-box">
+      <span class="tt" data-tt="Google Apps Script：Googleが提供する無料のプログラム実行環境">GAS</span>とGemini APIは両方無料で使えます。月にかかる費用は0円です。
+    </div>
+    <div class="top-btn"><a href="#top">ページ上部へ</a></div>
+  </section>
+
+  <!-- S2 APIキー取得 -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Gemini APIキーの取得</div>
+    </div>
+    <div class="card">
+      <ul class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <div>ブラウザで <strong>Google AI Studio</strong> を開きます。<br>
+          URL：<code>https://aistudio.google.com/app/apikeys</code></div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div>Googleアカウントでログインします（Gmailと同じアカウントでOK）。</div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div>画面上部の「APIキーを作成」ボタンをクリックします。</div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div>「新しいプロジェクトでAPIキーを作成」を選択します。</div>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <div>表示された「<code>AIza</code>」から始まる文字列をコピーして保存しておきます。</div>
+        </li>
+      </ul>
+    </div>
+    <div class="warn-box">
+      APIキーは他人に見せないでください。このツール内のブラウザにのみ保存されます。サーバーには送信されません。
+    </div>
+    <div class="top-btn"><a href="#top">ページ上部へ</a></div>
+  </section>
+
+  <!-- S3 GASセットアップ -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">GASセットアップ（初回のみ）</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Code.gs の設置</div>
+      <ul class="steps">
+        <li><span class="step-num">1</span><div>ブラウザで <code>https://script.google.com</code> を開きます。</div></li>
+        <li><span class="step-num">2</span><div>「新しいプロジェクト」をクリックします。</div></li>
+        <li><span class="step-num">3</span><div>プロジェクト名を「SoundOn分析ツール」に変更します（画面左上）。</div></li>
+        <li><span class="step-num">4</span><div>エディタに表示されているコードを全て削除します。</div></li>
+        <li><span class="step-num">5</span><div>下記の「Code.gsのコード」をコピーして貼り付けます。</div></li>
+      </ul>
+      <div class="code-label">Code.gs</div>
+      <div class="code-block" id="code-gs">function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index')
+    .setTitle('やきさかな式 SoundOn分析ツール')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}<button class="copy-btn" onclick="copyCode('code-gs', this)">コピー</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">index.html の設置</div>
+      <ul class="steps">
+        <li><span class="step-num">1</span><div>左側のメニューにある「+」ボタンをクリックします。</div></li>
+        <li><span class="step-num">2</span><div>「HTMLファイル」を選択します。</div></li>
+        <li><span class="step-num">3</span><div>ファイル名を「<strong>index</strong>」と入力してEnterキーを押します（.htmlは不要）。</div></li>
+        <li><span class="step-num">4</span><div>表示されているコードを全て削除します。</div></li>
+        <li><span class="step-num">5</span><div>購入時に同梱されている「<code>soundon_index.html</code>」の内容を全てコピーして貼り付けます。</div></li>
+        <li><span class="step-num">6</span><div>「Ctrl + S」（Macは「Cmd + S」）で保存します。</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">デプロイ（公開）</div>
+      <ul class="steps">
+        <li><span class="step-num">1</span><div>右上の「デプロイ」ボタンをクリックします。</div></li>
+        <li><span class="step-num">2</span><div>「新しいデプロイ」を選択します。</div></li>
+        <li><span class="step-num">3</span><div>種類の選択で「ウェブアプリ」を選択します。</div></li>
+        <li><span class="step-num">4</span><div>次のように設定します。
+          <div class="ui-mock">
+            <div class="ui-mock-label">設定内容</div>
+            <div class="ui-select-row">
+              <span style="font-size:12px;color:#555">次のユーザーとして実行：</span>
+              <span class="ui-badge">自分</span>
+            </div>
+            <div class="ui-select-row" style="margin-top:8px">
+              <span style="font-size:12px;color:#555">アクセスできるユーザー：</span>
+              <span class="ui-badge">全員</span>
+            </div>
+          </div>
+        </div></li>
+        <li><span class="step-num">5</span><div>「デプロイ」ボタンをクリックします。</div></li>
+        <li><span class="step-num">6</span><div>「アクセスを承認」が出た場合はGoogleアカウントを選択して許可します。</div></li>
+        <li><span class="step-num">7</span><div>表示されたURLをコピーしてブックマークします。これがツールのURLです。</div></li>
+      </ul>
+      <div class="note-box">
+        URLは <code>https://script.google.com/macros/s/〜/exec</code> の形式になります。<br>
+        <code>/exec</code> で終わるURLが正しいURLです。
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">ツールを更新したいとき</div>
+      <ul class="steps">
+        <li><span class="step-num">1</span><div>index.htmlの内容を更新して保存します。</div></li>
+        <li><span class="step-num">2</span><div>「デプロイ」→「デプロイを管理」を開きます。</div></li>
+        <li><span class="step-num">3</span><div>鉛筆アイコンをクリックして「バージョン：新しいバージョン」を選択します。</div></li>
+        <li><span class="step-num">4</span><div>「デプロイ」をクリックします。URLは変わりません。</div></li>
+      </ul>
+    </div>
+    <div class="top-btn"><a href="#top">ページ上部へ</a></div>
+  </section>
+
+  <!-- S4 使い方 -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">ツールの使い方</div>
+    </div>
+    <div class="card">
+      <ul class="steps">
+        <li><span class="step-num">1</span><div>ブックマークしたURLをブラウザで開きます。</div></li>
+        <li><span class="step-num">2</span><div>APIキー入力欄に、取得したGemini APIキーを貼り付けます。入力欄の外をクリックすると自動保存されます。次回からは自動で入力されます。</div></li>
+        <li><span class="step-num">3</span><div>SoundOnのスクリーンショットをアップロードゾーンにドラッグ＆ドロップします（クリックして選択もできます）。複数枚同時にアップロードできます。</div></li>
+        <li><span class="step-num">4</span><div>「分析する」ボタンをクリックします。</div></li>
+        <li><span class="step-num">5</span><div>10〜30秒で分析結果が表示されます。</div></li>
+      </ul>
+    </div>
+    <div class="note-box">
+      スクリーンショットは自動的に圧縮されてから送信されます。元のファイルは変更されません。
+    </div>
+    <div class="top-btn"><a href="#top">ページ上部へ</a></div>
+  </section>
+
+  <!-- S5 対応画面 -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">対応しているSoundOn画面</div>
+    </div>
+    <div class="card">
+      <ul class="steps">
+        <li><span class="step-num">1</span><div><strong>月次明細</strong>：「インサイトと収益」→「ロイヤリティ」→「月次明細」タブの画面。月別の確定収益が一覧で表示される画面です。</div></li>
+        <li><span class="step-num">2</span><div><strong>ロイヤリティグラフ</strong>：月次明細と同じページの上部にある積み上げ棒グラフ。TikTok・CML・Spotifyなど収益源の内訳が見られます。</div></li>
+        <li><span class="step-num">3</span><div><strong>アナリティクス概要</strong>：「インサイトと収益」→「アナリティクス」の画面。動画数・視聴回数・いいね数・ストリーミング再生数が表示されます。</div></li>
+        <li><span class="step-num">4</span><div><strong>トラック別一覧</strong>：アナリティクス画面のページ下部にある曲ごとの一覧。動画数・視聴・エンゲージメント評価が確認できます。</div></li>
+        <li><span class="step-num">5</span><div><strong>トラックインサイト</strong>：曲名の「インサイトを見る」から開く個別曲の詳細画面。</div></li>
+        <li><span class="step-num">6</span><div><strong>リージョン別</strong>：トラックインサイト内の「リージョン別再生回数」が表示されている画面。国別の再生割合が確認できます。</div></li>
+      </ul>
+    </div>
+    <div class="note-box">
+      複数の画面を同時にアップロードすると、より精度の高い総合分析が得られます。月次明細・ロイヤリティグラフ・アナリティクス概要の3枚セットが特におすすめです。
+    </div>
+    <div class="top-btn"><a href="#top">ページ上部へ</a></div>
+  </section>
+
+  <!-- S6 FAQ -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">よくある質問</div>
+    </div>
+    <div class="card">
+      <div class="card-title">「分析に失敗しました」と表示された</div>
+      <ul class="steps">
+        <li><span class="step-num">1</span><div>APIキーが正しく入力されているか確認してください。「AIza」から始まる文字列です。</div></li>
+        <li><span class="step-num">2</span><div>枚数が多い場合は3〜4枚に絞って再試行してください。</div></li>
+        <li><span class="step-num">3</span><div>しばらく時間をおいてから再試行してください。</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">APIキーはどこに保存されますか？</div>
+      <p style="font-size:14px">お使いのブラウザの<span class="tt" data-tt="ブラウザがデータをローカルに保存する仕組み。サーバーには送られない">localStorage</span>に保存されます。サーバーや外部には一切送信されません。別のブラウザやデバイスでは再入力が必要です。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">無料で使い続けられますか？</div>
+      <p style="font-size:14px">Gemini APIの無料枠の範囲内であれば費用はかかりません。SoundOnのスクショを月数回分析する程度であれば無料枠で十分です。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">スマートフォンでも使えますか？</div>
+      <p style="font-size:14px">スマートフォンのブラウザからもアクセスできます。ただし画像のアップロードやスクショの撮影はPCの方が操作しやすいです。</p>
+    </div>
+    <div class="top-btn"><a href="#top">ページ上部へ</a></div>
+  </section>
+
+  <!-- Coconalaバナー -->
+  <div class="coconala-banner">
+    <p>分析結果をもとにプロのアドバイスが欲しい方へ<br>個別サポートはCoconalaで承っています</p>
+    <a href="https://coconala.com/services/3034205" target="_blank">Coconalaのサービスを見る</a>
+  </div>
+
+</div>
+
+<footer>
+  やきさかな式 SoundOn分析ツール セットアップマニュアル &copy; 元飲食店店長サム
+</footer>
+
+<script>
+function copyCode(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText.replace('コピー', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '完了';
+    setTimeout(() => btn.textContent = 'コピー', 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '完了';
+    setTimeout(() => btn.textContent = 'コピー', 2000);
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+const navLinks = document.querySelectorAll('.nav-bar a');
+const sections = document.querySelectorAll('.section');
+const navObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-bar a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => navObs.observe(s));
+</script>
+</body>
+</html>
