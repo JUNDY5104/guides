@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Gemini Deep Research 完全版活用ガイド | 元飲食店店長サム</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --google-blue: #1a73e8;
+    --google-red: #ea4335;
+    --google-yellow: #fbbc04;
+    --google-green: #34a853;
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --surface2: #f1f3f4;
+    --border: #e0e0e0;
+    --text: #202124;
+    --text-muted: #5f6368;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ヒーロー */
+  .hero {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    color: white;
+    padding: 60px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.07) 0%, transparent 50%),
+                radial-gradient(circle at 70% 20%, rgba(251,188,4,0.10) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span { color: #fbbc04; }
+  .hero p {
+    font-size: clamp(14px, 2.5vw, 17px);
+    opacity: 0.88;
+    max-width: 560px;
+    margin: 0 auto 28px;
+  }
+  .hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .hero-tag {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ナビ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-link {
+    display: block;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--google-blue);
+    border-bottom-color: var(--google-blue);
+  }
+
+  /* メイン */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* セクション */
+  .section { margin-bottom: 56px; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .section-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-dot.blue { background: var(--google-blue); }
+  .section-dot.red { background: var(--google-red); }
+  .section-dot.yellow { background: var(--google-yellow); }
+  .section-dot.green { background: var(--google-green); }
+  .section-dot.purple { background: #7c3aed; }
+
+  .section-title {
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  /* カード */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow-md); }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  /* 比較テーブル */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .compare-table th {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table th:first-child { width: 30%; }
+  .compare-table td {
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: #fafafa; }
+
+  /* ステップ */
+  .steps { display: flex; flex-direction: column; }
+  .step {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+  .step:last-child { padding-bottom: 0; }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 19px; top: 40px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--google-blue), var(--border));
+  }
+  .step-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--google-blue);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+  }
+  .step-content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    padding-top: 8px;
+  }
+  .step-content p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* アラート */
+  .alert {
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .alert-warning { background: #fff8e1; border: 1px solid #ffe082; }
+  .alert-info { background: #e8f0fe; border: 1px solid #c5d8fc; }
+  .alert-success { background: #e6f4ea; border: 1px solid #a8d5b5; }
+  .alert-icon { font-size: 22px; flex-shrink: 0; line-height: 1; }
+  .alert-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .alert-body p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* 活用事例グリッド */
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .case-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .case-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .case-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .case-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .case-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* バッジ */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .badge-blue { background: #e8f0fe; color: var(--google-blue); }
+  .badge-green { background: #e6f4ea; color: var(--google-green); }
+  .badge-gold { background: #fef3cd; color: #b87800; }
+
+  /* TOPボタン */
+  .top-btn {
+    display: block;
+    margin: 28px 0 0 auto;
+    padding: 8px 22px;
+    background: transparent;
+    color: var(--google-blue);
+    border: 1.5px solid var(--google-blue);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s;
+    width: fit-content;
+  }
+  .top-btn:hover { background: var(--google-blue); color: #fff; }
+
+  /* ツールチップ */
+  .tt {
+    border-bottom: 1.5px dotted var(--text-muted);
+    cursor: help;
+    position: relative;
+    display: inline;
+  }
+  .tt::after {
+    content: attr(data-tt);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #202124;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding: 7px 11px;
+    border-radius: 6px;
+    white-space: normal;
+    max-width: 240px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+  .tt:hover::after { opacity: 1; }
+
+  /* ===== 完全版ジェネレーター ===== */
+  .generator-wrap {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    border-radius: 20px;
+    padding: 3px;
+    box-shadow: var(--shadow-lg);
+  }
+  .generator {
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 36px 32px;
+  }
+  .generator-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .generator-header h2 {
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .generator-header p { font-size: 14px; color: var(--text-muted); }
+
+  /* 業種テンプレート */
+  .template-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .template-btn {
+    padding: 9px 10px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .template-btn:hover {
+    border-color: var(--google-blue);
+    background: #e8f0fe;
+    color: var(--google-blue);
+  }
+  .template-btn.active {
+    border-color: var(--google-blue);
+    background: #e8f0fe;
+    color: var(--google-blue);
+    font-weight: 700;
+  }
+  .template-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  /* フォーム */
+  .form-group { margin-bottom: 22px; }
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .form-label-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--google-blue);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+  .form-input:focus {
+    border-color: var(--google-blue);
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+    background: white;
+  }
+  .radio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .radio-option { position: relative; }
+  .radio-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--bg);
+    user-select: none;
+  }
+  .radio-label:hover { border-color: var(--google-blue); background: #e8f0fe; }
+  .radio-option input:checked + .radio-label {
+    border-color: var(--google-blue);
+    background: #e8f0fe;
+    color: var(--google-blue);
+    font-weight: 700;
+  }
+  .radio-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .radio-option input:checked + .radio-label .radio-dot {
+    border-color: var(--google-blue);
+    background: var(--google-blue);
+    box-shadow: inset 0 0 0 3px white;
+  }
+
+  /* 深さスライダー */
+  .depth-wrap {
+    padding: 16px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .depth-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .depth-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, var(--google-blue) 0%, var(--google-blue) 50%, var(--border) 50%);
+    outline: none;
+    cursor: pointer;
+  }
+  .depth-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--google-blue);
+    box-shadow: 0 2px 6px rgba(26,115,232,0.35);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .depth-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .depth-val {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--google-blue);
+    min-width: 28px;
+    text-align: center;
+  }
+  .depth-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .depth-desc {
+    font-size: 12px;
+    color: var(--google-blue);
+    font-weight: 700;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  /* カスタム指示 */
+  .custom-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .custom-textarea:focus {
+    border-color: var(--google-blue);
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+    background: white;
+  }
+  .custom-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  /* 生成ボタン */
+  .btn-generate {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #1a73e8, #1565c0);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 12px rgba(26,115,232,0.35);
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+  }
+  .btn-generate:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(26,115,232,0.45);
+  }
+
+  /* 3案タブ */
+  .result-area { margin-top: 28px; display: none; }
+  .result-area.show { display: block; }
+
+  .result-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  .result-tab {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: all 0.15s;
+  }
+  .result-tab:hover { color: var(--google-blue); }
+  .result-tab.active {
+    color: var(--google-blue);
+    border-bottom-color: var(--google-blue);
+  }
+  .result-panel { display: none; }
+  .result-panel.active { display: block; }
+
+  .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .result-plan-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .btn-copy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: var(--google-green);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-copy:hover { background: #2e7d32; }
+  .btn-copy.copied { background: #757575; }
+
+  .result-box {
+    background: #f8fafe;
+    border: 1.5px solid #c5d8fc;
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .result-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* 履歴 */
+  .history-section {
+    margin-top: 36px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .history-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .btn-clear-history {
+    padding: 5px 14px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-clear-history:hover { border-color: var(--google-red); color: var(--google-red); }
+  .history-empty {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 20px;
+  }
+  .history-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .history-item:hover { border-color: var(--google-blue); background: #e8f0fe; }
+  .history-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .history-theme {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Coconalaバナー */
+  .coconala-banner {
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    color: #fff;
+    margin: 0 24px 48px;
+    box-shadow: 0 8px 28px rgba(124,58,237,0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  .coconala-banner::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -10%;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+  .coconala-banner-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    margin-bottom: 14px;
+  }
+  .coconala-banner h3 {
+    font-size: clamp(16px, 2.8vw, 21px);
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .coconala-banner p {
+    font-size: 13px;
+    opacity: 0.88;
+    line-height: 1.75;
+    margin-bottom: 22px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-coconala {
+    display: inline-block;
+    background: #fff;
+    color: #7c3aed;
+    text-decoration: none;
+    padding: 13px 32px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+  }
+  .btn-coconala:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  /* フッター */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--surface);
+  }
+  .footer strong { color: var(--text); }
+
+  /* レスポンシブ */
+  @media (max-width: 600px) {
+    .generator { padding: 24px 20px; }
+    .radio-grid { grid-template-columns: 1fr 1fr; }
+    .compare-table th, .compare-table td { padding: 10px 14px; }
+    .template-grid { grid-template-columns: repeat(2, 1fr); }
+    .result-tab { padding: 10px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-badge">完全版 ver.1.0 ｜ LINE登録者限定</div>
+  <h1>Gemini <span>Deep Research</span><br>完全版活用ガイド</h1>
+  <p>全機能解放版。プロンプト3案比較・深さ調整・業種テンプレート・生成履歴まで完全収録。</p>
+  <div class="hero-tags">
+    <span class="hero-tag">基本＋応用解説</span>
+    <span class="hero-tag">業種別テンプレート10種</span>
+    <span class="hero-tag">3案比較生成</span>
+    <span class="hero-tag">深さ10段階調整</span>
+    <span class="hero-tag">生成履歴保存</span>
+  </div>
+</div>
+
+<!-- ナビ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#what" class="nav-link">Deep Researchとは</a>
+    <a href="#diff" class="nav-link">通常との違い</a>
+    <a href="#howto" class="nav-link">使い方</a>
+    <a href="#cases" class="nav-link">活用事例</a>
+    <a href="#caution" class="nav-link">注意点</a>
+    <a href="#advanced" class="nav-link">応用テクニック</a>
+    <a href="#generator" class="nav-link">プロンプト生成</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- Section 1 -->
+  <section class="section" id="what">
+    <div class="section-label">
+      <div class="section-dot blue"></div>
+      <h2 class="section-title">Deep Researchとは何か？</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">一言でいうと</div>
+      <p>「<strong>AIが自分の代わりにネット中を調査して、まとまったレポートを数分で作ってくれる機能</strong>」です。テーマを入力するだけで、数百のウェブサイトを横断的に調べ、出典付きの詳細レポートを自動生成します。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">仕組みの3ステップ</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>調査計画を自動立案</h3>
+            <p>テーマを細かいサブタスクに分解し、どの順番で何を調べるかの計画をユーザーに提示します。計画はその場で編集・修正できます。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>自律的にWeb全体を巡回</h3>
+            <p>学術論文・ニュース・公式サイトなど、数十〜数百のページを自動収集。信頼性・新鮮さ・網羅性を評価しながら情報を選別します。画面を閉じていても調査は続きます。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>出典付きレポートを生成</h3>
+            <p>章立ての詳細レポートが完成。各情報の<span class="tt" data-tt="公式サイト・学術論文・政府機関など、情報の発信元となる一次的な情報源のこと。">一次ソース</span>へのリンクも明記されます。Googleドキュメントへのエクスポートにも対応しています。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 2 -->
+  <section class="section" id="diff">
+    <div class="section-label">
+      <div class="section-dot red"></div>
+      <h2 class="section-title">通常チャットとの違い</h2>
+    </div>
+    <div style="overflow-x: auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>通常Geminiチャット</th>
+            <th>Deep Research</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>速さ</strong></td>
+            <td>数秒</td>
+            <td>数分〜30分（調査に時間をかける）</td>
+          </tr>
+          <tr>
+            <td><strong>目的</strong></td>
+            <td>即答・会話</td>
+            <td>深掘り調査・レポート生成</td>
+          </tr>
+          <tr>
+            <td><strong>情報量</strong></td>
+            <td>要点を絞って回答</td>
+            <td>数十〜数百サイトを横断</td>
+          </tr>
+          <tr>
+            <td><strong>出力形式</strong></td>
+            <td>テキスト回答</td>
+            <td>章立ての詳細レポート</td>
+          </tr>
+          <tr>
+            <td><strong>出典</strong></td>
+            <td>不明確な場合あり</td>
+            <td>全情報に出典リンク付き</td>
+          </tr>
+          <tr>
+            <td><strong>向いている用途</strong></td>
+            <td>簡単な質問・アイデア出し</td>
+            <td>市場調査・競合分析・学習</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 3 -->
+  <section class="section" id="howto">
+    <div class="section-label">
+      <div class="section-dot yellow"></div>
+      <h2 class="section-title">使い方ステップ</h2>
+    </div>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Geminiを開き「Deep Research」を選択</h3>
+            <p>gemini.google.com にアクセス。プロンプト入力欄の下にある「<span class="tt" data-tt="Geminiのリサーチ専用機能。通常チャットとは別のモードとして入力欄付近に表示される。">Deep Research</span>」ボタンをクリックして選択します。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>調査内容を入力する</h3>
+            <p>下のプロンプト生成ツールで作ったプロンプトをそのまま貼り付けてください。「誰が・何のために・どんな情報が欲しいか」が含まれていると精度が上がります。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>リサーチ計画を確認・編集</h3>
+            <p>GeminiがAIリサーチ計画を提示します。「このテーマも追加してほしい」という観点があれば「計画を編集」から修正可能。問題なければ「<span class="tt" data-tt="調査の開始を指示するボタン。押すと複数サイトへの自動巡回・情報収集が始まる。">リサーチを開始</span>」を押します。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>待つだけでレポート完成</h3>
+            <p>数分〜30分でレポートが完成します。調査中は画面を閉じても問題ありません。完成後はGoogleドキュメントへのエクスポートも可能です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-info">
+      <div class="alert-icon">💡</div>
+      <div class="alert-body">
+        <h4>無料版でも使えます</h4>
+        <p>2025年3月より無料ユーザーにも開放されました。無料版は月5〜10回程度、有料版（<span class="tt" data-tt="Googleの有料プラン（月額制）。Gemini 2.5 Proが使え、Deep Researchの利用回数が大幅に増える。">Google AI Pro</span>）は月最大20回以上利用できます。</p>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 4 -->
+  <section class="section" id="cases">
+    <div class="section-label">
+      <div class="section-dot green"></div>
+      <h2 class="section-title">こんな場面で使える</h2>
+    </div>
+    <div class="case-grid">
+      <div class="case-card">
+        <span class="case-icon">📊</span>
+        <h3>市場・競合調査</h3>
+        <p>業界のトレンドや競合他社の動向を網羅的に調査。手動で何時間もかかる作業が数分で完了します。</p>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">✍️</span>
+        <h3>記事・コンテンツ制作</h3>
+        <p>ブログ・note・Kindle記事の下調べに最適。信頼性の高い情報を出典付きで一気に収集できます。</p>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">📚</span>
+        <h3>新しい分野の学習</h3>
+        <p>知らない分野を素早く把握したいときに。概要から専門知識まで体系的にまとめてくれます。</p>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">💼</span>
+        <h3>ビジネス提案・企画</h3>
+        <p>新規事業の立案や提案資料作成に。根拠のあるデータと事例をセットで収集できます。</p>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">🔍</span>
+        <h3>採用・人材調査</h3>
+        <p>業界の給与相場・採用トレンド・必要スキルの動向調査に。複数の求人サイトを横断して傾向を掴めます。</p>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">📈</span>
+        <h3>投資・資産運用の判断材料</h3>
+        <p>特定の銘柄や業界の動向を多角的に調査。投資判断の参考資料として活用できます（最終判断は専門家へ）。</p>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 5 -->
+  <section class="section" id="caution">
+    <div class="section-label">
+      <div class="section-dot red"></div>
+      <h2 class="section-title">必ず知っておくべき注意点</h2>
+    </div>
+    <div class="alert alert-warning">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <h4><span class="tt" data-tt="AIが事実と異なる情報を自信をもって生成してしまう現象。出典確認が必須。">ハルシネーション</span>（AI幻覚）に注意</h4>
+        <p>Deep Researchは多くのサイトを参照しますが、<strong>情報が古い・不正確・存在しない事実を生成する</strong>ことがあります。特に数値・統計・人物情報は、必ず<span class="tt" data-tt="公式サイト・学術論文・政府機関など、情報の発信元となる一次的な情報源のこと。">一次ソース</span>で確認してください。</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">ハルシネーションを減らす3つのコツ</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>プロンプトで「不明な場合は明記して」と指示する</h3>
+            <p>「情報が不確かな場合は『不明』と記載してください」という指示をプロンプトに含めることで、AIが推測で答えにくくなります。下のツールではこの指示が自動で付加されます。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>出典リンクを必ず確認する</h3>
+            <p>レポートに付属する出典リンクを開いて、本当にその情報が書かれているか確認する習慣をつけましょう。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>重要な情報は専門家に確認</h3>
+            <p>医療・法律・税務・投資など重要な判断に使う情報は、必ず専門家のチェックを経てください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 6: 応用テクニック（完全版追加） -->
+  <section class="section" id="advanced">
+    <div class="section-label">
+      <div class="section-dot purple"></div>
+      <h2 class="section-title">応用テクニック</h2>
+    </div>
+
+    <div class="alert alert-success">
+      <div class="alert-icon">⭐</div>
+      <div class="alert-body">
+        <h4>完全版限定コンテンツ</h4>
+        <p>簡易版では紹介していない、Deep Researchをさらに使いこなすための上級テクニックをまとめています。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">リサーチ計画の編集で精度を上げる</div>
+      <p>Deep Researchが提示する「計画」は、送信前に編集できます。「〇〇の観点が抜けているので追加してください」「△△については調べなくていいです」と修正することで、レポートの精度が大きく変わります。<strong>計画の確認と修正は必ず行いましょう。</strong></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">レポート完成後の追加質問</div>
+      <p>レポートが完成した後、そのまま同じチャット画面で追加質問ができます。「第3節の〇〇について、もっと詳しく教えて」「この結果を踏まえて、初心者向けに3つのアクションをまとめて」のように、レポートをベースにした深掘りが可能です。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Googleドキュメントへのエクスポート活用法</div>
+      <p>レポート完成後、右上の「共有とエクスポート」からGoogleドキュメントに書き出せます。ドキュメントに書き出した後は、<strong>見出しや不要な箇所を削除して記事の骨格として活用</strong>するのが実用的な使い方です。そのまま公開するのではなく、あくまで下調べの素材として扱いましょう。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">3案比較を使いこなす（完全版機能）</div>
+      <p>下のプロンプト生成ツールでは、同じ調査テーマに対して3つの異なる切り口のプロンプトを同時生成できます。</p>
+      <ul style="margin-top:12px; padding-left:20px; font-size:14px; color:var(--text-muted); line-height:2;">
+        <li><strong>スタンダード案</strong>：選択内容を忠実に反映した基本プロンプト</li>
+        <li><strong>多角的分析案</strong>：複数の視点・比較軸を重視した深掘りプロンプト</li>
+        <li><strong>課題発見型</strong>：問題点・リスク・懸念点にフォーカスした批判的プロンプト</li>
+      </ul>
+      <p style="margin-top:12px;">3つを見比べて、目的に最もフィットするものを選んでください。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">深さスライダーの使い分け（完全版機能）</div>
+      <div style="overflow-x:auto; margin-top:4px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>深さ</th>
+              <th>用途の目安</th>
+              <th>調査時間の目安</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-green">1〜3</span> 概要把握</td>
+              <td>「まず全体像を知りたい」「アイデア出しの前調査」</td>
+              <td>数分</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">4〜6</span> 標準</td>
+              <td>「記事の下調べ」「ビジネス判断の参考」</td>
+              <td>5〜15分</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-gold">7〜8</span> 深掘り</td>
+              <td>「競合分析」「市場調査」「Kindle本の執筆準備」</td>
+              <td>15〜30分</td>
+            </tr>
+            <tr>
+              <td><span class="badge" style="background:#fce8e6;color:var(--google-red);">9〜10</span> 専門レベル</td>
+              <td>「学術的な調査」「専門家向け報告書の作成」</td>
+              <td>30分以上</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 7: プロンプト生成ツール（完全版） -->
+  <section class="section" id="generator">
+    <div class="section-label">
+      <div class="section-dot blue"></div>
+      <h2 class="section-title">Deep Research プロンプト生成ツール（完全版）</h2>
+    </div>
+
+    <div class="generator-wrap">
+      <div class="generator">
+        <div class="generator-header">
+          <h2>業種テンプレート＋8項目で最適プロンプトを3案生成</h2>
+          <p>テンプレートを選ぶだけで自動入力。細かく調整してから生成できます。</p>
+        </div>
+
+        <!-- 業種テンプレート -->
+        <div class="template-label">業種別テンプレート（クリックで自動入力）</div>
+        <div class="template-grid">
+          <button class="template-btn" onclick="applyTemplate(0)">副業・コンテンツ制作</button>
+          <button class="template-btn" onclick="applyTemplate(1)">AI活用術</button>
+          <button class="template-btn" onclick="applyTemplate(2)">飲食・店舗経営</button>
+          <button class="template-btn" onclick="applyTemplate(3)">転職・キャリア</button>
+          <button class="template-btn" onclick="applyTemplate(4)">マーケティング</button>
+          <button class="template-btn" onclick="applyTemplate(5)">健康・ダイエット</button>
+          <button class="template-btn" onclick="applyTemplate(6)">育児・教育</button>
+          <button class="template-btn" onclick="applyTemplate(7)">資産運用・節約</button>
+          <button class="template-btn" onclick="applyTemplate(8)">人間関係・メンタル</button>
+          <button class="template-btn" onclick="applyTemplate(9)">ライフハック・習慣化</button>
+        </div>
+
+        <hr class="template-divider">
+
+        <!-- ① テーマ -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">1</div>
+            調査テーマを入力してください
+          </div>
+          <textarea id="theme" class="form-input" rows="2" placeholder="例：2025年の日本における生成AI市場の動向と主要プレイヤー"></textarea>
+        </div>
+
+        <!-- ② 目的 -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">2</div>
+            調査の目的は何ですか？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p1" value="自分が学ぶため（個人的な学習・理解の深化）">
+              <label class="radio-label" for="p1"><span class="radio-dot"></span>自分が学ぶため</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p2" value="記事・コンテンツを作るため（ブログ・note・Kindle等）">
+              <label class="radio-label" for="p2"><span class="radio-dot"></span>記事・コンテンツ制作</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p3" value="ビジネス判断・意思決定のため（企画・提案・戦略立案）">
+              <label class="radio-label" for="p3"><span class="radio-dot"></span>ビジネス判断のため</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p4" value="人に説明・共有するため（プレゼン・レポート・資料作成）">
+              <label class="radio-label" for="p4"><span class="radio-dot"></span>人に説明・共有するため</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ 対象読者 -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">3</div>
+            レポートを読む人のレベルは？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="level" id="l1" value="初心者向け（専門用語は避け、わかりやすい言葉で説明すること）">
+              <label class="radio-label" for="l1"><span class="radio-dot"></span>初心者向け</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="level" id="l2" value="中級者向け（基本的な知識はあるため、専門用語も適宜使用可）">
+              <label class="radio-label" for="l2"><span class="radio-dot"></span>中級者向け</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="level" id="l3" value="専門家向け（高度な専門用語・技術的詳細を含めた詳細な分析）">
+              <label class="radio-label" for="l3"><span class="radio-dot"></span>専門家向け</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ④ 重視すること -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">4</div>
+            特に重視してほしいことは？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f1" value="最新情報を優先（できるだけ新しい情報・直近のデータを重点的に収集すること）">
+              <label class="radio-label" for="f1"><span class="radio-dot"></span>最新情報</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f2" value="具体的な事例・実例（抽象論より実際の事例・ケーススタディを中心に）">
+              <label class="radio-label" for="f2"><span class="radio-dot"></span>具体的な事例</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f3" value="データ・数字・統計（定量的な根拠・数値データを重点的に収集すること）">
+              <label class="radio-label" for="f3"><span class="radio-dot"></span>データ・数字</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f4" value="全体像・概要（詳細より全体像の把握・体系的な理解を優先すること）">
+              <label class="radio-label" for="f4"><span class="radio-dot"></span>全体の概要</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑤ 出力形式 -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">5</div>
+            レポートの形式は？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="format" id="fo1" value="箇条書き中心（ポイントを整理し、箇条書きを多用した読みやすい形式）">
+              <label class="radio-label" for="fo1"><span class="radio-dot"></span>箇条書き中心</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="format" id="fo2" value="文章中心（流れるような文章形式で、論理的・体系的にまとめること）">
+              <label class="radio-label" for="fo2"><span class="radio-dot"></span>文章中心</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="format" id="fo3" value="比較表あり（可能な限り比較表・対照表を使って情報を整理すること）">
+              <label class="radio-label" for="fo3"><span class="radio-dot"></span>比較表あり</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑥ 調査の深さ -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">6</div>
+            調査の深さを設定してください
+          </div>
+          <div class="depth-wrap">
+            <div class="depth-row">
+              <span style="font-size:12px;color:var(--text-muted);">概要把握</span>
+              <input type="range" id="depthSlider" class="depth-slider" min="1" max="10" value="5" oninput="updateDepth(this.value)">
+              <span style="font-size:12px;color:var(--text-muted);">専門レベル</span>
+              <div class="depth-val" id="depthVal">5</div>
+            </div>
+            <div class="depth-labels">
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+              <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+            </div>
+            <div class="depth-desc" id="depthDesc">標準的な調査（記事の下調べ・ビジネス判断に最適）</div>
+          </div>
+        </div>
+
+        <!-- ⑦ 業種・カテゴリ -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">7</div>
+            カスタム追加指示（任意）
+          </div>
+          <textarea id="custom" class="custom-textarea" placeholder="例：日本国内の情報を優先してください&#10;例：2024年以降のデータのみを対象にしてください&#10;例：中小企業・個人事業主の視点でまとめてください"></textarea>
+          <div class="custom-hint">Deep Researchへの追加指示を自由に記述できます。空欄でもプロンプトは生成されます。</div>
+        </div>
+
+        <button class="btn-generate" onclick="generatePrompts()">
+          ✨ プロンプトを3案生成する
+        </button>
+
+        <!-- 生成結果（3案タブ） -->
+        <div class="result-area" id="resultArea">
+          <div class="result-tabs">
+            <button class="result-tab active" onclick="switchTab(0)">案A　スタンダード</button>
+            <button class="result-tab" onclick="switchTab(1)">案B　多角的分析</button>
+            <button class="result-tab" onclick="switchTab(2)">案C　課題発見型</button>
+          </div>
+
+          <div class="result-panel active" id="panel0">
+            <div class="result-header">
+              <div class="result-plan-label">基本設定を忠実に反映した標準プロンプト</div>
+              <button class="btn-copy" id="copyBtn0" onclick="copyPrompt(0)">📋 コピーする</button>
+            </div>
+            <div class="result-box" id="resultBox0"></div>
+          </div>
+
+          <div class="result-panel" id="panel1">
+            <div class="result-header">
+              <div class="result-plan-label">複数の視点・比較軸を重視した深掘りプロンプト</div>
+              <button class="btn-copy" id="copyBtn1" onclick="copyPrompt(1)">📋 コピーする</button>
+            </div>
+            <div class="result-box" id="resultBox1"></div>
+          </div>
+
+          <div class="result-panel" id="panel2">
+            <div class="result-header">
+              <div class="result-plan-label">問題点・リスク・懸念点にフォーカスしたプロンプト</div>
+              <button class="btn-copy" id="copyBtn2" onclick="copyPrompt(2)">📋 コピーする</button>
+            </div>
+            <div class="result-box" id="resultBox2"></div>
+          </div>
+
+          <div class="result-note">
+            ℹ️ 生成されたプロンプトをそのままGemini Deep Researchに貼り付けてご利用ください
+          </div>
+        </div>
+
+        <!-- 生成履歴 -->
+        <div class="history-section">
+          <div class="history-header">
+            <div class="history-title">生成履歴（最大10件）</div>
+            <button class="btn-clear-history" onclick="clearHistory()">履歴をクリア</button>
+          </div>
+          <div id="historyList">
+            <div class="history-empty">まだ生成履歴がありません</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Coconalaバナー -->
+<div class="coconala-banner">
+  <div class="coconala-banner-label">HTML解説書 制作サービス</div>
+  <h3>あなた専用のHTML解説書を<br>プロに丸ごとお任せ</h3>
+  <p>「自分のビジネスに合った解説ガイドが欲しい」という方へ。<br>元飲食店店長サムがCoconalaでHTML制作を承っています。</p>
+  <a href="https://coconala.com/services/3034205" target="_blank" class="btn-coconala">Coconalaでサービスを見る</a>
+</div>
+
+<!-- フッター -->
+<div class="footer">
+  <p>作成：<strong>元飲食店店長サム</strong>｜このツールはGemini Deep Researchの学習・活用を目的として作成されています。</p>
+  <p style="margin-top:6px;">情報の正確性については最新の公式情報をご確認ください。</p>
+</div>
+
+<script>
+// ===== 業種テンプレート =====
+const TEMPLATES = [
+  {
+    label: '副業・コンテンツ制作',
+    theme: '2025年時点でnote・Brainで継続的に収益を上げているクリエイターの、ジャンル別傾向・価格帯・投稿頻度・共通点',
+    purpose: 'p2', level: 'l1', focus: 'f2', format: 'fo3'
+  },
+  {
+    label: 'AI活用術',
+    theme: '2025年に実務で活用できるAIツールの最新動向と、職種別の具体的な使い方・活用事例',
+    purpose: 'p2', level: 'l2', focus: 'f1', format: 'fo3'
+  },
+  {
+    label: '飲食・店舗経営',
+    theme: '2025年の飲食業界における人手不足対策と経営効率化の成功事例、テクノロジー活用の実態',
+    purpose: 'p3', level: 'l2', focus: 'f2', format: 'fo3'
+  },
+  {
+    label: '転職・キャリア',
+    theme: '未経験から異業種転職を成功させた人の共通点と、実践した準備・学習方法の実例',
+    purpose: 'p1', level: 'l1', focus: 'f2', format: 'fo1'
+  },
+  {
+    label: 'マーケティング',
+    theme: '個人事業主・フリーランスが実践しているSNSを活用した集客マーケティング手法と成功事例',
+    purpose: 'p3', level: 'l2', focus: 'f2', format: 'fo1'
+  },
+  {
+    label: '健康・ダイエット',
+    theme: '科学的根拠のある継続できるダイエット・健康習慣の最新研究と実際に成果が出た実例',
+    purpose: 'p1', level: 'l1', focus: 'f3', format: 'fo1'
+  },
+  {
+    label: '育児・教育',
+    theme: '子どもの学習意欲と自己肯定感を高める、家庭でできる教育アプローチの実例と研究結果',
+    purpose: 'p1', level: 'l1', focus: 'f2', format: 'fo1'
+  },
+  {
+    label: '資産運用・節約',
+    theme: '投資初心者が実践している少額から始める資産形成の手法と、実際の成果・注意点',
+    purpose: 'p1', level: 'l1', focus: 'f2', format: 'fo3'
+  },
+  {
+    label: '人間関係・メンタル',
+    theme: '職場の人間関係ストレスを軽減するための実践的なアプローチと、心理学的に有効とされる手法',
+    purpose: 'p1', level: 'l1', focus: 'f2', format: 'fo1'
+  },
+  {
+    label: 'ライフハック・習慣化',
+    theme: '習慣化に成功した人が実践している仕組みと、科学的に効果が確認されている継続のコツ',
+    purpose: 'p1', level: 'l1', focus: 'f2', format: 'fo1'
+  }
+];
+
+function applyTemplate(idx) {
+  const t = TEMPLATES[idx];
+  document.getElementById('theme').value = t.theme;
+  document.querySelectorAll('input[name="purpose"]').forEach(r => r.checked = (r.id === t.purpose));
+  document.querySelectorAll('input[name="level"]').forEach(r => r.checked = (r.id === t.level));
+  document.querySelectorAll('input[name="focus"]').forEach(r => r.checked = (r.id === t.focus));
+  document.querySelectorAll('input[name="format"]').forEach(r => r.checked = (r.id === t.format));
+  document.querySelectorAll('.template-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+}
+
+// ===== 深さスライダー =====
+const DEPTH_DESCS = {
+  1: '概要把握（要点だけ素早く・スピード重視）',
+  2: '概要把握（要点だけ素早く・スピード重視）',
+  3: '概要把握（要点だけ素早く・スピード重視）',
+  4: '入門〜基礎理解（主要な情報を押さえる）',
+  5: '標準的な調査（記事の下調べ・ビジネス判断に最適）',
+  6: '標準的な調査（記事の下調べ・ビジネス判断に最適）',
+  7: '深掘り・網羅型（競合分析・市場調査・執筆準備に）',
+  8: '深掘り・網羅型（競合分析・市場調査・執筆準備に）',
+  9: '学術・専門レベル（一次情報源・論文を優先した詳細分析）',
+  10: '学術・専門レベル（一次情報源・論文を優先した詳細分析）'
+};
+
+function updateDepth(val) {
+  const v = parseInt(val);
+  document.getElementById('depthVal').textContent = v;
+  document.getElementById('depthDesc').textContent = DEPTH_DESCS[v];
+  const pct = ((v - 1) / 9) * 100;
+  document.getElementById('depthSlider').style.background =
+    `linear-gradient(to right, var(--google-blue) ${pct}%, var(--border) ${pct}%)`;
+}
+updateDepth(5);
+
+// ===== 深さ指示文 =====
+function getDepthInstruction(depth) {
+  if (depth <= 3) {
+    return '【調査範囲】概要把握が目的のため、要点を絞って簡潔にまとめること。詳細分析より全体像の把握を優先し、読み手が短時間で理解できる構成にすること。';
+  } else if (depth <= 6) {
+    return '';
+  } else if (depth <= 8) {
+    return '【調査の深さ】詳細かつ網羅的に調査すること。表面的な情報だけでなく、背景・経緯・専門的な詳細まで掘り下げること。複数の角度から検証し、矛盾する情報がある場合は両論を併記すること。';
+  } else {
+    return '【調査の深さ】学術・専門レベルの深掘りを行うこと。一次情報源（学術論文・公式統計・専門機関の報告書）を最優先とし、データの出典・調査方法・サンプルサイズまで明記すること。専門用語を適切に使用し、考察・分析・提言まで含めた包括的なレポートを作成すること。';
+  }
+}
+
+// ===== 共通プロンプトパーツ =====
+const MUST_RULES = `【必須ルール（厳守）】
+・情報が不確かな場合は「不明」または「要確認」と明記すること
+・推測・憶測・創作は一切含めないこと
+・すべての情報に出典元（URL・媒体名）を明記すること
+・断定できない情報は「〜とされています」「〜と報告されています」と表現すること
+・2023年以前の古い情報を使用する場合はその旨を明記すること
+・矛盾する情報が複数ある場合は両論を併記すること`;
+
+const REPORT_STRUCTURE = `【レポート構成】
+1. エグゼクティブサマリー（要点を3〜5行で）
+2. 調査結果の詳細（上記形式に従って整理）
+3. 信頼性の高いソースのまとめ
+4. 注意点・不明点・要確認事項`;
+
+// ===== プロンプト生成 =====
+function generatePrompts() {
+  const theme = document.getElementById('theme').value.trim();
+  const purpose = document.querySelector('input[name="purpose"]:checked');
+  const level = document.querySelector('input[name="level"]:checked');
+  const focus = document.querySelector('input[name="focus"]:checked');
+  const format = document.querySelector('input[name="format"]:checked');
+  const depth = parseInt(document.getElementById('depthSlider').value);
+  const custom = document.getElementById('custom').value.trim();
+
+  if (!theme) { alert('調査テーマを入力してください'); return; }
+  if (!purpose || !level || !focus || !format) { alert('②〜⑤の項目をすべて選択してください'); return; }
+
+  const depthInstruction = getDepthInstruction(depth);
+  const customSection = custom ? `\n【追加指示】\n${custom}` : '';
+  const depthSection = depthInstruction ? `\n${depthInstruction}` : '';
+
+  // 案A：スタンダード
+  const promptA = [
+    `【調査テーマ】\n${theme}`,
+    `【調査の目的】\n${purpose.value}`,
+    `【対象読者】\n${level.value}`,
+    `【重視する観点】\n${focus.value}`,
+    `【出力形式】\n${format.value}`,
+    depthSection,
+    customSection,
+    MUST_RULES,
+    REPORT_STRUCTURE
+  ].filter(Boolean).join('\n\n');
+
+  // 案B：多角的分析
+  const promptB = [
+    `【調査テーマ】\n${theme}`,
+    `【調査の目的】\n${purpose.value}`,
+    `【対象読者】\n${level.value}`,
+    `【重視する観点】\n${focus.value}（複数の視点・立場・地域・時系列から比較対照すること）`,
+    `【出力形式】\n${format.value}`,
+    depthSection,
+    `【多角的分析の指示】\n・少なくとも3つ以上の異なる視点・立場から情報を収集・整理すること\n・国内外の事例を比較すること（可能な場合）\n・時系列の変化（過去〜現在〜今後の見通し）を含めること\n・専門家・実践者・一般ユーザーそれぞれの見解を整理すること`,
+    customSection,
+    MUST_RULES,
+    REPORT_STRUCTURE
+  ].filter(Boolean).join('\n\n');
+
+  // 案C：課題発見型
+  const promptC = [
+    `【調査テーマ】\n${theme}`,
+    `【調査の目的】\n${purpose.value}`,
+    `【対象読者】\n${level.value}`,
+    `【重視する観点】\n問題点・リスク・懸念点の発見と整理`,
+    `【出力形式】\n${format.value}`,
+    depthSection,
+    `【課題発見型調査の指示】\n・このテーマにおける主要な課題・問題点・リスクを優先的に収集すること\n・「うまくいかなかった事例」「失敗事例」も積極的に収集すること\n・潜在的なリスクや見落とされがちな落とし穴を明示すること\n・「よく言われているが実は違う」という通説の検証も行うこと\n・対策・解決策とセットで整理すること`,
+    customSection,
+    MUST_RULES,
+    REPORT_STRUCTURE
+  ].filter(Boolean).join('\n\n');
+
+  document.getElementById('resultBox0').textContent = promptA;
+  document.getElementById('resultBox1').textContent = promptB;
+  document.getElementById('resultBox2').textContent = promptC;
+
+  const resultArea = document.getElementById('resultArea');
+  resultArea.classList.add('show');
+  switchTab(0);
+  resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  ['copyBtn0','copyBtn1','copyBtn2'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.textContent = '📋 コピーする';
+    btn.classList.remove('copied');
+  });
+
+  // 履歴に保存
+  saveHistory(theme);
+}
+
+// ===== タブ切り替え =====
+function switchTab(idx) {
+  document.querySelectorAll('.result-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.result-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+}
+
+// ===== コピー =====
+function copyPrompt(idx) {
+  const text = document.getElementById('resultBox' + idx).textContent;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn' + idx);
+    btn.textContent = '✅ コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 コピーする';
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+
+// ===== 生成履歴 =====
+function saveHistory(theme) {
+  let history = JSON.parse(localStorage.getItem('drHistory') || '[]');
+  const entry = {
+    time: new Date().toLocaleString('ja-JP', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+    theme: theme,
+    prompts: [
+      document.getElementById('resultBox0').textContent,
+      document.getElementById('resultBox1').textContent,
+      document.getElementById('resultBox2').textContent
+    ]
+  };
+  history.unshift(entry);
+  if (history.length > 10) history = history.slice(0, 10);
+  localStorage.setItem('drHistory', JSON.stringify(history));
+  renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  const history = JSON.parse(localStorage.getItem('drHistory') || '[]');
+  if (history.length === 0) {
+    list.innerHTML = '<div class="history-empty">まだ生成履歴がありません</div>';
+    return;
+  }
+  list.innerHTML = history.map((entry, idx) => `
+    <div class="history-item" onclick="restoreHistory(${idx})">
+      <div class="history-time">${entry.time}</div>
+      <div class="history-theme">${entry.theme}</div>
+    </div>
+  `).join('');
+}
+
+function restoreHistory(idx) {
+  const history = JSON.parse(localStorage.getItem('drHistory') || '[]');
+  const entry = history[idx];
+  if (!entry) return;
+  document.getElementById('theme').value = entry.theme;
+  document.getElementById('resultBox0').textContent = entry.prompts[0] || '';
+  document.getElementById('resultBox1').textContent = entry.prompts[1] || '';
+  document.getElementById('resultBox2').textContent = entry.prompts[2] || '';
+  const resultArea = document.getElementById('resultArea');
+  resultArea.classList.add('show');
+  switchTab(0);
+  resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function clearHistory() {
+  if (!confirm('生成履歴をすべて削除しますか？')) return;
+  localStorage.removeItem('drHistory');
+  renderHistory();
+}
+
+// 初期化
+renderHistory();
+</script>
+
+</body>
+</html>

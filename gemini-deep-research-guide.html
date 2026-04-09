@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Gemini Deep Research 完全活用ガイド | 元飲食店店長サム</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --google-blue: #1a73e8;
+    --google-red: #ea4335;
+    --google-yellow: #fbbc04;
+    --google-green: #34a853;
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --surface2: #f1f3f4;
+    --border: #e0e0e0;
+    --text: #202124;
+    --text-muted: #5f6368;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06);
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ヘッダー */
+  .hero {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    color: white;
+    padding: 60px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.07) 0%, transparent 50%),
+                radial-gradient(circle at 70% 20%, rgba(251,188,4,0.10) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span {
+    color: #fbbc04;
+  }
+
+  .hero p {
+    font-size: clamp(14px, 2.5vw, 17px);
+    opacity: 0.88;
+    max-width: 560px;
+    margin: 0 auto 28px;
+  }
+
+  .hero-tags {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-tag {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ナビ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+
+  .nav-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    display: block;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--google-blue);
+    border-bottom-color: var(--google-blue);
+  }
+
+  /* メインコンテンツ */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* セクション */
+  .section {
+    margin-bottom: 56px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .section-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .section-dot.blue { background: var(--google-blue); }
+  .section-dot.red { background: var(--google-red); }
+  .section-dot.yellow { background: var(--google-yellow); }
+  .section-dot.green { background: var(--google-green); }
+
+  .section-title {
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  /* カード */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  /* 比較テーブル */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+
+  .compare-table th {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--surface2);
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-table th:first-child { width: 30%; }
+
+  .compare-table td {
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: #fafafa; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .badge-blue { background: #e8f0fe; color: var(--google-blue); }
+  .badge-green { background: #e6f4ea; color: var(--google-green); }
+  .badge-red { background: #fce8e6; color: var(--google-red); }
+
+  /* ステップ */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+
+  .step:last-child { padding-bottom: 0; }
+
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--google-blue), var(--border));
+  }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--google-blue);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+  }
+
+  .step-content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    padding-top: 8px;
+  }
+
+  .step-content p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* 注意喚起 */
+  .alert {
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .alert-warning {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+  }
+
+  .alert-info {
+    background: #e8f0fe;
+    border: 1px solid #c5d8fc;
+  }
+
+  .alert-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .alert-body h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .alert-body p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* 活用事例 */
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .case-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .case-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .case-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .case-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .case-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ===== プロンプトジェネレーター ===== */
+  .generator-wrap {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    border-radius: 20px;
+    padding: 3px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .generator {
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 36px 32px;
+  }
+
+  .generator-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .generator-header h2 {
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .generator-header p {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .form-group {
+    margin-bottom: 22px;
+  }
+
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .form-label-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--google-blue);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+
+  .form-input:focus {
+    border-color: var(--google-blue);
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+    background: white;
+  }
+
+  .radio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+  }
+
+  .radio-option {
+    position: relative;
+  }
+
+  .radio-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--bg);
+    user-select: none;
+  }
+
+  .radio-label:hover {
+    border-color: var(--google-blue);
+    background: #e8f0fe;
+  }
+
+  .radio-option input:checked + .radio-label {
+    border-color: var(--google-blue);
+    background: #e8f0fe;
+    color: var(--google-blue);
+    font-weight: 700;
+  }
+
+  .radio-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .radio-option input:checked + .radio-label .radio-dot {
+    border-color: var(--google-blue);
+    background: var(--google-blue);
+    box-shadow: inset 0 0 0 3px white;
+  }
+
+  /* 生成ボタン */
+  .btn-generate {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #1a73e8, #1565c0);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 12px rgba(26,115,232,0.35);
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+  }
+
+  .btn-generate:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(26,115,232,0.45);
+  }
+
+  .btn-generate:active {
+    transform: translateY(0);
+  }
+
+  /* 生成結果 */
+  .result-area {
+    margin-top: 28px;
+    display: none;
+  }
+
+  .result-area.show { display: block; }
+
+  .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .result-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .btn-copy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: var(--google-green);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-copy:hover { background: #2e7d32; }
+  .btn-copy.copied { background: #757575; }
+
+  .result-box {
+    background: #f8fafe;
+    border: 1.5px solid #c5d8fc;
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 380px;
+    overflow-y: auto;
+  }
+
+  .result-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ロック機能（完全版） */
+  .locked-section {
+    margin-top: 28px;
+    border: 1.5px dashed #c5d8fc;
+    border-radius: var(--radius);
+    padding: 20px;
+    background: #f8fafe;
+  }
+  .locked-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .locked-header-icon { font-size: 16px; }
+  .locked-header-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .locked-header-sub {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--google-blue);
+    background: #e8f0fe;
+    border-radius: 100px;
+    padding: 3px 10px;
+  }
+  .locked-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .locked-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    opacity: 0.65;
+  }
+  .locked-badge-icon { font-size: 14px; flex-shrink: 0; }
+  .locked-badge-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .locked-badge-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 4px;
+  }
+
+  /* LINE CTA */
+  .cta-wrap {
+    background: linear-gradient(135deg, #00b900 0%, #00a000 100%);
+    border-radius: 20px;
+    padding: 36px 32px;
+    text-align: center;
+    color: white;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-wrap::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+
+  .cta-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 5px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+  }
+
+  .cta-wrap h3 {
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-wrap p {
+    font-size: 14px;
+    opacity: 0.88;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .cta-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .cta-feature {
+    background: rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .btn-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: #00b900;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .btn-line:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  /* フッター */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--surface);
+  }
+
+  .footer strong { color: var(--text); }
+
+  /* TOPボタン */
+  .top-btn {
+    display: block;
+    margin: 28px 0 0 auto;
+    padding: 8px 22px;
+    background: transparent;
+    color: var(--google-blue);
+    border: 1.5px solid var(--google-blue);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s;
+    width: fit-content;
+  }
+  .top-btn:hover {
+    background: var(--google-blue);
+    color: #fff;
+  }
+
+  /* ツールチップ */
+  .tt {
+    border-bottom: 1.5px dotted var(--text-muted);
+    cursor: help;
+    position: relative;
+    display: inline;
+  }
+  .tt::after {
+    content: attr(data-tt);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #202124;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding: 7px 11px;
+    border-radius: 6px;
+    white-space: nowrap;
+    max-width: 240px;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+  .tt:hover::after { opacity: 1; }
+
+  /* Coconalaバナー */
+  .coconala-banner {
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    color: #fff;
+    margin: 0 24px 48px;
+    box-shadow: 0 8px 28px rgba(124,58,237,0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  .coconala-banner::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+  .coconala-banner-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    margin-bottom: 14px;
+  }
+  .coconala-banner h3 {
+    font-size: clamp(16px, 2.8vw, 21px);
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .coconala-banner p {
+    font-size: 13px;
+    opacity: 0.88;
+    line-height: 1.75;
+    margin-bottom: 22px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-coconala {
+    display: inline-block;
+    background: #fff;
+    color: #7c3aed;
+    text-decoration: none;
+    padding: 13px 32px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+  }
+  .btn-coconala:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 600px) {
+    .generator { padding: 24px 20px; }
+    .radio-grid { grid-template-columns: 1fr 1fr; }
+    .compare-table th, .compare-table td { padding: 10px 14px; }
+    .cta-wrap { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-badge">🔍 無料ガイド ver.1.0</div>
+  <h1>Gemini <span>Deep Research</span><br>完全活用ガイド</h1>
+  <p>AIが数百のサイトを自動調査。プロンプト生成ツール付きで、今すぐ使いこなせる。</p>
+  <div class="hero-tags">
+    <span class="hero-tag">📖 基本解説</span>
+    <span class="hero-tag">⚡ 使い方ステップ</span>
+    <span class="hero-tag">🛠️ プロンプト自動生成</span>
+    <span class="hero-tag">⚠️ ハルシネーション対策</span>
+  </div>
+</div>
+
+<!-- ナビ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#what" class="nav-link">Deep Researchとは</a>
+    <a href="#diff" class="nav-link">通常との違い</a>
+    <a href="#howto" class="nav-link">使い方</a>
+    <a href="#cases" class="nav-link">活用事例</a>
+    <a href="#caution" class="nav-link">注意点</a>
+    <a href="#generator" class="nav-link">🛠️ プロンプト生成</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- Section 1: Deep Researchとは -->
+  <section class="section" id="what">
+    <div class="section-label">
+      <div class="section-dot blue"></div>
+      <h2 class="section-title">Deep Researchとは何か？</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🤖 一言でいうと</div>
+      <p>「<strong>AIが自分の代わりにネット中を調査して、まとまったレポートを数分で作ってくれる機能</strong>」です。テーマを入力するだけで、数百のウェブサイトを横断的に調べ、出典付きの詳細レポートを自動生成します。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🧠 仕組みの3ステップ</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>調査計画を自動立案</h3>
+            <p>テーマを細かいサブタスクに分解し、どの順番で何を調べるかの計画をユーザーに提示します。計画はその場で編集・修正できます。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>自律的にWeb全体を巡回</h3>
+            <p>学術論文・ニュース・公式サイトなど、数十〜数百のページを自動収集。信頼性・新鮮さ・網羅性を評価しながら情報を選別します。画面を閉じていても調査は続きます。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>出典付きレポートを生成</h3>
+            <p>章立ての詳細レポートが完成。各情報の出典元リンクも明記されるため、一次ソースへのアクセスも簡単です。Googleドキュメントへのエクスポートにも対応。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 2: 通常チャットとの違い -->
+  <section class="section" id="diff">
+    <div class="section-label">
+      <div class="section-dot red"></div>
+      <h2 class="section-title">通常チャットとの違い</h2>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>通常Geminiチャット</th>
+            <th>Deep Research</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>速さ</strong></td>
+            <td>数秒</td>
+            <td>数分（調査に時間をかける）</td>
+          </tr>
+          <tr>
+            <td><strong>目的</strong></td>
+            <td>即答・会話</td>
+            <td>深掘り調査・レポート生成</td>
+          </tr>
+          <tr>
+            <td><strong>情報量</strong></td>
+            <td>要点を絞って回答</td>
+            <td>数十〜数百サイトを横断</td>
+          </tr>
+          <tr>
+            <td><strong>出力形式</strong></td>
+            <td>テキスト回答</td>
+            <td>章立ての詳細レポート</td>
+          </tr>
+          <tr>
+            <td><strong>出典</strong></td>
+            <td>△ 不明確な場合あり</td>
+            <td>✅ 全情報に出典リンク付き</td>
+          </tr>
+          <tr>
+            <td><strong>向いている用途</strong></td>
+            <td>簡単な質問・アイデア出し</td>
+            <td>市場調査・競合分析・学習</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 3: 使い方 -->
+  <section class="section" id="howto">
+    <div class="section-label">
+      <div class="section-dot yellow"></div>
+      <h2 class="section-title">使い方ステップ</h2>
+    </div>
+
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Geminiを開き「Deep Research」を選択</h3>
+            <p>gemini.google.com にアクセス。プロンプト入力欄の下にある「<span class="tt" data-tt="Gemini のAIリサーチ機能。複数のWebサイトを自動巡回し、出典付きレポートを自動生成する。">Deep Research</span>」ボタンをクリック、または左上のモデル選択から選びます。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>調査内容を入力する</h3>
+            <p>調べたいテーマをできるだけ具体的に入力します。「誰が・何のために・どんな情報が欲しいか」を盛り込むと精度が上がります。下のプロンプト生成ツールも活用してください。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>リサーチ計画を確認・編集</h3>
+            <p>GeminiがAI計画を提示します。不足している観点があれば「計画を編集」から修正可能。問題なければ「<span class="tt" data-tt="調査の開始を指示するボタン。押すと自動で複数サイトの巡回・情報収集が始まる。">リサーチを開始</span>」を押します。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>待つだけでレポート完成</h3>
+            <p>数分でレポートが完成します。調査中は画面を閉じても問題ありません。完成後はGoogleドキュメントへのエクスポートも可能です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <div class="alert-icon">💡</div>
+      <div class="alert-body">
+        <h4>無料版でも使えます</h4>
+        <p>2025年3月より無料ユーザーにも開放されました。無料版は月5〜10回程度、有料版（<span class="tt" data-tt="Googleの有料プラン（月額制）。Gemini 2.5 Proが使え、Deep Researchの利用回数が大幅に増える。">Google AI Pro</span>）は月最大20回以上利用できます。</p>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 4: 活用事例 -->
+  <section class="section" id="cases">
+    <div class="section-label">
+      <div class="section-dot green"></div>
+      <h2 class="section-title">こんな場面で使える</h2>
+    </div>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <span class="case-icon">📊</span>
+        <h3>市場・競合調査</h3>
+        <p>業界のトレンドや競合他社の動向を網羅的に調査。手動で何時間もかかる作業が数分で完了します。</p>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">✍️</span>
+        <h3>記事・コンテンツ制作</h3>
+        <p>ブログ・note・Kindle記事の下調べに最適。信頼性の高い情報を出典付きで一気に収集できます。</p>
+      </div>
+      <div class="case-card">
+        <span class="case-icon">📚</span>
+        <h3>新しい分野の学習</h3>
+        <p>知らない分野を素早く把握したいときに。概要から専門知識まで体系的にまとめてくれます。</p>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- Section 5: 注意点（ハルシネーション） -->
+  <section class="section" id="caution">
+    <div class="section-label">
+      <div class="section-dot red"></div>
+      <h2 class="section-title">⚠️ 必ず知っておくべき注意点</h2>
+    </div>
+
+    <div class="alert alert-warning">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <h4><span class="tt" data-tt="AIが事実と異なる情報を自信をもって生成してしまう現象。出典確認が必須。">ハルシネーション</span>（AI幻覚）に注意</h4>
+        <p>Deep Researchは多くのサイトを参照しますが、<strong>情報が古い・不正確・存在しない事実を生成する</strong>ことがあります。特に数値・統計・人物情報は、必ず<span class="tt" data-tt="公式サイト・学術論文・政府機関など、情報の発信元となる一次的な情報源のこと。">一次ソース</span>（公式サイト・論文など）で確認してください。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🛡️ ハルシネーションを減らす3つのコツ</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>プロンプトで「不明な場合は明記して」と指示する</h3>
+            <p>「情報が不確かな場合は『不明』と記載してください」という指示をプロンプトに含めることで、AIが推測で答えにくくなります。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>出典リンクを必ず確認する</h3>
+            <p>レポートに付属する出典リンクを開いて、本当にその情報が書かれているか確認する習慣をつけましょう。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>重要な情報は専門家に確認</h3>
+            <p>医療・法律・税務・投資など重要な判断に使う情報は、必ず専門家のチェックを経てください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ TOPに戻る</a>
+  </section>
+
+  <!-- プロンプトジェネレーター -->
+  <section class="section" id="generator">
+    <div class="section-label">
+      <div class="section-dot blue"></div>
+      <h2 class="section-title">🛠️ Deep Research プロンプト生成ツール</h2>
+    </div>
+
+    <div class="generator-wrap">
+      <div class="generator">
+        <div class="generator-header">
+          <h2>5項目を選ぶだけで最適プロンプトを自動生成</h2>
+          <p>生成されたプロンプトをそのままDeep Researchに貼り付けるだけでOK</p>
+        </div>
+
+        <!-- ① テーマ -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">1</div>
+            調査テーマを入力してください
+          </div>
+          <textarea id="theme" class="form-input" rows="2" placeholder="例：2025年の日本における生成AI市場の動向と主要プレイヤー"></textarea>
+        </div>
+
+        <!-- ② 目的 -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">2</div>
+            調査の目的は何ですか？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p1" value="自分が学ぶため（個人的な学習・理解の深化）">
+              <label class="radio-label" for="p1"><span class="radio-dot"></span>自分が学ぶため</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p2" value="記事・コンテンツを作るため（ブログ・note・Kindle等）">
+              <label class="radio-label" for="p2"><span class="radio-dot"></span>記事・コンテンツ制作</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p3" value="ビジネス判断・意思決定のため（企画・提案・戦略立案）">
+              <label class="radio-label" for="p3"><span class="radio-dot"></span>ビジネス判断のため</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="purpose" id="p4" value="人に説明・共有するため（プレゼン・レポート・資料作成）">
+              <label class="radio-label" for="p4"><span class="radio-dot"></span>人に説明・共有するため</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ 対象読者 -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">3</div>
+            レポートを読む人のレベルは？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="level" id="l1" value="初心者向け（専門用語は避け、わかりやすい言葉で説明すること）">
+              <label class="radio-label" for="l1"><span class="radio-dot"></span>初心者向け</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="level" id="l2" value="中級者向け（基本的な知識はあるため、専門用語も適宜使用可）">
+              <label class="radio-label" for="l2"><span class="radio-dot"></span>中級者向け</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="level" id="l3" value="専門家向け（高度な専門用語・技術的詳細を含めた詳細な分析）">
+              <label class="radio-label" for="l3"><span class="radio-dot"></span>専門家向け</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ④ 重視すること -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">4</div>
+            特に重視してほしいことは？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f1" value="最新情報を優先（できるだけ新しい情報・直近のデータを重点的に収集すること）">
+              <label class="radio-label" for="f1"><span class="radio-dot"></span>最新情報</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f2" value="具体的な事例・実例（抽象論より実際の事例・ケーススタディを中心に）">
+              <label class="radio-label" for="f2"><span class="radio-dot"></span>具体的な事例</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f3" value="データ・数字・統計（定量的な根拠・数値データを重点的に収集すること）">
+              <label class="radio-label" for="f3"><span class="radio-dot"></span>データ・数字</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="focus" id="f4" value="全体像・概要（詳細より全体像の把握・体系的な理解を優先すること）">
+              <label class="radio-label" for="f4"><span class="radio-dot"></span>全体の概要</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑤ 出力形式 -->
+        <div class="form-group">
+          <div class="form-label">
+            <div class="form-label-num">5</div>
+            レポートの形式は？
+          </div>
+          <div class="radio-grid">
+            <div class="radio-option">
+              <input type="radio" name="format" id="fo1" value="箇条書き中心（ポイントを整理し、箇条書きを多用した読みやすい形式）">
+              <label class="radio-label" for="fo1"><span class="radio-dot"></span>箇条書き中心</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="format" id="fo2" value="文章中心（流れるような文章形式で、論理的・体系的にまとめること）">
+              <label class="radio-label" for="fo2"><span class="radio-dot"></span>文章中心</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="format" id="fo3" value="比較表あり（可能な限り比較表・対照表を使って情報を整理すること）">
+              <label class="radio-label" for="fo3"><span class="radio-dot"></span>比較表あり</label>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-generate" onclick="generatePrompt()">
+          ✨ プロンプトを生成する
+        </button>
+
+        <!-- 生成結果エリア -->
+        <div class="result-area" id="resultArea">
+          <div class="result-header">
+            <div class="result-title">📋 生成されたプロンプト</div>
+            <button class="btn-copy" id="copyBtn" onclick="copyPrompt()">
+              📋 コピーする
+            </button>
+          </div>
+          <div class="result-box" id="resultBox"></div>
+          <div class="result-note">
+            ℹ️ このプロンプトをそのままGemini Deep Researchに貼り付けてご利用ください
+          </div>
+        </div>
+
+        <!-- ロックされた完全版機能 -->
+        <div class="locked-section">
+          <div class="locked-header">
+            <span class="locked-header-icon">🔒</span>
+            <span class="locked-header-text">完全版で解放される機能</span>
+            <span class="locked-header-sub">公式LINE登録で無料プレゼント</span>
+          </div>
+          <div class="locked-badges">
+            <div class="locked-badge">
+              <span class="locked-badge-icon">🔒</span>
+              <span class="locked-badge-label">調査の深さ（10段階）</span>
+              <span class="locked-badge-desc">概要把握から専門レベルまで調整可能</span>
+            </div>
+            <div class="locked-badge">
+              <span class="locked-badge-icon">🔒</span>
+              <span class="locked-badge-label">プロンプト3案比較生成</span>
+              <span class="locked-badge-desc">スタンダード・多角的・課題発見型を同時生成</span>
+            </div>
+            <div class="locked-badge">
+              <span class="locked-badge-icon">🔒</span>
+              <span class="locked-badge-label">業種別テンプレート10種以上</span>
+              <span class="locked-badge-desc">クリックするだけで5項目が自動入力</span>
+            </div>
+            <div class="locked-badge">
+              <span class="locked-badge-icon">🔒</span>
+              <span class="locked-badge-label">カスタム追加指示</span>
+              <span class="locked-badge-desc">「日本国内のみ」など自由に指示を追加</span>
+            </div>
+            <div class="locked-badge">
+              <span class="locked-badge-icon">🔒</span>
+              <span class="locked-badge-label">生成履歴の保存（最大10件）</span>
+              <span class="locked-badge-desc">過去のプロンプトをワンクリックで復元</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LINE CTA -->
+  <section class="section">
+    <div class="cta-wrap">
+      <div class="cta-badge">🎁 無料プレゼント</div>
+      <h3>完全版を無料でゲットする</h3>
+      <p>公式LINEに登録するだけで、すべての機能が解放された<br>完全版ツールをプレゼントします。</p>
+      <div class="cta-features">
+        <span class="cta-feature">✅ 深さ10段階調整</span>
+        <span class="cta-feature">✅ 3案比較生成</span>
+        <span class="cta-feature">✅ 業種別テンプレート10種以上</span>
+        <span class="cta-feature">✅ 保存・履歴機能</span>
+      </div>
+      <a href="https://lin.ee/nzuwOrG" target="_blank" class="btn-line">
+        <svg width="22" height="22" viewBox="0 0 48 48" fill="none"><path d="M24 4C12.95 4 4 11.82 4 21.4c0 5.38 2.78 10.18 7.14 13.45-.31 1.15-2.01 7.41-2.09 7.87 0 0-.04.34.18.47.22.13.47.04.47.04.62-.09 7.18-4.7 8.39-5.51A23.2 23.2 0 0024 38.8C35.05 38.8 44 30.98 44 21.4 44 11.82 35.05 4 24 4z" fill="white"/><path d="M37.5 25.2H31.8a.6.6 0 01-.6-.6v-8.4a.6.6 0 01.6-.6h.9a.6.6 0 01.6.6v6.9h4.2a.6.6 0 01.6.6v.9a.6.6 0 01-.6.6zM28.8 25.2h-.9a.6.6 0 01-.6-.6v-8.4a.6.6 0 01.6-.6h.9a.6.6 0 01.6.6v8.4a.6.6 0 01-.6.6zM25.62 25.2h-.9a.6.6 0 01-.49-.25l-4.83-6.52v6.17a.6.6 0 01-.6.6h-.9a.6.6 0 01-.6-.6v-8.4a.6.6 0 01.6-.6h.93c.2 0 .38.1.49.25l4.8 6.48V16.2a.6.6 0 01.6-.6h.9a.6.6 0 01.6.6v8.4a.6.6 0 01-.6.6zM14.7 25.2h-5.4a.6.6 0 01-.6-.6v-8.4a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v.9a.6.6 0 01-.6.6h-3.9v1.8h3.9a.6.6 0 01.6.6v.9a.6.6 0 01-.6.6h-3.9v1.8h3.9a.6.6 0 01.6.6v.9a.6.6 0 01-.6.6z" fill="#00b900"/></svg>
+        公式LINEで完全版を受け取る
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- Coconalaバナー -->
+<div class="coconala-banner">
+  <div class="coconala-banner-label">HTML解説書 制作サービス</div>
+  <h3>あなた専用のHTML解説書を<br>プロに丸ごとお任せ</h3>
+  <p>「自分のビジネスに合った解説ガイドが欲しい」という方へ。<br>元飲食店店長サムがCoconalaでHTML制作を承っています。</p>
+  <a href="https://coconala.com/services/3034205" target="_blank" class="btn-coconala">Coconalaでサービスを見る</a>
+</div>
+
+<!-- フッター -->
+<div class="footer">
+  <p>作成：<strong>元飲食店店長サム</strong>｜このツールはGemini Deep Researchの学習・活用を目的として作成されています。</p>
+  <p style="margin-top:6px;">情報の正確性については最新の公式情報をご確認ください。</p>
+</div>
+
+<script>
+function generatePrompt() {
+  const theme = document.getElementById('theme').value.trim();
+  const purpose = document.querySelector('input[name="purpose"]:checked');
+  const level = document.querySelector('input[name="level"]:checked');
+  const focus = document.querySelector('input[name="focus"]:checked');
+  const format = document.querySelector('input[name="format"]:checked');
+
+  if (!theme) {
+    alert('調査テーマを入力してください');
+    return;
+  }
+  if (!purpose || !level || !focus || !format) {
+    alert('すべての項目を選択してください');
+    return;
+  }
+
+  const prompt = `【調査テーマ】
+${theme}
+
+【調査の目的】
+${purpose.value}
+
+【対象読者】
+${level.value}
+
+【重視する観点】
+${focus.value}
+
+【出力形式】
+${format.value}
+
+【必須ルール（厳守）】
+・情報が不確かな場合は「不明」または「要確認」と明記すること
+・推測・憶測・創作は一切含めないこと
+・すべての情報に出典元（URL・媒体名）を明記すること
+・断定できない情報は「〜とされています」「〜と報告されています」と表現すること
+・2023年以前の古い情報を使用する場合はその旨を明記すること
+・矛盾する情報が複数ある場合は両論を併記すること
+
+【レポート構成】
+1. エグゼクティブサマリー（要点を3〜5行で）
+2. 調査結果の詳細（上記形式に従って整理）
+3. 信頼性の高いソースのまとめ
+4. 注意点・不明点・要確認事項`;
+
+  document.getElementById('resultBox').textContent = prompt;
+  const resultArea = document.getElementById('resultArea');
+  resultArea.classList.add('show');
+  resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  const copyBtn = document.getElementById('copyBtn');
+  copyBtn.textContent = '📋 コピーする';
+  copyBtn.classList.remove('copied');
+}
+
+function copyPrompt() {
+  const text = document.getElementById('resultBox').textContent;
+  if (!text) return;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✅ コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 コピーする';
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+</script>
+
+</body>
+</html>
