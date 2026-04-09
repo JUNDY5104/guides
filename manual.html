@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FX AI AGENT / OPERATION MANUAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #00ff9d;
+  --amber: #ffd60a;
+  --red: #ff4d6d;
+  --blue: #3d7abf;
+  --dim: #3d5166;
+  --bg: #060810;
+  --panel: #0d1117;
+  --border: #1e2d40;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: #c8d8e8;
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* スキャンライン */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* グリッド背景 */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,157,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,157,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+/* ======= ヘッダー ======= */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0 16px;
+  margin-bottom: 40px;
+  position: relative;
+  animation: fadeDown 0.6s ease both;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.classified {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 3px 10px;
+  animation: blink 2s step-end infinite;
+}
+
+.doc-id { color: var(--dim); font-size: 11px; letter-spacing: 2px; }
+
+.main-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(22px, 5vw, 38px);
+  font-weight: 900;
+  color: var(--green);
+  letter-spacing: 4px;
+  line-height: 1.1;
+  text-shadow: 0 0 30px rgba(0,255,157,0.4);
+  position: relative;
+}
+
+.main-title::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+}
+
+.sub-title {
+  font-size: 12px;
+  color: var(--dim);
+  letter-spacing: 3px;
+  margin-top: 8px;
+}
+
+.status-bar {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.status-item { display: flex; align-items: center; gap: 8px; }
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: pulse 2s infinite;
+}
+.status-label { font-size: 10px; color: var(--dim); letter-spacing: 2px; }
+.status-val { font-size: 10px; color: var(--green); letter-spacing: 1px; }
+
+/* ======= ブートシーケンス ======= */
+.boot-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  padding: 16px 20px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.boot-line {
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+.boot-line span { color: var(--green); }
+.boot-line.amber span { color: var(--amber); }
+
+/* ======= セクション共通 ======= */
+.section { margin-bottom: 48px; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  color: var(--bg);
+  background: var(--green);
+  padding: 4px 10px;
+  letter-spacing: 2px;
+}
+
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  color: var(--green);
+  letter-spacing: 3px;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+/* ======= ステップカード ======= */
+.steps { display: flex; flex-direction: column; gap: 12px; }
+
+.step {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 20px 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.step::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--green);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease;
+}
+
+.step:hover { border-color: rgba(0,255,157,0.3); }
+.step:hover::before { transform: scaleY(1); }
+
+.step-num {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: rgba(0,255,157,0.15);
+  line-height: 1;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+
+.step-content { flex: 1; }
+
+.step-tag {
+  font-size: 9px;
+  color: var(--blue);
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+
+.step-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: #e0e6f0;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: #6a7f94;
+  line-height: 1.8;
+}
+
+.step-desc em {
+  color: var(--amber);
+  font-style: normal;
+}
+
+.step-desc code {
+  background: #060810;
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  color: var(--green);
+  font-size: 11px;
+}
+
+/* ======= 入力フィールド説明 ======= */
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media(max-width: 560px) { .field-grid { grid-template-columns: 1fr; } }
+
+.field-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  transition: border-color 0.3s;
+}
+
+.field-item:hover { border-color: rgba(0,255,157,0.2); }
+
+.field-name {
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+.badge.req { background: rgba(255,77,109,0.2); color: var(--red); border: 1px solid rgba(255,77,109,0.4); }
+.badge.opt { background: rgba(61,122,191,0.2); color: var(--blue); border: 1px solid rgba(61,122,191,0.4); }
+
+.field-desc { font-size: 11px; color: #6a7f94; line-height: 1.6; }
+
+/* ======= 結果説明 ======= */
+.result-grid { display: flex; flex-direction: column; gap: 10px; }
+
+.result-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 16px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.result-badge {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  padding: 4px 10px;
+  letter-spacing: 2px;
+  min-width: 110px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.rb-green { background: rgba(0,255,157,0.1); color: var(--green); border: 1px solid rgba(0,255,157,0.3); }
+.rb-amber { background: rgba(255,214,10,0.1); color: var(--amber); border: 1px solid rgba(255,214,10,0.3); }
+.rb-red   { background: rgba(255,77,109,0.1); color: var(--red);   border: 1px solid rgba(255,77,109,0.3); }
+.rb-blue  { background: rgba(61,122,191,0.1); color: var(--blue);  border: 1px solid rgba(61,122,191,0.3); }
+
+.result-desc { font-size: 12px; color: #6a7f94; line-height: 1.6; }
+
+/* ======= 注意事項 ======= */
+.notice-box {
+  background: rgba(255,214,10,0.04);
+  border: 1px solid rgba(255,214,10,0.2);
+  border-left: 3px solid var(--amber);
+  padding: 20px 24px;
+}
+
+.notice-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.notice-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.notice-list li { font-size: 12px; color: #6a7f94; padding-left: 16px; position: relative; line-height: 1.7; }
+.notice-list li::before { content: '//'; position: absolute; left: 0; color: var(--amber); }
+
+/* ======= フッター ======= */
+footer {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-brand { font-family: 'Orbitron', sans-serif; font-size: 10px; color: var(--dim); letter-spacing: 2px; }
+.footer-copy { font-size: 10px; color: var(--dim); }
+
+/* アニメーション */
+.section { animation: fadeUp 0.5s ease both; }
+.section:nth-child(1) { animation-delay: 0.3s; }
+.section:nth-child(2) { animation-delay: 0.45s; }
+.section:nth-child(3) { animation-delay: 0.6s; }
+.section:nth-child(4) { animation-delay: 0.75s; }
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(16px)}  to{opacity:1;transform:translateY(0)} }
+@keyframes pulse    { 0%,100%{opacity:1} 50%{opacity:0.3} }
+@keyframes blink    { 0%,100%{opacity:1} 50%{opacity:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ヘッダー -->
+<header>
+  <div class="header-top">
+    <span class="classified">▌ OPERATION MANUAL</span>
+    <span class="doc-id">DOC-FX-AGENT-001</span>
+  </div>
+  <div class="main-title">FX AI AGENT</div>
+  <div class="sub-title">POWERED BY GEMINI AI / USER GUIDE v1.0</div>
+  <div class="status-bar">
+    <div class="status-item">
+      <div class="status-dot"></div>
+      <span class="status-label">STATUS</span>
+      <span class="status-val">ONLINE</span>
+    </div>
+    <div class="status-item">
+      <div class="status-dot" style="background:var(--amber);box-shadow:0 0 6px var(--amber)"></div>
+      <span class="status-label">MODE</span>
+      <span class="status-val" style="color:var(--amber)">MANUAL INPUT</span>
+    </div>
+    <div class="status-item">
+      <div class="status-dot" style="background:var(--blue);box-shadow:0 0 6px var(--blue)"></div>
+      <span class="status-label">ENGINE</span>
+      <span class="status-val" style="color:var(--blue)">GEMINI-1.5-PRO</span>
+    </div>
+  </div>
+</header>
+
+<!-- ブートログ -->
+<div class="boot-box">
+  <div class="boot-line">&gt; SYSTEM INIT... <span>OK</span></div>
+  <div class="boot-line">&gt; AI ENGINE CONNECTED... <span>OK</span></div>
+  <div class="boot-line amber">&gt; このツールは相場情報を入力するだけで <span>AIがトレード判断をサポート</span> します</div>
+  <div class="boot-line">&gt; READY. 以下の手順にしたがって操作してください_</div>
+</div>
+
+<!-- STEP 1 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">STEP 01</div>
+    <div class="section-title">アクセスする</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-tag">▸ ACCESS</div>
+        <div class="step-label">URLを開く</div>
+        <div class="step-desc">
+          共有されたURLをブラウザで開いてください。<br>
+          スマートフォンでも動作しますが、<em>PCでの利用を推奨</em>します。<br>
+          インストール・ログインは<em>一切不要</em>です。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">STEP 02</div>
+    <div class="section-title">相場情報を入力する</div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="field-grid">
+    <div class="field-item">
+      <div class="field-name">
+        通貨ペア
+        <span class="badge opt">任意</span>
+      </div>
+      <div class="field-desc">分析したい通貨ペアを選択。USD/JPY、EUR/JPYなど6種類から選べます。</div>
+    </div>
+    <div class="field-item">
+      <div class="field-name">
+        現在値
+        <span class="badge req">必須</span>
+      </div>
+      <div class="field-desc">今の価格を入力。これだけ入れればAI分析は動きます。</div>
+    </div>
+    <div class="field-item">
+      <div class="field-name">
+        直近高値 / 安値
+        <span class="badge opt">任意</span>
+      </div>
+      <div class="field-desc">直近の高値と安値。入力するとAIの判断精度が上がります。</div>
+    </div>
+    <div class="field-item">
+      <div class="field-name">
+        RSI
+        <span class="badge opt">任意</span>
+      </div>
+      <div class="field-desc">RSI値があれば入力。0〜100で入力してください。</div>
+    </div>
+    <div class="field-item">
+      <div class="field-name">
+        トレンド
+        <span class="badge opt">任意</span>
+      </div>
+      <div class="field-desc">上昇・下降・レンジ・不明の4択。自分の主観でOKです。</div>
+    </div>
+    <div class="field-item">
+      <div class="field-name">
+        状況メモ
+        <span class="badge opt">任意</span>
+      </div>
+      <div class="field-desc">「日銀会合前」「サポートライン付近」など自由にメモできます。</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">STEP 03</div>
+    <div class="section-title">トレードルールを確認する（任意）</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-tag">▸ RULES</div>
+        <div class="step-label">MY TRADE RULES を開く</div>
+        <div class="step-desc">
+          「▼ 編集する」をタップするとルール編集欄が開きます。<br>
+          デフォルトのルールが入っていますが、<em>自分のトレードルールに書き換える</em>とより精度の高い分析になります。<br>
+          初回だけ設定すればOKです。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">STEP 04</div>
+    <div class="section-title">ANALYZEボタンを押す</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-tag">▸ EXECUTE</div>
+        <div class="step-label">▸ ANALYZE を押す</div>
+        <div class="step-desc">
+          緑色の <code>▸ ANALYZE</code> ボタンをクリック。<br>
+          AIが分析中は <em>「Claude が相場を読んでいます...」</em> と表示されます。<br>
+          通常 <em>5〜15秒</em> で結果が表示されます。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">STEP 05</div>
+    <div class="section-title">結果を確認する</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="result-grid">
+    <div class="result-item">
+      <div class="result-badge rb-green">VERDICT</div>
+      <div class="result-desc">AIの最終判断。「エントリーあり」「見送り」「要観察」の3つで表示されます。</div>
+    </div>
+    <div class="result-item">
+      <div class="result-badge rb-blue">CONFIDENCE</div>
+      <div class="result-desc">AIの確信度（%）。70%以上なら根拠が強め、40%未満は参考程度に。</div>
+    </div>
+    <div class="result-item">
+      <div class="result-badge rb-amber">ENTRY / SL / TP</div>
+      <div class="result-desc">推奨エントリー価格・損切りライン・利確ラインの目安。エントリーありの場合のみ表示。</div>
+    </div>
+    <div class="result-item">
+      <div class="result-badge rb-blue">ANALYSIS</div>
+      <div class="result-desc">AIが判断した根拠の説明。3〜5文で表示されます。</div>
+    </div>
+    <div class="result-item">
+      <div class="result-badge rb-red">WARNING</div>
+      <div class="result-desc">注意すべき点があれば表示されます。表示されない場合もあります。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 注意事項 -->
+<div class="section">
+  <div class="notice-box">
+    <div class="notice-title">⚠ DISCLAIMER / 注意事項</div>
+    <ul class="notice-list">
+      <li>本ツールはAIによる情報提供を目的としており、投資助言ではありません。</li>
+      <li>最終的なトレード判断はご自身の責任で行ってください。</li>
+      <li>AIの分析結果は相場の状況により精度が変わります。過信は禁物です。</li>
+      <li>入力した情報はサーバーに保存されません。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-brand">FX AI AGENT / OPERATION MANUAL v1.0</div>
+  <div class="footer-copy">Powered by Gemini AI × Google Apps Script</div>
+</footer>
+
+</div>
+</body>
+</html>
