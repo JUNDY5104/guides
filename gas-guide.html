@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>GASツールの作り方 完全ガイド — やきさかな式サム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:#f8f8f6;color:#1a1a1a;font-size:15px;line-height:1.8}
+a{color:#1858a8;text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:monospace;font-size:13px;background:#eef2f8;padding:2px 6px;border-radius:4px;color:#1858a8}
+
+/* レイアウト */
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+/* ヘッダー */
+.site-header{background:linear-gradient(135deg,#1858a8 0%,#0098b0 100%);color:#fff;padding:48px 0 40px}
+.site-header .wrap{}
+.header-label{font-size:12px;letter-spacing:.1em;opacity:.75;margin-bottom:10px}
+.site-header h1{font-size:28px;font-weight:700;line-height:1.4;margin-bottom:10px}
+.site-header .lead{font-size:14px;opacity:.85;line-height:1.7}
+.header-tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.header-tag{background:rgba(255,255,255,.18);font-size:12px;padding:4px 12px;border-radius:20px}
+
+/* スティッキーナビ */
+.sticky-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:2px solid #1858a8;overflow-x:auto;white-space:nowrap}
+.sticky-nav::-webkit-scrollbar{height:3px}
+.sticky-nav::-webkit-scrollbar-track{background:#f0f0f0}
+.sticky-nav::-webkit-scrollbar-thumb{background:#1858a8;border-radius:2px}
+.sticky-nav ul{display:inline-flex;list-style:none;padding:0 24px}
+.sticky-nav li a{display:block;padding:12px 14px;font-size:13px;color:#555;font-weight:500;border-bottom:3px solid transparent;transition:all .2s}
+.sticky-nav li a:hover{color:#1858a8;text-decoration:none}
+.sticky-nav li a.active{color:#1858a8;border-bottom-color:#1858a8}
+
+/* セクション共通 */
+section{padding:56px 0}
+section:nth-child(even){background:#fff}
+.section-inner{max-width:1000px;margin:0 auto;padding:0 24px}
+.section-head{margin-bottom:32px}
+.section-num{font-size:12px;font-weight:700;letter-spacing:.12em;color:#0098b0;margin-bottom:6px}
+.section-head h2{font-size:22px;font-weight:700;color:#1a1a1a;padding-left:14px;border-left:4px solid #1858a8;line-height:1.4}
+.section-head .section-desc{margin-top:10px;font-size:14px;color:#555;padding-left:18px}
+
+/* TOPボタン */
+.top-btn-wrap{text-align:right;margin-top:40px;padding-top:24px;border-top:1px solid #e8e8e4}
+.top-btn{display:inline-block;padding:8px 20px;border:2px solid #1858a8;border-radius:50px;font-size:13px;color:#1858a8;font-weight:500;transition:all .2s}
+.top-btn:hover{background:#1858a8;color:#fff;text-decoration:none}
+
+/* ツールチップ */
+.tt{border-bottom:1px dotted #1858a8;cursor:help;position:relative}
+.tt::after{content:attr(data-tip);position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:12px;padding:6px 12px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;z-index:200;line-height:1.5}
+.tt:hover::after{opacity:1}
+
+/* カード */
+.card{background:#fff;border:1px solid #e4e4e0;border-radius:10px;padding:20px 24px;margin-bottom:12px}
+.card-title{font-size:15px;font-weight:700;color:#1858a8;margin-bottom:8px}
+.card-body{font-size:14px;color:#444;line-height:1.8}
+
+/* グリッド */
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* スクロールアニメーション */
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* スタイル：活用例カード */
+.use-card{background:#fff;border:1px solid #e4e4e0;border-radius:10px;padding:20px;transition:box-shadow .2s}
+.use-card:hover{box-shadow:0 4px 16px rgba(24,88,168,.1)}
+.use-card-icon{font-size:13px;font-weight:700;color:#fff;background:#1858a8;display:inline-block;padding:4px 10px;border-radius:4px;margin-bottom:10px}
+.use-card h3{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+.use-card p{font-size:13px;color:#555;line-height:1.7}
+
+/* スタイル：比較表 */
+.compare-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.compare-table th{background:#1858a8;color:#fff;padding:10px 16px;text-align:left;font-weight:500}
+.compare-table td{padding:10px 16px;border-bottom:1px solid #e8e8e4;vertical-align:top}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:#f8f8f6}
+.ok{color:#187848;font-weight:700}
+.ng{color:#c83020;font-weight:700}
+
+/* スタイル：ステップ */
+.step-list{display:flex;flex-direction:column;gap:12px}
+.step-item{display:flex;gap:16px;align-items:flex-start}
+.step-num{width:36px;height:36px;border-radius:50%;background:#1858a8;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-content h3{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.step-content p{font-size:14px;color:#555;line-height:1.7}
+
+/* スタイル：モックアップ共通 */
+.mock-wrap{background:#e8ecf0;border-radius:10px;padding:16px;margin:16px 0}
+.mock-title{font-size:12px;color:#666;margin-bottom:8px;font-weight:500}
+.mock{background:#fff;border:1px solid #ccc;border-radius:6px;overflow:hidden;font-size:13px}
+.mock-bar{background:#e8e8e8;padding:6px 12px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #ccc}
+.mock-dot{width:10px;height:10px;border-radius:50%}
+.mock-dot.r{background:#f66}
+.mock-dot.y{background:#fa3}
+.mock-dot.g{background:#3c3}
+.mock-url{font-size:11px;color:#666;margin-left:8px}
+.mock-menu-bar{background:#f8f8f8;padding:6px 16px;border-bottom:1px solid #e0e0e0;display:flex;gap:24px;font-size:12px;color:#333}
+.mock-menu-item{cursor:default;padding:4px 0}
+.mock-menu-item.active{color:#1858a8;border-bottom:2px solid #1858a8}
+.mock-body{padding:16px}
+.mock-dropdown{background:#fff;border:1px solid #ccc;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.12);position:relative;margin:4px 0;width:220px;font-size:13px}
+.mock-dropdown-item{padding:8px 16px;cursor:default;color:#333}
+.mock-dropdown-item:hover{background:#f0f4ff}
+.mock-dropdown-item.selected{background:#e8f0fe;color:#1858a8;font-weight:500}
+.mock-dropdown-sep{border-top:1px solid #e8e8e8;margin:4px 0}
+.mock-editor{background:#1e1e2e;color:#cdd6f4;font-family:monospace;font-size:12px;padding:16px;line-height:1.7;border-radius:0 0 6px 6px}
+.mock-editor-toolbar{background:#2a2a3c;padding:8px 16px;display:flex;gap:16px;font-size:12px;color:#aaa;border-bottom:1px solid #3a3a4c}
+.mock-editor-btn{background:#1858a8;color:#fff;border:none;padding:4px 14px;border-radius:4px;font-size:12px;cursor:default}
+.c-green{color:#a6e3a1}
+.c-blue2{color:#89b4fa}
+.c-yellow{color:#f9e2af}
+.c-gray2{color:#6c7086}
+.c-red2{color:#f38ba8}
+.c-purple2{color:#cba6f7}
+
+/* スタイル：フロー */
+.flow{display:flex;align-items:stretch;gap:0;margin:16px 0;flex-wrap:wrap}
+.flow-item{flex:1;min-width:140px;background:#fff;border:1px solid #e4e4e0;padding:16px 12px;text-align:center;position:relative}
+.flow-item:not(:last-child)::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:20px;height:20px;background:#1858a8;clip-path:polygon(0 0,100% 50%,0 100%);z-index:1}
+.flow-num{font-size:11px;font-weight:700;color:#0098b0;margin-bottom:6px}
+.flow-label{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.flow-sub{font-size:11px;color:#777;line-height:1.5}
+
+/* スタイル：エラーリスト */
+.error-list{display:flex;flex-direction:column;gap:0}
+.error-item{display:flex;gap:0;border:1px solid #e4e4e0;margin-bottom:10px;border-radius:8px;overflow:hidden}
+.error-badge{background:#c83020;color:#fff;font-size:12px;font-weight:700;writing-mode:horizontal-tb;padding:12px 14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;width:60px;text-align:center}
+.error-content{padding:14px 18px;flex:1}
+.error-name{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.error-msg{font-size:12px;color:#888;font-family:monospace;background:#f8f8f6;padding:4px 8px;border-radius:4px;margin-bottom:6px}
+.error-fix{font-size:13px;color:#444;line-height:1.7}
+
+/* スタイル：Claude会話モック */
+.chat-mock{background:#f0f4ff;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.chat-bubble{max-width:85%;font-size:13px;line-height:1.7;padding:12px 16px;border-radius:10px}
+.chat-bubble.user{background:#1858a8;color:#fff;align-self:flex-end;border-radius:10px 10px 2px 10px}
+.chat-bubble.claude{background:#fff;color:#1a1a1a;align-self:flex-start;border-radius:10px 10px 10px 2px;border:1px solid #e0e4f0}
+.chat-label{font-size:11px;color:#888;margin-bottom:4px}
+
+/* ジェネレーター */
+.generator{background:#fff;border:2px solid #1858a8;border-radius:12px;padding:28px 32px;margin-top:8px}
+.gen-title{font-size:18px;font-weight:700;color:#1858a8;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid #e8ecf8}
+.form-group{margin-bottom:20px}
+.form-label{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:8px;display:block}
+.form-label span{font-size:12px;color:#888;font-weight:400;margin-left:6px}
+.form-input{width:100%;padding:10px 14px;border:1px solid #ccc;border-radius:6px;font-size:14px;font-family:'Noto Sans JP',sans-serif;background:#fff;transition:border-color .2s}
+.form-input:focus{outline:none;border-color:#1858a8;box-shadow:0 0 0 3px rgba(24,88,168,.1)}
+textarea.form-input{resize:vertical;min-height:80px}
+.checkbox-group{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.checkbox-label{display:flex;align-items:center;gap:6px;font-size:14px;color:#333;cursor:pointer;background:#f8f8f6;border:1px solid #e0e0dc;padding:6px 14px;border-radius:6px;transition:all .2s}
+.checkbox-label:hover{background:#e8f0fe;border-color:#1858a8}
+.checkbox-label input{accent-color:#1858a8}
+.gen-btn{width:100%;padding:14px;background:#1858a8;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:background .2s;margin-top:8px}
+.gen-btn:hover{background:#0f3f80}
+
+/* 出力エリア */
+.result-area{display:none;margin-top:32px;border-top:2px solid #e8ecf8;padding-top:28px}
+.result-block{background:#f4f8ff;border:1px solid #c0d0f0;border-radius:10px;padding:20px 24px;margin-bottom:20px}
+.result-block-title{font-size:14px;font-weight:700;color:#1858a8;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.result-block-title .badge{font-size:11px;font-weight:700;background:#1858a8;color:#fff;padding:2px 8px;border-radius:4px}
+.result-block pre{background:#1e1e2e;color:#cdd6f4;font-family:monospace;font-size:12px;padding:16px;border-radius:6px;white-space:pre-wrap;word-break:break-word;line-height:1.7;max-height:280px;overflow-y:auto}
+.copy-btn{display:inline-block;margin-top:10px;padding:8px 20px;background:#fff;border:2px solid #1858a8;color:#1858a8;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s}
+.copy-btn:hover{background:#1858a8;color:#fff}
+.dl-btn{display:inline-block;margin-top:10px;padding:10px 24px;background:#187848;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:background .2s}
+.dl-btn:hover{background:#105a34}
+.result-trouble{background:#fff8f0;border:1px solid #f0c080;border-radius:10px;padding:20px 24px;margin-bottom:20px}
+.result-trouble .result-block-title{color:#b06000}
+.result-trouble .result-block-title .badge{background:#b06000}
+.result-trouble pre{background:#2e1e0e;color:#f9e2af}
+
+/* 注意ボックス */
+.note-box{background:#fff8e8;border:1px solid #f0c860;border-left:4px solid #e0a000;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;font-size:14px;color:#6a4000;line-height:1.7}
+.info-box{background:#e8f4ff;border:1px solid #b0cce8;border-left:4px solid #1858a8;border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;font-size:14px;color:#0a2a5a;line-height:1.7}
+.info-box strong,.note-box strong{font-weight:700}
+
+/* Coconalaバナー */
+.coconala-banner{background:linear-gradient(135deg,#6b21a8,#a855f7,#7c3aed);color:#fff;padding:36px 24px;text-align:center;margin-top:0}
+.coconala-banner p{font-size:13px;opacity:.85;margin-bottom:6px}
+.coconala-banner .banner-title{font-size:20px;font-weight:700;margin-bottom:16px}
+.coconala-banner a{display:inline-block;background:#fff;color:#6b21a8;font-weight:700;font-size:14px;padding:12px 32px;border-radius:50px;transition:opacity .2s}
+.coconala-banner a:hover{opacity:.85;text-decoration:none}
+
+/* フッター */
+footer{background:#1a1a1a;color:#aaa;text-align:center;padding:28px 24px;font-size:13px}
+
+/* レスポンシブ */
+@media(max-width:640px){
+  .site-header h1{font-size:20px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .flow{flex-direction:column}
+  .flow-item::after{display:none}
+  .generator{padding:20px 16px}
+  .error-item{flex-direction:column}
+  .error-badge{width:100%;writing-mode:horizontal-tb;padding:8px 14px}
+  .section-head h2{font-size:18px}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="header-label">やきさかな式サム — GASガイド</div>
+    <h1>GASツールの作り方 完全ガイド<br>プログラミング不要でAIと作る自動化入門</h1>
+    <p class="lead">Google Apps Script（GAS）をゼロから学び、AIを使って自分だけのツールを作る方法を解説します。<br>コードが書けなくても大丈夫。読み終えたら、あなたもGASツールが作れます。</p>
+    <div class="header-tags">
+      <span class="header-tag">完全初心者向け</span>
+      <span class="header-tag">プログラミング不要</span>
+      <span class="header-tag">AI活用</span>
+      <span class="header-tag">ツールジェネレーター付き</span>
+    </div>
+  </div>
+</header>
+
+<nav class="sticky-nav">
+  <ul>
+    <li><a href="#s1">GASとは</a></li>
+    <li><a href="#s2">始め方</a></li>
+    <li><a href="#s3">基本構造</a></li>
+    <li><a href="#s4">AI活用の流れ</a></li>
+    <li><a href="#s5">コピペ＆実行</a></li>
+    <li><a href="#s6">エラー対処</a></li>
+    <li><a href="#s7">ツールジェネレーター</a></li>
+    <li><a href="#s8">次のステップ</a></li>
+  </ul>
+</nav>
+
+<!-- S1 -->
+<section id="s1">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 01</div>
+    <h2>GASとは何か</h2>
+    <p class="section-desc">Google Apps Scriptの概要と、日常業務でどう使えるかを理解しましょう。</p>
+  </div>
+
+  <div class="fade-in">
+    <p style="font-size:14px;color:#444;line-height:1.8;margin-bottom:24px"><span class="tt" data-tip="Google Apps Scriptの略称。Googleが無料で提供するプログラム実行環境">GAS</span>とは、Googleが無料で提供している自動化ツールです。スプレッドシートやGmail、カレンダーなどのGoogleサービスを自動で動かすことができます。難しく聞こえますが、<strong>コードはAIに書いてもらうので、あなたはコピペするだけ</strong>で大丈夫です。</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:#1858a8">GASでできること — 活用例</h3>
+    <div class="grid3" style="margin-bottom:28px">
+      <div class="use-card fade-in">
+        <div class="use-card-icon">活用例 1</div>
+        <h3>スプレッドシートの自動整理</h3>
+        <p>毎日手動でやっているデータの並び替えや集計を、ボタン一発または自動で処理できます。</p>
+      </div>
+      <div class="use-card fade-in">
+        <div class="use-card-icon">活用例 2</div>
+        <h3>メールの自動送信</h3>
+        <p>スプレッドシートのリストから、指定した相手に自動でメールを送る仕組みを作れます。</p>
+      </div>
+      <div class="use-card fade-in">
+        <div class="use-card-icon">活用例 3</div>
+        <h3>定期レポートの自動生成</h3>
+        <p>毎朝・毎週など、決まったタイミングで集計レポートを作って送ることができます。</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:#1858a8">できること / できないこと</h3>
+    <div style="overflow-x:auto">
+      <table class="compare-table">
+        <tr>
+          <th>できること</th>
+          <th>できないこと</th>
+        </tr>
+        <tr>
+          <td><span class="ok">OK</span> Googleスプレッドシートの操作・自動集計</td>
+          <td><span class="ng">NG</span> Excel（.xlsx）ファイルの直接編集</td>
+        </tr>
+        <tr>
+          <td><span class="ok">OK</span> Gmailの送受信・フィルタリング</td>
+          <td><span class="ng">NG</span> OutlookなどGoogle以外のメールサービス</td>
+        </tr>
+        <tr>
+          <td><span class="ok">OK</span> Googleカレンダーへの予定追加・取得</td>
+          <td><span class="ng">NG</span> iCloudカレンダーなどの外部カレンダー</td>
+        </tr>
+        <tr>
+          <td><span class="ok">OK</span> 定期的な自動実行（毎日・毎時間など）</td>
+          <td><span class="ng">NG</span> パソコン上のファイルを直接操作</td>
+        </tr>
+        <tr>
+          <td><span class="ok">OK</span> Googleフォームの回答を自動処理</td>
+          <td><span class="ng">NG</span> リアルタイムの複雑な処理（重い計算など）</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="info-box" style="margin-top:20px">
+      <strong>ポイント：</strong> GASはGoogleアカウントさえあれば<span class="tt" data-tip="ソフトをパソコンにインストールしなくても、ブラウザだけで使えること">無料・インストール不要</span>で使えます。スマートフォンからでもブラウザがあれば設定できます。
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 02</div>
+    <h2>GASの始め方</h2>
+    <p class="section-desc">スクリプトエディタを開くまでの手順を画面イメージで確認しましょう。</p>
+  </div>
+
+  <div class="step-list fade-in">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Googleスプレッドシートを開く</h3>
+        <p>Googleドライブ（drive.google.com）にアクセスし、新しいスプレッドシートを作成するか、既存のものを開きます。</p>
+        <div class="mock-wrap">
+          <div class="mock-title">Googleスプレッドシート — 画面イメージ</div>
+          <div class="mock">
+            <div class="mock-bar">
+              <div class="mock-dot r"></div>
+              <div class="mock-dot y"></div>
+              <div class="mock-dot g"></div>
+              <span class="mock-url">docs.google.com/spreadsheets/d/...</span>
+            </div>
+            <div class="mock-menu-bar">
+              <span class="mock-menu-item">ファイル</span>
+              <span class="mock-menu-item">編集</span>
+              <span class="mock-menu-item">表示</span>
+              <span class="mock-menu-item">挿入</span>
+              <span class="mock-menu-item">フォーマット</span>
+              <span class="mock-menu-item">データ</span>
+              <span class="mock-menu-item">ツール</span>
+              <span class="mock-menu-item active">拡張機能</span>
+              <span class="mock-menu-item">ヘルプ</span>
+            </div>
+            <div class="mock-body" style="position:relative;min-height:80px">
+              <div style="font-size:12px;color:#888;margin-bottom:8px">「拡張機能」をクリック</div>
+              <div class="mock-dropdown">
+                <div class="mock-dropdown-item selected">Apps Script</div>
+                <div class="mock-dropdown-sep"></div>
+                <div class="mock-dropdown-item">アドオン</div>
+                <div class="mock-dropdown-item">マクロ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="note-box">メニューバーの「拡張機能」をクリックし、「Apps Script」を選んでください。</div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>スクリプトエディタが開く</h3>
+        <p>新しいタブで<span class="tt" data-tip="GASのコードを書いて実行するためのWebページ。インストール不要でブラウザから使える">スクリプトエディタ</span>が開きます。ここにAIが作ったコードを貼り付けて実行します。</p>
+        <div class="mock-wrap">
+          <div class="mock-title">スクリプトエディタ — 画面イメージ</div>
+          <div class="mock">
+            <div class="mock-bar">
+              <div class="mock-dot r"></div>
+              <div class="mock-dot y"></div>
+              <div class="mock-dot g"></div>
+              <span class="mock-url">script.google.com/home/projects/...</span>
+            </div>
+            <div class="mock-editor-toolbar">
+              <span>Apps Script</span>
+              <span style="margin-left:auto;display:flex;gap:10px;align-items:center">
+                <span>保存</span>
+                <span class="mock-editor-btn">実行</span>
+              </span>
+            </div>
+            <div class="mock-editor">
+<span class="c-green">// ここにコードを貼り付けます</span>
+<span class="c-purple2">function</span> <span class="c-blue2">myFunction</span>() {
+  <span class="c-gray2">// AIが生成したコードをここに貼り付ける</span>
+}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>この画面が「作業場所」です</h3>
+        <p>これ以降の作業はすべてこのスクリプトエディタで行います。コードを貼り付けて保存し、実行ボタンを押すだけです。特別なソフトは不要です。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 03</div>
+    <h2>GASの基本構造を知る</h2>
+    <p class="section-desc">コードを書かなくても、3つの概念を知っておくとAIへの依頼がスムーズになります。</p>
+  </div>
+
+  <div class="fade-in" style="margin-bottom:28px">
+    <p style="font-size:14px;color:#444;line-height:1.8;margin-bottom:20px">GASを理解するうえで知っておきたい概念は3つだけです。AIに依頼するときに使う言葉なので、「なんとなく知っている」状態で十分です。</p>
+
+    <div class="grid3" style="margin-bottom:20px">
+      <div class="card fade-in">
+        <div class="card-title">関数（かんすう）</div>
+        <div class="card-body">処理のまとまりに名前をつけたもの。「この名前を呼び出すと、この処理が動く」という仕組みです。<br><br>例：<code>function main()</code> という関数を実行すると、その中に書かれた処理が動く。</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-title">トリガー</div>
+        <div class="card-body"><span class="tt" data-tip="指定した条件になったとき、自動でGASを実行する仕組み">トリガー</span>とは「いつ動かすか」を設定する仕組みです。<br><br>例：「毎朝9時に実行」「スプレッドシートが編集されたら実行」「フォームが送信されたら実行」</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-title">サービス連携</div>
+        <div class="card-body">GASはGoogleの各サービスと連携できます。<br><br>例：<code>SpreadsheetApp</code>（スプレッドシート）、<code>GmailApp</code>（Gmail）、<code>CalendarApp</code>（カレンダー）</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>覚え方：</strong>「何をするか（関数）」「いつ動かすか（トリガー）」「何と連携するか（サービス）」の3つをAIに伝えるだけで、コードを作ってもらえます。
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 04</div>
+    <h2>AIを使ったGAS作成の流れ</h2>
+    <p class="section-desc">Claude（AI）に依頼してGASツールを作る、5ステップの全体像を把握しましょう。</p>
+  </div>
+
+  <div class="fade-in" style="margin-bottom:28px">
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-num">STEP 1</div>
+        <div class="flow-label">目的を整理</div>
+        <div class="flow-sub">何をしたいか、何と連携するか、いつ動かすかを決める</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">STEP 2</div>
+        <div class="flow-label">プロンプト作成</div>
+        <div class="flow-sub">このガイドのジェネレーターで自動作成</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">STEP 3</div>
+        <div class="flow-label">Claudeに依頼</div>
+        <div class="flow-sub">プロンプトをClaudeに貼り付けてコードを受け取る</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">STEP 4</div>
+        <div class="flow-label">コピペ＆実行</div>
+        <div class="flow-sub">スクリプトエディタに貼り付けて実行する</div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">STEP 5</div>
+        <div class="flow-label">動作確認</div>
+        <div class="flow-sub">うまく動けば完成。エラーならS6へ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-in">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;color:#1858a8">Claudeへの依頼のコツ</h3>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">具体的に伝える</div>
+        <div class="card-body">「メールを送りたい」ではなく「A列のメールアドレス宛に、B列の名前を件名に入れてメールを送りたい」のように、<strong>誰に・何を・どう</strong>を具体的に伝えると精度が上がります。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">初心者であることを伝える</div>
+        <div class="card-body">「GAS初心者です」「コメントを日本語で入れてください」と最初に伝えると、わかりやすいコードと説明を返してくれます。このガイドのジェネレーターでは自動で含まれます。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 05</div>
+    <h2>コードのコピペと実行手順</h2>
+    <p class="section-desc">Claudeからもらったコードをスクリプトエディタで動かすまでを画面イメージで確認しましょう。</p>
+  </div>
+
+  <div class="step-list fade-in">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Claudeからコードをコピー</h3>
+        <p>Claudeが出力したコードブロック（灰色の背景の部分）を全選択してコピーします。</p>
+        <div class="mock-wrap">
+          <div class="mock-title">Claude の返答 — コードブロック</div>
+          <div class="mock">
+            <div class="mock-bar">
+              <div class="mock-dot r"></div>
+              <div class="mock-dot y"></div>
+              <div class="mock-dot g"></div>
+            </div>
+            <div class="mock-body">
+              <div style="font-size:13px;color:#444;margin-bottom:8px">以下のコードをスクリプトエディタに貼り付けてください：</div>
+              <div style="background:#1e1e2e;color:#cdd6f4;font-family:monospace;font-size:12px;padding:12px;border-radius:6px;position:relative;line-height:1.7">
+                <div style="position:absolute;top:8px;right:10px;font-size:11px;background:#333;color:#aaa;padding:2px 8px;border-radius:3px;cursor:default">コピー</div>
+<span style="color:#a6e3a1">// メインの処理</span>
+<span style="color:#cba6f7">function</span> <span style="color:#89b4fa">main</span>() {
+  <span style="color:#cba6f7">var</span> sheet = SpreadsheetApp
+    .getActiveSpreadsheet()
+    .getActiveSheet();
+  Logger.log(<span style="color:#a6e3a1">'完了'</span>);
+}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>スクリプトエディタに貼り付けて保存</h3>
+        <p>スクリプトエディタを開き、最初から書いてある <code>function myFunction() {}</code> を全部削除してから、コピーしたコードを貼り付けます。フロッピーアイコンまたは <code>Ctrl+S</code>（Mac は <code>Cmd+S</code>）で保存します。</p>
+        <div class="mock-wrap">
+          <div class="mock-title">スクリプトエディタ — 貼り付け後</div>
+          <div class="mock">
+            <div class="mock-editor-toolbar">
+              <span>Apps Script</span>
+              <span style="margin-left:auto;display:flex;gap:10px;align-items:center">
+                <span style="cursor:default;font-size:12px">保存済み</span>
+                <span class="mock-editor-btn">実行</span>
+              </span>
+            </div>
+            <div class="mock-editor">
+<span class="c-green">// メインの処理</span>
+<span class="c-purple2">function</span> <span class="c-blue2">main</span>() {
+  <span class="c-purple2">var</span> sheet = SpreadsheetApp
+    .getActiveSpreadsheet()
+    .getActiveSheet();
+  Logger.log(<span class="c-yellow">'完了'</span>);
+}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>実行ボタンを押す</h3>
+        <p>上部の「実行」ボタンを押します。初回は<span class="tt" data-tip="GASがGoogleアカウントのデータにアクセスするために必要な許可。初回のみ求められる">権限の許可</span>を求めるダイアログが出ます。</p>
+        <div class="note-box">
+          <strong>「このアプリはGoogleで確認されていません」と表示された場合：</strong><br>
+          「詳細」をクリック → 「（プロジェクト名）（安全ではないページ）に移動」をクリック → 「許可」を選択してください。自分が作ったコードを自分のアカウントで使うための確認です。
+        </div>
+        <div class="mock-wrap">
+          <div class="mock-title">権限許可ダイアログ</div>
+          <div class="mock">
+            <div class="mock-body" style="text-align:center;padding:24px">
+              <div style="font-size:14px;font-weight:700;margin-bottom:8px">権限を確認</div>
+              <div style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.6">このスクリプトはあなたの Googleアカウントへのアクセスを求めています</div>
+              <div style="display:flex;justify-content:center;gap:12px">
+                <div style="padding:8px 20px;border:1px solid #ccc;border-radius:4px;font-size:13px;color:#555;cursor:default">キャンセル</div>
+                <div style="padding:8px 20px;background:#1858a8;color:#fff;border-radius:4px;font-size:13px;cursor:default">許可</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>実行ログを確認</h3>
+        <p>実行後、画面下部に「実行ログ」が表示されます。エラーが出ていなければ成功です。エラーが出た場合はS6を参照してください。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 06</div>
+    <h2>よくあるエラーと対処法</h2>
+    <p class="section-desc">初心者がつまずきやすいエラーと、Claudeを使った解決方法を解説します。</p>
+  </div>
+
+  <div class="fade-in" style="margin-bottom:32px">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;color:#1858a8">よくあるエラー TOP 5</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-badge">01</div>
+        <div class="error-content">
+          <div class="error-name">権限エラー</div>
+          <div class="error-msg">Exception: You do not have permission to access...</div>
+          <div class="error-fix">原因：GASがGoogleサービスにアクセスする許可がない。<br>対処：S5の「権限を許可」の手順をもう一度確認してください。「許可」をクリックしていない場合に起きます。</div>
+        </div>
+      </div>
+      <div class="error-item">
+        <div class="error-badge">02</div>
+        <div class="error-content">
+          <div class="error-name">スプレッドシートが見つからないエラー</div>
+          <div class="error-msg">TypeError: Cannot read properties of null...</div>
+          <div class="error-fix">原因：スプレッドシートIDや<span class="tt" data-tip="スプレッドシート内の個別のシートに付けた名前">シート名</span>が違う。<br>対処：コード内のシート名（例：<code>'Sheet1'</code>）が実際のシート名と一致しているか確認してください。</div>
+        </div>
+      </div>
+      <div class="error-item">
+        <div class="error-badge">03</div>
+        <div class="error-content">
+          <div class="error-name">実行時間超過エラー</div>
+          <div class="error-msg">Exception: Exceeded maximum execution time</div>
+          <div class="error-fix">原因：処理するデータが多すぎて6分の制限を超えた。<br>対処：一度に処理するデータ量を減らすようClaudeに相談してください。</div>
+        </div>
+      </div>
+      <div class="error-item">
+        <div class="error-badge">04</div>
+        <div class="error-content">
+          <div class="error-name">メール送信制限エラー</div>
+          <div class="error-msg">Exception: Service invoked too many times...</div>
+          <div class="error-fix">原因：1日のGmail送信上限（無料アカウントは100通/日）を超えた。<br>対処：翌日に実行するか、送信先を絞ってください。</div>
+        </div>
+      </div>
+      <div class="error-item">
+        <div class="error-badge">05</div>
+        <div class="error-content">
+          <div class="error-name">構文エラー</div>
+          <div class="error-msg">SyntaxError: Unexpected token '}'...</div>
+          <div class="error-fix">原因：コードの貼り付けが不完全（途中で切れているなど）。<br>対処：Claudeの出力コードをもう一度全選択してコピーし直してください。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-in">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;color:#1858a8">それでも解決しない場合 — Claudeに直接相談する方法</h3>
+    <p style="font-size:14px;color:#444;line-height:1.8;margin-bottom:16px">エラーが解決しない場合は、Claudeに状況を伝えて一緒に原因を探しましょう。以下の情報をClaudeに貼り付けると、的確なアドバイスをもらえます。</p>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Claudeへ伝える3つの情報</div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#c83020;color:#fff;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px">必須</span><span>エラーメッセージの全文（スクリプトエディタの実行ログからコピー）</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#c83020;color:#fff;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px">必須</span><span>実行したコードの全文</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#1858a8;color:#fff;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px">推奨</span><span>このツールで何をしたいかの説明</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-mock fade-in">
+      <div>
+        <div class="chat-label">あなた</div>
+        <div class="chat-bubble user">GASのコードでエラーが出て困っています。エラーメッセージは「TypeError: Cannot read properties of null」です。コードは以下です。[コード全文を貼り付け]。スプレッドシートのデータを自動で集計したいのですが、どこが間違っていますか？</div>
+      </div>
+      <div>
+        <div class="chat-label">Claude</div>
+        <div class="chat-bubble claude">エラーの原因がわかりました。シート名が一致していない可能性があります。コードの中の 'Sheet1' という部分を、実際のシート名に変更してみてください。修正したコードはこちらです... [修正コードを出力]</div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:16px">
+      <strong>コツ：</strong>「初心者なので、なぜそのエラーが起きたかも教えてください」と付け加えると、原因の説明も一緒にもらえます。次回同じエラーが出たときに自分で対処できるようになります。<br><br>
+      このガイドの<a href="#s7">ジェネレーター（S7）</a>では、トラブル時にClaudeへ貼るプロンプトも自動で生成できます。
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 07</div>
+    <h2>ツールジェネレーター</h2>
+    <p class="section-desc">作りたいGASツールの情報を入力すると、Claudeへのプロンプト・GASテンプレート・トラブル相談プロンプトを自動生成します。</p>
+  </div>
+
+  <div class="fade-in">
+    <div class="generator">
+      <div class="gen-title">GASツール設計フォーム</div>
+
+      <div class="form-group">
+        <label class="form-label" for="purpose">作りたいツールの目的 <span>（具体的に書くほど精度が上がります）</span></label>
+        <textarea class="form-input" id="purpose" placeholder="例：スプレッドシートのA列に入力された名前とB列のメールアドレス宛に、毎週月曜日の朝9時に定型文のメールを自動で送りたい"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">連携するGoogleサービス <span>（複数選択可）</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" name="service" value="spreadsheet"> スプレッドシート</label>
+          <label class="checkbox-label"><input type="checkbox" name="service" value="gmail"> Gmail</label>
+          <label class="checkbox-label"><input type="checkbox" name="service" value="calendar"> カレンダー</label>
+          <label class="checkbox-label"><input type="checkbox" name="service" value="forms"> フォーム</label>
+          <label class="checkbox-label"><input type="checkbox" name="service" value="drive"> ドライブ</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="timing">実行タイミング</label>
+        <select class="form-input" id="timing">
+          <option value="manual">手動で実行する（ボタンを押したときだけ）</option>
+          <option value="time">定期的に自動実行する（毎日・毎週など）</option>
+          <option value="edit">スプレッドシートが編集されたときに自動実行する</option>
+          <option value="form">Googleフォームが送信されたときに自動実行する</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="output">出力・結果のイメージ <span>（任意）</span></label>
+        <textarea class="form-input" id="output" placeholder="例：処理が終わったら完了メッセージをポップアップで表示し、ログにも記録したい" style="min-height:64px"></textarea>
+      </div>
+
+      <button class="gen-btn" onclick="runGenerator()">プロンプト＆テンプレートを生成する</button>
+    </div>
+
+    <!-- 出力エリア -->
+    <div class="result-area" id="result-area">
+
+      <div class="result-block">
+        <div class="result-block-title">
+          <span class="badge">STEP 1</span>
+          Claudeへのプロンプト — コピーしてClaudeに貼り付けてください
+        </div>
+        <pre id="claude-prompt-output"></pre>
+        <button class="copy-btn" data-copy="claude-prompt-output" onclick="copyText('claude-prompt-output')">コピーする</button>
+      </div>
+
+      <div class="result-block">
+        <div class="result-block-title">
+          <span class="badge">STEP 2</span>
+          GASテンプレート — ダウンロードしてスクリプトエディタに貼り付けてください
+        </div>
+        <pre id="gas-code-output"></pre>
+        <button class="dl-btn" onclick="downloadGAS()">gas_template.gs をダウンロード</button>
+        <button class="copy-btn" data-copy="gas-code-output" onclick="copyText('gas-code-output')" style="margin-left:10px">コピーする</button>
+      </div>
+
+      <div class="result-trouble">
+        <div class="result-block-title">
+          <span class="badge">トラブル時</span>
+          エラーが出たときにClaudeへ貼るプロンプト
+        </div>
+        <p style="font-size:13px;color:#6a4000;margin-bottom:10px;line-height:1.7">エラーメッセージとコード全文を追記してからClaudeに貼り付けてください。</p>
+        <pre id="trouble-prompt-output"></pre>
+        <button class="copy-btn" data-copy="trouble-prompt-output" onclick="copyText('trouble-prompt-output')">コピーする</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+<div class="section-inner">
+  <div class="section-head fade-in">
+    <div class="section-num">SECTION 08</div>
+    <h2>次のステップ</h2>
+    <p class="section-desc">GASツールが作れるようになったら、次に挑戦できることを紹介します。</p>
+  </div>
+
+  <div class="fade-in">
+    <div class="grid2" style="margin-bottom:28px">
+      <div class="card">
+        <div class="card-title">ツールをカスタマイズする</div>
+        <div class="card-body">一度作ったツールは、Claudeに「ここを変えてほしい」と伝えるだけで改良できます。動くものをベースに少しずつ育てていくのが最短ルートです。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">複数のサービスを組み合わせる</div>
+        <div class="card-body">「フォームの回答をスプレッドシートに記録し、その結果をGmailで通知する」など、サービスを組み合わせるとより強力な自動化が実現できます。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">ウェブアプリとして公開する</div>
+        <div class="card-body">GASは<span class="tt" data-tip="URLを共有するだけで他の人も使えるWebアプリケーション。スマホからもアクセスできる">ウェブアプリ</span>として公開できます。チームで共有できるツールへと発展させることも可能です。</div>
+      </div>
+      <div class="card">
+        <div class="card-title">オーダーメイドで依頼する</div>
+        <div class="card-body">自分で作るのが難しい場合や、より複雑なツールが必要な場合は、Coconalaでの制作依頼も受け付けています。</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>最後に：</strong> GASは「完璧に理解してから作る」より「動くものを作ってから改良する」アプローチが向いています。まずはこのガイドのジェネレーターを使って、小さな自動化から始めてみましょう。
+    </div>
+  </div>
+
+  <div class="top-btn-wrap fade-in">
+    <a href="#top" class="top-btn">ページトップへ</a>
+  </div>
+</div>
+</section>
+
+<!-- Coconalaバナー -->
+<div class="coconala-banner">
+  <p>HTMLガイド制作・GASツール制作のご依頼はこちら</p>
+  <div class="banner-title">元飲食店店長サム — Coconala サービスページ</div>
+  <a href="https://coconala.com/services/3034205" target="_blank">サービスを見る</a>
+</div>
+
+<footer>
+  <p>元飲食店店長サム（@sum_tenchou）— やきさかな式 GASツールの作り方完全ガイド</p>
+</footer>
+
+<script>
+// スクロールアニメーション
+(function(){
+  var els = document.querySelectorAll('.fade-in');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); }
+    });
+  },{threshold:0.08});
+  els.forEach(function(el){ obs.observe(el); });
+})();
+
+// スティッキーナビ スクロールスパイ
+(function(){
+  var sections = document.querySelectorAll('section[id]');
+  var links = document.querySelectorAll('.sticky-nav a');
+  var obs2 = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var href = '#' + e.target.id;
+        var active = document.querySelector('.sticky-nav a[href="' + href + '"]');
+        if(active) active.classList.add('active');
+      }
+    });
+  },{rootMargin:'-25% 0px -65% 0px'});
+  sections.forEach(function(s){ obs2.observe(s); });
+})();
+
+// コピー
+function copyText(id){
+  var text = document.getElementById(id).textContent;
+  var btn = document.querySelector('[data-copy="' + id + '"]');
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(function(){ flashBtn(btn); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    flashBtn(btn);
+  }
+}
+function flashBtn(btn){
+  if(!btn) return;
+  var orig = btn.textContent;
+  btn.textContent = 'コピーしました';
+  setTimeout(function(){ btn.textContent = orig; }, 2000);
+}
+
+// GASダウンロード
+function downloadGAS(){
+  var code = window._gasCode || '';
+  if(!code){ alert('先にプロンプトを生成してください'); return; }
+  var blob = new Blob([code], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'gas_template.gs';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ジェネレーター本体
+function runGenerator(){
+  var purpose = document.getElementById('purpose').value.trim();
+  var timing = document.getElementById('timing').value;
+  var output = document.getElementById('output').value.trim();
+  var services = Array.from(document.querySelectorAll('input[name="service"]:checked')).map(function(el){ return el.value; });
+
+  if(!purpose){
+    alert('作りたいツールの目的を入力してください');
+    return;
+  }
+
+  var prompt = buildClaudePrompt(purpose, services, timing, output);
+  var gas = buildGASTemplate(purpose, services, timing);
+  var trouble = buildTroublePrompt(purpose, gas);
+
+  document.getElementById('claude-prompt-output').textContent = prompt;
+  document.getElementById('gas-code-output').textContent = gas;
+  document.getElementById('trouble-prompt-output').textContent = trouble;
+  window._gasCode = gas;
+
+  var area = document.getElementById('result-area');
+  area.style.display = 'block';
+  setTimeout(function(){ area.scrollIntoView({behavior:'smooth', block:'start'}); }, 100);
+}
+
+function buildClaudePrompt(purpose, services, timing, output){
+  var svcMap = {
+    spreadsheet: 'Googleスプレッドシート',
+    gmail: 'Gmail',
+    calendar: 'Googleカレンダー',
+    forms: 'Googleフォーム',
+    drive: 'Googleドライブ'
+  };
+  var timingMap = {
+    manual: '手動で実行する（実行ボタンを押したときだけ動かす）',
+    time: '定期的に自動実行する（毎日または毎週決まった時間に動かす）',
+    edit: 'スプレッドシートが編集されたタイミングで自動実行する',
+    form: 'Googleフォームが送信されたタイミングで自動実行する'
+  };
+  var svcText = services.length > 0
+    ? services.map(function(s){ return svcMap[s] || s; }).join('、')
+    : '特になし（GAS単体で動作する）';
+
+  return 'あなたはGoogle Apps Script（GAS）の専門家です。\n以下の条件でGASのコードを作成してください。\n\n【作りたいツールの目的】\n' + purpose + '\n\n【使用するGoogleサービス】\n' + svcText + '\n\n【実行タイミング】\n' + (timingMap[timing] || '手動実行') + (output ? '\n\n【出力・結果のイメージ】\n' + output : '') + '\n\n【お願いしたいこと】\n・GAS初心者向けに、コードにはすべてのステップを日本語のコメントで説明してください\n・エラーが発生した場合は、エラーメッセージをポップアップで表示してください\n・コードの最後に「スクリプトエディタへの貼り付け方」と「実行方法」を日本語で教えてください\n・コードは必ず動作するものを出力してください（サンプルや省略は不要です）';
+}
+
+function buildGASTemplate(purpose, services, timing){
+  var today = new Date().toLocaleDateString('ja-JP');
+  var lines = [];
+  lines.push('// ============================================');
+  lines.push('// GASテンプレート');
+  lines.push('// 目的: ' + purpose);
+  lines.push('// 生成日: ' + today);
+  lines.push('// ============================================');
+  lines.push('// このファイルはテンプレートです。');
+  lines.push('// ClaudeにS7のプロンプトを貼り付けて');
+  lines.push('// 完成したコードをここに貼り替えてください。');
+  lines.push('// ============================================');
+  lines.push('');
+  lines.push('function main() {');
+  lines.push('');
+
+  if(services.indexOf('spreadsheet') >= 0){
+    lines.push('  // スプレッドシートの取得');
+    lines.push('  var ss = SpreadsheetApp.getActiveSpreadsheet();');
+    lines.push('  var sheet = ss.getActiveSheet();');
+    lines.push('  // データの取得（1行目がヘッダーの場合は getRange(2,1,...) から始める）');
+    lines.push('  var data = sheet.getDataRange().getValues();');
+    lines.push('');
+  }
+  if(services.indexOf('gmail') >= 0){
+    lines.push('  // Gmail：受信トレイの最新10件を取得する例');
+    lines.push('  var threads = GmailApp.getInboxThreads(0, 10);');
+    lines.push('  Logger.log(threads.length + "件のメールがあります");');
+    lines.push('');
+  }
+  if(services.indexOf('calendar') >= 0){
+    lines.push('  // カレンダー：今日のイベントを取得する例');
+    lines.push('  var cal = CalendarApp.getDefaultCalendar();');
+    lines.push('  var today = new Date();');
+    lines.push('  var events = cal.getEventsForDay(today);');
+    lines.push('  Logger.log("今日のイベント数: " + events.length);');
+    lines.push('');
+  }
+  if(services.indexOf('drive') >= 0){
+    lines.push('  // ドライブ：マイドライブのファイル一覧を取得する例');
+    lines.push('  var files = DriveApp.getRootFolder().getFiles();');
+    lines.push('  while (files.hasNext()) {');
+    lines.push('    var file = files.next();');
+    lines.push('    Logger.log(file.getName());');
+    lines.push('  }');
+    lines.push('');
+  }
+
+  lines.push('  // -----------------------------------------------');
+  lines.push('  // ここにClaudeが生成したメイン処理を貼り付けてください');
+  lines.push('  // -----------------------------------------------');
+  lines.push('');
+  lines.push('  // 完了メッセージ');
+  lines.push('  Logger.log("処理が完了しました");');
+  lines.push('}');
+
+  if(timing === 'time'){
+    lines.push('');
+    lines.push('// トリガー設定（一度だけ実行してください）');
+    lines.push('function setupTrigger() {');
+    lines.push('  // 既存のトリガーをすべて削除する');
+    lines.push('  var triggers = ScriptApp.getProjectTriggers();');
+    lines.push('  for (var i = 0; i < triggers.length; i++) {');
+    lines.push('    ScriptApp.deleteTrigger(triggers[i]);');
+    lines.push('  }');
+    lines.push('  // 毎日午前9時に main() を実行するトリガーを設定する');
+    lines.push('  ScriptApp.newTrigger("main")');
+    lines.push('    .timeBased()');
+    lines.push('    .atHour(9)');
+    lines.push('    .everyDays(1)');
+    lines.push('    .create();');
+    lines.push('  Logger.log("トリガーを設定しました");');
+    lines.push('}');
+  } else if(timing === 'edit'){
+    lines.push('');
+    lines.push('// トリガー設定メモ');
+    lines.push('// スクリプトエディタ左メニューの「トリガー」から手動で設定してください。');
+    lines.push('// 設定値: イベントの種類 = スプレッドシートから > 編集時');
+    lines.push('// 実行する関数: main');
+  } else if(timing === 'form'){
+    lines.push('');
+    lines.push('// トリガー設定メモ');
+    lines.push('// スクリプトエディタ左メニューの「トリガー」から手動で設定してください。');
+    lines.push('// 設定値: イベントの種類 = スプレッドシートから > フォーム送信時');
+    lines.push('// 実行する関数: main');
+  }
+
+  return lines.join('\n');
+}
+
+function buildTroublePrompt(purpose, gasCode){
+  return 'GASのコードでエラーが出て困っています。以下の情報を確認して、原因と解決策を教えてください。\n\n【このツールの目的】\n' + purpose + '\n\n【エラーメッセージ（スクリプトエディタの実行ログからコピー）】\n※ここにエラーメッセージを貼り付けてください\n\n【実行したコードの全文】\n' + gasCode + '\n\n【お願いしたいこと】\n・エラーの原因をGAS初心者にもわかるように説明してください\n・修正したコードを全文で出力してください\n・同じエラーを防ぐためのポイントも教えてください';
+}
+</script>
+
+</body>
+</html>
