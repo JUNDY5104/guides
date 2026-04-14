@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cross 使い方ガイド｜FX駆け込み寺 SNS運用支援ツール</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d2b5c;
+    --navy-mid: #1858a8;
+    --teal: #0098b0;
+    --teal-light: #e6f6f9;
+    --navy-light: #eaf0f9;
+    --accent: #1858a8;
+    --accent2: #0098b0;
+    --bg: #f7f9fc;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --muted: #5a6a85;
+    --border: #d0dcea;
+    --heading: #0d2b5c;
+    --warn: #b85000;
+    --warn-bg: #fff4ed;
+    --success: #006e40;
+    --success-bg: #e8f7ef;
+    --radius: 8px;
+    --shadow: 0 2px 12px rgba(13,43,92,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ========== HERO ========== */
+  .hero {
+    background: linear-gradient(135deg, #0d2b5c 0%, #1858a8 60%, #0098b0 100%);
+    padding: 60px 24px 50px;
+    text-align: center;
+    color: #fff;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.80);
+    margin-bottom: 28px;
+  }
+  .hero-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.30);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  /* ========== STICKY NAV ========== */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    border-bottom: 2px solid var(--teal);
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: var(--teal) var(--navy);
+  }
+  .sticky-nav::-webkit-scrollbar { height: 3px; }
+  .sticky-nav::-webkit-scrollbar-track { background: var(--navy); }
+  .sticky-nav::-webkit-scrollbar-thumb { background: var(--teal); }
+  .nav-inner {
+    display: inline-flex;
+    gap: 0;
+    padding: 0 12px;
+  }
+  .nav-inner a {
+    display: inline-block;
+    color: rgba(255,255,255,0.72);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 12px 14px;
+    letter-spacing: 0.03em;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+  .nav-inner a:hover,
+  .nav-inner a.active {
+    color: #fff;
+    border-bottom-color: var(--teal);
+  }
+
+  /* ========== WRAP ========== */
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ========== SECTION ========== */
+  .section {
+    padding: 56px 0 20px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .section.visible { opacity: 1; transform: none; }
+
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+  .sec-num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sec-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--heading);
+    letter-spacing: 0.03em;
+  }
+  .sec-header .sec-tag {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 11px;
+    background: var(--navy-light);
+    color: var(--navy-mid);
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--heading);
+    margin: 32px 0 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+  }
+
+  p { margin-bottom: 14px; color: var(--text); }
+
+  /* ========== CARD ========== */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  /* ========== STEP LIST ========== */
+  .step-list { list-style: none; margin: 0 0 20px; }
+  .step-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-weight: 700; font-size: 14px; color: var(--heading); margin-bottom: 4px; }
+  .step-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* ========== TABLE ========== */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    background: var(--navy);
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg); }
+
+  /* ========== NOTICE ========== */
+  .notice {
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .notice.warn {
+    background: var(--warn-bg);
+    border-left: 4px solid var(--warn);
+    color: #7a3800;
+  }
+  .notice.info {
+    background: var(--navy-light);
+    border-left: 4px solid var(--navy-mid);
+    color: #0d2b5c;
+  }
+  .notice.ok {
+    background: var(--success-bg);
+    border-left: 4px solid var(--success);
+    color: #004d2d;
+  }
+  .notice strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+  /* ========== MOCKUP ========== */
+  .mockup {
+    background: #0d1a2e;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 20px 0;
+    box-shadow: 0 4px 24px rgba(13,43,92,0.18);
+    overflow: hidden;
+  }
+  .mockup-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .mock-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .mock-dot.r { background: #ff5f57; }
+  .mock-dot.y { background: #ffbd2e; }
+  .mock-dot.g { background: #28ca41; }
+  .mock-title {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-left: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Mockup: App Header */
+  .mk-app-header {
+    background: linear-gradient(90deg, #0d2b5c 0%, #1858a8 100%);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mk-logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1em;
+  }
+  .mk-logo span { color: #0098b0; }
+  .mk-apikey-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.30);
+    color: #fff;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* Mockup: Tab */
+  .mk-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .mk-tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 0;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .mk-tab.active {
+    background: #1858a8;
+    color: #fff;
+    border-color: #1858a8;
+  }
+
+  /* Mockup: Form */
+  .mk-form-row { margin-bottom: 12px; }
+  .mk-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.50);
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  .mk-select, .mk-input, .mk-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
+    padding: 8px 12px;
+    font-family: inherit;
+  }
+  .mk-textarea { min-height: 60px; resize: none; }
+  .mk-chara-btns { display: flex; gap: 8px; }
+  .mk-chara-btn {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.55);
+  }
+  .mk-chara-btn.active {
+    background: rgba(24,88,168,0.6);
+    border-color: #1858a8;
+    color: #fff;
+  }
+  .mk-size-btns { display: flex; gap: 8px; }
+  .mk-size-btn {
+    flex: 1;
+    text-align: center;
+    padding: 7px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.55);
+  }
+  .mk-size-btn.active {
+    background: rgba(0,152,176,0.5);
+    border-color: #0098b0;
+    color: #fff;
+  }
+  .mk-gen-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #1858a8, #0098b0);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+    cursor: pointer;
+  }
+  .mk-result {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 12px;
+    color: rgba(255,255,255,0.80);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .mk-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .mk-result-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0098b0;
+    letter-spacing: 0.08em;
+  }
+  .mk-copy-btn {
+    background: rgba(0,152,176,0.2);
+    border: 1px solid rgba(0,152,176,0.4);
+    color: #0098b0;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+  .mk-img-prompt-btn {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.70);
+    font-size: 12px;
+    padding: 9px;
+    border-radius: 8px;
+    margin-top: 8px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .mk-upload-area {
+    border: 2px dashed rgba(255,255,255,0.20);
+    border-radius: 10px;
+    padding: 30px 20px;
+    text-align: center;
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .mk-upload-icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.30);
+  }
+  .mk-warn-bar {
+    background: rgba(184,80,0,0.20);
+    border: 1px solid rgba(184,80,0,0.40);
+    border-radius: 6px;
+    color: #ffb080;
+    font-size: 12px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+
+  /* Mockup: API KEY modal */
+  .mk-modal-overlay {
+    background: rgba(0,0,0,0.55);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+  .mk-modal {
+    background: #162340;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .mk-modal-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+  .mk-modal-input {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
+    padding: 9px 12px;
+    margin-bottom: 10px;
+    font-family: monospace;
+  }
+  .mk-save-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #1858a8, #0098b0);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px;
+    border-radius: 6px;
+    border: none;
+    letter-spacing: 0.08em;
+  }
+  .mk-modal-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.40);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* Mockup: Spreadsheet */
+  .mk-sheet {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  .mk-sheet-header {
+    background: #1a73e8;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mk-sheet-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+  }
+  .mk-sheet table { font-size: 11px; }
+  .mk-sheet th {
+    background: #f1f3f4;
+    color: #444;
+    font-weight: 700;
+    padding: 7px 10px;
+  }
+  .mk-sheet td {
+    padding: 7px 10px;
+    color: #333;
+    border-bottom: 1px solid #e8e8e8;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ========== TROUBLE TABLE ========== */
+  .trouble-row {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .trouble-error {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--warn);
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .trouble-fix { font-size: 14px; color: var(--text); line-height: 1.7; }
+
+  /* ========== CHAR CARD ========== */
+  .char-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) { .char-cards { grid-template-columns: 1fr; } }
+  .char-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .char-card.takuya { border-top: 4px solid var(--navy-mid); }
+  .char-card.mayu { border-top: 4px solid var(--teal); }
+  .char-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 10px;
+  }
+  .char-attr {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .char-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .char-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--navy-light);
+    color: var(--navy-mid);
+  }
+  .char-card.mayu .char-tag {
+    background: var(--teal-light);
+    color: #006e7d;
+  }
+
+  /* ========== TOOLTIP ========== */
+  .tt {
+    display: inline;
+    border-bottom: 2px dotted var(--accent);
+    cursor: help;
+    position: relative;
+  }
+  .tt::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    max-width: 240px;
+    white-space: normal;
+    width: max-content;
+    max-width: 220px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 999;
+  }
+  .tt:hover::after { opacity: 1; }
+
+  /* ========== TOP BUTTON ========== */
+  .top-btn-wrap { text-align: center; padding: 32px 0 10px; }
+  .top-btn {
+    display: inline-block;
+    padding: 9px 28px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .top-btn:hover {
+    background: var(--navy-mid);
+    text-decoration: none;
+  }
+
+  /* ========== PRICE BADGE ========== */
+  .price-note {
+    background: var(--success-bg);
+    border: 1px solid #9bcfb5;
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--success);
+    margin-bottom: 18px;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    margin-top: 60px;
+    background: var(--navy);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 13px;
+  }
+  footer strong { color: rgba(255,255,255,0.85); font-size: 15px; display: block; margin-bottom: 6px; }
+
+  /* ========== DIVIDER ========== */
+  .sec-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 12px 0 0;
+  }
+</style>
+</head>
+<body id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">FX駆け込み寺 内部ツール</div>
+  <h1>Cross</h1>
+  <p class="hero-sub">SNS運用支援ツール 使い方ガイド</p>
+  <div class="hero-tags">
+    <span class="hero-tag">X投稿文生成</span>
+    <span class="hero-tag">チャート解説</span>
+    <span class="hero-tag">ログ自動保存</span>
+    <span class="hero-tag">キャラクター2名</span>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="#overview">ツール概要</a>
+    <a href="#apikey">APIキー設定</a>
+    <a href="#gemini-paid">Gemini有料化</a>
+    <a href="#text-mode">TEXTモード</a>
+    <a href="#chart-mode">CHARTモード</a>
+    <a href="#ng-check">NGチェック</a>
+    <a href="#log">ログ確認</a>
+    <a href="#trouble">トラブル対応</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ========== SECTION 1: 概要 ========== -->
+  <section class="section" id="overview">
+    <div class="sec-header">
+      <div class="sec-num">1</div>
+      <h2>ツール概要</h2>
+      <span class="sec-tag">OVERVIEW</span>
+    </div>
+
+    <p>CrossはFX駆け込み寺のX（旧Twitter）アカウント運用を支援するWebアプリです。<span class="tt" data-tip="Google Apps Script。Googleアカウントで使えるサーバーサイド実行環境">GAS</span>と<span class="tt" data-tip="GoogleのAIモデル。テキスト生成・画像解析が可能">Gemini API</span>を組み合わせて構築されており、キャラクター別の投稿文生成とチャート解説の自動生成ができます。</p>
+
+    <div class="notice info">
+      <strong>このガイドの対象</strong>
+      Crossを実際に操作するスタッフの方向けの使い方マニュアルです。APIキーの設定方法・各モードの操作手順・トラブル対応をまとめています。
+    </div>
+
+    <h3>主な機能</h3>
+    <div class="tbl-wrap">
+      <table>
+        <tr>
+          <th style="width:130px">機能</th>
+          <th>内容</th>
+        </tr>
+        <tr>
+          <td><strong>TEXTモード</strong></td>
+          <td>ジャンル・トーン・メモを指定して、キャラクター別にX投稿文を生成（140字 / 800字）</td>
+        </tr>
+        <tr>
+          <td><strong>CHARTモード</strong></td>
+          <td>FXチャートの画像をアップロードすると、初心者向けの解説文を自動生成</td>
+        </tr>
+        <tr>
+          <td><strong>IMAGE PROMPT</strong></td>
+          <td>生成した投稿文をもとに、画像生成AI用のプロンプトを英語で自動作成（TEXTモードのみ）</td>
+        </tr>
+        <tr>
+          <td><strong>ログ保存</strong></td>
+          <td>生成のたびにGoogleスプレッドシートへ自動記録</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>キャラクター設定</h3>
+    <p>Crossには2名のキャラクターが設定されており、投稿の目的やターゲットに合わせて使い分けます。</p>
+    <div class="char-cards">
+      <div class="char-card takuya">
+        <div class="char-name">タクヤ</div>
+        <div class="char-attr">42歳・現役トレーダー・男性</div>
+        <div class="char-tags">
+          <span class="char-tag">知的な兄貴分</span>
+          <span class="char-tag">FX翻訳家</span>
+          <span class="char-tag">落ち着いた論理的</span>
+          <span class="char-tag">数字ベース</span>
+          <span class="char-tag">FX全般を学びたい人向け</span>
+        </div>
+      </div>
+      <div class="char-card mayu">
+        <div class="char-name">マユ</div>
+        <div class="char-attr">38歳・女性</div>
+        <div class="char-tags">
+          <span class="char-tag">寄り添う家庭教師</span>
+          <span class="char-tag">柔らかい安心感</span>
+          <span class="char-tag">身近な例え</span>
+          <span class="char-tag">FXが怖い・怪しいと感じる女性向け</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>画面全体のイメージ</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mock-dot r"></div>
+        <div class="mock-dot y"></div>
+        <div class="mock-dot g"></div>
+        <span class="mock-title">Cross — アプリ画面</span>
+      </div>
+      <div class="mk-app-header">
+        <div class="mk-logo">CR<span>O</span>SS</div>
+        <div class="mk-apikey-btn">API KEY</div>
+      </div>
+      <div class="mk-tabs">
+        <div class="mk-tab active">TEXT</div>
+        <div class="mk-tab">CHART</div>
+      </div>
+      <div class="mk-form-row">
+        <div class="mk-label">CHARACTER</div>
+        <div class="mk-chara-btns">
+          <div class="mk-chara-btn active">TAKUYA — 知的な兄貴分</div>
+          <div class="mk-chara-btn">MAYU — 寄り添う家庭教師</div>
+        </div>
+      </div>
+      <div class="mk-form-row">
+        <div class="mk-label">GENRE</div>
+        <div class="mk-select">基礎知識</div>
+      </div>
+      <div class="mk-form-row">
+        <div class="mk-label">TONE</div>
+        <div class="mk-select">教育的・解説</div>
+      </div>
+      <div class="mk-form-row">
+        <div class="mk-label">SIZE</div>
+        <div class="mk-size-btns">
+          <div class="mk-size-btn active">140字</div>
+          <div class="mk-size-btn">800字</div>
+        </div>
+      </div>
+      <button class="mk-gen-btn">GENERATE</button>
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- ========== SECTION 2: APIキー設定 ========== -->
+  <section class="section" id="apikey">
+    <div class="sec-header">
+      <div class="sec-num">2</div>
+      <h2>APIキーの取得と設定</h2>
+      <span class="sec-tag">API KEY</span>
+    </div>
+
+    <p>CrossはGemini APIを使って文章を生成します。利用するには<span class="tt" data-tip="AIサービスに接続するための認証キー。パスワードと同様に扱う">APIキー</span>をアプリに登録する必要があります。</p>
+
+    <div class="notice warn">
+      <strong>APIキーの取り扱いに注意</strong>
+      APIキーは他人に見せないでください。SNS・メール・チャットに貼り付けたり、公開の場に書いたりしないこと。漏洩すると第三者に無断利用されます。
+    </div>
+
+    <h3>APIキーの取得手順</h3>
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Google AI Studio にアクセス</div>
+          <div class="step-desc">ブラウザで <strong>aistudio.google.com</strong> を開き、Googleアカウントでログインします。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">「Get API key」をクリック</div>
+          <div class="step-desc">左メニューの「Get API key」→「APIキーを作成」をクリックします。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">プロジェクトを選択</div>
+          <div class="step-desc">有料プランを設定済みのGoogle Cloudプロジェクトを選択します（有料化の手順は次のセクションを参照）。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">キーをコピーして保存</div>
+          <div class="step-desc">作成されたAPIキーをコピーします。このキーは一度しか表示されないため、安全な場所（メモアプリやパスワード管理ツール）に保存してください。</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>Crossへのキー登録方法</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mock-dot r"></div>
+        <div class="mock-dot y"></div>
+        <div class="mock-dot g"></div>
+        <span class="mock-title">APIキー入力画面</span>
+      </div>
+      <div class="mk-modal-overlay">
+        <div class="mk-modal">
+          <div class="mk-modal-title">API KEY 設定</div>
+          <div class="mk-label" style="color:rgba(255,255,255,0.45);font-size:11px;margin-bottom:6px;">Gemini APIキーを入力してください</div>
+          <div class="mk-modal-input">AIzaSy••••••••••••••••••••••••••••</div>
+          <button class="mk-save-btn">SAVE</button>
+          <div class="mk-modal-note">キーはこのブラウザにのみ保存されます</div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">「API KEY」ボタンをクリック</div>
+          <div class="step-desc">Crossの画面右上にある「API KEY」ボタンをクリックします。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">キーを入力</div>
+          <div class="step-desc">入力欄に取得したAPIキーを貼り付けます。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">「SAVE」をクリック</div>
+          <div class="step-desc">保存するとすぐに使用可能になります。キーはブラウザに保存されるため、次回以降は入力不要です。</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="notice info">
+      <strong>スマートフォンで使用する場合</strong>
+      ブラウザを変えると保存したキーが引き継がれません。使用するブラウザを統一してください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- ========== SECTION 3: Gemini有料化 ========== -->
+  <section class="section" id="gemini-paid">
+    <div class="sec-header">
+      <div class="sec-num">3</div>
+      <h2>Gemini有料プランへの切り替え</h2>
+      <span class="sec-tag">重要設定</span>
+    </div>
+
+    <div class="notice warn">
+      <strong>無料プランのままだとエラーが頻発します</strong>
+      Gemini APIの無料プランは1分あたりのリクエスト数が非常に少なく、複数人で利用したり続けて使うと「503エラー」「429エラー」が頻発します。安定して使うには有料プランへの切り替えが必要です。
+    </div>
+
+    <div class="price-note">
+      このツールの使用量（1日数十回程度）であれば、月額数百円程度の費用で収まります。
+    </div>
+
+    <h3>無料プランと有料プランの違い</h3>
+    <div class="tbl-wrap">
+      <table>
+        <tr>
+          <th style="width:160px">項目</th>
+          <th>無料プラン</th>
+          <th>有料プラン</th>
+        </tr>
+        <tr>
+          <td>1分あたりの上限</td>
+          <td>少ない（すぐ上限に達する）</td>
+          <td>大幅に増加</td>
+        </tr>
+        <tr>
+          <td>エラーの頻度</td>
+          <td>503・429エラーが頻発</td>
+          <td>ほぼ発生しない</td>
+        </tr>
+        <tr>
+          <td>コードの変更</td>
+          <td>—</td>
+          <td>不要（同じAPIキーのまま）</td>
+        </tr>
+        <tr>
+          <td>費用</td>
+          <td>無料</td>
+          <td>使用量に応じた従量課金</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>有料プランへの切り替え手順</h3>
+
+    <div class="notice info">
+      <strong>切り替えに必要なもの</strong>
+      クレジットカードまたはデビットカード（Google Payも可）。GASプロジェクトに紐づいたGoogleアカウント。
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Google Cloud コンソールを開く</div>
+          <div class="step-desc">ブラウザで <strong>console.cloud.google.com</strong> にアクセスします。GASプロジェクトに紐づいているGoogleアカウントでログインしてください。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">プロジェクトを選択する</div>
+          <div class="step-desc">画面上部のプロジェクト名をクリックして、Crossに紐づいているGoogle Cloudプロジェクトを選択します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">「お支払い」メニューを開く</div>
+          <div class="step-desc">左メニューから「お支払い」を選択し、「請求先アカウントをリンク」をクリックします。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">請求先アカウントを作成する</div>
+          <div class="step-desc">「請求先アカウントを作成」をクリックして、カード情報を入力します。名前・住所・カード番号を登録してください。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">完了</div>
+          <div class="step-desc">登録完了後、すぐに有料プランが適用されます。APIキーもコードも変更不要です。そのままCrossを使い続けられます。</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="notice ok">
+      <strong>切り替え後にやること</strong>
+      特別な作業はありません。同じURLでCrossを開き、同じAPIキーで引き続き利用できます。
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0; border-left-color: var(--warn);">請求額の目安と上限設定について</h3>
+      <p>Gemini APIは<span class="tt" data-tip="使った分だけ課金される仕組み。基本料金は不要">従量課金制</span>です。Crossの通常の使い方（1日数十回程度の生成）では月数百円程度の費用になります。</p>
+      <p>念のため<strong>予算アラート</strong>を設定しておくと安心です。Google Cloudの「お支払い」→「予算とアラート」から設定できます。例えば月1,000円を超えたら通知が来るよう設定しておきましょう。</p>
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- ========== SECTION 4: TEXTモード ========== -->
+  <section class="section" id="text-mode">
+    <div class="sec-header">
+      <div class="sec-num">4</div>
+      <h2>TEXTモードの使い方</h2>
+      <span class="sec-tag">TEXT MODE</span>
+    </div>
+
+    <p>TEXTモードはX（旧Twitter）への投稿文を生成するメイン機能です。キャラクター・ジャンル・トーンを選ぶだけで、投稿文が自動生成されます。</p>
+
+    <h3>操作手順</h3>
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">「TEXT」タブを選択</div>
+          <div class="step-desc">画面上部のタブで「TEXT」を選択します（起動時はTEXTがデフォルトです）。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">キャラクターを選択</div>
+          <div class="step-desc">「TAKUYA」または「MAYU」のボタンをタップします。投稿の目的やターゲットに合わせて選んでください。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">ジャンルを選択</div>
+          <div class="step-desc">「基礎知識 / リスク管理 / 資金管理 / メンタル・心理 / Q&amp;A / 失敗談 / 用語解説 / 時事・市場」から選択します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">トーンを選択</div>
+          <div class="step-desc">「教育的・解説 / 共感的・寄り添う / 振り返り・体験談 / 警告・注意喚起 / 励まし / 問いかけ」から選択します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">メモ入力（任意）</div>
+          <div class="step-desc">伝えたいキーワードや内容のヒントを自由入力できます。空白のまま生成することも可能です。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">サイズを選択</div>
+          <div class="step-desc">「140字（短文）」または「800字（長文）」を選択します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">「GENERATE」をクリック</div>
+          <div class="step-desc">数秒で投稿文が生成されます。生成後は内容を確認してから使用してください。</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>生成後の画面</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mock-dot r"></div>
+        <div class="mock-dot y"></div>
+        <div class="mock-dot g"></div>
+        <span class="mock-title">TEXTモード — 生成結果</span>
+      </div>
+      <div class="mk-form-row">
+        <div class="mk-label">CHARACTER / GENRE / TONE / SIZE</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="mk-chara-btn active" style="flex:none;padding:5px 12px;">TAKUYA</div>
+          <div class="mk-chara-btn active" style="flex:none;padding:5px 12px;">基礎知識</div>
+          <div class="mk-chara-btn active" style="flex:none;padding:5px 12px;">教育的・解説</div>
+          <div class="mk-chara-btn active" style="flex:none;padding:5px 12px;">140字</div>
+        </div>
+      </div>
+      <button class="mk-gen-btn" style="margin-bottom:12px;">GENERATE</button>
+      <div class="mk-result">
+        <div class="mk-result-header">
+          <span class="mk-result-label">GENERATED TEXT</span>
+          <button class="mk-copy-btn">COPY</button>
+        </div>
+        <div>スプレッドが広がると「損している」と感じるのはなぜか。それは買値と売値の差が、最初から織り込まれているからだ。FXはゼロサムではなく、スプレッドというコストを理解した上で戦略を立てることが基本になる。まずここを押さえよう。</div>
+      </div>
+      <button class="mk-img-prompt-btn">IMAGE PROMPT を生成</button>
+    </div>
+
+    <h3>IMAGE PROMPTについて</h3>
+    <p>投稿文の生成後に「IMAGE PROMPT を生成」ボタンが表示されます。クリックすると、その投稿文の内容に合った<span class="tt" data-tip="Midjourney・DALL-Eなどの画像生成AIに入力するテキスト指示">画像生成プロンプト</span>が英語で自動作成されます。</p>
+    <div class="notice info">
+      <strong>IMAGE PROMPTは必要な時だけ使用</strong>
+      毎回使う必要はありません。投稿に画像を付けたい場合のみクリックしてください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- ========== SECTION 5: CHARTモード ========== -->
+  <section class="section" id="chart-mode">
+    <div class="sec-header">
+      <div class="sec-num">5</div>
+      <h2>CHARTモードの使い方</h2>
+      <span class="sec-tag">CHART MODE</span>
+    </div>
+
+    <p>CHARTモードはFXチャートのスクリーンショットをアップロードすると、初心者向けの解説文をAIが自動生成する機能です。</p>
+
+    <h3>操作手順</h3>
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">「CHART」タブを選択</div>
+          <div class="step-desc">画面上部のタブで「CHART」を選択します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">キャラクターを選択</div>
+          <div class="step-desc">「TAKUYA」または「MAYU」を選択します。キャラクターによって解説文のトーンが変わります。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">「TAP TO UPLOAD」をタップ</div>
+          <div class="step-desc">チャートのスクリーンショット画像を選択してアップロードします。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">「GENERATE」をクリック</div>
+          <div class="step-desc">AIがチャートを解析して、初心者にわかりやすい解説文を生成します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">免責文言を確認する</div>
+          <div class="step-desc">生成結果の末尾に「AIによる参考解説です。」という免責文言が自動で挿入されていることを確認してください。</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>CHARTモードの画面</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mock-dot r"></div>
+        <div class="mock-dot y"></div>
+        <div class="mock-dot g"></div>
+        <span class="mock-title">CHARTモード — 操作画面</span>
+      </div>
+      <div class="mk-tabs">
+        <div class="mk-tab">TEXT</div>
+        <div class="mk-tab active">CHART</div>
+      </div>
+      <div class="mk-form-row">
+        <div class="mk-label">CHARACTER</div>
+        <div class="mk-chara-btns">
+          <div class="mk-chara-btn">TAKUYA</div>
+          <div class="mk-chara-btn active">MAYU — 寄り添う家庭教師</div>
+        </div>
+      </div>
+      <div class="mk-upload-area">
+        <span class="mk-upload-icon">[ 画像 ]</span>
+        TAP TO UPLOAD<br>
+        <span style="font-size:11px;color:rgba(255,255,255,0.30);">チャートのスクリーンショットを選択</span>
+      </div>
+      <button class="mk-gen-btn">GENERATE</button>
+      <div class="mk-result" style="margin-top:12px;">
+        <div class="mk-result-header">
+          <span class="mk-result-label">GENERATED TEXT</span>
+          <button class="mk-copy-btn">COPY</button>
+        </div>
+        <div>このチャートを見ると、ローソク足が少しずつ右上がりになっています。これは「買いたい人が多い状態」のサインです。ただし急に方向が変わることもあるので、焦らず様子を見ることが大切です。<br><br>AIによる参考解説です。</div>
+      </div>
+    </div>
+
+    <div class="notice warn">
+      <strong>スマートフォンで画像が読み込めない場合</strong>
+      古いURLを開いている可能性があります。デプロイ管理から最新のURLを確認してアクセスし直してください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- ========== SECTION 6: NGチェック ========== -->
+  <section class="section" id="ng-check">
+    <div class="sec-header">
+      <div class="sec-num">6</div>
+      <h2>NG表現チェックについて</h2>
+      <span class="sec-tag">NG CHECK</span>
+    </div>
+
+    <p>Crossには生成結果の品質を保つためのガードレールが設けられています。生成文に問題のある表現が含まれている場合、画面に警告が表示されます。</p>
+
+    <h3>警告が出るキーワード</h3>
+    <div class="tbl-wrap">
+      <table>
+        <tr>
+          <th>NGキーワード</th>
+          <th>理由</th>
+        </tr>
+        <tr>
+          <td>必ず / 絶対 / 確実に</td>
+          <td>断定的な表現は投資助言に該当する可能性がある</td>
+        </tr>
+        <tr>
+          <td>損しない</td>
+          <td>元本保証・損失なしの誤解を与える表現</td>
+        </tr>
+        <tr>
+          <td>爆益 / 楽して / 一発</td>
+          <td>過度な期待を煽る表現として不適切</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>警告が出たときの対応</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mock-dot r"></div>
+        <div class="mock-dot y"></div>
+        <div class="mock-dot g"></div>
+        <span class="mock-title">NG警告 — 表示イメージ</span>
+      </div>
+      <div class="mk-result">
+        <div class="mk-result-header">
+          <span class="mk-result-label">GENERATED TEXT</span>
+          <button class="mk-copy-btn">COPY</button>
+        </div>
+        <div style="color:rgba(255,255,255,0.80);">このトレード手法を身につければ、絶対に利益を出せるようになります...</div>
+      </div>
+      <div class="mk-warn-bar">NG表現が含まれています：「絶対に」— 再生成するか手動で修正してください</div>
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">再生成する</div>
+          <div class="step-desc">「GENERATE」ボタンをもう一度クリックして別の文章を生成します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">手動で修正する</div>
+          <div class="step-desc">生成されたテキストをコピーして、NGキーワード部分を別の表現に書き換えてから使用します。</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>AIが自動で避けている内容</h3>
+    <p>以下の内容はプロンプトレベルでAIに禁止されており、生成文には含まれません。</p>
+    <div class="card">
+      <div class="tbl-wrap">
+        <table>
+          <tr>
+            <th>禁止内容</th>
+          </tr>
+          <tr><td>断定的な投資助言（「ここで買うべき」「必ず上がる」など）</td></tr>
+          <tr><td>相場の方向性の予測</td></tr>
+          <tr><td>他のトレーダー・手法・ツールへの批判や比較</td></tr>
+          <tr><td>専門用語の多用（自動的に平易な日本語に変換）</td></tr>
+          <tr><td>ハッシュタグの使用</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="notice info">
+      <strong>最終確認は必ず人間が行う</strong>
+      AIの出力には誤りが含まれる場合があります。生成されたテキストは必ず内容を確認してから投稿してください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- ========== SECTION 7: ログ確認 ========== -->
+  <section class="section" id="log">
+    <div class="sec-header">
+      <div class="sec-num">7</div>
+      <h2>ログの確認方法</h2>
+      <span class="sec-tag">LOG</span>
+    </div>
+
+    <p>Crossで生成するたびに、内容がGoogleスプレッドシートに自動保存されます。後から確認・振り返りができます。</p>
+
+    <h3>保存される情報</h3>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mock-dot r"></div>
+        <div class="mock-dot y"></div>
+        <div class="mock-dot g"></div>
+        <span class="mock-title">ログスプレッドシート — イメージ</span>
+      </div>
+      <div class="mk-sheet">
+        <div class="mk-sheet-header">
+          <div class="mk-sheet-dot"></div>
+          Cross — 生成ログ
+        </div>
+        <table>
+          <tr>
+            <th>日時</th>
+            <th>キャラクター</th>
+            <th>モード</th>
+            <th>ジャンル</th>
+            <th>生成結果（抜粋）</th>
+          </tr>
+          <tr>
+            <td>2026/04/14 10:23</td>
+            <td>タクヤ</td>
+            <td>Text</td>
+            <td>基礎知識</td>
+            <td>スプレッドが広がると...</td>
+          </tr>
+          <tr>
+            <td>2026/04/14 11:05</td>
+            <td>マユ</td>
+            <td>Chart</td>
+            <td>—</td>
+            <td>このチャートを見ると...</td>
+          </tr>
+          <tr>
+            <td>2026/04/14 14:30</td>
+            <td>タクヤ</td>
+            <td>Text</td>
+            <td>リスク管理</td>
+            <td>損切りが怖いと感じる...</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr>
+          <th style="width:130px">保存項目</th>
+          <th>内容</th>
+        </tr>
+        <tr>
+          <td>日時</td>
+          <td>生成した日時（日本時間）</td>
+        </tr>
+        <tr>
+          <td>キャラクター</td>
+          <td>タクヤ または マユ</td>
+        </tr>
+        <tr>
+          <td>モード</td>
+          <td>Text / Chart</td>
+        </tr>
+        <tr>
+          <td>入力内容</td>
+          <td>ジャンル・トーン・メモ・サイズ（Textモード）または画像の種類（Chartモード）</td>
+        </tr>
+        <tr>
+          <td>生成結果</td>
+          <td>生成されたテキスト全文</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>スプレッドシートの開き方</h3>
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">GASエディタを開く</div>
+          <div class="step-desc">script.google.com からCrossのプロジェクトを開きます。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">スクリプトプロパティを確認</div>
+          <div class="step-desc">「プロジェクトの設定」→「スクリプトプロパティ」を開き、「SPREADSHEET_ID」の値をコピーします。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">スプレッドシートを開く</div>
+          <div class="step-desc">ブラウザで <strong>docs.google.com/spreadsheets/d/（コピーしたID）</strong> を開くとログが確認できます。</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- ========== SECTION 8: トラブル対応 ========== -->
+  <section class="section" id="trouble">
+    <div class="sec-header">
+      <div class="sec-num">8</div>
+      <h2>トラブル対応</h2>
+      <span class="sec-tag">TROUBLE</span>
+    </div>
+
+    <p>Crossを使っていてエラーや表示の問題が発生した場合の対処法をまとめています。</p>
+
+    <div class="trouble-row">
+      <div class="trouble-error">503 Geminiサーバーエラー</div>
+      <div class="trouble-fix">Gemini APIが過負荷状態です。1〜2分待ってから再度「GENERATE」をクリックしてください。繰り返す場合はGeminiの有料プランへの切り替えをご検討ください。</div>
+    </div>
+    <div class="trouble-row">
+      <div class="trouble-error">429 リクエスト制限超過</div>
+      <div class="trouble-fix">リクエストが多すぎて上限に達した状態です。無料プランの場合は有料プランへの切り替えが有効です。有料プランでも連続して大量送信するとまれに出ることがあります。少し間をあけてから再試行してください。</div>
+    </div>
+    <div class="trouble-row">
+      <div class="trouble-error">APIキーエラー（401 / 403）</div>
+      <div class="trouble-fix">APIキーが無効または期限切れの可能性があります。「API KEY」ボタンからキーを再入力してください。Google AI Studioでキーが有効かどうか確認してみてください。</div>
+    </div>
+    <div class="trouble-row">
+      <div class="trouble-error">スマートフォンで画像が読み込めない</div>
+      <div class="trouble-fix">古いURLを開いている可能性があります。GASエディタの「デプロイを管理」から最新のURLを確認し、そちらにアクセスし直してください。</div>
+    </div>
+    <div class="trouble-row">
+      <div class="trouble-error">文字が小さい / 表示がおかしい</div>
+      <div class="trouble-fix">ブラウザのキャッシュが原因の場合があります。ブラウザのキャッシュをクリアしてから再度アクセスしてください。スマートフォンの場合はブラウザのメニューから「閲覧データを削除」で対応できます。</div>
+    </div>
+    <div class="trouble-row">
+      <div class="trouble-error">生成が始まらない / ボタンを押しても反応しない</div>
+      <div class="trouble-fix">APIキーが未登録の可能性があります。右上の「API KEY」ボタンからキーを入力してSAVEしてください。ブラウザを変えた場合もキーの再入力が必要です。</div>
+    </div>
+
+    <div class="notice info">
+      <strong>上記で解決しない場合</strong>
+      ツールの担当者（制作者）にエラーの内容・画面のスクリーンショット・発生した時刻を共有してください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+</div><!-- /.wrap -->
+
+<footer>
+  <strong>Cross 使い方ガイド</strong>
+  FX駆け込み寺 SNS運用支援ツール｜作成日：2026年4月
+</footer>
+
+<script>
+  // Scroll animation
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  sections.forEach(s => observer.observe(s));
+
+  // Sticky nav scroll-spy
+  const navLinks = document.querySelectorAll('.nav-inner a');
+  const secIds = Array.from(navLinks).map(a => a.getAttribute('href').slice(1));
+  const secEls = secIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  secEls.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
