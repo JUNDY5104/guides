@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リプライ・引用ポスト生成アシスタント 使い方ガイド｜FX駆け込み寺</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d2b5c;
+    --navy-mid: #1858a8;
+    --teal: #0098b0;
+    --teal-light: #e6f6f9;
+    --navy-light: #eaf0f9;
+    --bg: #f7f9fc;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --muted: #5a6a85;
+    --border: #d0dcea;
+    --heading: #0d2b5c;
+    --warn: #b85000;
+    --warn-bg: #fff4ed;
+    --success: #006e40;
+    --success-bg: #e8f7ef;
+    --radius: 8px;
+    --shadow: 0 2px 12px rgba(13,43,92,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  a { color: var(--navy-mid); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0d2b5c 0%, #1858a8 60%, #0098b0 100%);
+    padding: 60px 24px 50px;
+    text-align: center;
+    color: #fff;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.80);
+    margin-bottom: 28px;
+  }
+  .hero-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.30);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  /* STICKY NAV */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    border-bottom: 2px solid var(--teal);
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: var(--teal) var(--navy);
+  }
+  .sticky-nav::-webkit-scrollbar { height: 3px; }
+  .sticky-nav::-webkit-scrollbar-track { background: var(--navy); }
+  .sticky-nav::-webkit-scrollbar-thumb { background: var(--teal); }
+  .nav-inner {
+    display: inline-flex;
+    padding: 0 12px;
+  }
+  .nav-inner a {
+    display: inline-block;
+    color: rgba(255,255,255,0.72);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 12px 14px;
+    letter-spacing: 0.03em;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+  .nav-inner a:hover,
+  .nav-inner a.active {
+    color: #fff;
+    border-bottom-color: var(--teal);
+  }
+
+  /* WRAP */
+  .wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 56px 0 20px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .section.visible { opacity: 1; transform: none; }
+
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+  .sec-num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sec-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--heading);
+    letter-spacing: 0.03em;
+  }
+  .sec-header .sec-tag {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 11px;
+    background: var(--navy-light);
+    color: var(--navy-mid);
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--heading);
+    margin: 32px 0 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--navy-mid);
+  }
+
+  p { margin-bottom: 14px; color: var(--text); }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  /* STEP LIST */
+  .step-list { list-style: none; margin: 0 0 20px; }
+  .step-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--navy-mid);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-weight: 700; font-size: 14px; color: var(--heading); margin-bottom: 4px; }
+  .step-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    background: var(--navy);
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg); }
+
+  /* NOTICE */
+  .notice {
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .notice.warn {
+    background: var(--warn-bg);
+    border-left: 4px solid var(--warn);
+    color: #7a3800;
+  }
+  .notice.info {
+    background: var(--navy-light);
+    border-left: 4px solid var(--navy-mid);
+    color: #0d2b5c;
+  }
+  .notice.ok {
+    background: var(--success-bg);
+    border-left: 4px solid var(--success);
+    color: #004d2d;
+  }
+  .notice strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+  /* MOCKUP */
+  .mockup {
+    background: #0d1a2e;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 20px 0;
+    box-shadow: 0 4px 24px rgba(13,43,92,0.18);
+  }
+  .mockup-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mock-dot.r { background: #ff5f57; }
+  .mock-dot.y { background: #ffbd2e; }
+  .mock-dot.g { background: #28ca41; }
+  .mock-title { font-size: 11px; color: rgba(255,255,255,0.45); margin-left: 8px; letter-spacing: 0.05em; }
+
+  /* ChatGPT UI Mockup */
+  .gpt-window {
+    background: #212121;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+  .gpt-sidebar {
+    background: #171717;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .gpt-logo {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #0d2b5c, #0098b0);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .gpt-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .gpt-subtitle {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+  }
+  .gpt-chat {
+    padding: 20px 16px;
+    min-height: 120px;
+  }
+  .gpt-msg {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .gpt-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .gpt-avatar.user {
+    background: var(--navy-mid);
+    color: #fff;
+  }
+  .gpt-avatar.ai {
+    background: linear-gradient(135deg, #0d2b5c, #0098b0);
+    color: #fff;
+  }
+  .gpt-bubble {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+  }
+  .gpt-bubble.user-bubble {
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .gpt-code-block {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .gpt-code-header {
+    background: rgba(255,255,255,0.06);
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .gpt-code-lang {
+    font-size: 11px;
+    color: rgba(255,255,255,0.40);
+    font-family: monospace;
+  }
+  .gpt-copy-btn {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-weight: 700;
+  }
+  .gpt-code-body {
+    padding: 12px 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.80);
+    line-height: 1.7;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .gpt-input-area {
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .gpt-input-box {
+    flex: 1;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.60);
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .gpt-attach-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: rgba(255,255,255,0.50);
+    flex-shrink: 0;
+  }
+  .gpt-send-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--navy-mid);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .gpt-img-attachment {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.60);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .gpt-img-icon {
+    width: 20px;
+    height: 20px;
+    background: rgba(0,152,176,0.3);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #0098b0;
+  }
+
+  /* CHAR CARDS */
+  .char-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) { .char-cards { grid-template-columns: 1fr; } }
+  .char-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .char-card.takuya { border-top: 4px solid var(--navy-mid); }
+  .char-card.mayu { border-top: 4px solid var(--teal); }
+  .char-name { font-size: 17px; font-weight: 700; color: var(--heading); margin-bottom: 6px; }
+  .char-attr { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .char-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .char-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--navy-light);
+    color: var(--navy-mid);
+  }
+  .char-card.mayu .char-tag { background: var(--teal-light); color: #006e7d; }
+
+  /* TOOLTIP */
+  .tt {
+    border-bottom: 1px dotted var(--navy-mid);
+    cursor: help;
+    position: relative;
+  }
+  .tt::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 6px 10px;
+    border-radius: 6px;
+    width: max-content;
+    max-width: 220px;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 999;
+  }
+  .tt:hover::after { opacity: 1; }
+
+  /* TOP BUTTON */
+  .top-btn-wrap { text-align: center; padding: 32px 0 10px; }
+  .top-btn {
+    display: inline-block;
+    padding: 9px 28px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .top-btn:hover { background: var(--navy-mid); text-decoration: none; }
+
+  /* TROUBLE */
+  .trouble-row {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .trouble-error {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--warn);
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .trouble-fix { font-size: 14px; color: var(--text); line-height: 1.7; }
+
+  /* DIVIDER */
+  .sec-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0 0; }
+
+  /* FOOTER */
+  footer {
+    margin-top: 60px;
+    background: var(--navy);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 13px;
+  }
+  footer strong { color: rgba(255,255,255,0.85); font-size: 15px; display: block; margin-bottom: 6px; }
+
+  /* DEFAULT BADGE */
+  .default-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">FX駆け込み寺 内部ツール</div>
+  <h1>リプライ・引用ポスト生成アシスタント</h1>
+  <p class="hero-sub">GPTs 使い方ガイド</p>
+  <div class="hero-tags">
+    <span class="hero-tag">リプライ生成</span>
+    <span class="hero-tag">引用ポスト生成</span>
+    <span class="hero-tag">タクヤ / マユ</span>
+    <span class="hero-tag">画像読み取り対応</span>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="#overview">概要</a>
+    <a href="#access">アクセス方法</a>
+    <a href="#basic">基本の使い方</a>
+    <a href="#mayu">マユで生成</a>
+    <a href="#advanced">応用操作</a>
+    <a href="#guard">ガードレール</a>
+    <a href="#trouble">トラブル対応</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- SECTION 1: 概要 -->
+  <section class="section" id="overview">
+    <div class="sec-header">
+      <div class="sec-num">1</div>
+      <h2>ツール概要</h2>
+      <span class="sec-tag">OVERVIEW</span>
+    </div>
+
+    <p>このGPTsは、FX駆け込み寺のX（旧Twitter）運用を支援するAIアシスタントです。投稿のスクリーンショットを貼り付けるだけで、タクヤまたはマユのキャラクターでリプライ文・引用ポスト文を自動生成します。</p>
+
+    <div class="notice info">
+      <strong>このガイドの対象</strong>
+      FX駆け込み寺のSNS運用担当者向けのマニュアルです。GPTsへのアクセス方法・基本操作・応用操作をまとめています。
+    </div>
+
+    <h3>主な機能</h3>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th style="width:160px">機能</th><th>内容</th></tr>
+        <tr><td><strong>リプライ生成</strong></td><td>スクリーンショットをもとに、返信文を自動生成する</td></tr>
+        <tr><td><strong>引用ポスト生成</strong></td><td>相手の投稿に駆け込み寺の視点を加えた引用ポスト文を生成する</td></tr>
+        <tr><td><strong>コードブロック出力</strong></td><td>生成文はコードブロック形式で出力され、コピーボタンが自動表示される</td></tr>
+        <tr><td><strong>複数枚画像対応</strong></td><td>長いポストを分割したスクリーンショットを複数枚まとめて送れる</td></tr>
+      </table>
+    </div>
+
+    <h3>デフォルト設定</h3>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>項目</th><th>デフォルト</th></tr>
+        <tr><td>キャラクター</td><td>タクヤ <span class="default-badge">DEFAULT</span></td></tr>
+        <tr><td>サイズ</td><td>短文（140字以内）<span class="default-badge">DEFAULT</span></td></tr>
+        <tr><td>モード</td><td>リプライ <span class="default-badge">DEFAULT</span></td></tr>
+      </table>
+    </div>
+
+    <h3>キャラクター設定</h3>
+    <div class="char-cards">
+      <div class="char-card takuya">
+        <div class="char-name">タクヤ</div>
+        <div class="char-attr">42歳・現役トレーダー・男性</div>
+        <div class="char-tags">
+          <span class="char-tag">知的な兄貴分</span>
+          <span class="char-tag">FX翻訳家</span>
+          <span class="char-tag">落ち着いた論理的</span>
+          <span class="char-tag">数字ベース</span>
+        </div>
+      </div>
+      <div class="char-card mayu">
+        <div class="char-name">マユ</div>
+        <div class="char-attr">38歳・女性</div>
+        <div class="char-tags">
+          <span class="char-tag">寄り添う家庭教師</span>
+          <span class="char-tag">柔らかい安心感</span>
+          <span class="char-tag">身近な例え</span>
+          <span class="char-tag">FXが怖い女性向け</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- SECTION 2: アクセス方法 -->
+  <section class="section" id="access">
+    <div class="sec-header">
+      <div class="sec-num">2</div>
+      <h2>アクセス方法</h2>
+      <span class="sec-tag">ACCESS</span>
+    </div>
+
+    <p>ChatGPTのアカウントにログインした状態で、専用のGPTsリンクにアクセスします。</p>
+
+    <div class="notice warn">
+      <strong>ChatGPTへのログインが必要です</strong>
+      このGPTsを使用するにはChatGPTアカウントへのログインが必須です。未ログインの場合は生成機能が使えません。
+    </div>
+
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">ChatGPTにログインする</div>
+          <div class="step-desc">chatgpt.com にアクセスして、アカウントでログインします。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">専用リンクにアクセスする</div>
+          <div class="step-desc">以下のリンクを開きます。ブックマークに登録しておくと便利です。<br><br>
+          <a href="https://chatgpt.com/g/g-69dd845540208191b4ccb251dd5a3b8c-rihuraiyin-yong-hosutosheng-cheng-asisutanto" target="_blank" rel="noopener" style="word-break:break-all;">https://chatgpt.com/g/g-69dd845540208191b4ccb251dd5a3b8c-rihuraiyin-yong-hosutosheng-cheng-asisutanto</a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">チャット画面が表示されたら準備完了</div>
+          <div class="step-desc">「リプライ・引用ポスト生成アシスタント」のチャット画面が開いたら使用できます。</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="notice info">
+      <strong>推奨モデル</strong>
+      このGPTsはGPT-5.2 Instantを推奨モデルに設定しています。画像読み取りと応答速度のバランスが最適です。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- SECTION 3: 基本の使い方 -->
+  <section class="section" id="basic">
+    <div class="sec-header">
+      <div class="sec-num">3</div>
+      <h2>基本の使い方</h2>
+      <span class="sec-tag">BASIC</span>
+    </div>
+
+    <p>最もシンプルな操作は「スクリーンショットを貼り付けるだけ」です。確認なしで即座にデフォルト設定（タクヤ・短文・リプライ）で生成されます。</p>
+
+    <h3>スクリーンショットのみ送る場合</h3>
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">返信したいポストをスクリーンショットする</div>
+          <div class="step-desc">返信対象のポスト1件が画面に映るようにキャプチャします。ポストが長い場合は複数枚になっても構いません。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">画像を添付して送信する</div>
+          <div class="step-desc">入力欄左のクリップアイコンから画像を添付して送信します。テキストは入力不要です。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">コードブロックで生成結果が表示される</div>
+          <div class="step-desc">タクヤのキャラクターで140字以内のリプライ文がコードブロック形式で生成されます。コピーボタンでそのままコピーできます。</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>操作画面のイメージ</h3>
+    <div class="gpt-window">
+      <div class="gpt-sidebar">
+        <div class="gpt-logo">FX</div>
+        <div>
+          <div class="gpt-title">リプライ・引用ポスト生成アシスタント</div>
+          <div class="gpt-subtitle">GPT-5.2 Instant</div>
+        </div>
+      </div>
+      <div class="gpt-chat">
+        <div class="gpt-msg">
+          <div class="gpt-avatar user">U</div>
+          <div class="gpt-bubble">
+            <div class="gpt-img-attachment">
+              <div class="gpt-img-icon">IMG</div>
+              screenshot.png
+            </div>
+          </div>
+        </div>
+        <div class="gpt-msg">
+          <div class="gpt-avatar ai">AI</div>
+          <div class="gpt-bubble">
+            <div class="gpt-code-block">
+              <div class="gpt-code-header">
+                <span class="gpt-code-lang">text</span>
+                <span class="gpt-copy-btn">コピー</span>
+              </div>
+              <div class="gpt-code-body">損切りを「負け」と感じる気持ち、よくわかります。ただ算数で考えると、損切りは「損失の確定」ではなく「それ以上の損失を防ぐコスト」です。長く続けるために、守りの技術として身につけましょう。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gpt-input-area">
+        <div class="gpt-attach-icon">+</div>
+        <div class="gpt-input-box">画像を添付して送信...</div>
+        <div class="gpt-send-btn">→</div>
+      </div>
+    </div>
+
+    <h3>複数枚のスクリーンショットを送る場合</h3>
+    <p>長いポストを分割してキャプチャした場合は、画像と一緒に補足テキストを入力してください。</p>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th style="width:200px">状況</th><th>補足テキストの例</th></tr>
+        <tr><td>複数枚で1つのポスト</td><td>「これ全部で1つのポストです」</td></tr>
+        <tr><td>特定のポストに返信したい</td><td>「一番下のポストにリプライ」</td></tr>
+        <tr><td>3枚目の途中から続き</td><td>「3枚目の途中から続きです」</td></tr>
+      </table>
+    </div>
+
+    <div class="notice info">
+      <strong>読み取れない部分がある場合</strong>
+      画像の一部が読み取れない場合、GPTsから「〇〇の部分が読み取れませんでした」と伝えてきます。その場合はテキストで補足してください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- SECTION 4: マユで生成 -->
+  <section class="section" id="mayu">
+    <div class="sec-header">
+      <div class="sec-num">4</div>
+      <h2>マユで生成する</h2>
+      <span class="sec-tag">MAYU</span>
+    </div>
+
+    <p>マユのキャラクターで生成したい場合は、画像と一緒に「マユ」と入力するだけです。</p>
+
+    <h3>操作手順</h3>
+    <ul class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">画像を添付する</div>
+          <div class="step-desc">返信したいポストのスクリーンショットを添付します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">「マユ」と入力して送信する</div>
+          <div class="step-desc">テキスト入力欄に「マユ」とだけ入力して送信します。</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">マユのトーンでリプライ文が生成される</div>
+          <div class="step-desc">柔らかく寄り添うマユのトーンで、140字以内のリプライ文が生成されます。</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>操作画面のイメージ</h3>
+    <div class="gpt-window">
+      <div class="gpt-sidebar">
+        <div class="gpt-logo">FX</div>
+        <div>
+          <div class="gpt-title">リプライ・引用ポスト生成アシスタント</div>
+          <div class="gpt-subtitle">GPT-5.2 Instant</div>
+        </div>
+      </div>
+      <div class="gpt-chat">
+        <div class="gpt-msg">
+          <div class="gpt-avatar user">U</div>
+          <div class="gpt-bubble">
+            <div class="gpt-img-attachment">
+              <div class="gpt-img-icon">IMG</div>
+              screenshot.png
+            </div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.70);margin-top:6px;">マユ</div>
+          </div>
+        </div>
+        <div class="gpt-msg">
+          <div class="gpt-avatar ai">AI</div>
+          <div class="gpt-bubble">
+            <div class="gpt-code-block">
+              <div class="gpt-code-header">
+                <span class="gpt-code-lang">text</span>
+                <span class="gpt-copy-btn">コピー</span>
+              </div>
+              <div class="gpt-code-body">最初はみんな怖いんですよ。でも大丈夫です。損切りって「負け」じゃなくて、家計簿でいう「今月はここまで」と決める感覚なんです。一緒に少しずつ慣れていきましょうね。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gpt-input-area">
+        <div class="gpt-attach-icon">+</div>
+        <div class="gpt-input-box">マユ</div>
+        <div class="gpt-send-btn">→</div>
+      </div>
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- SECTION 5: 応用操作 -->
+  <section class="section" id="advanced">
+    <div class="sec-header">
+      <div class="sec-num">5</div>
+      <h2>応用操作</h2>
+      <span class="sec-tag">ADVANCED</span>
+    </div>
+
+    <p>デフォルト以外の条件で生成したい場合は、画像と一緒にテキストで指示を入力します。</p>
+
+    <h3>指定できる条件</h3>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th style="width:130px">条件</th><th>選択肢</th><th>指示の例</th></tr>
+        <tr>
+          <td>キャラクター</td>
+          <td>タクヤ / マユ</td>
+          <td>「マユで」</td>
+        </tr>
+        <tr>
+          <td>サイズ</td>
+          <td>短文（140字）/ 中文（280字）/ 長文（500字以上）</td>
+          <td>「中文で」「長文で」</td>
+        </tr>
+        <tr>
+          <td>モード</td>
+          <td>リプライ / 引用ポスト</td>
+          <td>「引用ポストで」</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>組み合わせ例</h3>
+    <div class="card">
+      <div class="tbl-wrap" style="margin-bottom:0;">
+        <table>
+          <tr><th>やりたいこと</th><th>入力テキスト</th></tr>
+          <tr><td>マユで中文のリプライ</td><td>「マユ・中文」</td></tr>
+          <tr><td>タクヤで長文の引用ポスト</td><td>「長文・引用ポストで」</td></tr>
+          <tr><td>一番下のポストにマユでリプライ</td><td>「一番下・マユで」</td></tr>
+          <tr><td>3枚まとめて1つのポストとしてタクヤで中文</td><td>「3枚で1つのポスト・中文で」</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="notice info">
+      <strong>再生成したい場合</strong>
+      「もう一度」と入力すると同じ条件で別の案を生成します。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- SECTION 6: ガードレール -->
+  <section class="section" id="guard">
+    <div class="sec-header">
+      <div class="sec-num">6</div>
+      <h2>ガードレール</h2>
+      <span class="sec-tag">GUARD</span>
+    </div>
+
+    <p>FX駆け込み寺のコンセプトを守るため、以下の内容は生成されないよう設計されています。</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>禁止内容</th><th>理由</th></tr>
+        <tr><td>断定的な投資助言（「今が買い時」「必ず上がる」など）</td><td>金融商品取引法上の投資助言に該当する可能性があるため</td></tr>
+        <tr><td>相場の方向性・価格の予測</td><td>予測は一切しないというプロジェクトの方針のため</td></tr>
+        <tr><td>特定の業者・ツールの推奨または批判</td><td>中立性を保つため</td></tr>
+        <tr><td>他アカウント・他手法へのdis・批判</td><td>誠実さを損なうため</td></tr>
+        <tr><td>ハッシュタグ</td><td>運用方針として使用しないため</td></tr>
+        <tr><td>NGキーワード含む表現</td><td>「必ず」「絶対」「爆益」「楽して」「一発」など</td></tr>
+      </table>
+    </div>
+
+    <div class="notice warn">
+      <strong>生成結果は必ず確認してから投稿してください</strong>
+      AIの出力には誤りが含まれる場合があります。内容を確認・必要に応じて修正してから投稿してください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+  <!-- SECTION 7: トラブル対応 -->
+  <section class="section" id="trouble">
+    <div class="sec-header">
+      <div class="sec-num">7</div>
+      <h2>トラブル対応</h2>
+      <span class="sec-tag">TROUBLE</span>
+    </div>
+
+    <div class="trouble-row">
+      <div class="trouble-error">画像を送っても何も生成されない</div>
+      <div class="trouble-fix">ChatGPTにログインしているか確認してください。未ログインの場合は生成機能が使えません。</div>
+    </div>
+
+    <div class="trouble-row">
+      <div class="trouble-error">画像の内容が読み取れないと言われる</div>
+      <div class="trouble-fix">画像が小さすぎるか、文字が潰れている可能性があります。より鮮明なスクリーンショットを撮り直してください。または読み取れない部分のテキストを補足として入力してください。</div>
+    </div>
+
+    <div class="trouble-row">
+      <div class="trouble-error">返信対象のポストを間違えて認識している</div>
+      <div class="trouble-fix">「一番下のポストに返信」「上から2番目のポストに返信」など、対象を明示するテキストを追加してください。</div>
+    </div>
+
+    <div class="trouble-row">
+      <div class="trouble-error">コードブロックが表示されず、普通のテキストで出てくる</div>
+      <div class="trouble-fix">まれに出力形式がずれることがあります。「コードブロック形式で出力してください」と入力すると修正されます。</div>
+    </div>
+
+    <div class="trouble-row">
+      <div class="trouble-error">マユと入力してもタクヤで生成される</div>
+      <div class="trouble-fix">「マユで生成してください」と明示的に入力してください。会話が長くなるとデフォルト設定に戻ることがあります。</div>
+    </div>
+
+    <div class="notice info">
+      <strong>上記で解決しない場合</strong>
+      担当者（水野）にエラーの内容・スクリーンショット・発生した状況を共有してください。
+    </div>
+
+    <div class="top-btn-wrap"><a href="#top" class="top-btn">ページトップへ</a></div>
+    <hr class="sec-divider">
+  </section>
+
+</div>
+
+<footer>
+  <strong>リプライ・引用ポスト生成アシスタント 使い方ガイド</strong>
+  FX駆け込み寺 内部ツール｜作成日：2026年4月
+</footer>
+
+<script>
+  // Scroll animation
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  sections.forEach(s => observer.observe(s));
+
+  // Sticky nav scroll-spy
+  const navLinks = document.querySelectorAll('.nav-inner a');
+  const secIds = Array.from(navLinks).map(a => a.getAttribute('href').slice(1));
+  const secEls = secIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  secEls.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
