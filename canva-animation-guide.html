@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canva アニメーション作成 完全ガイド｜FX駆け込み寺 SNS運用支援</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d2b5c;
+    --navy-mid: #1858a8;
+    --teal: #0098b0;
+    --teal-light: #e6f6f9;
+    --navy-light: #eaf0f9;
+    --accent: #1858a8;
+    --bg: #f7f9fc;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --muted: #5a6a85;
+    --border: #d0dcea;
+    --heading: #0d2b5c;
+    --warn: #b85000;
+    --warn-bg: #fff4ed;
+    --success: #006e40;
+    --success-bg: #e8f7ef;
+    --radius: 8px;
+    --shadow: 0 2px 12px rgba(13,43,92,0.10);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.8; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0d2b5c 0%, #1858a8 60%, #0098b0 100%); padding: 60px 24px 50px; text-align: center; color: #fff; }
+  .hero-badge { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; padding: 4px 16px; border-radius: 20px; margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(24px, 5vw, 38px); font-weight: 700; color: #fff; letter-spacing: 0.04em; margin-bottom: 8px; }
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,0.80); margin-bottom: 28px; }
+  .hero-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .hero-tag { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.30); color: #fff; font-size: 12px; padding: 5px 14px; border-radius: 20px; }
+
+  /* STICKY NAV */
+  .sticky-nav { position: sticky; top: 0; z-index: 100; background: var(--navy); border-bottom: 2px solid var(--teal); overflow-x: auto; white-space: nowrap; scrollbar-width: thin; scrollbar-color: var(--teal) var(--navy); }
+  .sticky-nav::-webkit-scrollbar { height: 3px; }
+  .sticky-nav::-webkit-scrollbar-thumb { background: var(--teal); }
+  .nav-inner { display: inline-flex; padding: 0 12px; }
+  .nav-inner a { display: inline-block; color: rgba(255,255,255,0.72); font-size: 12px; font-weight: 500; padding: 12px 14px; letter-spacing: 0.03em; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; text-decoration: none; }
+  .nav-inner a:hover, .nav-inner a.active { color: #fff; border-bottom-color: var(--teal); }
+
+  /* WRAP */
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+  /* SECTION */
+  .section { padding: 56px 0 20px; opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .section.visible { opacity: 1; transform: none; }
+
+  .sec-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; padding-bottom: 14px; border-bottom: 2px solid var(--border); }
+  .sec-icon { flex-shrink: 0; width: 40px; height: 40px; background: var(--navy); color: #fff; font-size: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .sec-header h2 { font-size: 20px; font-weight: 700; color: var(--heading); letter-spacing: 0.03em; }
+  .sec-tag { margin-left: auto; flex-shrink: 0; font-size: 11px; background: var(--navy-light); color: var(--navy-mid); font-weight: 700; padding: 3px 10px; border-radius: 12px; }
+  .sec-tag.teal { background: var(--teal-light); color: #006a7a; }
+
+  h3 { font-size: 16px; font-weight: 700; color: var(--heading); margin: 32px 0 14px; padding-left: 12px; border-left: 4px solid var(--accent); }
+  h3.tl { border-left-color: var(--teal); }
+  p { margin-bottom: 14px; color: var(--text); }
+
+  /* BADGE */
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.05em; vertical-align: middle; margin-left: 4px; }
+  .bf { background: var(--success-bg); color: var(--success); }
+  .bp { background: #eef0ff; color: #3a3a9a; }
+  .br { background: #fff0c2; color: #7a5900; }
+
+  /* CARD */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 20px; box-shadow: var(--shadow); }
+  .card-title { font-size: 15px; font-weight: 700; color: var(--heading); margin-bottom: 14px; }
+
+  /* STEP LIST */
+  .step-list { list-style: none; margin: 0; }
+  .step-list li { display: flex; gap: 14px; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid var(--border); }
+  .step-list li:last-child { border-bottom: none; }
+  .sn { flex-shrink: 0; width: 26px; height: 26px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .sn.t { background: var(--teal); }
+  .sb { flex: 1; }
+  .st { font-weight: 700; font-size: 14px; color: var(--heading); margin-bottom: 3px; }
+  .sd { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .sc { margin-top: 5px; background: var(--navy-light); border-radius: 4px; padding: 5px 10px; font-size: 13px; color: var(--navy); font-style: italic; }
+
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { background: var(--navy); color: #fff; font-weight: 700; padding: 10px 14px; text-align: left; white-space: nowrap; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg); }
+  .star { color: #f5a623; }
+  td.hl { background: #fffbe6 !important; font-weight: 700; }
+
+  /* ICON */
+  .ico-ok { color: #006e40; font-weight: 700; }
+  .ico-pro { color: #3a3a9a; font-weight: 700; }
+  .ico-part { color: #b85000; font-weight: 700; }
+
+  /* NOTICE */
+  .notice { border-radius: var(--radius); padding: 16px 18px; margin-bottom: 18px; font-size: 14px; line-height: 1.7; }
+  .notice.warn { background: var(--warn-bg); border-left: 4px solid var(--warn); color: #7a3800; }
+  .notice.info { background: var(--navy-light); border-left: 4px solid var(--navy-mid); color: #0d2b5c; }
+  .notice.ok { background: var(--success-bg); border-left: 4px solid var(--success); color: #004d2d; }
+  .notice strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+  /* TREE */
+  .tree-card { background: var(--navy); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 24px; font-size: 14px; font-family: 'Courier New', monospace; line-height: 2; overflow-x: auto; }
+  .tr { color: #7ec8e3; font-weight: 700; font-size: 15px; }
+  .ta { color: #a8d8ff; }
+  .tb { color: #90e0c0; }
+  .tl { color: rgba(255,255,255,0.75); }
+  .ts { color: #ffd166; font-weight: 700; }
+
+  /* PRICE ROW */
+  .price-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .pc { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; background: var(--white); box-shadow: var(--shadow); }
+  .pc.hl { border-color: var(--teal); border-width: 2px; }
+  .pp { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .pa { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .pa span { font-size: 13px; font-weight: 400; color: var(--muted); }
+  .pn { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* RECOMMEND */
+  .rec-box { background: linear-gradient(135deg, #0d2b5c 0%, #1858a8 100%); border-radius: 12px; padding: 28px 32px; color: #fff; margin-bottom: 24px; }
+  .rec-box h3 { color: #fff; border-left-color: #ffd166; margin-top: 0; margin-bottom: 18px; }
+  .rec-list { list-style: none; }
+  .rec-list li { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.12); font-size: 14px; }
+  .rec-list li:last-child { border-bottom: none; }
+  .rn { flex-shrink: 0; width: 26px; height: 26px; background: #ffd166; color: #0d2b5c; font-size: 12px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .rt { color: rgba(255,255,255,0.90); line-height: 1.7; }
+  .rt strong { color: #fff; }
+
+  /* TIMELINE */
+  .timeline { background: #0d1a2e; border-radius: 10px; padding: 20px 24px; margin: 20px 0; font-size: 13px; line-height: 1.9; font-family: 'Courier New', monospace; overflow-x: auto; }
+  .tlt { color: #7ec8e3; font-weight: 700; margin-bottom: 10px; font-size: 12px; letter-spacing: 0.1em; }
+  .tlr { display: flex; gap: 12px; }
+  .tlti { color: #ffd166; flex-shrink: 0; min-width: 80px; }
+  .tlc { color: rgba(255,255,255,0.80); }
+  .tls { color: rgba(255,255,255,0.50); padding-left: 20px; font-size: 12px; }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* FOOTER */
+  .footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; font-size: 12px; padding: 28px 20px; margin-top: 60px; letter-spacing: 0.05em; }
+  .footer strong { color: rgba(255,255,255,0.85); }
+  .footer .upd { margin-top: 6px; font-size: 11px; color: rgba(255,255,255,0.35); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">TOOL GUIDE 2026</div>
+  <h1>Canva アニメーション作成 完全ガイド</h1>
+  <p class="hero-sub">口パク × AI音声イラスト 完全解説 ── FX駆け込み寺 SNS運用支援</p>
+  <div class="hero-tags">
+    <span class="hero-tag">🎬 Canva全機能</span>
+    <span class="hero-tag">🗣️ 口パク動画</span>
+    <span class="hero-tag">🤖 D-ID / HeyGen / Hedra</span>
+    <span class="hero-tag">💰 無料・有料を明記</span>
+    <span class="hero-tag">📱 縦型ショート動画</span>
+  </div>
+</div>
+
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#overview">全体マップ</a>
+    <a href="#canva-anim">アニメート</a>
+    <a href="#canva-extra">追加機能</a>
+    <a href="#kuchipaku">口パク準備</a>
+    <a href="#did">D-ID</a>
+    <a href="#heygen">HeyGen</a>
+    <a href="#hedra">Hedra</a>
+    <a href="#finish">仕上げ</a>
+    <a href="#compare">比較</a>
+    <a href="#recommend">推奨ルート</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- OVERVIEW -->
+  <section class="section" id="overview">
+    <div class="sec-header">
+      <div class="sec-icon">🗺️</div>
+      <h2>全体マップ：手法の選択肢</h2>
+      <span class="sec-tag">OVERVIEW</span>
+    </div>
+    <div class="tree-card">
+      <div class="tr">Canva アニメーション作成</div>
+      <div class="ta">├── A. Canva単体でできること</div>
+      <div class="tl">│&nbsp;&nbsp; ├── アニメート機能（ふわっと動く）</div>
+      <div class="tl">│&nbsp;&nbsp; ├── マジックメディア（AI動画生成）</div>
+      <div class="tl">│&nbsp;&nbsp; ├── 字幕自動生成</div>
+      <div class="tl">│&nbsp;&nbsp; ├── トランジション</div>
+      <div class="tl">│&nbsp;&nbsp; ├── ビートシンク</div>
+      <div class="tl">│&nbsp;&nbsp; ├── テキスト読み上げ（AI音声）</div>
+      <div class="tl">│&nbsp;&nbsp; ├── プレゼンター動画モード（画面収録）</div>
+      <div class="tl">│&nbsp;&nbsp; └── 録音音声のアップロード</div>
+      <div class="tb">└── B. 外部連携（口パク・喋りが必要なら必須）</div>
+      <div class="tl">&nbsp;&nbsp;&nbsp;&nbsp; ├── D-ID &nbsp;<span class="ts">← Canva内アプリから直接使える ★おすすめ</span></div>
+      <div class="tl">&nbsp;&nbsp;&nbsp;&nbsp; ├── HeyGen &nbsp;← 高品質、有料中心</div>
+      <div class="tl">&nbsp;&nbsp;&nbsp;&nbsp; └── Hedra &nbsp;&nbsp;← 無料枠あり、新興サービス</div>
+    </div>
+    <div class="notice info">
+      <strong>📌 このガイドの読み方</strong>
+      「キャラをふわっと動かしたい」→ Section A へ。「口を合わせて喋らせたい」→ Section B（D-ID推奨）へ直行。各機能に <span class="badge bf">無料</span> <span class="badge bp">Pro必須</span> を明記しています。
+    </div>
+  </section>
+
+  <!-- CANVA ANIM -->
+  <section class="section" id="canva-anim">
+    <div class="sec-header">
+      <div class="sec-icon">🎨</div>
+      <h2>A-1. アニメート機能 / マジックメディア</h2>
+      <span class="sec-tag">CANVA 単体</span>
+    </div>
+
+    <h3>アニメート機能 <span class="badge bf">基本は無料</span></h3>
+    <p>キャラクター・テキスト・素材に「動き」を付ける最も基本的な機能。口パクは不可。</p>
+
+    <div class="card">
+      <div class="card-title">操作手順</div>
+      <ol class="step-list">
+        <li><div class="sn">1</div><div class="sb"><div class="st">動画サイズのデザインを作成</div><div class="sd">縦型ショート動画なら 1080 × 1920px を選択</div></div></li>
+        <li><div class="sn">2</div><div class="sb"><div class="st">素材を配置し、選択した状態で「アニメート」をクリック</div><div class="sd">上部メニューに「アニメート」ボタンが表示される</div></div></li>
+        <li><div class="sn">3</div><div class="sb"><div class="st">エフェクトを選択して適用</div><div class="sd">下記の表を参考に目的に合わせて使い分ける</div></div></li>
+      </ol>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>エフェクト名</th><th>効果</th><th>用途</th><th>無料/有料</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ドリフト</strong></td><td>ゆっくり上下に揺れる</td><td>キャラを浮かせる</td><td><span class="badge bf">無料</span></td></tr>
+          <tr><td><strong>呼吸</strong></td><td>微妙な拡縮を繰り返す</td><td>生きてる感を出す</td><td><span class="badge bf">無料</span></td></tr>
+          <tr><td><strong>ブリンク</strong></td><td>点滅する</td><td>テキスト強調</td><td><span class="badge bf">無料</span></td></tr>
+          <tr><td><strong>タイピング</strong></td><td>文字が1文字ずつ現れる</td><td>解説テキスト</td><td><span class="badge bf">無料</span></td></tr>
+          <tr><td><strong>スライドイン</strong></td><td>横から滑り込む</td><td>チャートや矢印</td><td><span class="badge bf">無料</span></td></tr>
+          <tr><td><strong>アニメーション速度調整</strong></td><td>速度を細かく変更</td><td>細かい演出調整</td><td><span class="badge bp">Pro必須</span></td></tr>
+          <tr><td><strong>マジックアニメーション</strong></td><td>全スライドに一括適用</td><td>統一感ある仕上げ</td><td><span class="badge bp">Pro必須</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notice warn">
+      <strong>⚠️ 限界</strong>
+      アニメート機能はあくまで「ふわふわ動く」だけ。口パクは不可。喋らせたい場合は Section B（D-ID等）へ。
+    </div>
+
+    <h3>マジックメディア（AI動画生成） <span class="badge bf">無料枠あり</span></h3>
+    <p>静止画をAIが自動でアニメーション化。口パクは生成されない。動きの制御は難しい。</p>
+    <div class="card">
+      <ol class="step-list">
+        <li><div class="sn">1</div><div class="sb"><div class="st">Canva上部「アプリ」→「マジックメディア」を開く</div></div></li>
+        <li><div class="sn">2</div><div class="sb"><div class="st">「動画」タブを選択して静止画をドラッグ＆ドロップ</div></div></li>
+        <li><div class="sn">3</div><div class="sb"><div class="st">プロンプトを入力して生成（約30秒で4〜5秒の動画が完成）</div><div class="sc">"character blinking and slightly nodding, subtle hair movement"</div></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CANVA EXTRA -->
+  <section class="section" id="canva-extra">
+    <div class="sec-header">
+      <div class="sec-icon">⚙️</div>
+      <h2>A-2. Canva追加機能 一覧</h2>
+      <span class="sec-tag">CANVA 単体</span>
+    </div>
+    <p>口パク以外で動画クオリティを上げるCanva内蔵機能。無料・有料の区別を一覧で確認できます。</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>機能</th><th style="text-align:center">無料</th><th style="text-align:center">Pro</th><th>備考</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>字幕自動生成</strong></td><td style="text-align:center"><span class="ico-ok">✓</span></td><td style="text-align:center">—</td><td>ファイル→ページ表示を設定→メディアにキャプションを表示</td></tr>
+          <tr><td><strong>トランジション（基本）</strong></td><td style="text-align:center"><span class="ico-ok">✓</span></td><td style="text-align:center">—</td><td>ディゾルブ・スライド・ワイプ・ズームなど</td></tr>
+          <tr><td><strong>トランジション（高度）</strong></td><td style="text-align:center">—</td><td style="text-align:center"><span class="ico-pro">✓</span></td><td>マッチ＆ムーブなどの高度なエフェクト</td></tr>
+          <tr><td><strong>ビートシンク</strong></td><td style="text-align:center"><span class="ico-ok">✓</span></td><td style="text-align:center">—</td><td>BGMのリズムに動画クリップを自動同期</td></tr>
+          <tr><td><strong>テキスト読み上げ（英語）</strong></td><td style="text-align:center"><span class="ico-part">△</span></td><td style="text-align:center">—</td><td>無料で使えるが回数制限あり</td></tr>
+          <tr><td><strong>テキスト読み上げ（日本語）</strong></td><td style="text-align:center">—</td><td style="text-align:center"><span class="ico-pro">✓</span></td><td>日本語音声はPro限定。Murf AI連携も別途有料</td></tr>
+          <tr><td><strong>プレゼンター動画モード（画面収録）</strong></td><td style="text-align:center"><span class="ico-ok">✓</span></td><td style="text-align:center">—</td><td>自分の顔＋画面録画を同時収録できる</td></tr>
+          <tr><td><strong>録音済み音声ファイルのアップロード</strong></td><td style="text-align:center"><span class="ico-ok">✓</span></td><td style="text-align:center">—</td><td>MP3/WAV等をそのまま使用可。ストレージ：無料5GB / Pro 1TB</td></tr>
+          <tr><td><strong>背景リムーバ</strong></td><td style="text-align:center">—</td><td style="text-align:center"><span class="ico-pro">✓</span></td><td>口パクキャラをチャートに合成する際に必要</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notice ok">
+      <strong>🎤 自分で録音した音声について</strong>
+      録音済みの音声ファイル（MP3・WAVなど）のアップロードと使用は<strong>無料で可能</strong>。日本語ナレーションを自分で録音してCanvaに取り込む運用なら、Canvaの音声コストは不要。D-ID・HeyGen・Hedraへの録音音声アップロードも各サービスの無料枠内で対応。
+    </div>
+
+    <h3>Canva 料金プラン（2026年2月時点）</h3>
+    <div class="price-row">
+      <div class="pc">
+        <div class="pp">無料プラン</div>
+        <div class="pa">¥0</div>
+        <div class="pn">基本機能・字幕・ビートシンク・画面収録・録音音声アップロードなど利用可。素材は限定。</div>
+      </div>
+      <div class="pc hl">
+        <div class="pp">Canva Pro（月払い）</div>
+        <div class="pa">¥1,180<span>/月</span></div>
+        <div class="pn">背景リムーバ・日本語AI音声・高度トランジション・1TBストレージ等が解放。30日間無料トライアルあり。</div>
+      </div>
+      <div class="pc">
+        <div class="pp">Canva Pro（年払い）</div>
+        <div class="pa">¥691<span>/月</span></div>
+        <div class="pn">年額8,300円。月払いより約41%お得。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 口パク準備 -->
+  <section class="section" id="kuchipaku">
+    <div class="sec-header">
+      <div class="sec-icon">🗣️</div>
+      <h2>B. 口パク × AI音声イラストの作り方</h2>
+      <span class="sec-tag teal">本命</span>
+    </div>
+    <div class="notice ok">
+      <strong>🔥 最重要：必要な素材を先に用意する</strong>
+      D-ID・HeyGen・Hedraのいずれも、以下の素材を先に準備しておくとスムーズ。
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">🖼️ キャラクター画像</div>
+        <ul style="list-style:none; font-size:14px; color:var(--muted); line-height:2.2;">
+          <li>✅ PNG形式推奨</li>
+          <li>✅ 正面向き（顔がはっきり見える）</li>
+          <li>✅ 口がはっきり見える</li>
+          <li>✅ 解像度 512px 以上</li>
+          <li>✅ 背景あり・透過どちらでも可</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">🎤 音声素材</div>
+        <ul style="list-style:none; font-size:14px; color:var(--muted); line-height:2.2;">
+          <li>✅ 読み上げさせるテキスト原稿</li>
+          <li>✅ または録音済み音声ファイル（MP3/WAV）</li>
+          <li>✅ 録音音声のアップロードは<strong>全サービスで無料枠内利用可</strong></li>
+          <li>✅ 日本語AIボイスも各サービスで選択可</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- D-ID -->
+  <section class="section" id="did">
+    <div class="sec-header">
+      <div class="sec-icon">⭐</div>
+      <h2>B-1. D-ID ── Canvaと最も親和性が高い</h2>
+      <span class="sec-tag teal">推奨</span>
+    </div>
+    <p>Canva内アプリから直接使える唯一のサービス。録音音声・テキスト入力どちらにも対応。日本語音声あり。</p>
+
+    <h3 class="tl">方法①：Canvaアプリ経由（推奨）</h3>
+    <div class="card">
+      <ol class="step-list">
+        <li><div class="sn t">1</div><div class="sb"><div class="st">Canvaで「D-ID AI Presenters」を追加</div><div class="sd">「アプリ」→ D-ID を検索してインストール</div></div></li>
+        <li><div class="sn t">2</div><div class="sb"><div class="st">「Create Video」をクリック</div></div></li>
+        <li><div class="sn t">3</div><div class="sb"><div class="st">キャラ画像をアップロード（正面向きPNG）</div></div></li>
+        <li><div class="sn t">4</div><div class="sb"><div class="st">テキスト入力 <strong>または</strong> 録音済み音声ファイルをアップロード</div><div class="sd">日本語テキストをそのまま貼り付けてもOK。MP3/WAVの録音音声アップロードも可。</div></div></li>
+        <li><div class="sn t">5</div><div class="sb"><div class="st">日本語AI音声を選択して生成</div><div class="sd">生成後はCanvaのタイムラインに直接配置可能</div></div></li>
+      </ol>
+    </div>
+
+    <h3 class="tl">方法②：D-IDサイトで直接作成</h3>
+    <div class="card">
+      <ol class="step-list">
+        <li><div class="sn">1</div><div class="sb"><div class="st">studio.d-id.com にアクセス・ログイン</div></div></li>
+        <li><div class="sn">2</div><div class="sb"><div class="st">「Create Video」→ キャラ画像をプレゼンターとして登録</div></div></li>
+        <li><div class="sn">3</div><div class="sb"><div class="st">日本語スクリプトを入力 <strong>または</strong> 録音音声をアップロード</div></div></li>
+        <li><div class="sn">4</div><div class="sb"><div class="st">音声を Japanese (ja-JP) に設定</div><div class="sd">推奨ボイス：<strong>Nanami</strong>（女性声 → マユ向き）/ <strong>Keita</strong>（男性声 → タクヤ向き）</div></div></li>
+        <li><div class="sn">5</div><div class="sb"><div class="st">動画をエクスポート → Canvaにアップして編集</div></div></li>
+      </ol>
+    </div>
+
+    <h3>D-ID 料金プラン（2026年確認）</h3>
+    <div class="notice warn">
+      <strong>⚠️ 無料プランの仕様変更</strong>
+      以前の「5分/月の永続無料」から、現在は「14日間トライアル」に変更されています。継続利用には有料プランへの移行が必要です。
+    </div>
+    <div class="price-row">
+      <div class="pc">
+        <div class="pp">無料トライアル</div>
+        <div class="pa">$0</div>
+        <div class="pn">14日間限定。ウォーターマーク入り。まず試すならここから。</div>
+      </div>
+      <div class="pc hl">
+        <div class="pp">Lite <span class="badge br">量産向き</span></div>
+        <div class="pa">$5.99<span>/月</span></div>
+        <div class="pn">10分/月。ウォーターマークなし。月10本（1分動画換算）作れる。</div>
+      </div>
+      <div class="pc">
+        <div class="pp">Pro</div>
+        <div class="pa">$49.99<span>/月</span></div>
+        <div class="pn">15分/月。高頻度投稿向け。※以前の$29から値上がり。</div>
+      </div>
+      <div class="pc">
+        <div class="pp">Advanced</div>
+        <div class="pa">$299.99<span>/月</span></div>
+        <div class="pn">65分/月。大量量産向け。</div>
+      </div>
+    </div>
+    <div class="notice info">
+      <strong>💡 年払いの場合</strong>
+      年払いを選択すると約20%割引になります。継続利用が決まったら年払いへの切り替えを推奨。
+    </div>
+  </section>
+
+  <!-- HeyGen -->
+  <section class="section" id="heygen">
+    <div class="sec-header">
+      <div class="sec-icon">💎</div>
+      <h2>B-2. HeyGen ── クオリティ最高峰</h2>
+      <span class="sec-tag">HIGH QUALITY</span>
+    </div>
+    <p>口パクの自然さはHeyGenが最も優れている。録音音声・テキスト入力どちらにも対応。</p>
+
+    <div class="card">
+      <ol class="step-list">
+        <li><div class="sn">1</div><div class="sb"><div class="st">heygen.com でアカウント作成</div></div></li>
+        <li><div class="sn">2</div><div class="sb"><div class="st">「Avatar」→「Photo Avatar」を選択</div></div></li>
+        <li><div class="sn">3</div><div class="sb"><div class="st">キャラ画像をアップロード（正面向き必須）</div></div></li>
+        <li><div class="sn">4</div><div class="sb"><div class="st">「Create Avatar」→ AIが学習（数分）</div></div></li>
+        <li><div class="sn">5</div><div class="sb"><div class="st">「Video」→ スクリプト入力 <strong>または</strong> 録音音声をアップロード</div><div class="sd">日本語対応ボイス複数あり。録音音声のアップロードも可。</div></div></li>
+        <li><div class="sn">6</div><div class="sb"><div class="st">生成 → MP4ダウンロード → Canvaに読み込む</div></div></li>
+      </ol>
+    </div>
+
+    <h3>HeyGen 料金プラン（2026年確認）</h3>
+    <div class="notice ok">
+      <strong>✅ 無料プランが改善</strong>
+      以前は「1本のみ」でしたが、現在は月3本・各3分まで利用可能になっています。
+    </div>
+    <div class="price-row">
+      <div class="pc">
+        <div class="pp">無料プラン</div>
+        <div class="pa">$0</div>
+        <div class="pn">月3本まで・各3分以内・720p・ウォーターマーク付き。品質テスト用。</div>
+      </div>
+      <div class="pc hl">
+        <div class="pp">Creator</div>
+        <div class="pa">$29<span>/月</span></div>
+        <div class="pn">無制限・各30分以内・1080p・ウォーターマークなし。年払いなら$24/月。</div>
+      </div>
+      <div class="pc">
+        <div class="pp">Pro</div>
+        <div class="pa">$99<span>/月</span></div>
+        <div class="pn">4K対応・高度AI機能・大量生成向け。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hedra -->
+  <section class="section" id="hedra">
+    <div class="sec-header">
+      <div class="sec-icon">🆓</div>
+      <h2>B-3. Hedra ── まず無料で試したい人向け</h2>
+      <span class="sec-tag">FREE FIRST</span>
+    </div>
+    <p>クレジット制で無料枠あり。録音音声・テキスト入力・音声ファイルアップロードに対応。</p>
+
+    <div class="card">
+      <ol class="step-list">
+        <li><div class="sn">1</div><div class="sb"><div class="st">hedra.com でアカウント作成（無料）</div></div></li>
+        <li><div class="sn">2</div><div class="sb"><div class="st">「Create」→ キャラ画像をアップ（正面向きPNG）</div></div></li>
+        <li><div class="sn">3</div><div class="sb"><div class="st">テキスト入力 <strong>または</strong> 録音音声ファイルをアップロード</div></div></li>
+        <li><div class="sn">4</div><div class="sb"><div class="st">生成（動画の長さに応じてクレジットを消費）</div><div class="sd">10秒の動画なら10秒分のクレジットのみ消費。無駄がない課金体系。</div></div></li>
+      </ol>
+    </div>
+
+    <h3>Hedra 料金プラン（2026年確認）</h3>
+    <div class="notice warn">
+      <strong>⚠️ 注意</strong>
+      無料プランの音声機能が需要過多で一時停止中との報告あり。利用前に公式サイトで現状を確認してください。クレジットは月リセット（購入クレジットのみ繰り越し可）。
+    </div>
+    <div class="price-row">
+      <div class="pc">
+        <div class="pp">無料プラン</div>
+        <div class="pa">$0</div>
+        <div class="pn">月300〜400クレジット。生成速度は遅め。商用利用不可。</div>
+      </div>
+      <div class="pc">
+        <div class="pp">Basic</div>
+        <div class="pa">$8〜10<span>/月</span></div>
+        <div class="pn">月1,000クレジット。商用利用可。ウォーターマークなし。</div>
+      </div>
+      <div class="pc hl">
+        <div class="pp">Creator</div>
+        <div class="pa">$24〜30<span>/月</span></div>
+        <div class="pn">月3,600クレジット。ボイスクローン対応。</div>
+      </div>
+      <div class="pc">
+        <div class="pp">Professional</div>
+        <div class="pa">$60〜75<span>/月</span></div>
+        <div class="pn">月11,000クレジット。大量生成向け。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINISH -->
+  <section class="section" id="finish">
+    <div class="sec-header">
+      <div class="sec-icon">✂️</div>
+      <h2>C. 完成品をCanvaで仕上げる</h2>
+      <span class="sec-tag">EDITING FLOW</span>
+    </div>
+    <p>口パク動画が完成したら、Canvaでチャート・字幕・テキストを重ねてFX解説動画に仕上げる。</p>
+
+    <h3>タイムライン構成例（縦型30秒）</h3>
+    <div class="timeline">
+      <div class="tlt">▸ TIMELINE（1080×1920 縦型）</div>
+      <div class="tlr"><span class="tlti">0〜3秒</span><span class="tlc">タイトルテキスト（スライドイン）</span></div>
+      <div class="tlr"><span class="tlti">3〜25秒</span><span class="tlc">メインパート</span></div>
+      <div class="tls">├── 背景レイヤー：FXチャート画像</div>
+      <div class="tls">├── 中層レイヤー：口パクキャラ動画（D-ID製）</div>
+      <div class="tls">└── 前景レイヤー：矢印・テキスト（タイピングアニメ）</div>
+      <div class="tlr"><span class="tlti">25〜30秒</span><span class="tlc">CTA（「フォローして」など吹き出しで表示）</span></div>
+    </div>
+
+    <h3>Canvaでの重ね方・仕上げ手順</h3>
+    <div class="card">
+      <ol class="step-list">
+        <li><div class="sn">1</div><div class="sb"><div class="st">口パク動画をCanvaにアップロード</div><div class="sd">D-IDやHeyGenからエクスポートしたMP4を読み込む</div></div></li>
+        <li><div class="sn">2</div><div class="sb"><div class="st">背景にFXチャート画像を配置</div><div class="sd">動画全体の後ろに相場チャートのスクショを敷く</div></div></li>
+        <li><div class="sn">3</div><div class="sb"><div class="st">背景リムーバでキャラを切り抜く（必要な場合）<span class="badge bp">Pro必須</span></div><div class="sd">キャラだけを切り抜き、チャートと自然に合成する</div></div></li>
+        <li><div class="sn">4</div><div class="sb"><div class="st">字幕自動生成を適用<span class="badge bf">無料</span></div><div class="sd">ファイル→ページ表示を設定→メディアにキャプションを表示</div></div></li>
+        <li><div class="sn">5</div><div class="sb"><div class="st">前景にテキスト・矢印を追加してアニメート<span class="badge bf">無料</span></div><div class="sd">タイピングやスライドインで動きをつける</div></div></li>
+        <li><div class="sn">6</div><div class="sb"><div class="st">ビートシンクでBGMに動きを合わせる<span class="badge bf">無料</span></div><div class="sd">著作権クリア済みのBGMを使用推奨</div></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="section" id="compare">
+    <div class="sec-header">
+      <div class="sec-icon">📊</div>
+      <h2>D. ワークフロー比較まとめ</h2>
+      <span class="sec-tag">COMPARISON</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>目的</th><th>使うツール</th><th>難易度</th><th>費用（2026年）</th></tr></thead>
+        <tbody>
+          <tr><td>ただ動かすだけ</td><td>Canva アニメート</td><td><span class="star">★</span>☆☆</td><td><span class="badge bf">無料</span></td></tr>
+          <tr><td>AI自動アニメ</td><td>Canva マジックメディア</td><td><span class="star">★</span>☆☆</td><td><span class="badge bf">無料枠あり</span></td></tr>
+          <tr><td>字幕・ビートシンク・画面収録・録音音声</td><td>Canva内蔵機能</td><td><span class="star">★</span>☆☆</td><td><span class="badge bf">無料</span></td></tr>
+          <tr><td>日本語AI読み上げ（Canva単体）</td><td>Canva テキスト読み上げ</td><td><span class="star">★</span>☆☆</td><td><span class="badge bp">Pro ¥691〜/月</span></td></tr>
+          <tr class="hl"><td>口パク＋日本語音声（推奨）</td><td><strong>D-ID</strong>（Canva連携）</td><td><span class="star">★★</span>☆</td><td>14日トライアル無料 → Lite $5.99/月</td></tr>
+          <tr><td>高品質な口パク</td><td>HeyGen</td><td><span class="star">★★</span>☆</td><td>月3本無料 → Creator $29/月</td></tr>
+          <tr><td>無料でとにかく試す</td><td>Hedra</td><td><span class="star">★★</span>☆</td><td>月300〜400クレジット無料（音声機能一時停止中の場合あり）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- RECOMMEND -->
+  <section class="section" id="recommend">
+    <div class="sec-header">
+      <div class="sec-icon">🎯</div>
+      <h2>推奨ルート：FX解説キャラ動画を量産する</h2>
+      <span class="sec-tag teal">BEST PRACTICE</span>
+    </div>
+
+    <div class="rec-box">
+      <h3>✅ コスパ最優先の量産構成</h3>
+      <ul class="rec-list">
+        <li>
+          <div class="rn">1</div>
+          <div class="rt"><strong>キャラ画像を1枚固定</strong>　MidjourneyなどのAIで正面向きイラストを1枚作成。タクヤ・マユそれぞれ用意しておく。</div>
+        </li>
+        <li>
+          <div class="rn">2</div>
+          <div class="rt"><strong>音声はまず自分で録音</strong>　録音音声のアップロードはD-ID・HeyGen・Hedra全サービスで無料枠内対応。追加費用ゼロ。</div>
+        </li>
+        <li>
+          <div class="rn">3</div>
+          <div class="rt"><strong>D-IDの14日間無料トライアルで品質を確認</strong>　気に入ったらLiteプラン（$5.99/月）で月10分分の口パク動画を継続生成。</div>
+        </li>
+        <li>
+          <div class="rn">4</div>
+          <div class="rt"><strong>Canvaで背景のチャートだけ差し替えてシリーズ化</strong>　テンプレートを1つ作れば量産が楽になる。字幕・ビートシンクは無料で使用可。</div>
+        </li>
+        <li>
+          <div class="rn">5</div>
+          <div class="rt"><strong>背景リムーバが必要ならCanva Proを検討</strong>　月払い¥1,180 / 年払い¥691/月。まず30日間の無料トライアルで確認。</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="notice ok">
+      <strong>🚀 まず試すなら</strong>
+      D-IDの14日間無料トライアルでキャラ動画を1本作ってみることをおすすめします。Canvaアプリから直接操作できるため、導線がシンプルでスムーズです。
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <strong>FX駆け込み寺 SNS運用支援 ── Canva アニメーション作成 完全ガイド</strong><br>
+  このドキュメントはクライアント向け内部資料です。外部への共有はご遠慮ください。
+  <div class="upd">料金情報は2026年4月時点の調査に基づきます。最新情報は各サービス公式サイトでご確認ください。</div>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07 });
+  sections.forEach(s => io.observe(s));
+
+  const navLinks = document.querySelectorAll('.nav-inner a');
+  const sectionEls = [...sections];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sectionEls.forEach(sec => { if (window.scrollY >= sec.offsetTop - 80) current = sec.id; });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  }, { passive: true });
+</script>
+</body>
+</html>
