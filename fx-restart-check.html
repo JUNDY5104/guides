@@ -1,0 +1,1112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ja"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- noindex設定 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="robots" content="noindex,nofollow,noarchive" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="googlebot" content="noindex,nofollow,noarchive" /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;FX再スタート診断シート｜FX-TERA&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="description" content="FXともう一度向き合う前に、今の自分が取引する段階か、学び直す段階かを整理するための診断シートです。" /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--navy: #0C2340;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--navy-light: #12365f;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--cream: #F5F2EB;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--cream-dark: #e8e0d0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--gold: #B8923A;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--terracotta: #B85A3E;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--sage: #4A8578;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--text: #1f2933;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--muted: #6b7280;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--line: rgba(12, 35, 64, 0.14);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--white: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--shadow: 0 14px 40px rgba(12, 35, 64, 0.16);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>html {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>scroll-behavior: smooth;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.9;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>a {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.page {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow-x: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:</p>
+<p class="p1"><span class="Apple-converted-space">        </span>radial-gradient(circle at top right, rgba(184, 146, 58, 0.16), transparent 34%),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>linear-gradient(135deg, var(--navy), #071727);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 72px 20px 64px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero__inner {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 1040px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.eyebrow {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(184, 146, 58, 0.55);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 6px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.08em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 22px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(12, 35, 64, 0.28);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero h1 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(34px, 6vw, 58px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.25;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.02em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero h1 span {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero__lead {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 780px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(16px, 2vw, 19px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245, 242, 235, 0.88);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 30px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hero__actions {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 14px 22px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-1px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0.94;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn--gold {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn--ghost {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(245, 242, 235, 0.35);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn--navy {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.btn--outline {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--white);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(12, 35, 64, 0.24);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 64px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section--light {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section--white {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--white);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section--navy {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 1040px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section-title {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(26px, 4vw, 38px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.35;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section--navy .section-title {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section-lead {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 820px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 32px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.section--navy .section-lead {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245, 242, 235, 0.78);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.notice {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(184, 146, 58, 0.12);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(184, 146, 58, 0.32);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-left: 5px solid var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 22px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 28px 0 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.notice strong {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cards {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(5, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--white);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 8px 24px rgba(12, 35, 64, 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card__num {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 800;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.06em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card h3 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.45;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 17px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card p {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.75;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.diagnosis {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--white);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.diagnosis__top {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: flex-start;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.diagnosis__top h2 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 8px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(24px, 4vw, 34px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.35;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.diagnosis__top p {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.75;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.progress {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-width: 170px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align: right;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.progress strong {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.category {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 34px 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.category h3 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 22px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-left: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-left: 5px solid var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.question {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 14px 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #fffaf0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.question__text {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.75;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.options {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(3, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.option {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.option input {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.option span {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(12, 35, 64, 0.18);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 11px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--white);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.16s ease;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.option input:checked + span {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 6px 14px rgba(12, 35, 64, 0.18);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.option span:hover {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.diagnosis__actions {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.result {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 22px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:</p>
+<p class="p1"><span class="Apple-converted-space">        </span>radial-gradient(circle at top right, rgba(184, 146, 58, 0.12), transparent 30%),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(184, 146, 58, 0.42);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.result.is-visible {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.result__label {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.08em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 800;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.result h3 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(24px, 4vw, 36px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.35;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.result p {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245, 242, 235, 0.86);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 18px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.result__scores {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(5, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 22px 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.score-card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(245, 242, 235, 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(245, 242, 235, 0.14);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.score-card span {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245, 242, 235, 0.72);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.5;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.score-card strong {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recommend {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(245, 242, 235, 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-left: 4px solid var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recommend h4 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 8px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--cream);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.recommend ul {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-left: 1.2em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245, 242, 235, 0.84);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.guide-cards {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(4, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.guide-card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(245, 242, 235, 0.06);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(245, 242, 235, 0.16);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.guide-card h3 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.guide-card p {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245, 242, 235, 0.78);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.disclaimer {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #fff7ed;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(184, 90, 62, 0.24);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-left: 5px solid var(--terracotta);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.disclaimer h2 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--navy);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.disclaimer ul {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-left: 1.2em;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.footer {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #071727;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(245, 242, 235, 0.8);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 36px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.footer strong {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.footer a {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.footer a:hover {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: underline;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 900px) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.cards,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.guide-cards {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: repeat(2, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.result__scores {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: repeat(2, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.diagnosis__top {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.progress {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text-align: left;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 640px) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.hero {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>padding: 56px 18px 48px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.section {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>padding: 48px 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.cards,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.guide-cards,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.result__scores {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.diagnosis {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>padding: 22px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.options {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.btn {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.footer a {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>margin: 6px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="page"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="hero"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="hero__inner"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="eyebrow"&gt;FX-TERA 無料特典&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;FX再スタート&lt;br&gt;&lt;span&gt;診断シート&lt;/span&gt;&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="hero__lead"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>あなたは今、取引する段階か、学び直す段階か。&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>FXにもう一度向き合う前に、5つの視点から現在地を整理します。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hero__actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#diagnosis" class="btn btn--gold"&gt;診断をはじめる&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#purpose" class="btn btn--ghost"&gt;この診断の目的を見る&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="purpose" class="section section--light"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;この診断は、取引をすすめるためのものではありません&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-lead"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>この診断は、今すぐFXを始めるかどうかを決めるためのものではありません。</p>
+<p class="p1"><span class="Apple-converted-space">          </span>今の自分が、FXとどう向き合う段階にいるのかを整理するためのものです。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="notice"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;strong&gt;大切なのは、今すぐ始めることではなく、今の自分の状態を正しく知ることです。&lt;/strong&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>不安がある場合は、取引よりも学習を優先してください。</p>
+<p class="p1"><span class="Apple-converted-space">          </span>診断結果は優劣ではなく、次に学ぶべき場所を知るための目安です。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section section--white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;5つの視点から、今の状態を確認します&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-lead"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>FXを投資として向き合うには、知識だけでなく、資金管理・感情・案件への距離感・学習姿勢も重要です。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="cards"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card__num"&gt;01&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;FXへの認識&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;FXそのものと、粗い売られ方を分けて考えられているか。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card__num"&gt;02&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;資金管理&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;余剰資金・損失許容額・守るべき資金を意識できているか。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card__num"&gt;03&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;感情のクセ&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;負けた後に取り返したくなる、焦って判断する傾向がないか。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card__num"&gt;04&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;任せる距離感&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;「自動なら安心」「任せれば大丈夫」と考えていないか。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card__num"&gt;05&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;学習姿勢&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;取引前に学び、記録し、振り返る前提を持てているか。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="diagnosis" class="section section--light"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="diagnosis"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="diagnosis__top"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2&gt;今の自分を確認する25項目チェック&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>各項目について、今の自分に近いものを選んでください。</p>
+<p class="p1"><span class="Apple-converted-space">                </span>迷った場合は、理想ではなく「今の実感」に近い方を選んでください。</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="progress"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>回答項目数</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;strong id="answeredCount"&gt;0 / 25&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;form id="diagnosisForm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="category"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;A. FXへの認識&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="recognition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;1. FXそのものと、FXを使った粗い売られ方は分けて考える必要があると思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="recognition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;2. FXは必ずしも怪しいものではないが、扱い方を間違えると危険だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="recognition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;3. FXを「短期間で大きく増やす手段」としてだけ見るのは危険だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="recognition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;4. 投資である以上、FXにも損失リスクがあると理解している&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="recognition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;5. FXを始める前に、仕組みを理解する必要があると思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="category"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;B. 資金管理&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="money"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;6. 余剰資金の範囲を自分で説明できる&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="money"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;7. 1回の取引で失ってよい金額を事前に決める必要があると思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="money"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;8. レバレッジは便利だが、損失も大きくなり得ると理解している&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="money"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;9. 損切りは資金を守るために必要な判断だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="money"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;10. 生活費や必要資金を投資に使うべきではないと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="category"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;C. 感情のクセ&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="emotion"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;11. 負けた後に取り返したくなる気持ちは危険だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="emotion"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;12. SNSの利益報告を見ると焦ることがある&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options reverse"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="emotion"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;13. 損失が出ると、冷静な判断が難しくなることがある&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options reverse"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="emotion"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;14. 取引前にルールを決めても、感情で崩れる可能性があると思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="emotion"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;15. 自分の感情のクセを知ることは、取引前に必要だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="category"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;D. 自動売買・運用案件への距離感&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="entrust"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;16. 「自動」「放置」「任せるだけ」という言葉には慎重になるべきだと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="entrust"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;17. 仕組みを理解しないまま資金を預けるのは危険だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="entrust"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;18. 月利や実績だけで判断するのは危険だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="entrust"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;19. 運用を任せる場合でも、自分でリスクを理解する必要があると思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="entrust"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;20. 何かを選ぶ前に、撤退できるかどうかも確認すべきだと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="category"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;E. 学習姿勢&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="learning"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;21. 取引を始める前に、資金管理から学ぶ必要があると思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="learning"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;22. チャートを見る前に、損失の考え方を知るべきだと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="learning"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;23. 学んだ内容を一度で理解できなくても、繰り返し確認する姿勢が必要だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="learning"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;24. 取引記録や振り返りは、上達に必要だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="question" data-category="learning"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="question__text"&gt;25. 自分に合わないと感じたら、FXから距離を置く判断も必要だと思う&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="options"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="diagnosis__actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button type="submit" class="btn btn--navy"&gt;診断結果を見る&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button type="button" id="resetBtn" class="btn btn--outline"&gt;回答をリセットする&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/form&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div id="result" class="result" aria-live="polite"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section section--navy"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;診断結果に合わせて、次に学ぶ場所を選んでください&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-lead"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>この診断はゴールではありません。現在地を確認したうえで、必要なところから学び直すための入口です。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="guide-cards"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="guide-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;資金管理を学びたい方&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;第2回「なぜチャートより先に資金管理を学ぶ必要があるのか」から進んでください。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="guide-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;FXの仕組みから整理したい方&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;第1回をもう一度読み直し、FXそのものと売られ方を分けて考えてみてください。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="guide-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;任せる判断が気になる方&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;「任せる」と「丸投げ」は違います。まずはリスクと撤退判断を学ぶ必要があります。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="guide-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;実践前の準備をしたい方&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;デモトレード・記録・振り返りの章に進む前に、資金管理と損失許容額を確認してください。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section section--white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;FXを焦って始める前に、順番に学ぶ&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-lead"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>FX-TERAの無料講座では、チャートや手法からではなく、資金管理・リスク管理・考え方から学びます。</p>
+<p class="p1"><span class="Apple-converted-space">          </span>第2回以降では、資金管理、数字の読み方、チャートの観察、ファンダメンタル、実践前の判断基準まで順番に整理していきます。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="notice"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;strong&gt;焦って取引を始める必要はありません。&lt;/strong&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>まずは、FXを投資の一つとして冷静に判断できる土台を作っていきましょう。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hero__actions" style="margin-top: 28px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://lin.ee/QcNyIYN" class="btn btn--gold" target="_blank" rel="noopener noreferrer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>公式LINEで無料講座を受け取る</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://fx-tera.jp/" class="btn btn--outline" target="_blank" rel="noopener noreferrer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>FX-TERA公式サイトを見る</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section section--light"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="disclaimer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h2&gt;ご利用前に確認してください&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;この診断は投資助言ではありません。&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;特定の取引、金融商品、運用方法を推奨するものではありません。&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;診断結果は、学習の目安としてご利用ください。&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;投資判断は必ずご自身の責任で行ってください。&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;FXには損失リスクがあります。&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="footer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;strong&gt;FX-TERA｜嘘のない駆け込み寺&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;FXを、投資の一つとして正しく見直すための無料講座&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div style="margin-top: 14px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="https://fx-tera.jp/" target="_blank" rel="noopener noreferrer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>公式サイト</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="https://lin.ee/QcNyIYN" target="_blank" rel="noopener noreferrer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>公式LINE</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const optionsTemplate = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ label: "当てはまる", value: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ label: "少し当てはまる", value: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ label: "当てはまらない", value: 0 }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const reverseOptionsTemplate = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ label: "当てはまる", value: 0 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ label: "少し当てはまる", value: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ label: "当てはまらない", value: 2 }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const categoryLabels = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>recognition: "FXへの認識",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>money: "資金管理",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>emotion: "感情のクセ",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>entrust: "任せる距離感",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>learning: "学習姿勢"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const form = document.getElementById("diagnosisForm");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const questions = Array.from(document.querySelectorAll(".question"));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const answeredCount = document.getElementById("answeredCount");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const result = document.getElementById("result");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const resetBtn = document.getElementById("resetBtn");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function buildOptions() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>questions.forEach((question, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const optionWrap = question.querySelector(".options");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const isReverse = optionWrap.classList.contains("reverse");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const template = isReverse ? reverseOptionsTemplate : optionsTemplate;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const name = `q${index + 1}`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>optionWrap.innerHTML = template.map(option =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="option"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="radio" name="${name}" value="${option.value}" data-category="${question.dataset.category}" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;${option.label}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>`).join("");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function updateAnsweredCount() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const answered = questions.filter((_, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return form.querySelector(`input[name="q${index + 1}"]:checked`);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}).length;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>answeredCount.textContent = `${answered} / ${questions.length}`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function calculateScores() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const scores = {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>recognition: 0,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>money: 0,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>emotion: 0,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>entrust: 0,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>learning: 0</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>questions.forEach((_, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const selected = form.querySelector(`input[name="q${index + 1}"]:checked`);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!selected) return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const category = selected.dataset.category;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>scores[category] += Number(selected.value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>return scores;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getTotal(scores) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return Object.values(scores).reduce((sum, value) =&gt; sum + value, 0);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getLowestCategory(scores) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return Object.keys(scores).sort((a, b) =&gt; scores[a] - scores[b])[0];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function buildScoreCards(scores) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return Object.keys(scores).map(key =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="score-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;${categoryLabels[key]}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;strong&gt;${scores[key]} / 10&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`).join("");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getResultType(scores) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const total = getTotal(scores);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (scores.recognition &lt;= 5 || total &lt;= 30) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return "learn";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (scores.money &lt;= 6) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return "money";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (scores.emotion &lt;= 6 || scores.entrust &lt;= 6) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return "control";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (total &gt;= 42) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return "choice";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>return "verify";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getResultContent(type, scores) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lowest = getLowestCategory(scores);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lowestLabel = categoryLabels[lowest];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const contents = {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>learn: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>title: "まずは学び直す段階です",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>text: "今は取引を急ぐより、FXそのものの仕組みやリスク、資金管理を整理する段階です。焦る必要はありません。まずは、FXそのものと粗い売られ方を分けて考え、資金を守る考え方から学んでいきましょう。",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>recommend: [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"第1回をもう一度読み直す",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"第2回「資金管理とは？」へ進む",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"利益より先に、損失と撤退の考え方を整理する"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>money: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>title: "資金管理を重点的に確認する段階です",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>text: "FXへの向き合い方は整理され始めています。次に必要なのは、実際にどこまでリスクを取ってよいのかを数字で考えることです。資金管理が曖昧なまま取引に進むと、数回の失敗で継続が難しくなることがあります。",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>recommend: [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"第2回「なぜチャートより先に資金管理なのか」を学ぶ",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"レバレッジ・証拠金・ロスカットの章を重点的に確認する",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"1回の取引で許容できる損失額を言語化する"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>control: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>title: "感情と任せ方の距離感を確認する段階です",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>text: "基礎的な認識はできつつありますが、感情のクセや、任せる判断への距離感をもう少し整理する必要があります。取引でも運用を任せる場合でも、焦りや期待が強くなると判断が崩れやすくなります。",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>recommend: [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"負けた後の行動パターンを確認する",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"自動売買や運用案件を判断する基準を学ぶ",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"任せる場合でも、リスクと撤退条件を確認する"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>verify: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>title: "少額・デモで検証する準備を整える段階です",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>text: "FXを投資として冷静に見直すための土台はできつつあります。ただし、知識として分かることと、実際に判断できることは別です。実践に進む場合も、まずはデモや少額で検証し、記録と振り返りを前提にしましょう。",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>recommend: [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"デモトレードで判断のクセを確認する",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"取引記録をつける前提を整える",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"資金管理ルールを文章にしてから実践に進む"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>choice: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>title: "自分に合う関わり方を考える段階です",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>text: "FXとの向き合い方を、かなり冷静に整理できています。ここから先は、自分で運用するのか、学び続けるのか、距離を置くのか、あるいは一部を任せるのかを考える段階です。どの選択をする場合も、理解したうえで自分で判断することが大切です。",</p>
+<p class="p1"><span class="Apple-converted-space">          </span>recommend: [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"ファンダメンタルや相場背景の理解を深める",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"自分で運用する場合のルールを整える",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>"任せる選択肢を考える場合も、丸投げせず確認基準を持つ"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const content = contents[type];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>return `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="result__label"&gt;診断結果&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;${content.title}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;${content.text}&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="result__scores"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>${buildScoreCards(scores)}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>今回、相対的に確認しておきたい視点は</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;strong style="color:#B8923A;"&gt;「${lowestLabel}」&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>です。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="recommend"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h4&gt;次に確認したいこと&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>${content.recommend.map(item =&gt; `&lt;li&gt;${item}&lt;/li&gt;`).join("")}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>form.addEventListener("change", updateAnsweredCount);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>form.addEventListener("submit", function (event) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>event.preventDefault();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const unanswered = questions.filter((_, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return !form.querySelector(`input[name="q${index + 1}"]:checked`);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (unanswered.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert("未回答の項目があります。すべての項目に回答してください。");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>unanswered[0].scrollIntoView({ behavior: "smooth", block: "center" });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const scores = calculateScores();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const type = getResultType(scores);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>result.innerHTML = getResultContent(type, scores);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>result.classList.add("is-visible");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>result.scrollIntoView({ behavior: "smooth", block: "start" });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>resetBtn.addEventListener("click", function () {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>form.reset();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>result.classList.remove("is-visible");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>result.innerHTML = "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>updateAnsweredCount();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>window.scrollTo({ top: document.getElementById("diagnosis").offsetTop - 20, behavior: "smooth" });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>buildOptions();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateAnsweredCount();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
