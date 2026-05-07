@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>やきさかな式 AIショート動画量産スタートキット</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --main: #1858a8;
+    --accent: #e85820;
+    --accent2: #187848;
+    --bg: #f8f8f6;
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --text-light: #555555;
+    --border: #e0e0dc;
+    --section-line: 4px solid var(--main);
+    --radius: 6px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: var(--main);
+    color: #fff;
+    padding: 56px 24px 48px;
+    text-align: center;
+  }
+
+  .hero-label {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 0.78em;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero h1 {
+    font-size: clamp(1.4em, 4vw, 2em);
+    font-weight: 700;
+    line-height: 1.5;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 .series {
+    display: block;
+    font-size: 0.6em;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-sub {
+    font-size: 0.88em;
+    color: rgba(255,255,255,0.8);
+    margin-top: 10px;
+  }
+
+  /* ── Sticky Nav ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 2px solid var(--main);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .sticky-nav ul {
+    display: flex;
+    list-style: none;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--main) transparent;
+  }
+
+  .sticky-nav ul::-webkit-scrollbar { height: 3px; }
+  .sticky-nav ul::-webkit-scrollbar-thumb { background: var(--main); }
+
+  .sticky-nav li a {
+    display: block;
+    padding: 14px 20px;
+    font-size: 0.82em;
+    font-weight: 700;
+    color: var(--text-light);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .sticky-nav li a:hover,
+  .sticky-nav li a.active {
+    color: var(--main);
+    border-bottom-color: var(--main);
+  }
+
+  /* ── Main ── */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Section ── */
+  .section {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin: 40px 0;
+    padding: 48px 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .section-header {
+    border-left: var(--section-line);
+    padding-left: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-number {
+    font-size: 0.75em;
+    font-weight: 700;
+    color: var(--main);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .section-header h2 {
+    font-size: 1.35em;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+
+  .section-header p {
+    font-size: 0.88em;
+    color: var(--text-light);
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+
+  /* ── Prompt Block ── */
+  .prompt-block {
+    background: #f0f4fa;
+    border: 1px solid #c8d8f0;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .prompt-block .prompt-label {
+    font-size: 0.72em;
+    font-weight: 700;
+    color: var(--main);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .prompt-block pre {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.88em;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--text);
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 9px 20px;
+    background: var(--main);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.82em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .copy-btn:hover { background: #0e3e80; }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn.copied { background: var(--accent2); }
+
+  /* ── Worksheet ── */
+  .worksheet-item {
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .worksheet-head {
+    background: var(--main);
+    color: #fff;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .worksheet-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    border-radius: 4px;
+    padding: 2px 10px;
+    font-size: 0.9em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+
+  .worksheet-head span {
+    font-size: 0.9em;
+    font-weight: 700;
+  }
+
+  .worksheet-body {
+    padding: 20px;
+    background: var(--white);
+  }
+
+  .worksheet-body p {
+    font-size: 0.85em;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+
+  .worksheet-body textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.88em;
+    line-height: 1.8;
+    color: var(--text);
+    background: #fafaf8;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+
+  .worksheet-body textarea:focus {
+    outline: none;
+    border-color: var(--main);
+    background: #fff;
+  }
+
+  .worksheet-body textarea::placeholder {
+    color: #b0b0a8;
+  }
+
+  .print-note {
+    font-size: 0.78em;
+    color: var(--text-light);
+    text-align: right;
+    margin-top: 8px;
+  }
+
+  .ws-print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    padding: 9px 20px;
+    background: transparent;
+    color: var(--main);
+    border: 1.5px solid var(--main);
+    border-radius: var(--radius);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.82em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .ws-print-btn:hover {
+    background: var(--main);
+    color: #fff;
+  }
+
+  /* ── Phrase List ── */
+  .phrase-category {
+    margin-bottom: 36px;
+  }
+
+  .phrase-category-title {
+    font-size: 0.82em;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+
+  .phrase-cards {
+    display: grid;
+    gap: 10px;
+  }
+
+  .phrase-card {
+    background: #fafaf8;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+  }
+
+  .phrase-card .phrase-text {
+    flex: 1;
+  }
+
+  .phrase-main {
+    font-size: 0.9em;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+
+  .phrase-note {
+    font-size: 0.78em;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  .phrase-copy-btn {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    background: transparent;
+    border: 1px solid var(--main);
+    border-radius: 4px;
+    color: var(--main);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.75em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .phrase-copy-btn:hover { background: var(--main); color: #fff; }
+  .phrase-copy-btn.copied { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+
+  /* ── Steps ── */
+  .steps-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px;
+  }
+
+  .steps-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .steps-title {
+    font-size: 0.78em;
+    font-weight: 700;
+    color: var(--main);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .steps-list {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .step-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    position: relative;
+  }
+
+  .step-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: -6px;
+    width: 12px;
+    height: 2px;
+    background: var(--border);
+  }
+
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--main);
+    color: #fff;
+    font-size: 0.82em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    font-size: 0.8em;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .steps-list {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .step-item {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+    }
+    .step-item::after { display: none; }
+    .step-num { flex-shrink: 0; }
+  }
+
+  /* ── Warning Box ── */
+  .warn-box {
+    background: #fff8f0;
+    border: 1.5px solid #e8a040;
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 0.85em;
+    color: #7a4800;
+    line-height: 1.8;
+  }
+
+  .warn-box strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #c06000;
+  }
+
+  /* ── Next Action ── */
+  .next-section {
+    background: var(--accent2);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    margin: 40px 0;
+    color: #fff;
+  }
+
+  .next-section h3 {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .next-steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .next-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.9em;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.95);
+  }
+
+  .next-steps li .n-num {
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 0.82em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .next-section { padding: 28px 20px; }
+  }
+
+  /* ── Book Link ── */
+  .book-link-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .book-link-box:hover {
+    box-shadow: var(--shadow);
+    border-color: var(--main);
+  }
+
+  .book-link-label {
+    font-size: 0.72em;
+    font-weight: 700;
+    color: var(--main);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .book-link-title {
+    font-size: 0.9em;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .book-link-arrow {
+    margin-left: auto;
+    color: var(--main);
+    font-size: 1.2em;
+    flex-shrink: 0;
+  }
+
+  /* ── WS Copy All ── */
+  .ws-copy-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 11px 24px;
+    background: var(--main);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.85em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .ws-copy-all-btn:hover { background: #0e3e80; }
+  .ws-copy-all-btn.copied { background: var(--accent2); }
+
+  /* ── Tooltip ── */
+  .tt {
+    border-bottom: 1px dashed var(--main);
+    cursor: help;
+    position: relative;
+  }
+
+  .tt::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 0.75em;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    max-width: 260px;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 200;
+  }
+
+  .tt:hover::after { opacity: 1; }
+
+  /* ── Info Box ── */
+  .info-box {
+    background: #f0f4fa;
+    border-left: 4px solid var(--main);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 0.88em;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* ── TOP Button ── */
+  .top-btn-wrap {
+    text-align: right;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .top-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1.5px solid var(--main);
+    border-radius: 20px;
+    color: var(--main);
+    font-size: 0.78em;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .top-btn:hover {
+    background: var(--main);
+    color: #fff;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 0.78em;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    margin-top: 40px;
+  }
+
+  /* ── Print ── */
+  @media print {
+    .sticky-nav, .copy-btn, .ws-print-btn, .phrase-copy-btn, .top-btn { display: none !important; }
+    .section { box-shadow: none; border: 1px solid var(--border); }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .section { padding: 32px 20px; }
+    .hero { padding: 40px 20px 36px; }
+    .sticky-nav li a { padding: 12px 14px; font-size: 0.78em; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero" id="top">
+  <div class="hero-label">読者限定特典</div>
+  <h1>
+    <span class="series">やきさかな式 AIショート動画量産術</span>
+    AIショート動画量産<br>スタートキット
+  </h1>
+  <p class="hero-sub">著：元飲食店店長サム</p>
+</div>
+
+<!-- Steps Bar -->
+<div class="steps-bar">
+  <div class="steps-inner">
+    <div class="steps-title">この特典の使い方</div>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text">特典1の「Codexに最初に貼るプロンプト」をコピーして、Codexに貼り付ける</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text">特典2のワークシートで、自分の動画量産の目的と方針を整理する</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text">作業中に違和感が出たら、特典3の修正フレーズ集から近い言葉をコピーしてCodexに返す</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sticky Nav -->
+<nav class="sticky-nav">
+  <ul>
+    <li><a href="#tokuten1">特典1 Codexプロンプト</a></li>
+    <li><a href="#tokuten2">特典2 ワークシート</a></li>
+    <li><a href="#tokuten3">特典3 修正フレーズ集</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- 特典1 -->
+  <section class="section" id="tokuten1">
+    <div class="section-header">
+      <div class="section-number">TOKUTEN 01</div>
+      <h2>Codexに最初に貼る完全版プロンプト</h2>
+      <p>
+        Codexを開いたら、まずこのプロンプトを貼り付けてください。<br>
+        「自分はどういう立場で、どう進めたいか」をAIに最初に伝えることで、その後の作業がスムーズになります。これが<span class="tt" data-tip="やきさかな式の【き】=基準と背景を伝えるステップです">やきさかな式の【き】</span>の実践です。
+      </p>
+    </div>
+
+    <div class="info-box">
+      以下のテキストをそのままコピーして、<span class="tt" data-tip="OpenAIが提供するAIエージェント。ChatGPTアカウントで使えます">Codex</span>の最初のメッセージとして貼り付けてください。貼り付けた後は「送信」するだけで大丈夫です。
+    </div>
+
+    <div class="prompt-block">
+      <span class="prompt-label">PROMPT - そのままコピーして使えます</span>
+      <pre id="prompt1-text">私は非エンジニアです。
+今回の目的は、Codexに丸投げして完全自動化することではありません。
+目的は、Codexと対話しながら、自分にはない技術や知識を引き出し、SNS向けショート動画を量産できるツールを作ることです。
+
+以下をお願いします。
+
+- 専門用語の説明より「次に何をすればいいか」を優先してください
+- 一度に大量の変更を加えないでください
+- 既存ファイルを壊さないでください
+- まず1件だけ最小構成でテストしてください
+- 修正前に現在の状態を報告してください
+- コード修正と現状確認は別の作業として分けてください
+- 変更後は変更したファイルと結果を簡潔に報告してください
+
+まず現在の作業フォルダの中身を確認してください。
+既存ファイルは変更しないでください。
+確認結果だけを簡潔に教えてください。</pre>
+      <button class="copy-btn" onclick="copyText('prompt1-text', this)">コピーする</button>
+    </div>
+
+    <div class="info-box">
+      <strong>このプロンプトのポイント</strong><br>
+      「完全自動化が目的ではない」という宣言が重要です。これを伝えることで、Codexが一気に作りすぎるのを防ぎ、あなたが確認しながら進める環境が整います。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#top" class="top-btn">ページ上部へ</a>
+    </div>
+  </section>
+
+  <!-- 特典2 -->
+  <section class="section" id="tokuten2">
+    <div class="section-header">
+      <div class="section-number">TOKUTEN 02</div>
+      <h2>やきさかな式・動画量産ワークシート</h2>
+      <p>
+        ツールを作り始める前に、「何のためのツールか」を整理するためのシートです。<br>
+        やきさかな式の5ステップに沿って記入することで、Codexへ伝える言葉が明確になります。
+      </p>
+    </div>
+
+    <div class="info-box">
+      ブラウザ上で直接入力できます。印刷して手書きで使うこともできます。内容はこのページを閉じると消えますので、必要な方はコピーして保存してください。
+    </div>
+
+    <!-- や -->
+    <div class="worksheet-item">
+      <div class="worksheet-head">
+        <span class="worksheet-badge">や</span>
+        <span>やりたいことを決める — 入力と出力を整理する</span>
+      </div>
+      <div class="worksheet-body">
+        <p>何を入力として渡し、何を出力として受け取りたいですか？ 動画にしたいテキストの種類と、欲しい成果物を書き出してください。</p>
+        <textarea placeholder="例）Xのポストやnote記事を入力として渡す。出力は縦型の動画ファイル＋各SNS用の投稿文。"></textarea>
+        <p>動画の尺は何種類欲しいですか？（例：15秒・30秒・45秒・60秒）</p>
+        <textarea placeholder="例）15秒と30秒の2種類。Xのタイムライン用と、詳しく見たい人向けの2本立てにしたい。" style="min-height:60px;"></textarea>
+      </div>
+    </div>
+
+    <!-- き -->
+    <div class="worksheet-item">
+      <div class="worksheet-head">
+        <span class="worksheet-badge">き</span>
+        <span>基準と背景を伝える — 自分の立場と進め方の方針</span>
+      </div>
+      <div class="worksheet-body">
+        <p>あなたの立場・スキルレベルと、AIとの進め方の方針を書いておきましょう。これをCodexに伝えることで、適切なサポートが受けられます。</p>
+        <textarea placeholder="例）プログラミング経験はなし。専門用語の説明より「次に何をすればいいか」を優先してほしい。一度に全部作らず、1工程ずつ確認しながら進めたい。"></textarea>
+        <p>完全自動化について、あなたの考えを書いてください。</p>
+        <textarea placeholder="例）完全自動化はしない。人間がレビューして違和感を返す工程を残したい。" style="min-height:60px;"></textarea>
+      </div>
+    </div>
+
+    <!-- さ -->
+    <div class="worksheet-item">
+      <div class="worksheet-head">
+        <span class="worksheet-badge">さ</span>
+        <span>参考・素材・完成イメージを渡す — 動画の雰囲気を言葉にする</span>
+      </div>
+      <div class="worksheet-body">
+        <p>どんな雰囲気の動画にしたいですか？ 技術的な言葉でなくても構いません。イメージを言葉で書き出してください。</p>
+        <textarea placeholder="例）落ち着いた教育系。売り込み感は弱め。スマホで読みやすい大きな文字。背景はシンプルに。"></textarea>
+        <p>避けたい雰囲気・使いたくない表現があれば書いてください。</p>
+        <textarea placeholder="例）派手すぎるアニメーション。標語の羅列。元の文章の温度感が消えるような言い換え。" style="min-height:60px;"></textarea>
+      </div>
+    </div>
+
+    <!-- か -->
+    <div class="worksheet-item">
+      <div class="worksheet-head">
+        <span class="worksheet-badge">か</span>
+        <span>確認して違和感を言葉にする — チェックの基準を決める</span>
+      </div>
+      <div class="worksheet-body">
+        <p>出てきた動画を確認するとき、あなたが一番重視する点は何ですか？</p>
+        <textarea placeholder="例）元の記事の温度感が残っているか。文章が標語的になっていないか。文字量が多すぎてスマホで読み切れないレベルになっていないか。"></textarea>
+        <p>「これはおかしい」と感じたとき、どんな言葉でAIに返したいですか？</p>
+        <textarea placeholder="例）「元の文章の温度感が薄れています」「文字量が多くて読み切れません」など、感じたことをそのまま言葉にして返す。" style="min-height:60px;"></textarea>
+      </div>
+    </div>
+
+    <!-- な -->
+    <div class="worksheet-item">
+      <div class="worksheet-head">
+        <span class="worksheet-badge">な</span>
+        <span>直しながら育てる — 使いながら型を育てる方針</span>
+      </div>
+      <div class="worksheet-body">
+        <p>1本目の動画が出来上がったあと、どのように型を育てていきたいですか？</p>
+        <textarea placeholder="例）最初は15秒だけ試して、問題なければ30秒も追加する。動画が増えてきたら、フォルダの整理方法も考えたい。"></textarea>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <strong>注意：入力した内容は保存されません</strong>
+      このページに入力した内容は、ページを閉じると消えます。記入後は、必ずテキストをコピーしてメモ帳やGoogleドキュメントに保存してください。
+    </div>
+    <button class="ws-copy-all-btn" onclick="copyAllWorksheet(this)">入力内容をまとめてコピーする</button>
+    <button class="ws-print-btn" onclick="window.print()" style="margin-left:10px;">このワークシートを印刷する</button>
+
+    <div class="top-btn-wrap">
+      <a href="#top" class="top-btn">ページ上部へ</a>
+    </div>
+  </section>
+
+  <!-- 特典3 -->
+  <section class="section" id="tokuten3">
+    <div class="section-header">
+      <div class="section-number">TOKUTEN 03</div>
+      <h2>違和感をAIに返す修正フレーズ集</h2>
+      <p>
+        AIが出してきた成果物に「何か違う」と感じたとき、その感覚を言葉にして返すことがAIとの共同制作の核心です。<br>
+        コードが読めなくても、動画を見て感じたことを言葉にするだけで、AIは動きます。右の「コピー」ボタンでそのままCodexに貼れます。
+      </p>
+    </div>
+
+    <!-- カテゴリ1 -->
+    <div class="phrase-category">
+      <div class="phrase-category-title">文章・言葉のトーンに関するフレーズ</div>
+      <div class="phrase-cards">
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">元の文章の温度感が薄れています。</div>
+            <div class="phrase-note">AIが言い換えすぎて、元の記事の空気感が消えてしまったときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '元の文章の温度感が薄れています。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">標語の羅列になっています。もう少し自然な会話調にしてください。</div>
+            <div class="phrase-note">動画の文言がキャッチコピーのような短文の並びになってしまったときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '標語の羅列になっています。もう少し自然な会話調にしてください。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">少し説明っぽく感じます。読んでいる人に語りかけるような書き方にしてください。</div>
+            <div class="phrase-note">教科書的・マニュアル的な文体になってしまったときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '少し説明っぽく感じます。読んでいる人に語りかけるような書き方にしてください。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">具体的な描写が消えています。元の記事にあった具体例を戻してください。</div>
+            <div class="phrase-note">要約しすぎて、元の記事の固有の話が抜け落ちてしまったときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '具体的な描写が消えています。元の記事にあった具体例を戻してください。')">コピー</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- カテゴリ2 -->
+    <div class="phrase-category">
+      <div class="phrase-category-title">文字量・表示に関するフレーズ</div>
+      <div class="phrase-cards">
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">文字量が多くてスマホで読み切れません。1画面に入る量に調整してください。</div>
+            <div class="phrase-note">動画を再生したとき、テキストが多すぎて読み終わる前に次の画面に移ってしまうときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '文字量が多くてスマホで読み切れません。1画面に入る量に調整してください。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">後半が背景だけになっています。最後まで文字が表示されるようにしてください。</div>
+            <div class="phrase-note">動画の後半でテキストが消えて背景だけが映り続けてしまうときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '後半が背景だけになっています。最後まで文字が表示されるようにしてください。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">文字が小さくてスマホで読みづらいです。もう少し大きくしてください。</div>
+            <div class="phrase-note">実際にスマホで確認したときに文字サイズが不十分だと感じたときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '文字が小さくてスマホで読みづらいです。もう少し大きくしてください。')">コピー</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- カテゴリ3 -->
+    <div class="phrase-category">
+      <div class="phrase-category-title">CTA・誘導に関するフレーズ</div>
+      <div class="phrase-cards">
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">CTAが強すぎます。もう少しさりげない誘導にしてください。</div>
+            <div class="phrase-note">「今すぐ登録！」のような強い言葉が入っていて、売り込み感が出てしまったときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, 'CTAが強すぎます。もう少しさりげない誘導にしてください。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">URLをリプライに移してください。投稿本文にURLがあると拡散しにくくなります。</div>
+            <div class="phrase-note">X（Twitter）の仕様に合わせた指示です。URLは本文ではなくリプライに入れます。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, 'URLをリプライに移してください。投稿本文にURLがあると拡散しにくくなります。')">コピー</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- カテゴリ4 -->
+    <div class="phrase-category">
+      <div class="phrase-category-title">進め方・確認に関するフレーズ</div>
+      <div class="phrase-cards">
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">コードは修正しないでください。まず原因を特定して教えてください。</div>
+            <div class="phrase-note">エラーが出たときに使います。原因が分からないまま直されると、なぜ直ったかが分かりません。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, 'コードは修正しないでください。まず原因を特定して教えてください。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">今の状態を整理してください。コードは修正しないでください。確認だけお願いします。</div>
+            <div class="phrase-note">作業が進むうちに「今どこにいるのか」が分からなくなったときに使います。整理してもらうと霧が晴れます。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, '今の状態を整理してください。コードは修正しないでください。確認だけお願いします。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">render成功ではなく、実際に動画を再生して内容を確認してください。</div>
+            <div class="phrase-note">「書き出し成功」と報告されても、実際の動画がおかしい場合があります。目視確認を求めるときに使います。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, 'render成功ではなく、実際に動画を再生して内容を確認してください。')">コピー</button>
+        </div>
+        <div class="phrase-card">
+          <div class="phrase-text">
+            <div class="phrase-main">この1点だけを修正してください。他のファイルは変更しないでください。</div>
+            <div class="phrase-note">1つだけ直したいのに他の部分まで変えられてしまう場合に使います。変更範囲を明示することが重要です。</div>
+          </div>
+          <button class="phrase-copy-btn" onclick="copyPhrase(this, 'この1点だけを修正してください。他のファイルは変更しないでください。')">コピー</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>フレーズを使うコツ</strong><br>
+      フレーズをそのまま使うだけでなく、「〇〇が薄れています。元の記事では△△という表現でした」のように、具体的な情報を添えると、AIの修正精度が上がります。感じたことを言葉にすることが、このフレーズ集の出発点です。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#top" class="top-btn">ページ上部へ</a>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<div class="container">
+  <div class="next-section">
+    <h3>次にやること</h3>
+    <ul class="next-steps">
+      <li>
+        <span class="n-num">1</span>
+        <span>まずは特典1のプロンプトをコピーして、Codexに貼り付けてください。これだけで、最初の一歩が踏み出せます。</span>
+      </li>
+      <li>
+        <span class="n-num">2</span>
+        <span>次に、特典2のワークシートを見ながら、動画にしたいテキストを1つ用意してください。Xのポストでも、note記事でも構いません。</span>
+      </li>
+      <li>
+        <span class="n-num">3</span>
+        <span>最初から完璧に作ろうとしなくて大丈夫です。まず1本だけ試すところから始めましょう。違和感が出たら、特典3のフレーズ集を使ってください。</span>
+      </li>
+    </ul>
+  </div>
+
+  <a href="https://amzn.asia/d/0gt9F099" target="_blank" rel="noopener" class="book-link-box">
+    <div>
+      <div class="book-link-label">既刊 / やきさかな式シリーズ第1弾</div>
+      <div class="book-link-title">やきさかな式 生成AIの使い方<br>— Amazon で読む</div>
+    </div>
+    <div class="book-link-arrow">&#8594;</div>
+  </a>
+</div>
+
+<footer class="footer">
+  <p>やきさかな式 AIショート動画量産スタートキット &nbsp;|&nbsp; 元飲食店店長サム</p>
+  <p style="margin-top:10px;">既刊：<a href="https://amzn.asia/d/0gt9F099" target="_blank" rel="noopener" style="color:var(--main);text-decoration:underline;">やきさかな式 生成AIの使い方（Amazon）</a></p>
+  <p style="margin-top:6px;">本資料は読者限定の特典です。無断転載・再配布はご遠慮ください。</p>
+</footer>
+
+<script>
+  // ── Copy all worksheet ──
+  function copyAllWorksheet(btn) {
+    const labels = [
+      '【や】やりたいことを決める — 入力と出力',
+      '【や】動画の尺',
+      '【き】自分の立場・スキル・進め方の方針',
+      '【き】完全自動化について',
+      '【さ】動画の雰囲気',
+      '【さ】避けたい雰囲気・使いたくない表現',
+      '【か】確認するときに重視する点',
+      '【か】違和感をどんな言葉で返すか',
+      '【な】型を育てる方針',
+    ];
+    const textareas = document.querySelectorAll('#tokuten2 textarea');
+    let result = 'やきさかな式・動画量産ワークシート\n';
+    result += '================================\n\n';
+    textareas.forEach((ta, i) => {
+      result += labels[i] + '\n';
+      result += (ta.value.trim() || '（未記入）') + '\n\n';
+    });
+    navigator.clipboard.writeText(result).then(() => {
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '入力内容をまとめてコピーする';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = result;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '入力内容をまとめてコピーする';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // ── Copy prompt ──
+  function copyText(id, btn) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'コピーする';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'コピーする';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // ── Copy phrase ──
+  function copyPhrase(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'コピー済';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'コピー';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = 'コピー済';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'コピー';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // ── Scroll animation ──
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  // ── Active nav ──
+  const navLinks = document.querySelectorAll('.sticky-nav a');
+  const sectionEls = document.querySelectorAll('section[id]');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.sticky-nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sectionEls.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>
