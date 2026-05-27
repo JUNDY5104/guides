@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アメブロ プロフィール生成ツール</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #c85010;
+      --accent2: #b87800;
+      --accent-light: #fff0e8;
+      --bg: #f8f8f6;
+      --surface: #ffffff;
+      --border: #e0dbd4;
+      --text: #1a1a1a;
+      --text-muted: #777066;
+      --heading: #1a1a1a;
+      --radius: 8px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* ── Sticky Nav ── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 3px solid var(--accent);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .sticky-nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) #f0ece8;
+      height: 48px;
+    }
+    .sticky-nav-inner::-webkit-scrollbar { height: 3px; }
+    .sticky-nav-inner::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.78em;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      border: 1px solid transparent;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #c85010 0%, #e07030 50%, #b87800 100%);
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.75em;
+      font-weight: 500;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+    .hero h1 {
+      font-size: clamp(1.5em, 4vw, 2.2em);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .hero-sub {
+      color: rgba(255,255,255,0.88);
+      font-size: 0.9em;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Section ── */
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 32px 0;
+      padding: 36px 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--accent);
+    }
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9em;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .section-desc {
+      font-size: 0.88em;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ── Form Elements ── */
+    label {
+      display: block;
+      font-size: 0.85em;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 6px;
+      margin-top: 20px;
+    }
+    label:first-of-type { margin-top: 0; }
+    .label-required {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7em;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+      font-weight: 500;
+    }
+    .label-optional {
+      display: inline-block;
+      background: #aaa;
+      color: #fff;
+      font-size: 0.7em;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+      font-weight: 500;
+    }
+    .label-hint {
+      display: block;
+      font-size: 0.8em;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9em;
+      color: var(--text);
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+    textarea:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200,80,16,0.12);
+    }
+    textarea.error, input[type="text"].error {
+      border-color: #d0392b;
+      box-shadow: 0 0 0 3px rgba(208,57,43,0.1);
+    }
+    .error-msg {
+      font-size: 0.8em;
+      color: #d0392b;
+      margin-top: 5px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ── Sample Box ── */
+    .sample-box {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 18px;
+      margin-top: 12px;
+      font-size: 0.84em;
+      color: #5a3010;
+      line-height: 1.8;
+    }
+    .sample-box-title {
+      font-weight: 700;
+      font-size: 0.85em;
+      color: var(--accent);
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Generate Button ── */
+    .btn-generate {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      margin: 32px auto 0;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--accent) 0%, #e07030 100%);
+      color: #fff;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.05em;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 16px rgba(200,80,16,0.35);
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-generate:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200,80,16,0.4);
+    }
+    .btn-generate:active { transform: translateY(0); }
+    .btn-generate:disabled {
+      background: #ccc;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ── Result Section ── */
+    .result-section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 32px 0;
+      padding: 36px 40px;
+      display: none;
+    }
+    .result-section.show { display: block; }
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--accent2);
+    }
+    .result-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .result-badge {
+      background: linear-gradient(135deg, var(--accent2), #c8a000);
+      color: #fff;
+      font-size: 0.75em;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .result-desc {
+      font-size: 0.86em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    #resultTextarea {
+      width: 100%;
+      min-height: 360px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.85em;
+      color: var(--text);
+      background: #fdfcfa;
+      resize: vertical;
+      line-height: 1.8;
+    }
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 11px 28px;
+      background: var(--accent2);
+      color: #fff;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9em;
+      font-weight: 700;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(184,120,0,0.3);
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-copy:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-copy.copied {
+      background: #187848;
+      box-shadow: 0 3px 10px rgba(24,120,72,0.3);
+    }
+    .copy-hint {
+      font-size: 0.8em;
+      color: var(--text-muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    /* ── Back to Top ── */
+    .back-to-top {
+      display: block;
+      text-align: center;
+      margin: 24px 0 0;
+    }
+    .btn-top {
+      display: inline-block;
+      padding: 8px 24px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.82em;
+      font-weight: 500;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-top:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #2a1a0a;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.8em;
+      margin-top: 40px;
+    }
+    footer a { color: rgba(255,255,255,0.65); }
+    .footer-brand {
+      color: rgba(255,255,255,0.85);
+      font-weight: 700;
+      font-size: 1em;
+      margin-bottom: 6px;
+    }
+
+    /* ── Info Box ── */
+    .info-box {
+      background: #f0f8f4;
+      border: 1px solid #b8d8c4;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      font-size: 0.84em;
+      color: #1a4a2a;
+      margin-top: 16px;
+      line-height: 1.7;
+    }
+    .info-box strong { color: #187848; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .section, .result-section { padding: 24px 18px; }
+      .hero { padding: 40px 16px 36px; }
+      .wrap { padding: 0 12px; }
+    }
+  </style>
+</head>
+<body id="top">
+
+<!-- Sticky Nav -->
+<nav class="sticky-nav" aria-label="ページ内ナビゲーション">
+  <div class="sticky-nav-inner">
+    <a class="nav-link" href="#step1">STEP1 経歴</a>
+    <a class="nav-link" href="#step2">STEP2 方向性</a>
+    <a class="nav-link" href="#result">プロンプト生成</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">無料ツール</div>
+  <h1>アメブロ プロフィール<br>生成プロンプトツール</h1>
+  <p class="hero-sub">あなたの経歴とブログの方向性を入力するだけで、Claudeに渡すプロンプトを自動生成します。APIキー不要・完全無料でご利用いただけます。</p>
+</div>
+
+<!-- Main Content -->
+<div class="wrap">
+
+  <!-- STEP1 -->
+  <div class="section" id="step1">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div>
+        <div class="section-title">STEP1｜あなたの経歴を入力してください</div>
+        <div class="section-desc">「何歳のとき、何をしたか」を時系列で入力します</div>
+      </div>
+    </div>
+
+    <label for="step1Input">
+      経歴（時系列で入力）
+      <span class="label-required">必須</span>
+      <span class="label-hint">年齢・出来事・感じたことなど、思いつくままに書いてください</span>
+    </label>
+    <textarea id="step1Input" rows="8" placeholder="例：&#10;・18歳：地元の高校を卒業後、上京して飲食店でアルバイトを始める&#10;・22歳：正社員として居酒屋チェーンに就職&#10;・28歳：店長に昇格。スタッフ15名をマネジメント&#10;・35歳：会社の方針と自分の価値観のズレに悩み始める&#10;・38歳：副業でブログを開始。月5万円を達成&#10;・40歳：独立。現在はSNS運用と副業指導を行っている"></textarea>
+    <div class="error-msg" id="step1Error">経歴を入力してください。</div>
+
+    <div class="sample-box">
+      <div class="sample-box-title">記入のコツ</div>
+      箇条書きでOKです。転職・失敗・挫折・転機など、印象的なエピソードを入れると、プロフィールに深みが出ます。完璧に書こうとせず、まず思いつくままに書いてみましょう。
+    </div>
+
+    <div class="back-to-top"><a href="#top" class="btn-top">ページ上部へ</a></div>
+  </div>
+
+  <!-- STEP2 -->
+  <div class="section" id="step2">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div>
+        <div class="section-title">STEP2｜ブログの方向性を入力してください</div>
+        <div class="section-desc">どんなブログにしたいかを3つの項目で整理します</div>
+      </div>
+    </div>
+
+    <label for="themeInput">
+      メインテーマ
+      <span class="label-required">必須</span>
+      <span class="label-hint">ブログで扱うメインのテーマやジャンルを入力してください</span>
+    </label>
+    <input type="text" id="themeInput" placeholder="例：40代からの副業・SNS活用・飲食店経営ノウハウ">
+    <div class="error-msg" id="themeError">メインテーマを入力してください。</div>
+
+    <label for="messageInput">
+      読者に届けたいこと
+      <span class="label-required">必須</span>
+      <span class="label-hint">このブログを通じて、読者に何を伝えたいですか？</span>
+    </label>
+    <input type="text" id="messageInput" placeholder="例：年齢や経験を活かして、誰でも副収入を得られることを伝えたい">
+    <div class="error-msg" id="messageError">読者に届けたいことを入力してください。</div>
+
+    <label for="goalInput">
+      ブログのゴール
+      <span class="label-optional">任意</span>
+      <span class="label-hint">ブログで目指すゴールがあれば入力してください</span>
+    </label>
+    <input type="text" id="goalInput" placeholder="例：フォロワー1000人・月10万円のコンサル契約・書籍出版">
+
+    <div class="info-box">
+      <strong>入力が少なくても大丈夫です。</strong><br>
+      Claudeが「もう少し詳しく教えてください」と確認してくれます。まずは思いついたことを書いてみましょう。
+    </div>
+
+    <div class="back-to-top"><a href="#top" class="btn-top">ページ上部へ</a></div>
+  </div>
+
+  <!-- Generate Button -->
+  <div id="result">
+    <button class="btn-generate" id="generateBtn" onclick="generatePrompt()">プロンプトを生成する</button>
+  </div>
+
+  <!-- Result -->
+  <div class="result-section" id="resultSection">
+    <div class="result-header">
+      <div class="result-title">生成されたプロンプト</div>
+      <div class="result-badge">コピーしてClaudeへ</div>
+    </div>
+    <p class="result-desc">下のテキストをコピーして、Claudeのチャット画面に貼り付けてください。</p>
+    <textarea id="resultTextarea" readonly></textarea>
+    <br>
+    <button class="btn-copy" id="copyBtn" onclick="copyPrompt()">コピーする</button>
+    <p class="copy-hint">コピー後、Claude（claude.ai）のチャット画面に貼り付けて送信してください。</p>
+    <div class="back-to-top" style="margin-top:24px;"><a href="#top" class="btn-top">ページ上部へ</a></div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- Footer -->
+<footer>
+  <div>© 2026 アメブロ プロフィール生成ツール</div>
+</footer>
+
+<script>
+  // ── Scroll animation ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.section').forEach(el => observer.observe(el));
+
+  // ── Scroll spy ──
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('[id]');
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector('.nav-link[href="#' + e.target.id + '"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => spyObserver.observe(s));
+
+  // ── Validate ──
+  function validate() {
+    let valid = true;
+    const step1 = document.getElementById('step1Input');
+    const theme = document.getElementById('themeInput');
+    const message = document.getElementById('messageInput');
+    const step1Err = document.getElementById('step1Error');
+    const themeErr = document.getElementById('themeError');
+    const messageErr = document.getElementById('messageError');
+
+    if (!step1.value.trim()) {
+      step1.classList.add('error');
+      step1Err.classList.add('show');
+      valid = false;
+    } else {
+      step1.classList.remove('error');
+      step1Err.classList.remove('show');
+    }
+
+    if (!theme.value.trim()) {
+      theme.classList.add('error');
+      themeErr.classList.add('show');
+      valid = false;
+    } else {
+      theme.classList.remove('error');
+      themeErr.classList.remove('show');
+    }
+
+    if (!message.value.trim()) {
+      message.classList.add('error');
+      messageErr.classList.add('show');
+      valid = false;
+    } else {
+      message.classList.remove('error');
+      messageErr.classList.remove('show');
+    }
+
+    return valid;
+  }
+
+  // ── Generate ──
+  function generatePrompt() {
+    if (!validate()) {
+      document.getElementById('step1Input').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const step1Val = document.getElementById('step1Input').value.trim();
+    const themeVal = document.getElementById('themeInput').value.trim();
+    const messageVal = document.getElementById('messageInput').value.trim();
+    const goalVal = document.getElementById('goalInput').value.trim();
+    const goalLine = goalVal ? goalVal : '（未設定）';
+
+    const prompt = `あなたはアメブロのプロフィール設定の専門家です。
+以下の経歴とブログの方向性をもとに、①〜⑥をすべて作成してください。
+
+【私の経歴】
+${step1Val}
+
+【ブログの方向性】
+・メインテーマ　　　：${themeVal}
+・読者に届けたいこと：${messageVal}
+・ブログのゴール　　：${goalLine}
+
+---
+
+### 【出力内容】
+
+**① ターゲット設定**
+性別／年齢層／職業／家族構成／生活スタイルを具体的に示してください。
+
+**② ペルソナ設定**
+ターゲットの中の「典型的な一人」を以下の項目で設定してください。
+- 名前（仮名）・年齢・職業・家族構成
+- 表面的な悩みと、その奥にある本音の悩み（夜一人で考えてしまうレベルのもの）
+- このブログにたどり着いたきっかけ
+- このブログを読んで得たいこと・変わりたいこと
+
+**③ ハンドルネーム（HN）**
+全角32文字以内で提案してください（例：ジョニー＠自由人）。
+経歴とテーマから自然に導け、親しみやすさと専門性が両立するものにしてください。
+
+**④ ブログタイトル**
+全角64文字（半角128文字）以内で提案してください。
+ターゲットが検索しそうなキーワードを含み、ブログの価値が一目でわかるものにしてください。
+
+**⑤ ブログ説明文**
+全角128文字（半角256文字）以内で作成してください。
+- 最初の40文字でターゲットの心をつかむ書き出しにする
+  （スマホのサイドバーには冒頭40文字程度しか表示されないため）
+- 「このブログは誰のためのものか」が一瞬で伝わる表現にする
+- 「〜しています」で終わらず、読者への約束・メリットを示して終わる
+
+**⑥ プロフィール本文**
+
+以下の「起承転結プロフィール構成ルール」に完全に従って作成してください。
+
+---
+
+#### 【起承転結プロフィール構成ルール】
+
+プロフィールは単なる自己紹介ではなく、ブログの中で最もアクセスが集まる記事です。
+読者は「面白い記事を書いた人が誰なのか気になって」プロフィールを開きます。
+その期待に応え、信頼へと変換するのがプロフィールの役割です。
+
+**プロフィールの全体構成**
+【挨拶】＋【インパクトのある一言】＋【目的】＋【簡易ストーリー】
+
+**【起】― 冒頭でつかむ**
+構成要素：
+1. 挨拶：年代・性別・住まい・職業・家族構成などを添えて読者がイメージしやすくする
+2. インパクトのある一言：強いキーワードを組み込んだキャッチコピー
+3. 目的：このブログで読者に何を届けるかを明示する
+ルール：
+- スマホ1画面に収まることを意識する
+- 「はじめまして。〇〇と申します」だけで終わる書き出しはNG
+- テレビドラマの第1話のように冒頭でインパクトを与え、続きを読ませる
+
+**【承】― 共感で引き込む**
+- 読者が「なるほど」「自分と同じだ」と感じられるストーリーにする
+- 著名人・業界プロのストーリーではなく、読者と同じ目線・高さで書く
+- 失敗・葛藤・苦労・遠回りを正直に語り、親近感を最優先にする
+
+**【転】― 転機で感動を与える**
+- 人生の挫折・屈辱・大きな出来事とその後のVの字のターニングポイントを示す
+- 転機は劇的でなくていい。「ある日気づいたこと」でも十分
+
+**【結】― 行動を促して締める**
+- 起で示した「目的」を振り返り、承・転があったからこそ届けたいものがある流れで締める
+- フォロー・コメント・問い合わせなど、次の行動を促すひと言で終わる
+
+---
+
+【重要】プロフィールは一般記事の1本目としても投稿することを推奨します。
+スマホ閲覧（90%以上）ではデフォルトのプロフィールページに辿り着きにくいためです。
+
+---
+
+### 【制約・禁止事項】
+
+#### ■ アメブロ禁止タグ
+（出典：https://helps.ameba.jp/faq/blog/article/post_107.html）
+
+以下のHTMLタグは使用禁止です。
+html／head／body／frame／frameset／iframe／object／param／server／javascript／
+form／input／embed／textarea／script／meta／button／svg
+※option：フリースペース・自己紹介欄のみ禁止
+※title：自己紹介欄では使用可、フリースペースでは禁止
+
+#### ■ Ameba利用規約の遵守
+（出典：https://helps.ameba.jp/rules/post_104.html　最終改訂：2025年11月10日）
+
+以下の内容を含めてはなりません。
+- 殺害・自殺・自傷行為を肯定・助長する内容
+- 過度に残虐・暴力的な表現
+- わいせつ・性的・アダルト関連の表現
+- 誹謗中傷・名誉毀損・差別的表現
+- 他者の著作権・肖像権・プライバシーを侵害する内容
+- 本人の承諾のない個人情報の掲載
+- ねずみ講・マルチ商法・ネットワークビジネスの勧誘
+- 出会い目的・異性交際を誘導する表現
+- 宗教団体への勧誘・布教・寄付要求
+- 違法行為（薬物・詐欺・賭博等）の推奨・助長
+- 虚偽の情報・事実と異なる経歴・実績の誇張
+
+#### ■ 文体・表現ルール
+- 読者に語りかける口語体（〜です、〜ます調）
+- 一文を短く、読みにくい場合は改行を使う
+- 専門用語は避け、誰でも理解できる言葉を使う
+
+---
+
+### 【出力フォーマット】
+- 各項目を「① ターゲット設定」のように番号付き見出しで区切る
+- ⑥のプロフィール本文は【起】【承】【転】【結】の見出しを付けて出力する
+- 全項目の出力後に「このプロフィールで意識した3つのポイント」を箇条書きで添える
+
+---
+
+> **Claudeへの注記**
+> 経歴の記載量が少なく判断が難しい場合は、作成前に「もう少し詳しく教えてください」と確認してから作成してください。`;
+
+    document.getElementById('resultTextarea').value = prompt;
+    const resultSection = document.getElementById('resultSection');
+    resultSection.classList.add('show');
+    setTimeout(() => {
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  // ── Copy ──
+  function copyPrompt() {
+    const textarea = document.getElementById('resultTextarea');
+    const btn = document.getElementById('copyBtn');
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        btn.textContent = 'コピーしました';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'コピーする';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => fallbackCopy(textarea, btn));
+    } else {
+      fallbackCopy(textarea, btn);
+    }
+  }
+
+  function fallbackCopy(textarea, btn) {
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    try {
+      document.execCommand('copy');
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'コピーする';
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch (e) {
+      textarea.focus();
+      textarea.select();
+    }
+  }
+
+  // ── Real-time validation clear ──
+  ['step1Input', 'themeInput', 'messageInput'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', () => {
+      if (el.value.trim()) {
+        el.classList.remove('error');
+        const errEl = document.getElementById(id.replace('Input', 'Error'));
+        if (errEl) errEl.classList.remove('show');
+      }
+    });
+  });
+</script>
+</body>
+</html>
