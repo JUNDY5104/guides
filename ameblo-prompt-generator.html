@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アメブロ記事プロンプトジェネレーター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #e8610a;
+  --orange-light: #f97316;
+  --orange-pale: #fff7f2;
+  --orange-border: #fde0cc;
+  --amber: #d97706;
+  --white: #ffffff;
+  --bg: #fafaf8;
+  --text: #1c1917;
+  --muted: #78716c;
+  --border: #e7e5e4;
+  --radius: 10px;
+  --shadow: 0 2px 16px rgba(232,97,10,0.10);
+  --nav-h: 52px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.8; }
+a { color: var(--orange); text-decoration: none; }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #c2410c 0%, #e8610a 50%, #f97316 100%);
+  padding: 56px 24px 48px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-inner { position: relative; max-width: 700px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.hero-sub { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8; }
+
+/* ── STICKY NAV ── */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--orange);
+  border-bottom: 2px solid #c2410c;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+.sticky-nav::-webkit-scrollbar { height: 3px; }
+.sticky-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
+.sticky-nav ul { display: flex; list-style: none; padding: 0 16px; gap: 0; }
+.sticky-nav li a {
+  display: block;
+  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0 16px;
+  height: var(--nav-h);
+  line-height: var(--nav-h);
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.sticky-nav li a:hover,
+.sticky-nav li a.active { color: #fff; border-bottom-color: #fff; }
+
+/* ── WRAP ── */
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 20px 80px; }
+
+/* ── SECTION ── */
+.section { padding: 48px 0 0; }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--orange-border);
+}
+.section-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--orange);
+  color: #fff;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--orange);
+}
+.section-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+/* ── STEPS ── */
+.steps { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  color: #fff;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.step-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.step-body p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.step-arrow {
+  text-align: center;
+  color: var(--orange-light);
+  font-size: 20px;
+  margin: -4px 0;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 18px;
+  background: var(--orange);
+  border-radius: 2px;
+}
+
+/* ── FORM ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+label span.req {
+  color: var(--orange);
+  font-size: 11px;
+  margin-left: 4px;
+}
+label span.opt {
+  color: var(--muted);
+  font-size: 11px;
+  margin-left: 4px;
+  font-weight: 400;
+}
+input[type="text"],
+input[type="url"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: #fafaf8;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(232,97,10,0.12);
+  background: #fff;
+}
+textarea { resize: vertical; min-height: 80px; line-height: 1.7; }
+.hint { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── CHECKBOX GROUP ── */
+.check-group { display: flex; flex-wrap: wrap; gap: 10px; }
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange-pale);
+  border: 1.5px solid var(--orange-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.check-item:has(input:checked) {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.check-item input { display: none; }
+
+/* ── RADIO GROUP ── */
+.radio-group { display: flex; flex-wrap: wrap; gap: 10px; }
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange-pale);
+  border: 1.5px solid var(--orange-border);
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.radio-item:has(input:checked) {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.radio-item input { display: none; }
+
+/* ── SAVE BTN ── */
+.btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 12px;
+}
+.btn-save:hover { background: #c2410c; }
+.btn-save:active { transform: scale(0.98); }
+
+/* ── GENERATE BTN ── */
+.btn-generate {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #c2410c, #e8610a, #f97316);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 18px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  margin-top: 24px;
+  box-shadow: 0 4px 20px rgba(232,97,10,0.35);
+}
+.btn-generate:hover { opacity: 0.92; }
+.btn-generate:active { transform: scale(0.99); }
+
+/* ── OUTPUT AREA ── */
+.output-area { display: none; margin-top: 32px; }
+.output-area.visible { display: block; }
+.output-box {
+  background: #1c1917;
+  border-radius: 10px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.output-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--orange-light);
+  margin-bottom: 12px;
+}
+.output-text {
+  color: #e7e5e4;
+  font-size: 13px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+.btn-copy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s;
+}
+.btn-copy:hover { background: #c2410c; }
+.btn-copy.copied { background: #16a34a; }
+
+/* ── INFO BOX ── */
+.info-box {
+  background: var(--orange-pale);
+  border: 1.5px solid var(--orange-border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #7c2d12;
+  line-height: 1.8;
+}
+.info-box strong { color: var(--orange); }
+
+/* ── TAG TABLE ── */
+.tag-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+.tag-table th {
+  background: var(--orange);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 700;
+}
+.tag-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.tag-table tr:nth-child(even) td { background: var(--orange-pale); }
+.tag-table code {
+  background: #1c1917;
+  color: #fde0cc;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+/* ── CODE BLOCK ── */
+.code-block {
+  background: #1c1917;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  position: relative;
+}
+.code-block pre {
+  color: #e7e5e4;
+  font-size: 12px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+}
+.btn-code-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.15);
+  color: #e7e5e4;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.btn-code-copy:hover { background: rgba(255,255,255,0.25); }
+.btn-code-copy.copied { background: #16a34a; color: #fff; }
+
+/* ── TOP BTN ── */
+.top-btn {
+  display: block;
+  width: fit-content;
+  margin: 32px auto 0;
+  padding: 10px 28px;
+  border: 2px solid var(--orange);
+  color: var(--orange);
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.top-btn:hover { background: var(--orange); color: #fff; }
+
+/* ── SAVE STATUS ── */
+.save-status {
+  display: inline-block;
+  font-size: 12px;
+  color: #16a34a;
+  font-weight: 700;
+  margin-left: 12px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.save-status.show { opacity: 1; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 48px 0 0; }
+
+/* ── FOOTER ── */
+footer {
+  background: #1c1917;
+  color: #a8a29e;
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 12px;
+  margin-top: 60px;
+}
+
+/* ── BADGE ── */
+.badge {
+  display: inline-block;
+  background: var(--orange-pale);
+  border: 1px solid var(--orange-border);
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ── TOOLTIP ── */
+.tt {
+  border-bottom: 1px dotted var(--orange);
+  cursor: help;
+  position: relative;
+}
+.tt::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c1917;
+  color: #e7e5e4;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  max-width: 260px;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 200;
+}
+.tt:hover::after { opacity: 1; }
+
+/* ── ANIMATION ── */
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s, transform 0.5s; }
+.fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AMEBLO PROMPT GENERATOR</div>
+    <h1>アメブロ記事プロンプトジェネレーター</h1>
+    <p class="hero-sub">あなたのブログ情報を入力するだけで、AI記事生成用のプロンプトが自動で完成します。<br>ChatGPT・Claude・Geminiなど、お好みのAIにそのまま貼り付けてお使いください。</p>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="mainNav">
+  <ul>
+    <li><a href="#sec-howto">使い方</a></li>
+    <li><a href="#sec-settings">基本設定</a></li>
+    <li><a href="#sec-article">記事設定</a></li>
+    <li><a href="#sec-generate">プロンプト生成</a></li>
+    <li><a href="#sec-rules">HTMLルール</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<!-- ===== SECTION 1: HOW TO ===== -->
+<section class="section fade-in" id="sec-howto">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">このツールの使い方</div>
+      <div class="section-sub">3ステップで記事生成プロンプトが完成します</div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>基本設定を入力する<span class="badge">初回のみ</span></h3>
+        <p>あなたのブログ名・アメブロID・体験談URLなど、ブログ固有の情報を入力します。入力内容はブラウザに自動保存されるので、次回以降は入力不要です。</p>
+      </div>
+    </div>
+    <div class="step-arrow">↓</div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>記事設定を入力する<span class="badge">毎回</span></h3>
+        <p>投稿予定日・テーマ・記事タイプなど、今回の記事に合わせた設定を入力します。項目を選ぶだけで完了します。</p>
+      </div>
+    </div>
+    <div class="step-arrow">↓</div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>プロンプトを生成してAIに貼り付ける</h3>
+        <p>「プロンプトを生成する」ボタンを押すと、AIへの指示文が完成します。コピーしてChatGPT・Claude・GeminiなどのAIに貼り付けるだけで記事が生成されます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>ポイント：</strong>生成されたプロンプトは、アメブロの禁止タグ・HTMLルール・SEO対策・文体指定などをすべて自動で含んでいます。AIに貼り付けた後に追加の指示を出す必要はありません。
+  </div>
+
+  <a href="#" class="top-btn">ページ先頭へ</a>
+</section>
+
+<hr class="divider">
+
+<!-- ===== SECTION 2: SETTINGS ===== -->
+<section class="section fade-in" id="sec-settings">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">基本設定</div>
+      <div class="section-sub">入力内容はブラウザに自動保存されます（初回のみ）</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ブログ基本情報</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>ブログ上の名前<span class="req">必須</span></label>
+        <input type="text" id="s-name" placeholder="例：まいたけ">
+        <span class="hint">記事冒頭「〇〇です♪」に使用されます</span>
+      </div>
+      <div class="form-group">
+        <label>アメブロID<span class="req">必須</span></label>
+        <input type="text" id="s-ameblo-id" placeholder="例：maitakeo117">
+        <span class="hint">ameblo.jp/◯◯ の◯◯部分</span>
+      </div>
+      <div class="form-group">
+        <label>一人称<span class="req">必須</span></label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="pronoun" value="私" checked>私</label>
+          <label class="radio-item"><input type="radio" name="pronoun" value="僕">僕</label>
+          <label class="radio-item"><input type="radio" name="pronoun" value="俺">俺</label>
+          <label class="radio-item"><input type="radio" name="pronoun" value="わたし">わたし</label>
+          <label class="radio-item"><input type="radio" name="pronoun" value="__custom__">その他</label>
+        </div>
+        <div id="pronoun-custom-area" style="display:none; margin-top:10px;">
+          <input type="text" id="pronoun-custom" placeholder="例：うち、あたし、自分 など" style="max-width:240px;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ブログのジャンル<span class="req">必須</span></label>
+        <select id="s-genre">
+          <option value="ツインレイ・スピリチュアル">ツインレイ・スピリチュアル</option>
+          <option value="恋愛・婚活">恋愛・婚活</option>
+          <option value="ライフスタイル">ライフスタイル</option>
+          <option value="美容・健康">美容・健康</option>
+          <option value="ビジネス・副業">ビジネス・副業</option>
+          <option value="子育て・育児">子育て・育児</option>
+          <option value="料理・グルメ">料理・グルメ</option>
+          <option value="旅行・お出かけ">旅行・お出かけ</option>
+          <option value="その他">その他</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>ブログのコンセプト・テーマ<span class="req">必須</span></label>
+        <textarea id="s-concept" placeholder="例：ツインレイ女性の経済的自立を応援するブログです。スピリチュアルな視点と実体験をもとに、等身大の言葉で発信しています。"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ブログのキャラクター設定</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>自分のキャラクター・立場<span class="req">必須</span></label>
+        <textarea id="s-character" placeholder="例：ツインレイ男性側。メンタルは強め。LINEの既読スルー・未読スルーはしたことがない。サイレントになったのは相方の方で、364日続いたと言っているが、私は全く気づかなかった。"></textarea>
+        <span class="hint">AIがあなたの人物像を理解するための設定です。断定口調にならない・使ってほしくない表現なども書いておくと効果的です。</span>
+      </div>
+      <div class="form-group full">
+        <label>読者への訴求・メッセージ<span class="opt">任意</span></label>
+        <textarea id="s-message" placeholder="例：ツインレイ女性の経済的自立。そのためにLINE公式アカウントへの登録を促す。"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">体験談・参考URL</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>体験談・プロフィール記事のURL<span class="req">必須</span></label>
+        <span class="hint">AIが読み込む体験談の記事URLを入力してください。1行に1つ、最大6つまで入力できます。</span>
+        <textarea id="s-urls" rows="7" placeholder="https://ameblo.jp/yourID/entry-XXXXX.html&#10;https://ameblo.jp/yourID/entry-XXXXX.html&#10;https://ameblo.jp/yourID/entry-XXXXX.html"></textarea>
+      </div>
+      <div class="form-group full">
+        <label>特設プロジェクト・固定ページのURL<span class="opt">任意</span></label>
+        <input type="url" id="s-project-url" placeholder="例：https://ameblo.jp/yourID/entry-XXXXX.html">
+        <span class="hint">記事中に定期的にリンクを挿入したいページがあれば入力してください</span>
+      </div>
+      <div class="form-group full">
+        <label>LINE公式アカウントのURL<span class="opt">任意</span></label>
+        <input type="url" id="s-line-url" placeholder="例：https://lin.ee/XXXXXXX">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">文体・表現スタイル</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>禁止表現・使ってほしくない言葉<span class="opt">任意</span></label>
+        <textarea id="s-ng-words" placeholder="例：「——」「……」などAIっぽい記号。「こんにちは」「今日は」「です。」「なのです。」の多用。断定口調。メンタルが弱そうな表現。13年間のセックスレスを連呼すること。"></textarea>
+        <span class="hint">AIに使ってほしくない表現を具体的に書くと、より自然な文章になります</span>
+      </div>
+      <div class="form-group full">
+        <label>よく使う口癖・文体の特徴<span class="opt">任意</span></label>
+        <textarea id="s-style" placeholder="例：「〜だと思います」「〜だと思いませんか？」「〜だと思うんですよね」など読者に語りかける表現を好む。断定はあまりしない。自然に人間らしい文章になるよう意識している。"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-save" onclick="saveSettings()">
+    設定を保存する
+    <span class="save-status" id="saveStatus">保存しました！</span>
+  </button>
+
+  <a href="#" class="top-btn">ページ先頭へ</a>
+</section>
+
+<hr class="divider">
+
+<!-- ===== SECTION 3: ARTICLE SETTINGS ===== -->
+<section class="section fade-in" id="sec-article">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">記事設定</div>
+      <div class="section-sub">記事を生成するたびに入力します</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">投稿・テーマ設定</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>投稿予定日<span class="req">必須</span></label>
+        <input type="date" id="a-date">
+        <span class="hint">この日付をもとに「前日の過去の出来事」が選ばれます</span>
+      </div>
+      <div class="form-group">
+        <label>作成する記事<span class="req">必須</span></label>
+        <div class="radio-group" style="flex-direction:column; gap:8px;">
+          <label class="radio-item"><input type="radio" name="article-type" value="both" checked>冒頭（約200字）＋ 本文（3,000〜5,000字）の両方</label>
+          <label class="radio-item"><input type="radio" name="article-type" value="intro">冒頭のみ（約200字）</label>
+          <label class="radio-item"><input type="radio" name="article-type" value="body">本文のみ（3,000〜5,000字）</label>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>テーマのヒント<span class="opt">任意</span></label>
+        <textarea id="a-theme" rows="3" placeholder="例：ツインレイのサイレント期間中のすごし方について書きたい。読者の不安を和らげる内容にしたい。"></textarea>
+        <span class="hint">空欄の場合、AIがジャンルに合ったテーマを自動で選びます</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">体験談・参考ブロガーの設定</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>今回使用する体験談</label>
+        <div class="radio-group" style="flex-direction:column; gap:8px;">
+          <label class="radio-item"><input type="radio" name="exp-select" value="random" checked>ランダムで選ぶ（おすすめ）</label>
+          <label class="radio-item"><input type="radio" name="exp-select" value="specify">番号を指定する</label>
+        </div>
+        <div id="exp-specify-area" style="display:none; margin-top:10px;">
+          <input type="text" id="a-exp-num" placeholder="例：③（連載ストーリー）">
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>参考ブロガーのジャンルURL<span class="opt">任意</span></label>
+        <input type="url" id="a-ref-genre-url" placeholder="例：https://blogger.ameba.jp/genres/love-counselor">
+        <span class="hint">AIがこのジャンルから参考記事を1本見つけてリブログカードで紹介します。空欄の場合は省略されます。</span>
+      </div>
+      <div class="form-group full">
+        <label>直近の記事ページURL<span class="opt">任意</span></label>
+        <textarea id="a-recent-pages" rows="4" placeholder="https://ameblo.jp/yourID/page-1.html&#10;https://ameblo.jp/yourID/page-2.html&#10;https://ameblo.jp/yourID/page-3.html"></textarea>
+        <span class="hint">AIが最近のあなたの出来事を記事に自然に盛り込むために使用します。1行に1つ入力してください。</span>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="top-btn">ページ先頭へ</a>
+</section>
+
+<hr class="divider">
+
+<!-- ===== SECTION 4: GENERATE ===== -->
+<section class="section fade-in" id="sec-generate">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">プロンプト生成</div>
+      <div class="section-sub">ボタンを押すとAI用の指示文が完成します</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>生成前に確認：</strong>「基本設定」の「設定を保存する」ボタンを押しましたか？保存してから生成ボタンを押してください。
+  </div>
+
+  <button class="btn-generate" onclick="generatePrompt()">
+    プロンプトを生成する
+  </button>
+
+  <div class="output-area" id="outputArea">
+    <div class="output-box">
+      <div class="output-label">GENERATED PROMPT</div>
+      <div class="output-text" id="outputText"></div>
+    </div>
+    <button class="btn-copy" id="copyBtn" onclick="copyPrompt()">
+      コピーする
+    </button>
+    <div class="info-box" style="margin-top:20px;">
+      <strong>次のステップ：</strong>上のプロンプトをコピーして、ChatGPT・Claude・Geminiなどに貼り付けてください。追加の指示は不要です。そのまま記事生成が始まります。
+    </div>
+  </div>
+
+  <a href="#" class="top-btn">ページ先頭へ</a>
+</section>
+
+<hr class="divider">
+
+<!-- ===== SECTION 5: HTML RULES ===== -->
+<section class="section fade-in" id="sec-rules">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">アメブロHTMLルール早見表</div>
+      <div class="section-sub">生成された記事をアメブロに貼り付ける際の参考にしてください</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">アメブロ禁止タグ一覧</div>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">以下のHTMLタグはアメブロでは使用できません。AIが生成した記事にこれらのタグが含まれていた場合は削除してください。</p>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">html</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">head</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">body</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">frame</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">frameset</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">iframe</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">object</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">param</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">script</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">form</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">input</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">embed</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">textarea</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">meta</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">button</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">svg</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">javascript</span>
+      <span style="background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:4px; font-size:13px; font-weight:700; font-family:monospace;">server</span>
+    </div>
+    <p style="font-size:12px; color:var(--muted);">※ option・title タグはフリースペース・自己紹介では禁止です</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">文字色・強調の書き方</div>
+    <table class="tag-table">
+      <tr>
+        <th>用途</th>
+        <th>HTMLコード</th>
+        <th>表示例</th>
+      </tr>
+      <tr>
+        <td>自分の言葉（「○○○」）</td>
+        <td><code>&lt;b style="color:#00bcd4;"&gt;「○○○」&lt;/b&gt;</code></td>
+        <td style="color:#00bcd4; font-weight:700;">「水色・太字」</td>
+      </tr>
+      <tr>
+        <td>相方の言葉（「○○○」）</td>
+        <td><code>&lt;b style="color:#ffb6c1;"&gt;「○○○」&lt;/b&gt;</code></td>
+        <td style="color:#ffb6c1; font-weight:700;">「薄ピンク・太字」</td>
+      </tr>
+      <tr>
+        <td>読者の言葉（「○○○」）</td>
+        <td><code>&lt;b style="color:#e91e8c;"&gt;「○○○」&lt;/b&gt;</code></td>
+        <td style="color:#e91e8c; font-weight:700;">「濃いピンク・太字」</td>
+      </tr>
+      <tr>
+        <td>補足解説（※〇〇〇）</td>
+        <td><code>&lt;span style="color:#ff9800;"&gt;※○○○&lt;/span&gt;</code></td>
+        <td style="color:#ff9800;">「オレンジ・通常」</td>
+      </tr>
+      <tr>
+        <td>強調（太字・赤）</td>
+        <td><code>&lt;b style="color:#cc0000;"&gt;○○○&lt;/b&gt;</code></td>
+        <td style="color:#cc0000; font-weight:700;">「赤・太字」</td>
+      </tr>
+      <tr>
+        <td>強調（赤＋下線）</td>
+        <td><code>&lt;b&gt;&lt;u style="color:#cc0000;"&gt;○○○&lt;/u&gt;&lt;/b&gt;</code></td>
+        <td style="color:#cc0000; font-weight:700; text-decoration:underline;">「赤・太字・下線」</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">見出しタグのコード</div>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">H2・H3タグはアメブロのデフォルトスタイルを上書きするため、以下のコードを使います。</p>
+
+    <p style="font-size:13px; font-weight:700; margin-bottom:8px;">H2見出し</p>
+    <div class="code-block">
+      <pre id="h2code">&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;h2 style="color:#323232;font-size:20px;line-height:1.4;min-height:28px;padding:12px 16px;margin:8px 0;border-bottom:1px solid #898989;border-left:4px solid #898989;"&gt;見出しタイトル&lt;/h2&gt;</pre>
+      <button class="btn-code-copy" onclick="copyCode('h2code', this)">コピー</button>
+    </div>
+
+    <p style="font-size:13px; font-weight:700; margin-bottom:8px; margin-top:16px;">H3見出し</p>
+    <div class="code-block">
+      <pre id="h3code">&lt;h3 style="position:relative;color:#333;font-weight:bold;font-size:20px;line-height:1.6;padding:4px 10px 4px 20px;margin:8px 0;border-bottom:2px solid #235fb0;"&gt;&lt;span style="width:10px;height:100%;position:absolute;bottom:-2px;left:0;background-color:#235fb0;border-radius:2px;"&gt;&amp;nbsp;&lt;/span&gt;&lt;span&gt;見出しタイトル&lt;/span&gt;&lt;/h3&gt;</pre>
+      <button class="btn-code-copy" onclick="copyCode('h3code', this)">コピー</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">リブログカードの埋め込みコード</div>
+    <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">参考ブロガーの記事を紹介する際に使用します。[ブロガーID]と[記事ID]を差し替えてください。</p>
+    <div class="code-block">
+      <pre id="reblogcode">&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;※今回参照させていただいた記事は以下です。&lt;/p&gt;
+&lt;p&gt;
+&lt;iframe class="reblogCard" data-ameba-id="[ブロガーID]" data-entry-id="[記事ID]" frameborder="0" height="234px" sandbox="allow-same-origin allow-scripts allow-top-navigation" scrolling="no" src="https://ameblo.jp/s/embed/reblog-card/[ブロガーID]/entry-[記事ID].html?reblogAmebaId=あなたのID&amp;amp;isLightPreview=true" width="100%"&gt;&lt;/iframe&gt;&lt;/p&gt;</pre>
+      <button class="btn-code-copy" onclick="copyCode('reblogcode', this)">コピー</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">記事の基本フォーマット</div>
+    <table class="tag-table">
+      <tr>
+        <th>ルール</th>
+        <th>内容</th>
+      </tr>
+      <tr>
+        <td>記事の書き出し</td>
+        <td>&lt;p&gt;タグから始める（&lt;html&gt;・&lt;body&gt;タグは不要）</td>
+      </tr>
+      <tr>
+        <td>句点の後</td>
+        <td>必ず改行を入れる（句点で終わったら次の&lt;p&gt;タグへ）</td>
+      </tr>
+      <tr>
+        <td>行間の挿入</td>
+        <td>1行と1行の間には&lt;p&gt;&lt;/p&gt;タグを入れて行間を広げる</td>
+      </tr>
+      <tr>
+        <td>自分の言葉の前後</td>
+        <td>&lt;p&gt;&lt;/p&gt;を2つ入れて行間を広げる</td>
+      </tr>
+      <tr>
+        <td>相方・読者の言葉の前後</td>
+        <td>&lt;p&gt;&lt;/p&gt;を2つ入れて行間を広げる</td>
+      </tr>
+      <tr>
+        <td>X用ポスト</td>
+        <td>記事完成後にAIへ「X用のポストを8本、2時間おきの予約投稿用に作ってください」と追加依頼する</td>
+      </tr>
+    </table>
+  </div>
+
+  <a href="#" class="top-btn">ページ先頭へ</a>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <p>アメブロ記事プロンプトジェネレーター</p>
+  <p style="margin-top:8px; font-size:11px; color:#78716c;">入力した情報はすべてお使いのブラウザ内にのみ保存されます。外部サーバーへの送信は一切行いません。</p>
+</footer>
+
+<script>
+// ── localStorage keys ──
+const KEYS = {
+  name: 's-name', amebloId: 's-ameblo-id', pronoun: 'pronoun',
+  genre: 's-genre', concept: 's-concept', character: 's-character',
+  message: 's-message', urls: 's-urls', projectUrl: 's-project-url',
+  lineUrl: 's-line-url', ngWords: 's-ng-words', style: 's-style'
+};
+
+// ── Load settings on page load ──
+window.addEventListener('DOMContentLoaded', () => {
+  // Load text inputs
+  ['s-name','s-ameblo-id','s-genre','s-concept','s-character','s-message',
+   's-urls','s-project-url','s-line-url','s-ng-words','s-style'].forEach(id => {
+    const el = document.getElementById(id);
+    const val = localStorage.getItem(id);
+    if (el && val) el.value = val;
+  });
+  // Load pronoun radio
+  const pron = localStorage.getItem('pronoun');
+  const pronCustom = localStorage.getItem('pronoun-custom');
+  if (pron) {
+    // カスタム値の場合は __custom__ ラジオを選択してテキスト欄に復元
+    const isCustom = !['私','僕','俺','わたし'].includes(pron);
+    document.querySelectorAll('input[name="pronoun"]').forEach(r => {
+      r.checked = isCustom ? r.value === '__custom__' : r.value === pron;
+    });
+    if (isCustom) {
+      document.getElementById('pronoun-custom-area').style.display = 'block';
+      document.getElementById('pronoun-custom').value = pron;
+    }
+  }
+  // pronoun ラジオ変更でカスタム入力欄をトグル
+  document.querySelectorAll('input[name="pronoun"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const area = document.getElementById('pronoun-custom-area');
+      area.style.display = r.value === '__custom__' && r.checked ? 'block' : 'none';
+    });
+  });
+  // Set today's date + 1 as default
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dateStr = tomorrow.toISOString().split('T')[0];
+  document.getElementById('a-date').value = dateStr;
+
+  // exp-select toggle
+  document.querySelectorAll('input[name="exp-select"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('exp-specify-area').style.display =
+        r.value === 'specify' && r.checked ? 'block' : 'none';
+    });
+  });
+
+  // Scroll-spy
+  setupScrollSpy();
+
+  // Fade-in
+  setupFadeIn();
+});
+
+// ── Save settings ──
+function saveSettings() {
+  ['s-name','s-ameblo-id','s-genre','s-concept','s-character','s-message',
+   's-urls','s-project-url','s-line-url','s-ng-words','s-style'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) localStorage.setItem(id, el.value);
+  });
+  const pronoun = document.querySelector('input[name="pronoun"]:checked');
+  if (pronoun) {
+    const val = pronoun.value === '__custom__'
+      ? (document.getElementById('pronoun-custom').value.trim() || '私')
+      : pronoun.value;
+    localStorage.setItem('pronoun', val);
+  }
+
+  const status = document.getElementById('saveStatus');
+  status.classList.add('show');
+  setTimeout(() => status.classList.remove('show'), 2500);
+}
+
+// ── Generate prompt ──
+function generatePrompt() {
+  // Get settings
+  const name       = document.getElementById('s-name').value.trim() || 'ブログ名未設定';
+  const amebloId   = document.getElementById('s-ameblo-id').value.trim() || 'ameblo-id未設定';
+  const pronounRadio = document.querySelector('input[name="pronoun"]:checked');
+  const pronoun = pronounRadio
+    ? (pronounRadio.value === '__custom__'
+        ? (document.getElementById('pronoun-custom').value.trim() || '私')
+        : pronounRadio.value)
+    : '私';
+  const genre      = document.getElementById('s-genre').value;
+  const concept    = document.getElementById('s-concept').value.trim();
+  const character  = document.getElementById('s-character').value.trim();
+  const message    = document.getElementById('s-message').value.trim();
+  const urls       = document.getElementById('s-urls').value.trim();
+  const projectUrl = document.getElementById('s-project-url').value.trim();
+  const lineUrl    = document.getElementById('s-line-url').value.trim();
+  const ngWords    = document.getElementById('s-ng-words').value.trim();
+  const style      = document.getElementById('s-style').value.trim();
+
+  // Get article settings
+  const dateVal    = document.getElementById('a-date').value;
+  const articleType = (document.querySelector('input[name="article-type"]:checked') || {}).value || 'both';
+  const theme      = document.getElementById('a-theme').value.trim();
+  const expSelect  = (document.querySelector('input[name="exp-select"]:checked') || {}).value || 'random';
+  const expNum     = document.getElementById('a-exp-num').value.trim();
+  const refGenreUrl = document.getElementById('a-ref-genre-url').value.trim();
+  const recentPages = document.getElementById('a-recent-pages').value.trim();
+
+  // Format date
+  let dateLabel = '';
+  if (dateVal) {
+    const d = new Date(dateVal);
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    dateLabel = `${month}月${day}日（予約投稿日）`;
+  }
+
+  // Article type instruction
+  const articleTypeMap = {
+    both:  '①冒頭の挨拶記事（200文字程度）と②記事本体（3,000〜5,000文字）の両方を作成してください。',
+    intro: '①冒頭の挨拶記事（200文字程度）のみを作成してください。',
+    body:  '②記事本体（3,000〜5,000文字）のみを作成してください。'
+  };
+
+  // Experience selection
+  let expInstruction = '';
+  if (expSelect === 'random') {
+    expInstruction = '体験談は以下のURLからランダムに1つ選んで使用してください（毎回同じ体験談にならないように、乱数を発生させて選んでください）。';
+  } else {
+    expInstruction = `今回使用する体験談は「${expNum}」の体験談を使用してください。`;
+  }
+
+  // Build URL list
+  const urlList = urls ? urls.split('\n').filter(u => u.trim()).map((u, i) => `体験談URL${i+1}：${u.trim()}`).join('\n') : '（体験談URLが設定されていません）';
+
+  // Recent pages
+  const recentList = recentPages ? recentPages.split('\n').filter(u => u.trim()).join('\n') : '';
+
+  // Build prompt
+  let prompt = `アメブロへ投稿する記事をHTMLタグで生成してください。
+記事を生成する際には、以下のアメブロの禁止タグと規約を遵守してください。
+
+＜禁止タグ＞
+html / head / body / frame / frameset / iframe / object / param / server / javascript / form / input / embed / textarea / script / meta / button / option（フリースペース・自己紹介のみ禁止） / title（自己紹介では利用可） / svg
+
+＜規約＞
+https://helps.ameba.jp/rules/post_104.html
+
+---
+
+＜ブログ基本情報＞
+ブログ名：${name}
+アメブロID：${amebloId}
+一人称：${pronoun}
+ジャンル：${genre}
+ブログのコンセプト：${concept || '（未設定）'}
+
+---
+
+＜私のキャラクター・立場＞
+${character || '（未設定）'}
+
+---
+
+＜読者への訴求・メッセージ＞
+${message || '（未設定）'}
+
+---
+
+＜今回のテーマ＞
+投稿予定日：${dateLabel || '（未設定）'}
+記事の内容：投稿予定日の1日前の日付に起きた過去（昭和・平成）の日本の出来事と、${genre}の内容を絡めた記事を作成してください。
+占いや数秘術は絡めないでください。
+私の経験談に基づき、現場寄りのアドバイスを行ってください。
+経済の話はしないようにしてください。
+記事のタイトルや本文は、ソフトタッチで親しみやすい雰囲気に仕上げてください。
+※記事中に「1日後の」「予約投稿用の」といった言葉は入れないでください。
+${theme ? `\n追加のテーマ指示：${theme}` : ''}
+
+---
+
+＜作成する記事＞
+${articleTypeMap[articleType]}
+
+冒頭記事の形式：
+「${name}です♪^^」という書き出しから始め、以下の流れに組み込む形で約200文字の挨拶記事を作成してください。
+
+--- ここから ---
+${name}です♪^^
+
+（ここに挨拶記事を組み込む）
+
+まずは、以下の毎日の願掛け儀式をしましょう!!
+--- ここまで ---
+
+---
+
+＜私の体験談URL＞
+${expInstruction}
+体験談の内容は私の記事をそのまま転写せず、今回の記事テーマに合わせて要約・言い換えて使用してください。私の記事を引用する形で記事を作成しないでください。
+
+${urlList}
+
+---
+`;
+
+  if (recentList) {
+    prompt += `
+＜直近の記事ページ＞
+以下のページを読み込み、最近の私の身近な出来事を記事に自然に盛り込んでください（読者から「自然な記事だ」と感じてもらうために重要です）。
+
+${recentList}
+
+---
+`;
+  }
+
+  if (refGenreUrl) {
+    prompt += `
+＜参考ブロガーの記事＞
+以下のアメブロジャンルから、今回の記事の参考となる記事を1本見つけてください。
+・リブログを許可していないブログは選ばないでください
+・なるべく以前に紹介したことのないブロガーさんを選んでください
+
+ジャンルURL：${refGenreUrl}
+
+見つけた記事を「今回参照させていただいた記事」として500文字以内でまとめて紹介し、以下のHTMLコードで記事内に埋め込んでください。
+[ブロガーID]と[記事ID]は実際の値に差し替えてください。
+
+<p>&nbsp;</p>
+<p>※今回参照させていただいた記事は以下です。</p>
+<p>
+<iframe class="reblogCard" data-ameba-id="[ブロガーID]" data-entry-id="[記事ID]" frameborder="0" height="234px" sandbox="allow-same-origin allow-scripts allow-top-navigation" scrolling="no" src="https://ameblo.jp/s/embed/reblog-card/[ブロガーID]/entry-[記事ID].html?reblogAmebaId=${amebloId}&amp;isLightPreview=true" width="100%"></iframe></p>
+
+---
+`;
+  }
+
+  if (projectUrl) {
+    prompt += `
+＜特設ページのリンク＞
+経済力・自立・収入などの話題が出た際には、以下のURLを記事中に自然に組み込んでください。
+
+<a href="${projectUrl}" rel="noopener noreferrer" target="_blank">（リンクテキストは文脈に合わせて設定してください）</a>
+
+---
+`;
+  }
+
+  if (lineUrl) {
+    prompt += `
+＜LINE公式アカウント＞
+LINE公式アカウントへの登録を促す内容を記事に盛り込んでください。
+LINE URL：${lineUrl}
+
+---
+`;
+  }
+
+  prompt += `
+＜HTMLコード作成の重要ルール＞
+・HTMLは &lt;p&gt; タグから作成してください（&lt;html&gt;&lt;body&gt; タグは不要）
+・句点（。）の後は必ず改行を入れてください
+・1行（&lt;p&gt;〜&lt;/p&gt;）と1行の間には &lt;p&gt;&lt;/p&gt; タグを入れて行間を広げてください
+・強調したい部分は太字・色分けを使ってメリハリをつけてください
+
+【文字色のルール】
+・${pronoun}の言葉を「○○○」で入れる場合：水色・太字 &lt;b style="color:#00bcd4;"&gt;「○○○」&lt;/b&gt;、前後に &lt;p&gt;&lt;/p&gt; を2つ入れる
+・相方の言葉を「○○○」で入れる場合：薄いピンク・太字 &lt;b style="color:#ffb6c1;"&gt;「○○○」&lt;/b&gt;、前後に &lt;p&gt;&lt;/p&gt; を2つ入れる
+・読者の言葉を「○○○」で入れる場合：濃いピンク・太字 &lt;b style="color:#e91e8c;"&gt;「○○○」&lt;/b&gt;、前後に &lt;p&gt;&lt;/p&gt; を2つ入れる
+・補足解説（※〇〇〇）：オレンジ・通常 &lt;span style="color:#ff9800;"&gt;※○○○&lt;/span&gt;（太字にしない・手前に &lt;p&gt;&lt;/p&gt; は入れない）
+
+【見出しのコード】
+H2：
+&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;h2 style="color:#323232;font-size:20px;line-height:1.4;min-height:28px;padding:12px 16px;margin:8px 0;border-bottom:1px solid #898989;border-left:4px solid #898989;"&gt;見出し&lt;/h2&gt;
+
+H3：
+&lt;h3 style="position:relative;color:#333;font-weight:bold;font-size:20px;line-height:1.6;padding:4px 10px 4px 20px;margin:8px 0;border-bottom:2px solid #235fb0;"&gt;&lt;span style="width:10px;height:100%;position:absolute;bottom:-2px;left:0;background-color:#235fb0;border-radius:2px;"&gt;&amp;nbsp;&lt;/span&gt;&lt;span&gt;見出し&lt;/span&gt;&lt;/h3&gt;
+
+---
+
+＜ブログ記事作成条件＞
+・LINE公式アカウントに登録したいと思わせる内容にしてください
+・SEO対策を施した記事を作成してください（タイトルもSEO対策済みのものを設定してください）
+・ミドルキーワードを見つけて記事を作成してください（Bigキーワードは避けてください）
+・タイトルは読者の目に留まるよう、先頭に【】や《》を付けて注目キーワードを盛り込んでください
+　例：【○○な4つのサイン】△△△について知っておきたいこと
+・「こんにちは」は不要です
+・「今日は」ではなく「今回は」にしてください
+・断定口調（「〜です。」「〜なのです。」）は多用しないようにしてください。読者に語りかける表現（「〜だと思います」「〜だと思いませんか？」）を自然に使ってください
+・「——」「……」などの記号は使わないでください（AIっぽく見えるため）
+・一人称は「${pronoun}」で統一してください
+
+${ngWords ? `＜禁止表現・使ってほしくない言葉＞\n${ngWords}\n\n---\n` : ''}
+${style ? `＜文体・口癖の特徴＞\n${style}\n\n---\n` : ''}
+
+---
+
+＜記事完成後にレポートしてください＞
+（HTMLコードではなく通常テキストで）
+1. 設定したブログ記事タイトル
+2. 使用した検索キーワード（何語か）
+3. 共起語リストと使用・未使用の一覧
+4. その他のSEO対策ポイント
+
+---
+
+＜X（Twitter）用ポスト記事＞
+（HTMLコードではなく通常テキストで）
+作成した記事から、X用のポスト記事を140文字以内で8本作成してください。
+8時から2時間おき・22時までの予約投稿用として、以下の形式でラベルをつけてください。
+
+No.1（8時）
+XXXX
+
+No.2（10時）
+XXXX
+
+（以下同様にNo.8（22時）まで）
+`;
+
+  // Decode HTML entities for display
+  const displayPrompt = prompt
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+
+  document.getElementById('outputText').textContent = displayPrompt;
+  const outputArea = document.getElementById('outputArea');
+  outputArea.classList.add('visible');
+  outputArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Store for copy
+  window._generatedPrompt = displayPrompt;
+}
+
+// ── Copy prompt ──
+function copyPrompt() {
+  const text = window._generatedPrompt || '';
+  const btn = document.getElementById('copyBtn');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'コピーする';
+      btn.classList.remove('copied');
+    }, 2500);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'コピーする';
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+
+// ── Copy code block ──
+function copyCode(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'コピー済み';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'コピー済み';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ── Scroll spy ──
+function setupScrollSpy() {
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.sticky-nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+}
+
+// ── Fade in ──
+function setupFadeIn() {
+  const els = document.querySelectorAll('.fade-in');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  els.forEach(el => obs.observe(el));
+}
+</script>
+</body>
+</html>
