@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アメブロ AI活用ツール 使い方ガイド</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #c85010;
+  --accent2: #b87800;
+  --accent-light: #fff0e8;
+  --accent3: #1a6e3c;
+  --accent3-light: #edf7f1;
+  --bg: #f7f5f2;
+  --surface: #ffffff;
+  --border: #e2dbd4;
+  --text: #1c1a18;
+  --text-muted: #7a7068;
+  --heading: #1c1a18;
+  --radius: 10px;
+  --shadow: 0 2px 16px rgba(0,0,0,0.07);
+  --shadow-lg: 0 6px 30px rgba(0,0,0,0.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:400;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.85;
+  font-size:15px;
+}
+
+/* ── Sticky Nav ── */
+.sticky-nav{
+  position:sticky;top:0;z-index:200;
+  background:#fff;
+  border-bottom:3px solid var(--accent);
+  box-shadow:0 2px 10px rgba(0,0,0,0.09);
+}
+.sticky-nav-inner{
+  max-width:1000px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;gap:6px;
+  overflow-x:auto;scrollbar-width:thin;
+  scrollbar-color:var(--accent) #f0ece8;
+  height:48px;
+}
+.sticky-nav-inner::-webkit-scrollbar{height:3px;}
+.sticky-nav-inner::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+.nav-link{
+  display:inline-flex;align-items:center;white-space:nowrap;
+  padding:4px 13px;border-radius:20px;font-size:0.76em;font-weight:500;
+  color:var(--text-muted);text-decoration:none;
+  transition:background 0.2s,color 0.2s;border:1px solid transparent;
+}
+.nav-link:hover,.nav-link.active{
+  background:var(--accent-light);color:var(--accent);border-color:var(--accent);
+}
+
+/* ── Hero ── */
+.hero{
+  background:linear-gradient(135deg,#c85010 0%,#de6820 45%,#b87800 100%);
+  padding:60px 24px 52px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-60px;right:-80px;
+  width:320px;height:320px;border-radius:50%;
+  background:rgba(255,255,255,0.06);pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-80px;left:-60px;
+  width:250px;height:250px;border-radius:50%;
+  background:rgba(255,255,255,0.05);pointer-events:none;
+}
+.hero-badge{
+  display:inline-block;background:rgba(255,255,255,0.22);
+  color:#fff;font-size:0.75em;font-weight:600;
+  padding:5px 16px;border-radius:20px;margin-bottom:18px;letter-spacing:0.06em;
+}
+.hero h1{
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:clamp(1.5em,4vw,2.3em);font-weight:900;
+  color:#fff;line-height:1.35;margin-bottom:14px;letter-spacing:0.03em;
+}
+.hero-sub{
+  color:rgba(255,255,255,0.9);font-size:0.88em;
+  max-width:540px;margin:0 auto;line-height:1.75;
+}
+.hero-tools{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;
+}
+.hero-tool-badge{
+  background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);
+  color:#fff;font-size:0.78em;font-weight:600;
+  padding:7px 18px;border-radius:30px;letter-spacing:0.04em;
+  backdrop-filter:blur(4px);
+}
+
+/* ── Layout ── */
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px;}
+
+/* ── Section ── */
+.section{
+  background:var(--surface);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin:32px 0;padding:38px 44px;
+  opacity:0;transform:translateY(18px);
+  transition:opacity 0.5s ease,transform 0.5s ease;
+}
+.section.visible{opacity:1;transform:translateY(0);}
+.section-header{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:26px;padding-bottom:16px;
+  border-bottom:2px solid var(--accent);
+}
+.section-icon{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.0em;flex-shrink:0;
+}
+.section-title{font-size:1.18em;font-weight:700;color:var(--heading);}
+.section-desc{font-size:0.86em;color:var(--text-muted);margin-top:3px;}
+
+/* ── Tool Cards (index) ── */
+.tool-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:24px 0;}
+.tool-card{
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px 20px;text-decoration:none;color:inherit;
+  transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;
+  display:block;background:#fff;
+}
+.tool-card:hover{
+  transform:translateY(-3px);box-shadow:var(--shadow-lg);
+  border-color:var(--accent);
+}
+.tool-card-num{
+  font-size:0.72em;font-weight:700;color:var(--accent);
+  letter-spacing:0.08em;margin-bottom:8px;
+}
+.tool-card-name{font-size:0.95em;font-weight:700;color:var(--heading);line-height:1.5;margin-bottom:10px;}
+.tool-card-desc{font-size:0.8em;color:var(--text-muted);line-height:1.7;}
+.tool-card-link{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:12px;font-size:0.78em;font-weight:600;
+  color:var(--accent);text-decoration:none;
+}
+.tool-card-link::after{content:'→';}
+
+/* ── Open Tool Button ── */
+.btn-open-tool{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;border-radius:30px;
+  background:linear-gradient(135deg,var(--accent),#e07030);
+  color:#fff;font-weight:700;font-size:0.92em;
+  text-decoration:none;
+  box-shadow:0 4px 16px rgba(200,80,16,0.32);
+  transition:opacity 0.2s,transform 0.15s;
+  letter-spacing:0.04em;
+}
+.btn-open-tool:hover{opacity:0.91;transform:translateY(-2px);}
+.btn-open-tool::before{content:'🔗';}
+.tool-link-area{margin:24px 0 8px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.tool-link-note{font-size:0.8em;color:var(--text-muted);line-height:1.6;}
+
+/* ── Step List ── */
+.step-list{display:flex;flex-direction:column;gap:0;margin:20px 0;}
+.step-item{
+  display:flex;gap:16px;position:relative;padding-bottom:24px;
+}
+.step-item:last-child{padding-bottom:0;}
+.step-item:not(:last-child)::before{
+  content:'';position:absolute;left:18px;top:40px;
+  width:2px;bottom:0;background:var(--border);
+}
+.step-num{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:700;
+  font-size:0.88em;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(200,80,16,0.25);
+}
+.step-body{flex:1;}
+.step-title{font-weight:700;font-size:0.95em;color:var(--heading);margin-bottom:5px;}
+.step-desc{font-size:0.85em;color:var(--text-muted);line-height:1.75;}
+
+/* ── Mockup ── */
+.mockup-wrap{
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;margin:20px 0;box-shadow:var(--shadow);
+}
+.mockup-bar{
+  background:#f0ece8;border-bottom:1px solid var(--border);
+  padding:8px 14px;display:flex;align-items:center;gap:8px;
+}
+.mockup-dot{width:10px;height:10px;border-radius:50%;}
+.mockup-dot.r{background:#ff6058;}
+.mockup-dot.y{background:#ffbd2e;}
+.mockup-dot.g{background:#28c840;}
+.mockup-url{
+  flex:1;background:#fff;border-radius:6px;
+  padding:4px 12px;font-size:0.72em;color:var(--text-muted);
+  border:1px solid var(--border);margin-left:4px;
+}
+.mockup-body{padding:20px;background:#f7f5f2;}
+
+/* ── Mockup UI Parts ── */
+.mock-hero{
+  background:linear-gradient(135deg,#c85010,#e07030,#b87800);
+  border-radius:8px;padding:20px;text-align:center;margin-bottom:14px;
+}
+.mock-hero-badge{
+  display:inline-block;background:rgba(255,255,255,0.2);
+  color:#fff;font-size:0.65em;padding:3px 10px;border-radius:12px;margin-bottom:6px;
+}
+.mock-hero h3{color:#fff;font-size:0.9em;font-weight:700;margin-bottom:4px;}
+.mock-hero p{color:rgba(255,255,255,0.85);font-size:0.7em;}
+.mock-nav{
+  background:#fff;border:1px solid var(--border);border-radius:6px;
+  padding:8px 12px;display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;
+}
+.mock-nav-item{
+  font-size:0.65em;padding:3px 10px;border-radius:12px;
+  border:1px solid var(--border);color:var(--text-muted);
+}
+.mock-nav-item.active{
+  background:var(--accent-light);color:var(--accent);border-color:var(--accent);
+}
+.mock-card{
+  background:#fff;border-radius:8px;border:1px solid var(--border);
+  padding:16px;margin-bottom:10px;
+}
+.mock-card-head{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:10px;padding-bottom:8px;
+  border-bottom:2px solid var(--accent);
+}
+.mock-circle{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:0.6em;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.mock-card-title{font-size:0.75em;font-weight:700;}
+.mock-label{font-size:0.65em;font-weight:700;color:var(--heading);margin-bottom:4px;margin-top:10px;}
+.mock-label:first-of-type{margin-top:0;}
+.mock-required{
+  display:inline-block;background:var(--accent);color:#fff;
+  font-size:0.6em;padding:1px 5px;border-radius:3px;margin-left:4px;
+}
+.mock-optional{
+  display:inline-block;background:#aaa;color:#fff;
+  font-size:0.6em;padding:1px 5px;border-radius:3px;margin-left:4px;
+}
+.mock-input{
+  background:#f9f8f7;border:1px solid var(--border);border-radius:5px;
+  padding:7px 10px;font-size:0.68em;color:var(--text-muted);
+  width:100%;margin-bottom:2px;
+}
+.mock-input.focused{border-color:var(--accent);background:#fff;}
+.mock-textarea{
+  background:#f9f8f7;border:1px solid var(--border);border-radius:5px;
+  padding:7px 10px;font-size:0.68em;color:var(--text-muted);
+  width:100%;height:60px;
+}
+.mock-btn-generate{
+  display:block;width:100%;max-width:260px;margin:14px auto 0;
+  background:linear-gradient(135deg,var(--accent),#e07030);
+  color:#fff;font-size:0.72em;font-weight:700;
+  padding:9px 20px;border-radius:25px;text-align:center;
+  box-shadow:0 3px 10px rgba(200,80,16,0.3);
+}
+.mock-result{
+  background:#fdfcfa;border:1px solid var(--border);border-radius:5px;
+  padding:10px;font-size:0.65em;color:var(--text-muted);
+  line-height:1.7;margin-top:10px;min-height:50px;
+}
+.mock-btn-copy{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:8px;padding:6px 16px;border-radius:20px;
+  background:var(--accent2);color:#fff;font-size:0.68em;font-weight:700;
+}
+.mock-hint{
+  background:var(--accent-light);border-left:3px solid var(--accent);
+  border-radius:0 5px 5px 0;padding:8px 12px;
+  font-size:0.7em;color:#5a3010;margin-top:8px;
+}
+
+/* アメブロ記事ツール専用モックアップ */
+.mock-tabs{
+  display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;
+}
+.mock-tab{
+  font-size:0.65em;padding:5px 12px;border-radius:8px;
+  border:1px solid var(--border);color:var(--text-muted);background:#fff;
+}
+.mock-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.mock-settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mock-radio-group{display:flex;gap:8px;margin-bottom:4px;}
+.mock-radio{
+  display:flex;align-items:center;gap:3px;
+  font-size:0.65em;color:var(--text-muted);
+}
+.mock-radio-dot{
+  width:12px;height:12px;border-radius:50%;
+  border:2px solid var(--border);flex-shrink:0;
+}
+.mock-radio-dot.checked{border-color:var(--accent);background:var(--accent);}
+.mock-save-btn{
+  display:inline-block;padding:6px 18px;border-radius:20px;
+  background:var(--accent);color:#fff;font-size:0.68em;font-weight:700;
+  margin-top:10px;
+}
+
+/* LP生成ツール専用 */
+.mock-step-bar{
+  display:flex;gap:6px;padding:8px 10px;
+  background:#f3f1ee;border-radius:6px;margin-bottom:12px;
+  align-items:center;overflow-x:auto;
+}
+.mock-step-pill{
+  display:flex;align-items:center;gap:5px;flex-shrink:0;
+  opacity:0.4;
+}
+.mock-step-pill.active{opacity:1;}
+.mock-step-pill.done{opacity:0.75;}
+.mock-step-circle{
+  width:24px;height:24px;border-radius:50%;
+  background:#ccc;color:#fff;font-size:0.6em;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.mock-step-pill.active .mock-step-circle{background:var(--accent);}
+.mock-step-pill.done .mock-step-circle{background:var(--accent3);}
+.mock-step-label{font-size:0.6em;color:var(--text-muted);}
+.mock-step-pill.active .mock-step-label{color:var(--accent);font-weight:600;}
+.mock-step-arrow{color:var(--border);font-size:0.7em;}
+.mock-step-header-claude{
+  background:#fef3ee;border:1px solid #f0c4b0;border-left:4px solid #c96442;
+  border-radius:6px;padding:10px 12px;margin-bottom:10px;
+}
+.mock-step-header-user{
+  background:#fdf8ee;border:1px solid #e8d5a0;border-left:4px solid #9a7a40;
+  border-radius:6px;padding:10px 12px;margin-bottom:10px;
+}
+.mock-step-header-gpt{
+  background:#edfaf5;border:1px solid #a8dfd0;border-left:4px solid #10a37f;
+  border-radius:6px;padding:10px 12px;margin-bottom:10px;
+}
+.mock-step-htitle{font-size:0.72em;font-weight:700;color:#c96442;margin-bottom:3px;}
+.mock-step-htitle.user{color:#9a7a40;}
+.mock-step-htitle.gpt{color:#10a37f;}
+.mock-step-hdesc{font-size:0.65em;color:var(--text-muted);}
+.mock-ai-badge{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:0.6em;font-weight:700;padding:2px 8px;border-radius:12px;margin-top:5px;
+}
+.mock-ai-badge.claude{background:#fef3ee;color:#c96442;border:1px solid #f0c4b0;}
+.mock-ai-badge.gpt{background:#edfaf5;color:#10a37f;border:1px solid #a8dfd0;}
+
+/* ── Info / Note Box ── */
+.info-box{
+  background:#eef5f1;border:1px solid #b8d8c4;border-radius:var(--radius);
+  padding:14px 18px;font-size:0.84em;color:#1a4a2a;margin-top:16px;line-height:1.75;
+}
+.info-box strong{color:#187848;}
+.note-box{
+  background:#fff8ed;border:1px solid #f0d890;border-radius:var(--radius);
+  padding:14px 18px;font-size:0.84em;color:#5a4010;margin-top:14px;line-height:1.75;
+}
+.note-box strong{color:#9a6a00;}
+.warn-box{
+  background:#fdf0ef;border:1px solid #f5c0bc;border-radius:var(--radius);
+  padding:14px 18px;font-size:0.84em;color:#6a1a1a;margin-top:14px;line-height:1.75;
+}
+
+/* ── Point Box ── */
+.point-box{
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 20px;margin-top:16px;
+}
+.point-box-title{
+  font-size:0.78em;font-weight:700;color:var(--accent);
+  letter-spacing:0.05em;margin-bottom:10px;
+}
+.point-list{list-style:none;padding:0;}
+.point-list li{
+  font-size:0.85em;padding:6px 0 6px 18px;
+  position:relative;border-bottom:1px dashed var(--border);
+  color:var(--text);line-height:1.7;
+}
+.point-list li:last-child{border-bottom:none;}
+.point-list li::before{
+  content:'✓';position:absolute;left:0;
+  color:var(--accent3);font-weight:700;
+}
+
+/* ── Tool Section Header ── */
+.tool-section-header{
+  background:linear-gradient(135deg,var(--accent),#e07030);
+  border-radius:var(--radius) var(--radius) 0 0;
+  padding:20px 28px;margin:-38px -44px 28px;
+}
+.tool-section-label{
+  font-size:0.72em;color:rgba(255,255,255,0.8);
+  font-weight:600;letter-spacing:0.08em;margin-bottom:4px;
+}
+.tool-section-name{
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:1.25em;font-weight:900;color:#fff;letter-spacing:0.03em;
+}
+
+/* ── Back to Top ── */
+.back-to-top{display:block;text-align:center;margin:28px 0 0;}
+.btn-top{
+  display:inline-block;padding:8px 26px;
+  background:transparent;border:1px solid var(--accent);
+  color:var(--accent);font-family:'Noto Sans JP',sans-serif;
+  font-size:0.8em;font-weight:500;border-radius:20px;
+  cursor:pointer;text-decoration:none;
+  transition:background 0.2s,color 0.2s;
+}
+.btn-top:hover{background:var(--accent);color:#fff;}
+
+/* ── Divider ── */
+.tool-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:40px 0 0;
+}
+.tool-divider::before,.tool-divider::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+.tool-divider-text{
+  font-size:0.75em;color:var(--text-muted);
+  font-weight:600;letter-spacing:0.06em;white-space:nowrap;
+}
+
+/* ── Comparison Table ── */
+.compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.84em;}
+.compare-table th{
+  background:var(--accent);color:#fff;
+  padding:10px 14px;font-weight:700;text-align:left;
+}
+.compare-table th:first-child{border-radius:var(--radius) 0 0 0;}
+.compare-table th:last-child{border-radius:0 var(--radius) 0 0;}
+.compare-table td{
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  vertical-align:top;line-height:1.7;
+}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table tr:nth-child(even) td{background:#faf8f6;}
+
+/* ── Tooltip ── */
+.tt{
+  border-bottom:1px dashed var(--text-muted);cursor:help;
+  position:relative;display:inline;
+}
+.tt::after{
+  content:attr(data-tip);
+  position:absolute;left:0;top:calc(100% + 6px);
+  background:#1c1a18;color:#fff;font-size:0.75em;line-height:1.6;
+  padding:7px 12px;border-radius:6px;white-space:nowrap;
+  pointer-events:none;opacity:0;transition:opacity 0.2s;
+  z-index:999;max-width:280px;white-space:normal;width:max-content;
+}
+.tt:hover::after{opacity:1;}
+
+/* ── Footer ── */
+footer{
+  background:#2a1a0a;color:rgba(255,255,255,0.5);
+  text-align:center;padding:36px 24px;
+  font-size:0.78em;margin-top:48px;
+}
+.footer-brand{color:rgba(255,255,255,0.85);font-weight:700;font-size:1em;margin-bottom:6px;}
+
+/* ── Responsive ── */
+@media(max-width:680px){
+  .section{padding:26px 18px;}
+  .tool-section-header{margin:-26px -18px 22px;padding:16px 18px;}
+  .hero{padding:44px 16px 40px;}
+  .wrap{padding:0 12px;}
+  .tool-cards{grid-template-columns:1fr;}
+  .mock-settings-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body id="top">
+
+<!-- Sticky Nav -->
+<nav class="sticky-nav" aria-label="ページ内ナビゲーション">
+  <div class="sticky-nav-inner">
+    <a class="nav-link" href="#overview">ツール一覧</a>
+    <a class="nav-link" href="#tool1">① プロフィール生成</a>
+    <a class="nav-link" href="#tool2">② 記事プロンプト</a>
+    <a class="nav-link" href="#tool3">③ LP生成</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero" id="top-anchor">
+  <div class="hero-badge">使い方ガイド</div>
+  <h1>アメブロ AI活用ツール<br>完全マニュアル</h1>
+  <p class="hero-sub">3つのAI活用ツールの使い方をわかりやすく解説します。<br>PCが苦手な方も、手順通りに進めるだけで大丈夫です。</p>
+  <div class="hero-tools">
+    <div class="hero-tool-badge">① プロフィール生成ツール</div>
+    <div class="hero-tool-badge">② 記事プロンプトジェネレーター</div>
+    <div class="hero-tool-badge">③ LP生成プロンプトジェネレーター</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ── 概要・ツール一覧 ── -->
+  <div class="section" id="overview">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div>
+        <div class="section-title">3つのツールと使い分け</div>
+        <div class="section-desc">どのツールを使えばいいか確認しましょう</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.88em;color:var(--text-muted);margin-bottom:18px;line-height:1.8;">
+      この3つのツールは、アメブロの運営をAIを活用してサポートするための無料ツールです。
+      それぞれ目的が異なりますので、下の一覧から「今何をしたいか」で選んでください。
+    </p>
+
+    <div class="tool-cards">
+      <a href="#tool1" class="tool-card">
+        <div class="tool-card-num">TOOL 01</div>
+        <div class="tool-card-name">アメブロ<br>プロフィール生成ツール</div>
+        <div class="tool-card-desc">経歴とブログの方向性を入力すると、Claudeに渡すプロンプトを自動で作ってくれます。</div>
+        <div class="tool-card-link">使い方を見る</div>
+      </a>
+      <a href="#tool2" class="tool-card">
+        <div class="tool-card-num">TOOL 02</div>
+        <div class="tool-card-name">アメブロ記事<br>プロンプトジェネレーター</div>
+        <div class="tool-card-desc">ブログの基本情報を一度登録しておけば、毎回の記事作成プロンプトをすばやく生成できます。</div>
+        <div class="tool-card-link">使い方を見る</div>
+      </a>
+      <a href="#tool3" class="tool-card">
+        <div class="tool-card-num">TOOL 03</div>
+        <div class="tool-card-name">LP生成<br>プロンプトジェネレーター</div>
+        <div class="tool-card-desc">LINE公式アカウントへの誘導LPや特典設計プロンプトを4ステップで生成します。</div>
+        <div class="tool-card-link">使い方を見る</div>
+      </a>
+    </div>
+
+    <table class="compare-table" style="margin-top:24px;">
+      <thead>
+        <tr>
+          <th>ツール名</th>
+          <th>使うタイミング</th>
+          <th>使用するAI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>① プロフィール生成ツール</td>
+          <td>ブログを始める時・プロフィールを見直す時</td>
+          <td>Claude（claude.ai）</td>
+        </tr>
+        <tr>
+          <td>② 記事プロンプトジェネレーター</td>
+          <td>記事を書くたびに使う（繰り返し利用）</td>
+          <td>Claude（claude.ai）</td>
+        </tr>
+        <tr>
+          <td>③ LP生成プロンプトジェネレーター</td>
+          <td>LINE登録用LPや特典を作る時</td>
+          <td>Claude ＋ ChatGPT</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box" style="margin-top:20px;">
+      <strong>初めての方へ：</strong>まずは①のプロフィール生成ツールから始めることをおすすめします。
+      プロフィールはブログの中で最もアクセスが集まる大切なページです。
+    </div>
+
+    <div class="back-to-top"><a href="#top-anchor" class="btn-top">ページ上部へ</a></div>
+  </div>
+
+  <!-- ────────────────────────────────── -->
+  <!-- TOOL 01: プロフィール生成ツール -->
+  <!-- ────────────────────────────────── -->
+  <div class="section" id="tool1">
+    <div class="tool-section-header">
+      <div class="tool-section-label">TOOL 01</div>
+      <div class="tool-section-name">アメブロ プロフィール生成ツール</div>
+    </div>
+
+    <div class="tool-link-area">
+      <a href="https://jundy5104.github.io/guides/ameblo-profile-tool.html" target="_blank" class="btn-open-tool">ツールを開く</a>
+      <p class="tool-link-note">ボタンをクリックすると別タブでツールが開きます</p>
+    </div>
+
+    <p style="font-size:0.88em;color:var(--text-muted);margin:18px 0;line-height:1.8;">
+      あなたの経歴とブログの方向性を入力するだけで、
+      <span class="tt" data-tip="Anthropic社が開発したAIです。Claude.aiから無料で使えます">Claude</span>
+      に渡す専用のプロンプトを自動で作成します。
+      APIキーや専門知識は一切不要です。
+    </p>
+
+    <!-- 画面モックアップ -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <div class="mockup-url">jundy5104.github.io/guides/ameblo-profile-tool.html</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-hero">
+          <div class="mock-hero-badge">無料ツール</div>
+          <h3>アメブロ プロフィール<br>生成プロンプトツール</h3>
+          <p>あなたの経歴とブログの方向性を入力するだけ</p>
+        </div>
+        <div class="mock-nav">
+          <div class="mock-nav-item active">STEP1 経歴</div>
+          <div class="mock-nav-item">STEP2 方向性</div>
+          <div class="mock-nav-item">プロンプト生成</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-head">
+            <div class="mock-circle">1</div>
+            <div style="font-size:0.75em;font-weight:700;">STEP1｜あなたの経歴を入力してください</div>
+          </div>
+          <div class="mock-label">経歴（時系列で入力）<span class="mock-required">必須</span></div>
+          <div class="mock-textarea" style="color:#aaa;">例：18歳：高校卒業後、飲食店でアルバイトを始める&#13;&#10;22歳：正社員として居酒屋チェーンに就職&#13;&#10;28歳：店長に昇格。スタッフ15名をマネジメント</div>
+          <div class="mock-hint">💡 箇条書きでOK。失敗や転機など印象的なエピソードを入れると効果的です</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-head">
+            <div class="mock-circle">2</div>
+            <div style="font-size:0.75em;font-weight:700;">STEP2｜ブログの方向性を入力してください</div>
+          </div>
+          <div class="mock-label">メインテーマ<span class="mock-required">必須</span></div>
+          <div class="mock-input focused">40代からの副業・SNS活用・飲食店経営ノウハウ</div>
+          <div class="mock-label">読者に届けたいこと<span class="mock-required">必須</span></div>
+          <div class="mock-input" style="color:#aaa;">例：年齢や経験を活かして、誰でも副収入を得られることを伝えたい</div>
+          <div class="mock-label">ブログのゴール<span class="mock-optional">任意</span></div>
+          <div class="mock-input" style="color:#aaa;">例：フォロワー1000人・月10万円のコンサル契約</div>
+        </div>
+        <div class="mock-btn-generate">✨ プロンプトを生成する</div>
+      </div>
+    </div>
+    <!-- /モックアップ -->
+
+    <p style="font-size:0.82em;color:var(--text-muted);text-align:center;margin-top:6px;">↑ 実際のツールの画面イメージです</p>
+
+    <!-- 手順 -->
+    <h3 style="font-size:1em;font-weight:700;margin:28px 0 16px;color:var(--heading);">📝 使い方の手順</h3>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">上の「ツールを開く」ボタンをクリック</div>
+          <div class="step-desc">ツールが別タブで開きます。このページを閉じる必要はありません。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">STEP1｜あなたの経歴を入力する</div>
+          <div class="step-desc">年齢・出来事・感じたことなどを箇条書きで入力します。完璧に書こうとせず、思いつくままで大丈夫です。転職・失敗・挫折など、リアルなエピソードを入れると効果的です。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">STEP2｜ブログの方向性を入力する</div>
+          <div class="step-desc">「メインテーマ」「読者に届けたいこと」の2項目は必須です。「ブログのゴール」は任意なので、思いつかなければ空欄で構いません。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">「プロンプトを生成する」ボタンを押す</div>
+          <div class="step-desc">ボタンを押すと、下にプロンプト（AIへの指示文）が自動で生成されます。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">「コピーする」ボタンを押して Claude に貼り付ける</div>
+          <div class="step-desc">生成されたプロンプトをコピーして、<a href="https://claude.ai" target="_blank" style="color:var(--accent);">claude.ai</a> のチャット画面に貼り付けて送信します。あとはClaudeがプロフィールを作ってくれます。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生成物モックアップ（結果表示） -->
+    <div class="mockup-wrap" style="margin-top:22px;">
+      <div class="mockup-bar">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <div class="mockup-url">生成結果のイメージ</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--accent2);">
+            <span style="font-size:0.78em;font-weight:700;">生成されたプロンプト</span>
+            <span style="background:linear-gradient(135deg,var(--accent2),#c8a000);color:#fff;font-size:0.6em;font-weight:700;padding:2px 8px;border-radius:10px;">コピーしてClaudeへ</span>
+          </div>
+          <p style="font-size:0.7em;color:var(--text-muted);margin-bottom:8px;">下のテキストをコピーして、Claudeのチャット画面に貼り付けてください。</p>
+          <div class="mock-result">あなたはアメブロのプロフィール設定の専門家です。以下の経歴とブログの方向性をもとに、①ターゲット設定　②ペルソナ設定　③ハンドルネーム　④ブログタイトル　⑤ブログ説明文　⑥プロフィール本文（起承転結構成）をすべて作成してください…</div>
+          <div class="mock-btn-copy">📋 コピーする</div>
+          <p style="font-size:0.65em;color:var(--text-muted);margin-top:6px;">コピー後、claude.aiのチャット画面に貼り付けて送信してください。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="point-box">
+      <div class="point-box-title">✅ このツールのポイント</div>
+      <ul class="point-list">
+        <li>プロフィール本文は「起承転結」の構成で作られるため、読者が最後まで読みたくなる内容になります</li>
+        <li>ハンドルネーム・ブログタイトル・説明文もまとめて提案してもらえます</li>
+        <li>入力が少なくてもClaudeが「もう少し教えてください」と確認してくれるので安心です</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <strong>🔸 注意：</strong>生成されるのは「Claudeへの指示文（プロンプト）」です。プロフィール本文そのものではありません。必ずClaudeに貼り付けて実行してください。
+    </div>
+
+    <div class="back-to-top"><a href="#top-anchor" class="btn-top">ページ上部へ</a></div>
+  </div>
+
+  <!-- ────────────────────────────────── -->
+  <!-- TOOL 02: 記事プロンプトジェネレーター -->
+  <!-- ────────────────────────────────── -->
+  <div class="section" id="tool2">
+    <div class="tool-section-header">
+      <div class="tool-section-label">TOOL 02</div>
+      <div class="tool-section-name">アメブロ記事プロンプトジェネレーター</div>
+    </div>
+
+    <div class="tool-link-area">
+      <a href="https://jundy5104.github.io/guides/ameblo-prompt-generator.html" target="_blank" class="btn-open-tool">ツールを開く</a>
+      <p class="tool-link-note">ボタンをクリックすると別タブでツールが開きます</p>
+    </div>
+
+    <p style="font-size:0.88em;color:var(--text-muted);margin:18px 0;line-height:1.8;">
+      ブログの基本情報を一度登録しておけば、毎回の記事作成がスムーズになります。
+      記事ごとのテーマや体験談を入力するだけで、
+      <span class="tt" data-tip="Claudeへ渡すAIへの指示文のことです">プロンプト</span>
+      が自動で完成します。繰り返し使うことを想定したツールです。
+    </p>
+
+    <!-- 画面モックアップ -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <div class="mockup-url">jundy5104.github.io/guides/ameblo-prompt-generator.html</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-hero" style="margin-bottom:14px;">
+          <h3>アメブロ記事プロンプトジェネレーター</h3>
+          <p>3ステップで記事生成プロンプトが完成します</p>
+        </div>
+        <!-- ナビ風タブ -->
+        <div class="mock-tabs">
+          <div class="mock-tab active">1. 使い方</div>
+          <div class="mock-tab">2. 基本設定</div>
+          <div class="mock-tab">3. 記事設定</div>
+          <div class="mock-tab">4. プロンプト生成</div>
+          <div class="mock-tab">5. HTMLルール</div>
+        </div>
+        <!-- 基本設定カード -->
+        <div class="mock-card">
+          <div class="mock-card-head">
+            <div class="mock-circle">2</div>
+            <div>
+              <div style="font-size:0.75em;font-weight:700;">基本設定</div>
+              <div style="font-size:0.62em;color:var(--text-muted);">入力内容はブラウザに自動保存されます（初回のみ）</div>
+            </div>
+          </div>
+          <div style="font-size:0.68em;font-weight:700;color:var(--accent);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border);">ブログ基本情報</div>
+          <div class="mock-settings-grid">
+            <div>
+              <div class="mock-label">ブログ上の名前<span class="mock-required">必須</span></div>
+              <div class="mock-input">まいたけ</div>
+            </div>
+            <div>
+              <div class="mock-label">アメブロID<span class="mock-required">必須</span></div>
+              <div class="mock-input">maitakeo117</div>
+            </div>
+          </div>
+          <div class="mock-label">一人称<span class="mock-required">必須</span></div>
+          <div class="mock-radio-group">
+            <div class="mock-radio"><div class="mock-radio-dot checked"></div>私</div>
+            <div class="mock-radio"><div class="mock-radio-dot"></div>僕</div>
+            <div class="mock-radio"><div class="mock-radio-dot"></div>俺</div>
+            <div class="mock-radio"><div class="mock-radio-dot"></div>わたし</div>
+          </div>
+          <div class="mock-label">ブログのジャンル<span class="mock-required">必須</span></div>
+          <div class="mock-input">スピリチュアル / ツインレイ</div>
+          <div class="mock-label">ブログのコンセプト・テーマ<span class="mock-required">必須</span></div>
+          <div class="mock-textarea" style="color:#aaa;">例：ツインレイ女性の経済的自立を応援するブログです…</div>
+          <div class="mock-save-btn">💾 基本設定を保存する</div>
+        </div>
+      </div>
+    </div>
+    <!-- /モックアップ -->
+
+    <p style="font-size:0.82em;color:var(--text-muted);text-align:center;margin-top:6px;">↑ 実際のツールの画面イメージです（基本設定タブ）</p>
+
+    <!-- 手順 -->
+    <h3 style="font-size:1em;font-weight:700;margin:28px 0 16px;color:var(--heading);">📝 使い方の手順</h3>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">「ツールを開く」ボタンをクリック</div>
+          <div class="step-desc">ツールが別タブで開きます。まずは「使い方」タブの説明を一読しておくと流れがわかります。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">「基本設定」タブで情報を入力・保存する（初回のみ）</div>
+          <div class="step-desc">ブログ名・アメブロID・ジャンル・コンセプト・キャラクター設定・体験談URLなどを入力します。「保存する」ボタンを押すと、次回以降は入力を省けます。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">「記事設定」タブで今回の記事のテーマを入力する</div>
+          <div class="step-desc">記事を書くたびに、テーマ・体験談・参考にしたいブロガーのURLなどを入力します。基本設定は保存済みなので、ここだけ入力すれば大丈夫です。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">「プロンプト生成」タブでボタンを押す</div>
+          <div class="step-desc">ボタンを押すと、基本設定と記事設定を組み合わせた専用プロンプトが完成します。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">コピーして Claude に貼り付ける</div>
+          <div class="step-desc">生成されたプロンプトをコピーして、<a href="https://claude.ai" target="_blank" style="color:var(--accent);">claude.ai</a> に貼り付けて送信します。Claudeがあなたのブログに合わせた記事を書いてくれます。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 記事設定モックアップ -->
+    <div class="mockup-wrap" style="margin-top:22px;">
+      <div class="mockup-bar">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <div class="mockup-url">記事設定タブのイメージ</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-tabs">
+          <div class="mock-tab">1. 使い方</div>
+          <div class="mock-tab">2. 基本設定</div>
+          <div class="mock-tab active">3. 記事設定</div>
+          <div class="mock-tab">4. プロンプト生成</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-head">
+            <div class="mock-circle">3</div>
+            <div>
+              <div style="font-size:0.75em;font-weight:700;">記事設定</div>
+              <div style="font-size:0.62em;color:var(--text-muted);">記事を生成するたびに入力します</div>
+            </div>
+          </div>
+          <div style="font-size:0.68em;font-weight:700;color:var(--accent);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border);">投稿・テーマ設定</div>
+          <div class="mock-label">記事のテーマ・タイトル案<span class="mock-required">必須</span></div>
+          <div class="mock-input focused">サイレント中に経済的自立を決意した話</div>
+          <div class="mock-label">書きたいこと・体験談のポイント<span class="mock-required">必須</span></div>
+          <div class="mock-textarea" style="color:#aaa;">364日のサイレント中に副業を始めた経緯。スマホ1台で月3万円を稼いだ体験談…</div>
+          <div style="font-size:0.68em;font-weight:700;color:var(--accent);margin:10px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border);">体験談・参考ブロガーの設定</div>
+          <div class="mock-label">参考にしたいブロガーのURL<span class="mock-optional">任意</span></div>
+          <div class="mock-input" style="color:#aaa;">https://ameblo.jp/sample-blogger/entry-12345.html</div>
+          <div class="mock-btn-generate" style="margin-top:14px;">✨ プロンプトを生成する</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="point-box">
+      <div class="point-box-title">✅ このツールのポイント</div>
+      <ul class="point-list">
+        <li>基本設定は一度入力すれば保存されるため、2回目以降は記事テーマを入力するだけでOKです</li>
+        <li>アメブロのHTMLルール（禁止タグ・文字色の書き方など）も「HTMLルール早見表」タブで確認できます</li>
+        <li>参考にしたいブロガーのURLを入れることで、文体や構成の参考情報もプロンプトに反映されます</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <strong>💾 保存について：</strong>入力内容は
+      <span class="tt" data-tip="お使いのブラウザ（ChromeやSafariなど）に自動で保存される仕組みです">ブラウザのローカルストレージ</span>
+      に保存されます。同じブラウザ・同じ端末であれば、次回以降も入力内容が残っています。
+    </div>
+
+    <div class="back-to-top"><a href="#top-anchor" class="btn-top">ページ上部へ</a></div>
+  </div>
+
+  <!-- ────────────────────────────────── -->
+  <!-- TOOL 03: LP生成プロンプトジェネレーター -->
+  <!-- ────────────────────────────────── -->
+  <div class="section" id="tool3">
+    <div class="tool-section-header">
+      <div class="tool-section-label">TOOL 03</div>
+      <div class="tool-section-name">LP生成プロンプトジェネレーター</div>
+    </div>
+
+    <div class="tool-link-area">
+      <a href="https://script.google.com/macros/s/AKfycbxzUgIjT6g0u0fWGR_1KBM1LYLC7paSBtvx54hM6Qk6TqXpyIh8Lu_zzcYP02IyeVTU/exec" target="_blank" class="btn-open-tool">ツールを開く</a>
+      <p class="tool-link-note">ボタンをクリックすると別タブでツールが開きます</p>
+    </div>
+
+    <p style="font-size:0.88em;color:var(--text-muted);margin:18px 0;line-height:1.8;">
+      LINE公式アカウントへの誘導に使う
+      <span class="tt" data-tip="Landing Page（ランディングページ）の略。訪問者に特定の行動（LINE登録など）をしてもらうための専用ページです">LP</span>
+      や、登録特典の設計に使うプロンプトを4つのステップで自動生成します。
+      ClaudeとChatGPTを組み合わせて使います。
+    </p>
+
+    <!-- ステップ全体図モックアップ -->
+    <div class="mockup-wrap">
+      <div class="mockup-bar">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <div class="mockup-url">LP生成プロンプトジェネレーター</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-hero" style="margin-bottom:14px;">
+          <h3>LP生成プロンプトジェネレーター</h3>
+          <p>4ステップでLINE誘導LPが完成します</p>
+        </div>
+        <!-- ステップバー -->
+        <div class="mock-step-bar">
+          <div class="mock-step-pill active">
+            <div class="mock-step-circle">1</div>
+            <div class="mock-step-label">LINE登録促進</div>
+          </div>
+          <div class="mock-step-arrow">›</div>
+          <div class="mock-step-pill">
+            <div class="mock-step-circle">2</div>
+            <div class="mock-step-label">特典名を入力</div>
+          </div>
+          <div class="mock-step-arrow">›</div>
+          <div class="mock-step-pill">
+            <div class="mock-step-circle">3</div>
+            <div class="mock-step-label">LP生成</div>
+          </div>
+          <div class="mock-step-arrow">›</div>
+          <div class="mock-step-pill">
+            <div class="mock-step-circle">4</div>
+            <div class="mock-step-label">画像プロンプト</div>
+          </div>
+        </div>
+        <!-- STEP1パネル -->
+        <div class="mock-step-header-claude">
+          <div class="mock-step-htitle">📣 STEP 1｜LINE登録促進プロンプトを生成する</div>
+          <div class="mock-step-hdesc">公式LINEへの登録を促すHTML記事・特典・アンケートを作成するプロンプトを生成します。</div>
+          <div class="mock-ai-badge claude">🤖 生成後は Claude（claude.ai）に貼り付けて実行</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-label">ブログのコンセプト・テーマ<span class="mock-required">必須</span></div>
+          <div class="mock-textarea" style="color:#aaa;">例：ツインレイ女性の経済的自立を応援するブログ…</div>
+          <div class="mock-label">読者の悩み・ニーズ<span class="mock-required">必須</span></div>
+          <div class="mock-input" style="color:#aaa;">例：サイレント中の孤独・経済的不安・自立したい気持ち</div>
+          <div class="mock-btn-generate">✨ STEP1プロンプトを生成する</div>
+        </div>
+      </div>
+    </div>
+    <!-- /モックアップ -->
+
+    <p style="font-size:0.82em;color:var(--text-muted);text-align:center;margin-top:6px;">↑ 実際のツールの画面イメージです（STEP1）</p>
+
+    <!-- 4ステップの説明 -->
+    <h3 style="font-size:1em;font-weight:700;margin:28px 0 6px;color:var(--heading);">📋 4つのステップの内容</h3>
+    <p style="font-size:0.84em;color:var(--text-muted);margin-bottom:16px;">ツールはSTEP1から順番に進めてください。</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num" style="background:#c96442;">1</div>
+        <div class="step-body">
+          <div class="step-title">STEP 1｜LINE登録促進プロンプトを生成する <span style="font-size:0.75em;color:#c96442;font-weight:700;">→ Claudeで実行</span></div>
+          <div class="step-desc">ブログのコンセプトや読者の悩みを入力すると、LINE登録を促すHTML記事・特典案・アンケートを作るためのプロンプトが生成されます。生成されたプロンプトは <strong>Claude</strong> に貼り付けて実行します。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num" style="background:#9a7a40;">2</div>
+        <div class="step-body">
+          <div class="step-title">STEP 2｜特典名を入力・確認する <span style="font-size:0.75em;color:#9a7a40;font-weight:700;">→ あなたが入力</span></div>
+          <div class="step-desc">STEP 1でClaudeが提案した特典名をここに入力します。後から追加・変更も可能です。この情報がSTEP 3のLPに反映されます。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num" style="background:#c96442;">3</div>
+        <div class="step-body">
+          <div class="step-title">STEP 3｜LP生成プロンプトを生成する <span style="font-size:0.75em;color:#c96442;font-weight:700;">→ Claudeで実行</span></div>
+          <div class="step-desc">STEP 2で入力した特典名をもとに、あなた専用のLP（ランディングページ）を作るためのプロンプトが生成されます。こちらも <strong>Claude</strong> に貼り付けて実行します。</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num" style="background:#10a37f;">4</div>
+        <div class="step-body">
+          <div class="step-title">STEP 4｜リッチメニュー画像プロンプトを生成する <span style="font-size:0.75em;color:#10a37f;font-weight:700;">→ ChatGPTで実行</span></div>
+          <div class="step-desc">LINEのリッチメニュー用の画像プロンプトが生成されます。デフォルトのままでもそのまま使えます。生成されたプロンプトは <strong>ChatGPT（DALL-E）</strong> に貼り付けて画像を作ります。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP3パネルモックアップ -->
+    <div class="mockup-wrap" style="margin-top:22px;">
+      <div class="mockup-bar">
+        <div class="mockup-dot r"></div>
+        <div class="mockup-dot y"></div>
+        <div class="mockup-dot g"></div>
+        <div class="mockup-url">STEP 3 ／ STEP 4 のイメージ</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-step-bar">
+          <div class="mock-step-pill done">
+            <div class="mock-step-circle">1</div>
+            <div class="mock-step-label">✓ 完了</div>
+          </div>
+          <div class="mock-step-arrow">›</div>
+          <div class="mock-step-pill done">
+            <div class="mock-step-circle">2</div>
+            <div class="mock-step-label">✓ 完了</div>
+          </div>
+          <div class="mock-step-arrow">›</div>
+          <div class="mock-step-pill active">
+            <div class="mock-step-circle">3</div>
+            <div class="mock-step-label">LP生成</div>
+          </div>
+          <div class="mock-step-arrow">›</div>
+          <div class="mock-step-pill">
+            <div class="mock-step-circle">4</div>
+            <div class="mock-step-label">画像プロンプト</div>
+          </div>
+        </div>
+        <div class="mock-step-header-claude">
+          <div class="mock-step-htitle">📄 STEP 3｜LP生成プロンプトを生成する</div>
+          <div class="mock-step-hdesc">あなた専用のLPを作成するプロンプトを生成します。</div>
+          <div class="mock-ai-badge claude">🤖 生成後は Claude（claude.ai）に貼り付けて実行</div>
+        </div>
+        <div class="mock-result" style="min-height:60px;">あなたはLPデザインの専門家です。以下の情報をもとに、LINE公式アカウントへの登録を促すLP（ランディングページ）のHTMLコードを作成してください。特典名：〇〇…</div>
+        <div class="mock-btn-copy">📋 コピーする</div>
+        <div style="height:14px;"></div>
+        <div class="mock-step-header-gpt">
+          <div class="mock-step-htitle gpt">🎨 STEP 4｜リッチメニュー画像プロンプトを生成する</div>
+          <div class="mock-step-hdesc">LINEリッチメニュー用の画像プロンプトを生成します。</div>
+          <div class="mock-ai-badge gpt">🎨 生成後は ChatGPT（DALL-E）に貼り付けて実行</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="point-box">
+      <div class="point-box-title">✅ このツールのポイント</div>
+      <ul class="point-list">
+        <li>ClaudeとChatGPTの両方を使いますが、ツールが「どちらに貼り付けるか」を明示してくれるので迷いません</li>
+        <li>STEP1〜3はClaude、STEP4だけはChatGPT（画像生成）と使い分けます</li>
+        <li>特典名はSTEP2で後から変更できるので、まずはClaideの提案を試してみましょう</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <strong>🔸 注意：</strong>このツールは
+      <span class="tt" data-tip="Googleのサーバーで動くプログラムです。アプリのインストール不要でブラウザから使えます">Google Apps Script（GAS）</span>
+      で動いています。初回アクセス時に「このアプリはGoogleで確認されていません」と表示される場合がありますが、サム制作の安全なツールです。「詳細」→「安全でないページに移動」をクリックして進んでください。
+    </div>
+
+    <div class="back-to-top"><a href="#top-anchor" class="btn-top">ページ上部へ</a></div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- Footer -->
+<footer>
+  <div class="footer-brand">アメブロ AI活用ツール 使い方ガイド</div>
+  <div>© 2026 金龍プロジェクト</div>
+</footer>
+
+<script>
+// ── Scroll animation ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
+  });
+},{threshold:0.06});
+document.querySelectorAll('.section').forEach(el=>observer.observe(el));
+
+// ── Scroll spy ──
+const navLinks = document.querySelectorAll('.nav-link');
+const spySections = document.querySelectorAll('#overview,#tool1,#tool2,#tool3');
+const spyObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const link = document.querySelector('.nav-link[href="#'+e.target.id+'"]');
+      if(link) link.classList.add('active');
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+spySections.forEach(s=>spyObserver.observe(s));
+</script>
+</body>
+</html>
