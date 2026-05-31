@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アメブロ集客完全講座 | ゼロから始める情報発信マネタイズ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a3a2a;
+    --accent: #c8a84b;
+    --accent-light: #e8d090;
+    --bg: #faf8f4;
+    --bg2: #f0ece2;
+    --text: #2a2a2a;
+    --text-light: #666;
+    --border: #d4cdb8;
+    --success: #2d6a4f;
+    --sidebar-w: 260px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    background: var(--primary);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .site-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .site-title span {
+    color: var(--accent);
+  }
+  .header-badge {
+    background: var(--accent);
+    color: var(--primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== LAYOUT ===== */
+  .layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 60px);
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--primary);
+    color: white;
+    position: sticky;
+    top: 57px;
+    height: calc(100vh - 57px);
+    overflow-y: auto;
+    padding: 24px 0;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+
+  .sidebar-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    padding: 0 20px 8px;
+    text-transform: uppercase;
+  }
+  .nav-item {
+    display: block;
+    padding: 10px 20px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: white;
+    background: rgba(200,168,75,0.15);
+    border-left-color: var(--accent);
+  }
+  .nav-item.chapter {
+    font-weight: 700;
+    color: white;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    padding-top: 14px;
+  }
+  .nav-item.sub {
+    padding-left: 32px;
+    font-size: 0.78rem;
+  }
+  .nav-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 8px 20px;
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    flex: 1;
+    padding: 0;
+    min-width: 0;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, #2d5a3d 60%, #1a3a2a 100%);
+    color: white;
+    padding: 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200,168,75,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 600px;
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    padding: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .section-intro {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+    max-width: 640px;
+    line-height: 1.9;
+  }
+  .section h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 32px 0 12px;
+    padding-left: 14px;
+    border-left: 4px solid var(--accent);
+  }
+  .section p {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--text);
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+
+  /* ===== CARDS ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .card h4 {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ===== CHECKLIST ===== */
+  .checklist {
+    list-style: none;
+    margin: 16px 0;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--bg2);
+    font-size: 0.88rem;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: white;
+  }
+  .check-box.checked {
+    background: var(--accent);
+  }
+
+  /* ===== PROMPT BOX ===== */
+  .prompt-box {
+    background: var(--primary);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .prompt-text {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.9;
+    white-space: pre-wrap;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(200,168,75,0.2);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .copy-btn:hover { background: var(--accent); color: var(--primary); }
+
+  /* ===== TEMPLATE ===== */
+  .template-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .template-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--success);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .template-text {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+  .fill-in {
+    background: var(--accent-light);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  /* ===== POINT BOX ===== */
+  .point-box {
+    background: white;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .point-box .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .point-box p {
+    font-size: 0.88rem;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* ===== WARNING BOX ===== */
+  .warning-box {
+    background: #fff8e1;
+    border-left: 4px solid #f0a500;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .warning-box .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #b07800;
+    margin-bottom: 6px;
+  }
+  .warning-box p {
+    font-size: 0.85rem;
+    color: #5a4000;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* ===== TABLE ===== */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.85rem;
+  }
+  .data-table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+  .data-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.7;
+  }
+  .data-table tr:nth-child(even) td { background: var(--bg2); }
+  .data-table tr:hover td { background: var(--accent-light); }
+
+  /* ===== STEP ===== */
+  .step-list {
+    margin: 20px 0;
+    counter-reset: step;
+  }
+  .step-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-content h4 {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+  .step-content p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin: 0;
+    max-width: 100%;
+  }
+
+  /* ===== PROGRESS ===== */
+  .progress-bar {
+    background: var(--bg2);
+    border-radius: 4px;
+    height: 6px;
+    margin: 8px 0 20px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+  .progress-label {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+
+  /* ===== MOBILE ===== */
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      left: -var(--sidebar-w);
+      top: 57px;
+      transform: translateX(-100%);
+      transition: transform 0.3s;
+      z-index: 99;
+      width: 280px;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .hamburger { display: block; }
+    .section { padding: 28px 20px; }
+    .hero { padding: 36px 20px; }
+    .hero-stats { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-title">アメブロ<span>集客</span>完全講座</div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="header-badge">無料講座</div>
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-label">目次</div>
+
+    <a href="#intro" class="nav-item chapter">はじめに</a>
+
+    <div class="nav-divider"></div>
+    <a href="#chapter1" class="nav-item chapter">第1章　集客設計</a>
+    <a href="#c1-1" class="nav-item sub">1-1 アメブロの集客特性</a>
+    <a href="#c1-2" class="nav-item sub">1-2 ターゲット設定</a>
+    <a href="#c1-3" class="nav-item sub">1-3 発信テーマの決め方</a>
+
+    <div class="nav-divider"></div>
+    <a href="#chapter2" class="nav-item chapter">第2章　プロフィール最適化</a>
+    <a href="#c2-1" class="nav-item sub">2-1 プロフィールの役割</a>
+    <a href="#c2-2" class="nav-item sub">2-2 テンプレート</a>
+
+    <div class="nav-divider"></div>
+    <a href="#chapter3" class="nav-item chapter">第3章　記事の型</a>
+    <a href="#c3-1" class="nav-item sub">3-1 読まれる記事構造</a>
+    <a href="#c3-2" class="nav-item sub">3-2 タイトルの法則</a>
+    <a href="#c3-3" class="nav-item sub">3-3 投稿頻度</a>
+
+    <div class="nav-divider"></div>
+    <a href="#chapter4" class="nav-item chapter">第4章　AI活用プロンプト集</a>
+    <a href="#c4-1" class="nav-item sub">4-1 記事生成プロンプト</a>
+    <a href="#c4-2" class="nav-item sub">4-2 タイトル生成</a>
+    <a href="#c4-3" class="nav-item sub">4-3 プロフィール生成</a>
+
+    <div class="nav-divider"></div>
+    <a href="#chapter5" class="nav-item chapter">第5章　フォロー戦略</a>
+    <a href="#c5-1" class="nav-item sub">5-1 読者を増やす仕組み</a>
+    <a href="#c5-2" class="nav-item sub">5-2 コメント活用術</a>
+
+    <div class="nav-divider"></div>
+    <a href="#checklist" class="nav-item chapter">✓ 実践チェックリスト</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero" id="intro">
+      <div class="hero-eyebrow">Complete Guide</div>
+      <h1>アメブロで<em>集客できる人</em>になるための<br>完全実践講座</h1>
+      <p class="hero-desc">
+        ブログを書いているのに誰にも読まれない。フォロワーが増えない。<br>
+        この講座では、アメブロの特性を正しく理解し、<br>読者が自然と集まる情報発信の仕組みをゼロから作ります。
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">5</span>
+          <span class="stat-label">章構成</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">15+</span>
+          <span class="stat-label">実践テンプレート</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">AIプロンプト</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAPTER 1 -->
+    <section class="section" id="chapter1">
+      <div class="section-eyebrow">Chapter 01</div>
+      <h2 id="c1-1">アメブロの集客特性を正しく知る</h2>
+      <p class="section-intro">
+        まず大前提として、アメブロは「検索流入」より「コミュニティ内の回遊」で読者が増えるプラットフォームです。この特性を知らずに取り組むと、努力の方向が全部ズレます。
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-icon">🔄</span>
+          <h4>読者登録の文化</h4>
+          <p>アメブロには「読者登録」という独自機能があります。登録してもらうと更新のたびに通知が届き、リピーターになりやすい。</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💬</span>
+          <h4>コメント・いいねの連鎖</h4>
+          <p>コメントやいいねをすると相手のブログにも表示され、新しい読者との接点が生まれる。アクティブな交流が集客の核心。</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔍</span>
+          <h4>アメブロ内検索</h4>
+          <p>アメーバ内の検索からも流入します。ハッシュタグとテーマ設定が内部SEOとして機能する。</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">📱</span>
+          <h4>スマホ読者が主流</h4>
+          <p>読者の大半がスマホで読んでいます。短い段落、見出し、画像を活用した「読みやすさ」が最優先。</p>
+        </div>
+      </div>
+
+      <h3 id="c1-2">ターゲットを一人に絞る</h3>
+      <p>
+        「みんなに読まれたい」は「誰にも刺さらない」に等しいです。集客力のあるブログは必ず、読者像が具体的です。
+      </p>
+
+      <div class="template-box">
+        <div class="template-label">🖊️ ワーク：あなたの読者像を書いてみよう</div>
+        <div class="template-text">
+年齢・性別：<span class="fill-in">　　　　　　　</span>
+職業・状況：<span class="fill-in">　　　　　　　</span>
+今抱えている悩み：<span class="fill-in">　　　　　　　</span>
+理想の未来：<span class="fill-in">　　　　　　　</span>
+このブログを読んで得てほしいもの：<span class="fill-in">　　　　　　　</span>
+        </div>
+      </div>
+
+      <div class="point-box">
+        <div class="label">✦ ポイント</div>
+        <p>「40代で副業を始めたい会社員の女性」くらい具体的に設定することで、記事の言葉選び・テーマ・トーンが自然と統一されます。</p>
+      </div>
+
+      <h3 id="c1-3">発信テーマの決め方</h3>
+      <p>テーマ選びは「得意なこと」×「読者の悩み」の重なりで決めます。どちらかだけでは機能しません。</p>
+
+      <table class="data-table">
+        <tr>
+          <th>発信テーマの型</th>
+          <th>具体例</th>
+          <th>向いている人</th>
+        </tr>
+        <tr>
+          <td>経験・体験型</td>
+          <td>「私がOOを始めた理由」「OOをやってみた結果」</td>
+          <td>肩書きより実体験が豊富な人</td>
+        </tr>
+        <tr>
+          <td>ノウハウ型</td>
+          <td>「OOの始め方」「OOで失敗しない3つのコツ」</td>
+          <td>専門知識・スキルがある人</td>
+        </tr>
+        <tr>
+          <td>日常共感型</td>
+          <td>「今日の失敗談」「OOしながら気づいたこと」</td>
+          <td>文章力より共感力が高い人</td>
+        </tr>
+        <tr>
+          <td>ビフォーアフター型</td>
+          <td>「OOだった私がOOになった話」</td>
+          <td>転換点・変化のエピソードがある人</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- CHAPTER 2 -->
+    <section class="section" id="chapter2">
+      <div class="section-eyebrow">Chapter 02</div>
+      <h2 id="c2-1">プロフィールページの最適化</h2>
+      <p class="section-intro">
+        アメブロで最も読まれるページはプロフィールです。新しい読者が来たとき、記事より先にプロフィールを確認します。ここが弱いと、どれだけ良い記事を書いても読者登録につながりません。
+      </p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>誰のためのブログか明記する</h4>
+            <p>冒頭の3行で「誰向けのブログか」を伝える。読者が「これは自分のための情報だ」と感じた瞬間に読者登録が生まれます。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>自分の経験・背景を正直に書く</h4>
+            <p>過去の失敗や転換点が共感を生みます。完璧な専門家より「同じ悩みを乗り越えた人」の方が信頼されやすい。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>読者が得られるベネフィットを伝える</h4>
+            <p>「このブログを読むと〇〇ができるようになります」という形で読み続ける理由を提示する。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>読者登録・問い合わせへの導線</h4>
+            <p>読者登録のお願いと、LINEや問い合わせフォームへの案内を最後に入れる。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="c2-2">プロフィールテンプレート</h3>
+
+      <div class="template-box">
+        <div class="template-label">📄 コピペ用テンプレート</div>
+        <div class="template-text">
+はじめまして、<span class="fill-in">お名前</span>です。
+
+このブログは、<span class="fill-in">ターゲット読者</span>のために、
+<span class="fill-in">発信テーマ</span>について書いています。
+
+▼ 私自身のこと
+<span class="fill-in">過去の状況・悩み</span>という状況でした。
+そこから<span class="fill-in">転換点・きっかけ</span>をきっかけに、
+今では<span class="fill-in">現在の状況</span>になりました。
+
+▼ このブログで得られること
+・<span class="fill-in">ベネフィット①</span>
+・<span class="fill-in">ベネフィット②</span>
+・<span class="fill-in">ベネフィット③</span>
+
+同じように<span class="fill-in">悩み</span>で悩んでいる方に
+少しでも役立てたら嬉しいです。
+
+読者登録・いいね、大歓迎です☺️
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 3 -->
+    <section class="section" id="chapter3">
+      <div class="section-eyebrow">Chapter 03</div>
+      <h2 id="c3-1">読まれる記事の型</h2>
+      <p class="section-intro">
+        アメブロで読まれる記事には共通の構造があります。型を覚えてしまえば、毎回ゼロから考える必要がなくなります。
+      </p>
+
+      <h3>基本の記事構造（PREP法）</h3>
+      <div class="card-grid">
+        <div class="card">
+          <span class="card-icon">💡</span>
+          <h4>P：結論（Point）</h4>
+          <p>冒頭で結論を言う。「今日は〇〇についてお伝えします」と宣言するだけで読者の続きを読む動機になる。</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">📖</span>
+          <h4>R：理由（Reason）</h4>
+          <p>なぜそう言えるのか、自分の経験や根拠を添える。「実際に私が〇〇したとき〜」という実体験が最も説得力が高い。</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">✅</span>
+          <h4>E：具体例（Example）</h4>
+          <p>具体的なエピソードや事例を入れる。抽象的な話だけでは伝わらない。数字や固有名詞があると信頼性が上がる。</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <h4>P：再結論（Point）</h4>
+          <p>最後にもう一度まとめる。「だから〇〇が大切なんです」という形で締め、次のアクション（読者登録・コメント等）を促す。</p>
+        </div>
+      </div>
+
+      <h3 id="c3-2">タイトルの法則</h3>
+      <p>タイトルで9割が決まります。どれだけ良い内容でも、タイトルで開かれなければ存在しないも同然です。</p>
+
+      <table class="data-table">
+        <tr>
+          <th>タイトルの型</th>
+          <th>例文</th>
+        </tr>
+        <tr>
+          <td>数字を入れる</td>
+          <td>「集客できる人がやっている3つの習慣」</td>
+        </tr>
+        <tr>
+          <td>疑問形にする</td>
+          <td>「あなたのブログが読まれない本当の理由、知っていますか？」</td>
+        </tr>
+        <tr>
+          <td>ビフォーアフター</td>
+          <td>「フォロワー0から3ヶ月で読者登録100人になった方法」</td>
+        </tr>
+        <tr>
+          <td>ターゲットを明示</td>
+          <td>「副業を始めたい40代女性がまずやるべきこと」</td>
+        </tr>
+        <tr>
+          <td>禁止・逆説</td>
+          <td>「集客したいならこれだけはやめてください」</td>
+        </tr>
+      </table>
+
+      <h3 id="c3-3">投稿頻度の考え方</h3>
+
+      <div class="point-box">
+        <div class="label">✦ 基本方針</div>
+        <p>「毎日完璧」より「週3回継続」の方が圧倒的に結果が出ます。アメブロのアルゴリズムは更新頻度を評価しますが、品質が低い記事の大量投稿は逆効果です。</p>
+      </div>
+
+      <table class="data-table">
+        <tr>
+          <th>フェーズ</th>
+          <th>推奨頻度</th>
+          <th>目的</th>
+        </tr>
+        <tr>
+          <td>開始〜3ヶ月</td>
+          <td>週3〜5回</td>
+          <td>記事ストック・読者との関係構築</td>
+        </tr>
+        <tr>
+          <td>3〜6ヶ月</td>
+          <td>週2〜3回</td>
+          <td>質を高めながら継続</td>
+        </tr>
+        <tr>
+          <td>6ヶ月以降</td>
+          <td>週1〜2回</td>
+          <td>厳選した質の高い記事で深化</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- CHAPTER 4 -->
+    <section class="section" id="chapter4">
+      <div class="section-eyebrow">Chapter 04</div>
+      <h2 id="c4-1">AI活用プロンプト集</h2>
+      <p class="section-intro">
+        AIを使えば記事作成の時間を大幅に短縮できます。ただし「AIに全部任せる」のではなく、「AIをたたき台にして自分の言葉で仕上げる」のが正しい使い方です。
+      </p>
+
+      <div class="warning-box">
+        <div class="label">⚠️ 注意</div>
+        <p>AIが生成した文章をそのまま公開しないでください。必ず自分の言葉・体験を加えて「あなたらしさ」を出すことが、長期的な集客につながります。</p>
+      </div>
+
+      <h3>記事たたき台生成プロンプト</h3>
+
+      <div class="prompt-box">
+        <div class="prompt-label">📋 コピペ用プロンプト</div>
+        <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+        <div class="prompt-text">あなたはアメブロで情報発信をしている[あなたの設定]です。
+
+以下の条件でブログ記事のたたき台を作成してください。
+
+【読者設定】
+[ターゲット読者を1〜2行で記載]
+
+【記事テーマ】
+[今回書きたいテーマ]
+
+【構成】
+・冒頭：読者の悩みに共感する書き出し（3〜4行）
+・本文：PREP法で構成（見出し3〜5個）
+・締め：次のアクションへの誘導
+
+【文体】
+・話し言葉に近い、親しみやすいトーン
+・長い段落は避け、スマホで読みやすく
+・専門用語は使わない
+
+文字数：800〜1200文字程度</div>
+      </div>
+
+      <h3 id="c4-2">タイトル生成プロンプト</h3>
+
+      <div class="prompt-box">
+        <div class="prompt-label">📋 コピペ用プロンプト</div>
+        <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+        <div class="prompt-text">以下の記事内容に対して、クリックされやすいブログタイトルを10個提案してください。
+
+【記事内容】
+[記事の要約または本文を貼り付け]
+
+【条件】
+・読者層：[ターゲット読者]
+・数字を含むもの、疑問形、ビフォーアフター型など、異なる型で提案
+・30文字以内が望ましい
+・SEOより「読みたくなる」感情を優先</div>
+      </div>
+
+      <h3 id="c4-3">プロフィール文生成プロンプト</h3>
+
+      <div class="prompt-box">
+        <div class="prompt-label">📋 コピペ用プロンプト</div>
+        <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+        <div class="prompt-text">アメブロのプロフィール文を作成してください。
+
+【私の情報】
+名前：[名前またはニックネーム]
+経歴・背景：[過去の状況や経験]
+転換点：[何かを変えたきっかけ]
+現在：[今やっていること]
+発信テーマ：[ブログで書いていること]
+読者に得てほしいこと：[読者へのベネフィット]
+
+【条件】
+・400〜600文字
+・親しみやすい話し言葉
+・冒頭で「誰向けのブログか」を明確に
+・最後に読者登録のお願い文を入れる</div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 5 -->
+    <section class="section" id="chapter5">
+      <div class="section-eyebrow">Chapter 05</div>
+      <h2 id="c5-1">フォロー・コメント戦略</h2>
+      <p class="section-intro">
+        良い記事を書くだけでは読者は増えません。アメブロはコミュニティです。自分から働きかけることで、読者登録の連鎖が生まれます。
+      </p>
+
+      <h3>読者を増やす基本アクション</h3>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>同ジャンルのブログに読者登録する</h4>
+            <p>自分と似たテーマを書いている人に読者登録する。相互登録になるケースが多く、読者層の重なりから新しい読者が来ます。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>コメントは「返信がほしくなる」内容で</h4>
+            <p>「勉強になりました」だけでは終わり。「私も〇〇で悩んでいて〜」と自分の状況を添えると会話が生まれやすい。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>コメントには必ず返信する</h4>
+            <p>コメントへの返信はそのままコンテンツになります。読者との会話が他の読者の目にも触れ、コミュニティ感が育まれます。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>ハッシュタグを戦略的に使う</h4>
+            <p>記事テーマに関連するハッシュタグを3〜5個つける。ニッチなタグの方がターゲット読者に届きやすい。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="c5-2">コメント返信テンプレート</h3>
+
+      <div class="template-box">
+        <div class="template-label">📄 状況別コメント返信例</div>
+        <div class="template-text">
+【共感・応援コメントへの返信】
+〇〇さん、コメントありがとうございます！
+<span class="fill-in">コメント内容に触れた一言</span>
+これからも<span class="fill-in">読者へのメッセージ</span>について書いていきますので、
+また遊びに来てくださいね☺️
+
+【質問コメントへの返信】
+〇〇さん、素敵な質問ありがとうございます！
+<span class="fill-in">質問への回答</span>
+もしよければ、また気軽にコメントしてください。
+今後もこういったテーマで書いていきますね✨
+        </div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section class="section" id="checklist">
+      <div class="section-eyebrow">Practice</div>
+      <h2>実践チェックリスト</h2>
+      <p class="section-intro">この講座の内容をすべて実践できているか確認しましょう。チェックボックスをクリックして進捗を管理してください。</p>
+
+      <div class="progress-label">進捗状況</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress" style="width:0%"></div>
+      </div>
+
+      <h3>第1章：集客設計</h3>
+      <ul class="checklist" id="cl1">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>アメブロの集客特性（コミュニティ型）を理解した</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>ターゲット読者を一人に絞って紙に書き出した</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>発信テーマの型を選んだ</li>
+      </ul>
+
+      <h3>第2章：プロフィール</h3>
+      <ul class="checklist" id="cl2">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>テンプレートを使ってプロフィール文を作成した</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>読者登録への誘導文を入れた</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>プロフィール画像を設定した</li>
+      </ul>
+
+      <h3>第3章：記事の型</h3>
+      <ul class="checklist" id="cl3">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>PREP法で記事を1本書いた</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>タイトルを5パターン考えて一番良いものを選んだ</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>週の投稿スケジュールを決めた</li>
+      </ul>
+
+      <h3>第4章：AI活用</h3>
+      <ul class="checklist" id="cl4">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>記事生成プロンプトを使ってたたき台を作った</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>AIの文章に自分の言葉・体験を加えて仕上げた</li>
+      </ul>
+
+      <h3>第5章：フォロー戦略</h3>
+      <ul class="checklist" id="cl5">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>同ジャンルのブログを10件読者登録した</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>コメントを3件以上した</li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div>コメント返信テンプレートを保存した</li>
+      </ul>
+
+      <div class="point-box" style="margin-top:32px;">
+        <div class="label">✦ 次のステップ</div>
+        <p>チェックがすべて完了したら、noteマネタイズ講座へ進みましょう。アメブロで集めた読者をnoteの収益につなげる方法を解説します。</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // チェックボックス
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = document.querySelectorAll('.check-box').length;
+    const checked = document.querySelectorAll('.check-box.checked').length;
+    const pct = Math.round((checked / total) * 100);
+    document.getElementById('progress').style.width = pct + '%';
+  }
+
+  // コピーボタン
+  function copyPrompt(btn) {
+    const text = btn.nextElementSibling.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'コピー済み！';
+      setTimeout(() => { btn.textContent = 'コピー'; }, 2000);
+    });
+  }
+
+  // サイドバー
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  // スムーズスクロール
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+  });
+
+  // アクティブナビ
+  const sections = document.querySelectorAll('[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navItems.forEach(n => {
+      n.classList.remove('active');
+      if (n.getAttribute('href') === '#' + current) n.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
