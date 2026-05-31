@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>noteマネタイズ完全講座 | 情報発信で収益を作る</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #1c2b3a;
+  --accent: #41a99e;
+  --accent-light: #a8dbd8;
+  --accent-pale: #e8f7f6;
+  --bg: #f8fafb;
+  --bg2: #edf2f4;
+  --text: #1e2a35;
+  --text-light: #5a6a78;
+  --border: #c8d6de;
+  --gold: #c9a84c;
+  --sidebar-w: 260px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Noto Sans JP',sans-serif; background:var(--bg); color:var(--text); line-height:1.8; }
+
+/* HEADER */
+.site-header { background:var(--primary); position:sticky; top:0; z-index:100; box-shadow:0 2px 20px rgba(0,0,0,.3); }
+.header-inner { max-width:1200px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; }
+.site-title { font-family:'Noto Serif JP',serif; font-size:1.1rem; font-weight:700; color:white; letter-spacing:.05em; }
+.site-title span { color:var(--accent); }
+.header-badge { background:var(--accent); color:white; font-size:.7rem; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.05em; }
+.hamburger { display:none; background:none; border:none; color:white; font-size:1.4rem; cursor:pointer; padding:4px; }
+
+/* LAYOUT */
+.layout { display:flex; max-width:1200px; margin:0 auto; min-height:calc(100vh - 57px); }
+
+/* SIDEBAR */
+.sidebar { width:var(--sidebar-w); flex-shrink:0; background:var(--primary); position:sticky; top:57px; height:calc(100vh - 57px); overflow-y:auto; padding:24px 0; }
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-thumb { background:rgba(255,255,255,.15); border-radius:2px; }
+.sidebar-label { font-size:.65rem; font-weight:700; letter-spacing:.15em; color:var(--accent); padding:0 20px 8px; text-transform:uppercase; }
+.nav-item { display:block; padding:10px 20px; color:rgba(255,255,255,.7); text-decoration:none; font-size:.82rem; transition:all .2s; border-left:3px solid transparent; line-height:1.4; }
+.nav-item:hover, .nav-item.active { color:white; background:rgba(65,169,158,.15); border-left-color:var(--accent); }
+.nav-item.chapter { font-weight:700; color:white; font-size:.85rem; margin-top:8px; padding-top:14px; }
+.nav-item.sub { padding-left:32px; font-size:.78rem; }
+.nav-divider { height:1px; background:rgba(255,255,255,.08); margin:8px 20px; }
+
+/* MAIN */
+.main { flex:1; min-width:0; }
+
+/* HERO */
+.hero { background:linear-gradient(135deg,var(--primary) 0%,#1a3a4a 60%,#0e2233 100%); color:white; padding:60px 48px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-50%; right:-10%; width:500px; height:500px; background:radial-gradient(circle,rgba(65,169,158,.18) 0%,transparent 70%); pointer-events:none; }
+.hero::after { content:''; position:absolute; bottom:-20%; left:-5%; width:350px; height:350px; background:radial-gradient(circle,rgba(65,169,158,.08) 0%,transparent 70%); pointer-events:none; }
+.hero-eyebrow { font-size:.72rem; font-weight:700; letter-spacing:.2em; color:var(--accent); margin-bottom:16px; text-transform:uppercase; position:relative; }
+.hero h1 { font-family:'Noto Serif JP',serif; font-size:clamp(1.6rem,3vw,2.4rem); font-weight:700; line-height:1.4; margin-bottom:20px; position:relative; }
+.hero h1 em { color:var(--accent-light); font-style:normal; }
+.hero-desc { font-size:.95rem; color:rgba(255,255,255,.78); max-width:600px; line-height:1.9; margin-bottom:32px; position:relative; }
+.hero-stats { display:flex; gap:32px; flex-wrap:wrap; position:relative; }
+.stat-num { font-family:'Noto Serif JP',serif; font-size:1.8rem; font-weight:700; color:var(--accent-light); display:block; }
+.stat-label { font-size:.72rem; color:rgba(255,255,255,.55); letter-spacing:.05em; }
+
+/* SECTION */
+.section { padding:48px; border-bottom:1px solid var(--border); }
+.section:last-child { border-bottom:none; }
+.section-eyebrow { font-size:.7rem; font-weight:700; letter-spacing:.2em; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+.section h2 { font-family:'Noto Serif JP',serif; font-size:clamp(1.3rem,2.5vw,1.8rem); font-weight:700; color:var(--primary); margin-bottom:8px; line-height:1.4; }
+.section-intro { color:var(--text-light); font-size:.9rem; margin-bottom:32px; max-width:640px; line-height:1.9; }
+.section h3 { font-family:'Noto Serif JP',serif; font-size:1.1rem; font-weight:600; color:var(--primary); margin:32px 0 12px; padding-left:14px; border-left:4px solid var(--accent); }
+.section p { font-size:.9rem; line-height:1.9; color:var(--text); margin-bottom:16px; max-width:700px; }
+
+/* CARDS */
+.card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin:24px 0; }
+.card { background:white; border:1px solid var(--border); border-radius:10px; padding:20px; transition:box-shadow .2s; }
+.card:hover { box-shadow:0 4px 20px rgba(0,0,0,.08); }
+.card-icon { font-size:1.8rem; margin-bottom:10px; display:block; }
+.card h4 { font-weight:700; font-size:.9rem; color:var(--primary); margin-bottom:8px; }
+.card p { font-size:.82rem; color:var(--text-light); line-height:1.7; margin:0; }
+
+/* COMPARISON TABLE */
+.comp-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:.84rem; }
+.comp-table th { background:var(--primary); color:white; padding:12px 16px; text-align:left; font-size:.78rem; letter-spacing:.03em; }
+.comp-table th:first-child { width:28%; }
+.comp-table td { padding:12px 16px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.7; }
+.comp-table tr:nth-child(even) td { background:var(--bg2); }
+.comp-table tr:hover td { background:var(--accent-pale); }
+.comp-table .check { color:var(--accent); font-weight:700; }
+.comp-table .cross { color:#aaa; }
+
+/* PROMPT BOX */
+.prompt-box { background:var(--primary); border-radius:8px; padding:20px 24px; margin:20px 0; position:relative; }
+.prompt-label { font-size:.65rem; font-weight:700; letter-spacing:.15em; color:var(--accent); text-transform:uppercase; margin-bottom:10px; }
+.prompt-text { font-family:'Noto Sans JP',sans-serif; font-size:.83rem; color:rgba(255,255,255,.9); line-height:1.9; white-space:pre-wrap; }
+.copy-btn { position:absolute; top:16px; right:16px; background:rgba(65,169,158,.2); border:1px solid var(--accent); color:var(--accent); font-size:.72rem; font-weight:700; padding:5px 12px; border-radius:4px; cursor:pointer; transition:all .2s; letter-spacing:.05em; }
+.copy-btn:hover { background:var(--accent); color:white; }
+
+/* TEMPLATE BOX */
+.template-box { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:20px 24px; margin:20px 0; }
+.template-label { font-size:.65rem; font-weight:700; letter-spacing:.15em; color:var(--accent); text-transform:uppercase; margin-bottom:10px; }
+.template-text { font-size:.85rem; line-height:1.9; color:var(--text); white-space:pre-wrap; }
+.fill-in { background:var(--accent-light); padding:1px 6px; border-radius:3px; font-weight:700; color:var(--primary); }
+
+/* POINT BOX */
+.point-box { background:white; border-left:4px solid var(--accent); border-radius:0 8px 8px 0; padding:16px 20px; margin:20px 0; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+.point-box .label { font-size:.7rem; font-weight:700; letter-spacing:.1em; color:var(--accent); text-transform:uppercase; margin-bottom:6px; }
+.point-box p { font-size:.88rem; margin:0; max-width:100%; }
+
+/* WARNING BOX */
+.warning-box { background:#fff8e1; border-left:4px solid #f0a500; border-radius:0 8px 8px 0; padding:16px 20px; margin:20px 0; }
+.warning-box .label { font-size:.7rem; font-weight:700; color:#b07800; margin-bottom:6px; }
+.warning-box p { font-size:.85rem; color:#5a4000; margin:0; max-width:100%; }
+
+/* STEP LIST */
+.step-list { margin:20px 0; }
+.step-item { display:flex; gap:16px; margin-bottom:20px; align-items:flex-start; }
+.step-num { width:36px; height:36px; background:var(--primary); color:var(--accent-light); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif JP',serif; font-size:.9rem; font-weight:700; flex-shrink:0; }
+.step-content h4 { font-weight:700; font-size:.92rem; color:var(--primary); margin-bottom:4px; }
+.step-content p { font-size:.85rem; color:var(--text-light); margin:0; max-width:100%; }
+
+/* CHECKLIST */
+.checklist { list-style:none; margin:16px 0; }
+.checklist li { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid var(--bg2); font-size:.88rem; }
+.checklist li:last-child { border-bottom:none; }
+.check-box { width:20px; height:20px; border:2px solid var(--accent); border-radius:4px; flex-shrink:0; margin-top:2px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:white; }
+.check-box.checked { background:var(--accent); }
+
+/* PROGRESS */
+.progress-label { font-size:.72rem; color:var(--text-light); margin-bottom:4px; }
+.progress-bar { background:var(--bg2); border-radius:4px; height:6px; margin:8px 0 20px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-light)); border-radius:4px; transition:width .5s ease; }
+
+/* PRICE TAG */
+.price-row { display:flex; gap:16px; flex-wrap:wrap; margin:20px 0; }
+.price-tag { background:white; border:1px solid var(--border); border-radius:10px; padding:16px 20px; flex:1; min-width:160px; }
+.price-tag.recommended { border-color:var(--accent); background:var(--accent-pale); }
+.price-tag-label { font-size:.68rem; font-weight:700; letter-spacing:.1em; color:var(--text-light); text-transform:uppercase; margin-bottom:6px; }
+.price-tag.recommended .price-tag-label { color:var(--accent); }
+.price-tag-name { font-weight:700; font-size:.9rem; color:var(--primary); margin-bottom:4px; }
+.price-tag-price { font-family:'Noto Serif JP',serif; font-size:1.3rem; font-weight:700; color:var(--primary); margin-bottom:6px; }
+.price-tag-desc { font-size:.75rem; color:var(--text-light); line-height:1.6; }
+.price-tag.recommended .price-tag-desc { color:var(--accent); }
+.rec-badge { display:inline-block; background:var(--accent); color:white; font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:10px; margin-left:6px; vertical-align:middle; }
+
+/* MOBILE */
+@media(max-width:768px){
+  .sidebar { position:fixed; left:0; top:57px; transform:translateX(-100%); transition:transform .3s; z-index:99; width:280px; }
+  .sidebar.open { transform:translateX(0); }
+  .hamburger { display:block; }
+  .section { padding:28px 20px; }
+  .hero { padding:36px 20px; }
+  .hero-stats { gap:20px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-title">note<span>マネタイズ</span>完全講座</div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="header-badge">無料講座</div>
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-label">目次</div>
+  <a href="#intro" class="nav-item chapter">はじめに</a>
+  <div class="nav-divider"></div>
+  <a href="#chapter1" class="nav-item chapter">第1章　noteの基本設計</a>
+  <a href="#c1-1" class="nav-item sub">1-1 アメブロとnoteの違い</a>
+  <a href="#c1-2" class="nav-item sub">1-2 収益化モデルの選び方</a>
+  <div class="nav-divider"></div>
+  <a href="#chapter2" class="nav-item chapter">第2章　プロフィール・初期設定</a>
+  <a href="#c2-1" class="nav-item sub">2-1 プロフィールの設計</a>
+  <a href="#c2-2" class="nav-item sub">2-2 初動フォロワー戦略</a>
+  <div class="nav-divider"></div>
+  <a href="#chapter3" class="nav-item chapter">第3章　有料コンテンツの作り方</a>
+  <a href="#c3-1" class="nav-item sub">3-1 売れる記事の構成</a>
+  <a href="#c3-2" class="nav-item sub">3-2 価格設定の考え方</a>
+  <a href="#c3-3" class="nav-item sub">3-3 無料と有料の使い分け</a>
+  <div class="nav-divider"></div>
+  <a href="#chapter4" class="nav-item chapter">第4章　AI活用プロンプト集</a>
+  <a href="#c4-1" class="nav-item sub">4-1 有料記事生成</a>
+  <a href="#c4-2" class="nav-item sub">4-2 サムネイル文言生成</a>
+  <a href="#c4-3" class="nav-item sub">4-3 紹介文・概要生成</a>
+  <div class="nav-divider"></div>
+  <a href="#chapter5" class="nav-item chapter">第5章　アメブロとの連携導線</a>
+  <a href="#c5-1" class="nav-item sub">5-1 誘導の仕組み</a>
+  <a href="#c5-2" class="nav-item sub">5-2 導線テンプレート</a>
+  <div class="nav-divider"></div>
+  <a href="#checklist" class="nav-item chapter">✓ 実践チェックリスト</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- HERO -->
+<div class="hero" id="intro">
+  <div class="hero-eyebrow">Complete Guide</div>
+  <h1>アメブロで集めた読者を<br><em>noteで収益に変える</em>完全講座</h1>
+  <p class="hero-desc">
+    ブログを読んでもらえるようになったのに、収益につながらない。<br>
+    この講座では、noteの収益化モデルを正しく選び、<br>情報発信が自然とお金になる仕組みをゼロから作ります。
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">章構成</span></div>
+    <div class="stat"><span class="stat-num">10+</span><span class="stat-label">実践テンプレート</span></div>
+    <div class="stat"><span class="stat-num">8+</span><span class="stat-label">AIプロンプト</span></div>
+  </div>
+</div>
+
+<!-- CHAPTER 1 -->
+<section class="section" id="chapter1">
+  <div class="section-eyebrow">Chapter 01</div>
+  <h2 id="c1-1">アメブロとnoteの役割の違いを知る</h2>
+  <p class="section-intro">
+    アメブロとnoteは似ているようで、まったく別の役割を持つプラットフォームです。この違いを理解することが、収益化の第一歩です。
+  </p>
+
+  <table class="comp-table">
+    <tr>
+      <th>比較項目</th>
+      <th>アメブロ</th>
+      <th>note</th>
+    </tr>
+    <tr>
+      <td>主な目的</td>
+      <td>集客・認知・関係構築</td>
+      <td>マネタイズ・収益化</td>
+    </tr>
+    <tr>
+      <td>読者との関係</td>
+      <td>新規流入・ファン化</td>
+      <td>ファン・見込み客</td>
+    </tr>
+    <tr>
+      <td>コンテンツ</td>
+      <td>日常・共感・体験談</td>
+      <td>専門知識・ノウハウ・有料情報</td>
+    </tr>
+    <tr>
+      <td>収益モデル</td>
+      <td>基本的には直接収益なし</td>
+      <td>有料記事・マガジン・メンバーシップ</td>
+    </tr>
+    <tr>
+      <td>SEO</td>
+      <td>アメブロ内検索が中心</td>
+      <td>Google検索への流入あり</td>
+    </tr>
+    <tr>
+      <td>向いているコンテンツ</td>
+      <td>読みやすい短め記事</td>
+      <td>深掘り・まとめ・専門性の高い内容</td>
+    </tr>
+  </table>
+
+  <div class="point-box">
+    <div class="label">✦ 基本の考え方</div>
+    <p>「アメブロで出会い、noteで深める」。アメブロで読者と信頼関係を築いてから、noteに誘導する流れが最も自然で売れやすいです。</p>
+  </div>
+
+  <h3 id="c1-2">収益化モデルの選び方</h3>
+  <p>noteには3つの主な収益モデルがあります。自分の発信スタイルに合ったものを選ぶことが重要です。</p>
+
+  <div class="price-row">
+    <div class="price-tag">
+      <div class="price-tag-label">モデル①</div>
+      <div class="price-tag-name">有料記事</div>
+      <div class="price-tag-price">100〜10,000円/本</div>
+      <div class="price-tag-desc">1記事ごとに購入。ノウハウ・体験談・まとめ記事に向いている。最初に試しやすい。</div>
+    </div>
+    <div class="price-tag recommended">
+      <div class="price-tag-label">モデル② <span class="rec-badge">おすすめ</span></div>
+      <div class="price-tag-name">マガジン</div>
+      <div class="price-tag-price">300〜3,000円/冊</div>
+      <div class="price-tag-desc">複数記事をまとめて販売。単品より割安感を出せる。継続的な執筆との相性が良い。</div>
+    </div>
+    <div class="price-tag">
+      <div class="price-tag-label">モデル③</div>
+      <div class="price-tag-name">メンバーシップ</div>
+      <div class="price-tag-price">500〜5,000円/月</div>
+      <div class="price-tag-desc">月額定期課金。安定収入になるが、継続コンテンツの提供が必要。ある程度ファンが増えてから。</div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="label">⚠️ よくある失敗</div>
+    <p>最初からメンバーシップを始めてしまうケース。フォロワーが少ない段階では加入者が集まらず、更新を続けるモチベーションも下がります。まずは有料記事・マガジンで実績を作ることをおすすめします。</p>
+  </div>
+</section>
+
+<!-- CHAPTER 2 -->
+<section class="section" id="chapter2">
+  <div class="section-eyebrow">Chapter 02</div>
+  <h2 id="c2-1">プロフィールと初期設定の最適化</h2>
+  <p class="section-intro">
+    noteのプロフィールは「なぜこの人から買うのか」を伝える場所です。アメブロのプロフィールとは少し異なる書き方が求められます。
+  </p>
+
+  <h3>noteプロフィールで伝えるべき3つのこと</h3>
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>何の専門家か（または何を経験してきたか）</h4>
+        <p>肩書きがなくても「〇〇を10年続けてきた」「〇〇で失敗してこうなった」という実績・経験で十分です。共感より専門性・実績を前に出す。</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>読者にどんな変化をもたらすか</h4>
+        <p>「このnoteを読むと〇〇できるようになります」という形で、購読のメリットを具体的に伝える。抽象的な表現は避ける。</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>どんなコンテンツを発信しているか</h4>
+        <p>有料・無料の内訳、更新頻度、主なテーマを一言で伝える。「迷わせない」ことが購入・フォローにつながる。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="template-box">
+    <div class="template-label">📄 noteプロフィールテンプレート</div>
+    <div class="template-text">
+<span class="fill-in">お名前・ニックネーム</span>です。
+
+<span class="fill-in">経歴・実績を1〜2行で</span>。
+
+このnoteでは、<span class="fill-in">ターゲット読者</span>に向けて
+<span class="fill-in">発信テーマ</span>について書いています。
+
+読んでいただくと、
+・<span class="fill-in">得られるベネフィット①</span>
+・<span class="fill-in">得られるベネフィット②</span>
+がわかります。
+
+▼ 発信内容
+無料記事：<span class="fill-in">無料で提供する内容</span>
+有料記事：<span class="fill-in">有料で提供する専門情報</span>
+
+フォロー・スキをいただけると励みになります。
+    </div>
+  </div>
+
+  <h3 id="c2-2">フォロワーゼロからの初動戦略</h3>
+  <p>noteはアメブロと違い、プラットフォーム内の「コミュニティ機能」が薄いです。最初のフォロワーはアメブロから連れてくるのが一番早い方法です。</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <span class="card-icon">📢</span>
+      <h4>アメブロで告知する</h4>
+      <p>「noteを始めました」記事を書いてアメブロ読者に知らせる。すでに信頼関係がある人が最初のフォロワーになりやすい。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🆓</span>
+      <h4>無料記事で価値を見せる</h4>
+      <p>最初の3〜5記事は無料で公開。「この人の有料記事なら買いたい」と思わせる質のコンテンツを先に見せる。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">#️⃣</span>
+      <h4>ハッシュタグ戦略</h4>
+      <p>noteはハッシュタグで発見されやすい。ニッチなタグを3〜5個つけることで、同じ興味を持つ読者に届く。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">💌</span>
+      <h4>スキへの返信</h4>
+      <p>スキをくれた人のnoteにスキを返す。アメブロのコメント文化と似た「互いに読む」関係が生まれやすい。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 3 -->
+<section class="section" id="chapter3">
+  <div class="section-eyebrow">Chapter 03</div>
+  <h2 id="c3-1">売れる有料コンテンツの作り方</h2>
+  <p class="section-intro">
+    有料記事が売れるかどうかは、内容の質よりも「構成と見せ方」で決まる部分が大きいです。
+  </p>
+
+  <h3>売れる有料記事の構成</h3>
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>冒頭（無料部分）：読者の悩みと、この記事で得られるものを明示</h4>
+        <p>「〇〇で悩んでいませんか？この記事では〇〇の方法を具体的に解説します」。冒頭の200〜300文字で購入を決める人が多い。</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>有料ライン直前：「続きが気になる」引きを作る</h4>
+        <p>無料部分の最後に「ここから具体的な手順を解説します」と明示する。ぶつ切りではなく、続きへの期待を高めて終わる。</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>有料部分：具体的なノウハウ・手順・テンプレート</h4>
+        <p>「読んでよかった」と思われるには、すぐ使えるものが入っていること。図解・テンプレート・チェックリストがあると評価が上がる。</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>最後：次のアクションへの誘導</h4>
+        <p>「関連記事はこちら」「マガジンでまとめて読む」「アメブロもフォローしてください」など、次の接点を作る。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="c3-2">価格設定の考え方</h3>
+
+  <table class="comp-table">
+    <tr>
+      <th>価格帯</th>
+      <th>向いているコンテンツ</th>
+      <th>購入されやすい条件</th>
+    </tr>
+    <tr>
+      <td>100〜300円</td>
+      <td>短めのノウハウ・体験談・まとめ</td>
+      <td>「お試し」として気軽に買える。実績がなくても売りやすい</td>
+    </tr>
+    <tr>
+      <td>500〜1,000円</td>
+      <td>ステップ解説・テンプレート付き記事</td>
+      <td>具体的な成果が見えるコンテンツ。最もバランスが良い価格帯</td>
+    </tr>
+    <tr>
+      <td>1,500〜3,000円</td>
+      <td>詳細なノウハウ・複数テンプレート付き</td>
+      <td>著者への信頼と実績が必要。アメブロで関係を作ってから</td>
+    </tr>
+    <tr>
+      <td>5,000円〜</td>
+      <td>包括的なガイド・コンサル的な内容</td>
+      <td>明確な実績・ビフォーアフターの提示が必須</td>
+    </tr>
+  </table>
+
+  <div class="point-box">
+    <div class="label">✦ 最初の価格設定のコツ</div>
+    <p>最初は「少し安いかな」と思う価格から始める。売れた実績が出てから少しずつ上げるのが最も自然な流れです。最初から高値をつけて売れないより、安くても売れた実績を作る方が次につながります。</p>
+  </div>
+
+  <h3 id="c3-3">無料と有料の使い分け</h3>
+  <p>無料記事と有料記事の比率が重要です。無料が多すぎると「なぜお金を払うの？」となり、有料が多すぎると新しい読者が入ってこなくなります。</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <span class="card-icon">🆓</span>
+      <h4>無料記事に向いている内容</h4>
+      <p>入門的な情報・考え方・マインドセット・体験談・エッセイ。「この人が好き」「信頼できる」と思わせるもの。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">💰</span>
+      <h4>有料記事に向いている内容</h4>
+      <p>具体的な手順・テンプレート・ツール・数字・リスト。「これがあれば自分でできる」と思わせる実用的なもの。</p>
+    </div>
+  </div>
+
+  <div class="template-box">
+    <div class="template-label">📄 推奨バランス（目安）</div>
+    <div class="template-text">
+開始〜3ヶ月：無料7：有料3
+　→ まず読者を集める・信頼を作ることを優先
+
+3〜6ヶ月：無料5：有料5
+　→ 有料の実績が出てきたら少しずつシフト
+
+6ヶ月以降：無料3：有料7
+　→ ブランドが確立したら有料中心でも読者がついてくる
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 4 -->
+<section class="section" id="chapter4">
+  <div class="section-eyebrow">Chapter 04</div>
+  <h2 id="c4-1">AI活用プロンプト集</h2>
+  <p class="section-intro">
+    noteコンテンツもAIを使って効率的に作れます。ただし有料記事こそ「自分の実体験・知識」が核心であることを忘れずに。AIはあくまで構成と文章の整理役です。
+  </p>
+
+  <h3>有料記事のたたき台生成</h3>
+  <div class="prompt-box">
+    <div class="prompt-label">📋 コピペ用プロンプト</div>
+    <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+    <div class="prompt-text">あなたはnoteで有料記事を販売している[あなたの設定]です。
+
+以下の条件で有料記事のたたき台を作成してください。
+
+【テーマ】
+[今回書きたいテーマ・タイトル案]
+
+【ターゲット読者】
+[読者の悩みや状況を1〜2行で]
+
+【構成】
+・冒頭（無料部分）：読者の悩みへの共感 + この記事で得られること（300文字程度）
+・有料ライン前：「続きでは〜を解説します」という引き
+・有料部分：具体的な手順・ノウハウ（見出し4〜6個）
+・最後：関連コンテンツ・アメブロへの誘導
+
+【条件】
+・専門用語は使わない
+・すぐ実践できる具体性を重視
+・テンプレートや例文を最低1つ入れる
+・文字数：1,500〜2,500文字</div>
+  </div>
+
+  <h3 id="c4-2">サムネイル文言・タイトル生成</h3>
+  <div class="prompt-box">
+    <div class="prompt-label">📋 コピペ用プロンプト</div>
+    <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+    <div class="prompt-text">以下の有料記事に対して、購入率が上がるタイトルとサムネイル文言を提案してください。
+
+【記事の内容】
+[記事の概要または本文を貼り付け]
+
+【条件】
+・タイトルは10パターン提案（30文字以内）
+・数字・ビフォーアフター・禁止系・疑問形など異なる型で
+・サムネイルに入れる文言（15文字以内）を3パターン
+・「思わず買ってしまう」感情を刺激するものを優先</div>
+  </div>
+
+  <h3 id="c4-3">紹介文・概要文の生成</h3>
+  <div class="prompt-box">
+    <div class="prompt-label">📋 コピペ用プロンプト</div>
+    <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+    <div class="prompt-text">noteの有料記事の概要文（購入前に表示される説明文）を作成してください。
+
+【記事タイトル】
+[タイトル]
+
+【記事の内容】
+[記事の要約]
+
+【条件】
+・200〜300文字
+・「この記事を読むと〇〇できます」という形で冒頭に
+・記事の内容を箇条書きで3〜5点
+・「この記事はこんな方におすすめ」を最後に
+・購入ボタンを押したくなる流れで</div>
+  </div>
+</section>
+
+<!-- CHAPTER 5 -->
+<section class="section" id="chapter5">
+  <div class="section-eyebrow">Chapter 05</div>
+  <h2 id="c5-1">アメブロからnoteへの誘導導線</h2>
+  <p class="section-intro">
+    アメブロで築いた読者との信頼を、noteの収益につなげる導線を作ります。強引な誘導ではなく、「自然に行きたくなる」流れを設計するのがポイントです。
+  </p>
+
+  <h3>導線設計の基本パターン</h3>
+  <div class="card-grid">
+    <div class="card">
+      <span class="card-icon">🔗</span>
+      <h4>記事末尾への誘導</h4>
+      <p>アメブロ記事の最後に「詳しくはnoteで」と一言添える。関連するnote記事へのリンクを貼る。自然な流れで誘導できる。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">📌</span>
+      <h4>プロフィールへのリンク</h4>
+      <p>アメブロプロフィールにnoteのURLを記載。新しい読者が来るたびに自動的にnoteを認知してもらえる。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">📝</span>
+      <h4>「続きはnoteで」記事</h4>
+      <p>アメブロで入門的な内容を書き、「さらに詳しい内容はnoteにまとめました」という記事を定期的に書く。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🎁</span>
+      <h4>無料noteへの誘導</h4>
+      <p>まず無料記事をアメブロで紹介してnoteに慣れてもらう。無料で価値を感じた読者が有料へ移行しやすい。</p>
+    </div>
+  </div>
+
+  <h3 id="c5-2">誘導テンプレート集</h3>
+
+  <div class="template-box">
+    <div class="template-label">📄 記事末尾の誘導文テンプレート</div>
+    <div class="template-text">
+【パターンA：シンプル型】
+今日の内容をさらに深掘りした記事をnoteにまとめています。
+テンプレートも付いているので、すぐ使えます👇
+▶ [noteのURL]
+
+【パターンB：ベネフィット型】
+「<span class="fill-in">読者の悩み</span>」を解決するための具体的な手順を
+noteでまとめました。
+読んだその日から実践できる内容です。
+▶ [noteのURL]
+
+【パターンC：限定感型】
+アメブロ読者さんだけに先にお知らせします。
+「<span class="fill-in">記事タイトル</span>」をnoteで公開しました。
+今なら<span class="fill-in">価格や特典</span>でご覧いただけます。
+▶ [noteのURL]
+    </div>
+  </div>
+
+  <div class="point-box">
+    <div class="label">✦ 誘導の頻度</div>
+    <p>毎回の記事末尾に入れると「売り込み感」が出ます。3〜4記事に1回、自然な流れで誘導するのが長期的に効果的です。</p>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="section" id="checklist">
+  <div class="section-eyebrow">Practice</div>
+  <h2>実践チェックリスト</h2>
+  <p class="section-intro">この講座の内容をすべて実践できているか確認しましょう。チェックボックスをクリックして進捗を管理してください。</p>
+
+  <div class="progress-label">進捗状況</div>
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+  <h3>第1章：noteの基本設計</h3>
+  <ul class="checklist">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>アメブロとnoteの役割の違いを理解した</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>自分に合った収益化モデル（有料記事・マガジン・メンバーシップ）を選んだ</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>最初は有料記事・マガジンから始めることを決めた</li>
+  </ul>
+
+  <h3>第2章：プロフィール・初期設定</h3>
+  <ul class="checklist">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>テンプレートを使ってnoteプロフィールを作成した</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>アメブロプロフィールにnoteのURLを追記した</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>無料記事を3本以上公開した</li>
+  </ul>
+
+  <h3>第3章：有料コンテンツ</h3>
+  <ul class="checklist">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>有料記事の構成（冒頭・有料ライン・本文・誘導）を理解した</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>最初の有料記事の価格を決めた</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>有料記事を1本公開した</li>
+  </ul>
+
+  <h3>第4章：AI活用</h3>
+  <ul class="checklist">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>AIプロンプトで記事のたたき台を作った</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>タイトルを複数パターン生成して選んだ</li>
+  </ul>
+
+  <h3>第5章：アメブロとの連携</h3>
+  <ul class="checklist">
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>誘導テンプレートをアメブロ記事に入れた</li>
+    <li><div class="check-box" onclick="toggleCheck(this)"></div>「noteを始めました」告知記事をアメブロで公開した</li>
+  </ul>
+
+  <div class="point-box" style="margin-top:32px;">
+    <div class="label">✦ 次のステップ</div>
+    <p>アメブロ集客講座とnoteマネタイズ講座、両方のチェックが完了したら、「アメブロで集客→noteで収益化」の仕組みが整った状態です。あとは継続と改善を繰り返すだけです。</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+function toggleCheck(el){
+  el.classList.toggle('checked');
+  el.textContent=el.classList.contains('checked')?'✓':'';
+  updateProgress();
+}
+function updateProgress(){
+  const total=document.querySelectorAll('.check-box').length;
+  const checked=document.querySelectorAll('.check-box.checked').length;
+  document.getElementById('progress').style.width=Math.round((checked/total)*100)+'%';
+}
+function copyPrompt(btn){
+  const text=btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='コピー済み！';
+    setTimeout(()=>{btn.textContent='コピー';},2000);
+  });
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){t.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('sidebar').classList.remove('open');}
+  });
+});
+const sections=document.querySelectorAll('[id]');
+const navItems=document.querySelectorAll('.nav-item');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+  navItems.forEach(n=>{n.classList.remove('active');if(n.getAttribute('href')==='#'+cur)n.classList.add('active');});
+});
+</script>
+</body>
+</html>
