@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="color-scheme" content="light">
-<title>X Pro アナリティクス 完全解説書 2026年版</title>
+<title>X アナリティクス 完全解説書 2026年版</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -43,12 +43,23 @@ a:hover{text-decoration:underline}
 .hero{background:linear-gradient(150deg,#000000 0%,#0d1117 50%,#0a1929 100%);color:#fff;padding:64px 24px 52px;text-align:center}
 .hero-inner{max-width:var(--max);margin:0 auto}
 .hero-badge{display:inline-block;background:var(--xb);color:#fff;font-size:11px;font-weight:700;letter-spacing:.12em;padding:4px 14px;border-radius:20px;margin-bottom:18px}
+.hero-badge-warn{display:inline-block;background:#ea4335;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 14px;border-radius:20px;margin-bottom:10px;margin-left:8px}
 .hero h1{font-size:clamp(22px,4vw,36px);font-weight:700;line-height:1.3;margin-bottom:14px}
 .hero h1 span{color:var(--xb)}
 .hero-lead{font-size:14px;color:rgba(255,255,255,.75);max-width:560px;margin:0 auto 28px;line-height:1.9}
 .hero-stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .hero-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.8)}
 .hero-stat strong{display:block;font-size:20px;color:#fff;font-weight:700}
+
+/* ===== UPDATE NOTICE ===== */
+.update-notice{background:#fff3cd;border:1px solid #ffc107;border-radius:var(--radius);padding:14px 20px;margin:24px 0 0;font-size:13px;color:#664d03;line-height:1.7}
+.update-notice strong{color:#333}
+
+/* ===== PREMIUM NOTICE ===== */
+.premium-notice{background:linear-gradient(135deg,#1a0530,#2d1060);border-radius:var(--radius);padding:14px 20px;margin:16px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.premium-badge{background:#f4d03f;color:#1a0530;font-size:11px;font-weight:700;padding:4px 10px;border-radius:10px;white-space:nowrap;flex-shrink:0}
+.premium-text{font-size:13px;color:rgba(255,255,255,.9);line-height:1.6}
+.premium-text strong{color:#f4d03f}
 
 /* ===== STICKY NAV ===== */
 .nav-wrap{background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:10px 16px 6px;overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:200;scrollbar-width:thin;scrollbar-color:var(--xb) var(--bg-off)}
@@ -59,6 +70,8 @@ a:hover{text-decoration:underline}
 .nav-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--border);color:var(--muted);background:var(--bg-off);transition:all .2s;flex-shrink:0}
 .nav-btn:hover,.nav-btn.active{background:var(--xb);border-color:var(--xb);color:#fff;text-decoration:none}
 .nav-btn .n-num{font-size:10px;opacity:.7}
+.nav-btn.deprecated{border-color:#ffc107;color:#664d03;background:#fff8e1}
+.nav-btn.deprecated:hover{background:#e65100;border-color:#e65100;color:#fff}
 
 /* ===== LAYOUT ===== */
 .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
@@ -80,6 +93,7 @@ a:hover{text-decoration:underline}
 .tt-tab{background:#e6f9f2;color:#00875a}
 .tt-goal{background:#f0ecff;color:#5a35c7}
 .tt-adv{background:#fff7ed;color:#c2500a}
+.tt-dep{background:#fff3cd;color:#664d03}
 @media(max-width:600px){.toc-grid{flex-direction:column}.toc-col{flex:none;max-width:100%}}
 
 /* ===== SECTION ===== */
@@ -97,6 +111,11 @@ li{margin-bottom:6px}
 .steps li{counter-increment:step;display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
 .steps li::before{content:counter(step);display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--xb);color:#fff;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
 
+/* ===== DEPRECATED SECTION ===== */
+.section-deprecated{position:relative}
+.deprecated-overlay{background:repeating-linear-gradient(45deg,rgba(255,243,205,.6),rgba(255,243,205,.6) 10px,rgba(255,236,153,.3) 10px,rgba(255,236,153,.3) 20px);border:2px dashed #ffc107;border-radius:var(--radius);padding:16px 20px;margin-bottom:20px}
+.deprecated-label{display:inline-flex;align-items:center;gap:6px;background:#e65100;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:4px;margin-bottom:10px}
+
 /* ===== TABLE ===== */
 .tbl-wrap{overflow-x:auto;margin-bottom:20px}
 table{width:100%;border-collapse:collapse;font-size:14px}
@@ -110,11 +129,13 @@ tr:nth-child(even) td{background:var(--bg-off)}
 .box-grn{background:var(--grn-light);border-left:4px solid var(--grn)}
 .box-pur{background:var(--pur-light);border-left:4px solid var(--pur)}
 .box-org{background:var(--org-light);border-left:4px solid var(--org)}
+.box-warn{background:#fff3cd;border-left:4px solid #ffc107}
 .box-title{font-weight:700;font-size:14px;margin-bottom:6px}
 .box-info .box-title{color:var(--xb2)}
 .box-grn .box-title{color:#00875a}
 .box-pur .box-title{color:#5a35c7}
 .box-org .box-title{color:#c2500a}
+.box-warn .box-title{color:#664d03}
 
 /* ===== GOAL CARDS ===== */
 .goal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
@@ -258,13 +279,22 @@ tr:nth-child(even) td{background:var(--bg-off)}
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-badge">2026年版 完全解説書</div>
-    <h1>X Pro <span>アナリティクス</span><br>完全解説書</h1>
+    <div>
+      <span class="hero-badge">2026年版 最新仕様対応</span>
+      <span class="hero-badge-warn">⚠ Xプレミアム会員限定</span>
+    </div>
+    <h1>X <span>アナリティクス</span><br>完全解説書</h1>
     <p class="hero-lead">各タブの読み方から「認知・フォロワー・エンゲージメント・コンバージョン・バズ再現」5つの目的別分析サイクルまで、数字を成果に変えるための完全ガイドです。</p>
     <div class="hero-stats">
       <div class="hero-stat"><strong>8</strong>セクション</div>
-      <div class="hero-stat"><strong>6</strong>タブ完全解説</div>
+      <div class="hero-stat"><strong>4</strong>タブ完全解説</div>
       <div class="hero-stat"><strong>5</strong>目的別分析フレーム</div>
+    </div>
+    <div class="update-notice" style="margin-top:20px;text-align:left">
+      <strong>📋 2026年版 更新履歴（2026年5月修正）</strong><br>
+      ① <strong>利用条件を修正</strong>：Xアナリティクスは2024年7月以降、<strong>Xプレミアム（有料）加入者限定</strong>となりました。<br>
+      ② <strong>タブ構成を修正</strong>：現行UIは「概要・オーディエンス・コンテンツ・動画」の<strong>4タブ</strong>です。旧「ライブ」「スペース」タブはUI上で独立表示されなくなっています（Section 06参照）。<br>
+      ③ <strong>アクティブ時間の表示形式を修正</strong>：現行UIでは棒グラフ形式で表示されます。
     </div>
   </div>
 </div>
@@ -277,7 +307,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
     <a class="nav-btn" href="#s03"><span class="n-num">03</span>オーディエンス</a>
     <a class="nav-btn" href="#s04"><span class="n-num">04</span>コンテンツ</a>
     <a class="nav-btn" href="#s05"><span class="n-num">05</span>動画タブ</a>
-    <a class="nav-btn" href="#s06"><span class="n-num">06</span>ライブ・スペース</a>
+    <a class="nav-btn deprecated" href="#s06"><span class="n-num">06</span>ライブ・スペース⚠</a>
     <a class="nav-btn" href="#s07"><span class="n-num">07</span>5つの目的別分析</a>
     <a class="nav-btn" href="#s08"><span class="n-num">08</span>数字→行動変換</a>
     <a class="nav-btn" href="#s09"><span class="n-num">09</span>改善サイクル</a>
@@ -299,7 +329,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
         <a class="toc-item" href="#s05"><span class="toc-num">05</span><span class="toc-label">動画タブの見方</span><span class="toc-tag tt-tab">タブ</span></a>
       </div>
       <div class="toc-col">
-        <a class="toc-item" href="#s06"><span class="toc-num">06</span><span class="toc-label">ライブ・スペースタブ</span><span class="toc-tag tt-tab">タブ</span></a>
+        <a class="toc-item" href="#s06"><span class="toc-num">06</span><span class="toc-label">ライブ・スペースタブ</span><span class="toc-tag tt-dep">⚠ 要確認</span></a>
         <a class="toc-item" href="#s07"><span class="toc-num">07</span><span class="toc-label">5つの目的別・分析フレーム</span><span class="toc-tag tt-goal">目的別</span></a>
         <a class="toc-item" href="#s08"><span class="toc-num">08</span><span class="toc-label">数字の読み方と行動変換</span><span class="toc-tag tt-goal">分析</span></a>
         <a class="toc-item" href="#s09"><span class="toc-num">09</span><span class="toc-label">データから改善サイクルへ</span><span class="toc-tag tt-adv">実践</span></a>
@@ -312,7 +342,13 @@ tr:nth-child(even) td{background:var(--bg-off)}
   <section class="section fade-in" id="s01">
     <div class="sec-hd"><span class="sec-num">01</span><h2>アナリティクスとは・開き方</h2></div>
 
-    <p>X（旧Twitter）のアナリティクスは、自分のアカウントの<span data-tip="ポストが何人のタイムラインに表示されたかの回数">インプレッション</span>・フォロワー属性・各ポストの反応数などを数値で確認できる無料の分析ツールです。X Pro（旧TweetDeck）プランに加入していると、より詳細なデータにアクセスできます。</p>
+    <!-- ★修正①: 利用条件をXプレミアム限定に変更 -->
+    <div class="premium-notice">
+      <span class="premium-badge">⚠ Xプレミアム限定</span>
+      <div class="premium-text"><strong>2024年7月以降、Xアナリティクスの利用はXプレミアム（有料プラン）加入者限定</strong>となっています。無料アカウントでは analytics.twitter.com にアクセスできないか、利用できる指標が大幅に制限されます。まず有料プランへの加入が必要です。</div>
+    </div>
+
+    <p>Xアナリティクスは、自分のアカウントの<span data-tip="ポストが何人のタイムラインに表示されたかの回数">インプレッション</span>・フォロワー属性・各ポストの反応数などを数値で確認できる分析ツールです。<strong>Xプレミアム加入者</strong>であれば、詳細なデータにアクセスできます。</p>
 
     <h3>アナリティクスの開き方</h3>
     <ol class="steps">
@@ -320,6 +356,11 @@ tr:nth-child(even) td{background:var(--bg-off)}
       <li>メニューから「アナリティクス」を選択する（または analytics.twitter.com に直接アクセス）</li>
       <li>「アカウントの概要」ページが開く。上部のタブで各分析項目に切り替えられる</li>
     </ol>
+
+    <div class="box box-warn">
+      <div class="box-title">「アナリティクスが表示されない」場合</div>
+      <p style="margin:0;font-size:14px">Xプレミアムに加入済みでも表示が変わっている場合があります。①ブラウザのキャッシュをクリア、②ログアウト→再ログイン、③PCブラウザから直接 <code style="background:rgba(0,0,0,.06);padding:2px 6px;border-radius:3px">analytics.twitter.com</code> にアクセスする、の順で試してください。</p>
+    </div>
 
     <div class="mockup-wrap">
       <div class="mockup-bar">
@@ -341,13 +382,12 @@ tr:nth-child(even) td{background:var(--bg-off)}
         </div>
         <div class="xa-main">
           <div class="xa-page-title">アナリティクス</div>
+          <!-- ★修正②: タブを4つに変更 -->
           <div class="xa-tabs">
             <div class="xa-tab active">概要</div>
             <div class="xa-tab">オーディエンス</div>
             <div class="xa-tab">コンテンツ</div>
             <div class="xa-tab">動画</div>
-            <div class="xa-tab">ライブ</div>
-            <div class="xa-tab">スペース</div>
           </div>
           <div style="font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:700">アカウントの概要 <span style="background:var(--x);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px">3M</span></div>
           <div class="xa-stats-row">
@@ -373,7 +413,12 @@ tr:nth-child(even) td{background:var(--bg-off)}
       </div>
     </div>
 
-    <h3>6つのタブ一覧</h3>
+    <!-- ★修正②: タブ一覧を4タブに変更 -->
+    <h3>現行の4タブ一覧（2025年以降の新UI）</h3>
+    <div class="box box-warn" style="margin-bottom:16px">
+      <div class="box-title">⚠ タブ構成が変更されています</div>
+      <p style="margin:0;font-size:14px">2024年の仕様変更により、現行のXアナリティクスは<strong>「概要・オーディエンス・コンテンツ・動画」の4タブ構成</strong>になっています。旧来の「ライブ」「スペース」タブはアナリティクス上で独立表示されなくなりました（詳細はSection 06参照）。</p>
+    </div>
     <div class="tbl-wrap">
     <table>
       <thead><tr><th>タブ名</th><th>主に確認できること</th><th>活用する目的</th></tr></thead>
@@ -382,8 +427,6 @@ tr:nth-child(even) td{background:var(--bg-off)}
         <tr><td><strong>オーディエンス</strong></td><td>年齢・性別・国・アクティブ時間・端末の属性データ</td><td>ターゲット確認・投稿時間の最適化</td></tr>
         <tr><td><strong>コンテンツ</strong></td><td>各ポストのインプレッション・いいね・返信・リポスト数の一覧</td><td>バズ分析・投稿パターンの発見</td></tr>
         <tr><td><strong>動画</strong></td><td>再生数・完了率・平均再生時間の動画別データ</td><td>動画コンテンツの改善</td></tr>
-        <tr><td><strong>ライブ</strong></td><td>ライブ配信の視聴データ（配信実績がある場合）</td><td>ライブ視聴者の分析</td></tr>
-        <tr><td><strong>スペース</strong></td><td>Xスペース（音声配信）の参加者・リスナーデータ</td><td>音声配信の効果測定</td></tr>
       </tbody>
     </table>
     </div>
@@ -405,7 +448,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
         <tr><td><strong>インプレッション数</strong></td><td>ポストが画面上に表示された回数（閲覧されたかどうかは問わない）</td><td>認知拡大の基本指標。急増・急減に注目</td></tr>
         <tr><td><strong>エンゲージメント数</strong></td><td>いいね・リポスト・返信・クリック・プロフィール閲覧などの合計アクション数</td><td>インプレッションとの比率（エンゲージメント率）が重要</td></tr>
         <tr><td><strong>エンゲージメント率</strong></td><td>エンゲージメント数 ÷ インプレッション数 × 100（%）</td><td>1〜3%が平均的。高いほど「刺さるコンテンツ」</td></tr>
-        <tr><td><strong>認証済みフォロワー</strong></td><td>X Proなど有料プランに加入しているフォロワーの数</td><td>購買力・影響力が高い層の指標として参照</td></tr>
+        <tr><td><strong>認証済みフォロワー</strong></td><td>Xプレミアムなど有料プランに加入しているフォロワーの数</td><td>購買力・影響力が高い層の指標として参照</td></tr>
         <tr><td><strong>プロフィールへのアクセス数</strong></td><td>ポストや検索からプロフィールページを訪れた回数</td><td>フォロー転換率（プロフアクセス÷フォロワー増加数）の算出に使う</td></tr>
         <tr><td><strong>フォローの推移</strong></td><td>日別のフォロー数・アンフォロー数の増減グラフ</td><td>特定投稿後の急増・急減がある日を特定する</td></tr>
         <tr><td><strong>いいね数</strong></td><td>期間中に獲得したいいねの合計</td><td>共感型コンテンツの評価指標</td></tr>
@@ -457,6 +500,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
           <div class="xa-post-btn">ポストする</div>
         </div>
         <div class="xa-main" style="padding:12px 16px">
+          <!-- ★修正②: 4タブ表示 -->
           <div class="xa-tabs" style="margin-bottom:12px">
             <div class="xa-tab">概要</div>
             <div class="xa-tab active">オーディエンス</div>
@@ -501,16 +545,17 @@ tr:nth-child(even) td{background:var(--bg-off)}
         <tr><td><strong>年齢層</strong></td><td>想定しているターゲット年齢と実際の読者層がずれていないかを確認する。ずれている場合はコンテンツの切り口を見直す材料になる</td></tr>
         <tr><td><strong>性別</strong></td><td>推測値のため参考程度に。ターゲットの性別比と大きく乖離している場合はトーンや話題を調整する</td></tr>
         <tr><td><strong>国</strong></td><td>日本語アカウントなら日本が大半を占めるのが正常。海外フォロワーが多い場合は投稿言語の多言語化を検討できる</td></tr>
-        <tr><td><strong>アクティブな時間</strong></td><td>フォロワーが最もXを見ている曜日・時間帯のヒートマップ。色が濃いほどアクティブ。この時間帯に投稿することでインプレッション最大化が狙える</td></tr>
+        <tr><td><strong>アクティブな時間</strong></td><td>フォロワーが最もXを見ている曜日・時間帯を<strong>棒グラフ形式</strong>で表示。グラフが高い時間帯がアクティブなピーク。この時間帯に投稿することでインプレッション最大化が狙える</td></tr>
         <tr><td><strong>端末</strong></td><td>iOS・Android・Web比率。スマートフォン比率が高い場合は長文より短文・画像優先の設計を意識する</td></tr>
         <tr><td><strong>フォロー中</strong></td><td>自分のフォロワーがフォロワー同士かフォロワー以外かの比率。フォロワー以外からの反応が多いほど拡散力があると判断できる</td></tr>
       </tbody>
     </table>
     </div>
 
+    <!-- ★修正③: ヒートマップ→棒グラフに変更 -->
     <div class="box box-pur">
       <div class="box-title">アクティブな時間の活用法</div>
-      <p><span data-tip="ヒートマップとは、数値の大小を色の濃淡で視覚化した図。色が濃い時間帯ほどフォロワーのアクティブ度が高い">ヒートマップ</span>で最も色が濃い曜日・時間帯を3〜5コマ特定し、その時間帯に投稿をスケジュールします。Xのスケジュール投稿機能を使えば、最適時間に確実に投稿できます。</p>
+      <p>現行UIでは<strong>棒グラフ形式</strong>でフォロワーのアクティブ時間帯が表示されます（旧UIのヒートマップから変更）。グラフの棒が高い曜日・時間帯を3〜5コマ特定し、その時間帯に投稿をスケジュールしましょう。Xのスケジュール投稿機能を使えば、最適時間に確実に投稿できます。</p>
     </div>
 
     <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
@@ -674,13 +719,23 @@ tr:nth-child(even) td{background:var(--bg-off)}
     <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
   </section>
 
-  <!-- S06 -->
-  <section class="section fade-in" id="s06">
-    <div class="sec-hd"><span class="sec-num">06</span><h2>ライブ・スペースタブ</h2></div>
+  <!-- S06 ★修正: 廃止/変更の注記を大きく追加 -->
+  <section class="section fade-in section-deprecated" id="s06">
+    <div class="sec-hd"><span class="sec-num" style="background:#e65100">06</span><h2>ライブ・スペースタブ</h2></div>
 
-    <p>「ライブ」と「スペース」タブは、それぞれライブ動画配信と音声配信（Xスペース）のデータを確認するためのタブです。どちらも実績がない場合は「データがありません」と表示されます。</p>
+    <div class="deprecated-overlay">
+      <div class="deprecated-label">⚠ 2024年仕様変更 - 要確認</div>
+      <p style="font-size:14px;margin-bottom:10px"><strong>「ライブ」「スペース」タブは、2024年のアナリティクスUI刷新により、独立したタブとして表示されなくなっています。</strong><br>以下の情報は旧UIを参考にした内容です。現在のデータ確認方法は変更されている場合があります。</p>
+      <ul style="font-size:13px;padding-left:18px">
+        <li>ライブ配信のデータは <strong>X Media Studio（media.twitter.com）</strong> の「アナリティクス」セクションで確認できます</li>
+        <li>スペースのデータは各スペース終了後に表示される「スペースの分析」から確認できます</li>
+        <li>アナリティクスの4タブ（概要・オーディエンス・コンテンツ・動画）にこれらの独立タブは含まれません</li>
+      </ul>
+    </div>
 
-    <h3>ライブタブ</h3>
+    <p>以下は旧UIでのライブ・スペースタブの概要です。参考情報としてご参照ください。</p>
+
+    <h3>ライブ配信のデータ確認（Media Studio経由）</h3>
     <div class="tbl-wrap">
     <table>
       <thead><tr><th>確認できる指標</th><th>意味</th></tr></thead>
@@ -693,7 +748,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
     </table>
     </div>
 
-    <h3>スペースタブ</h3>
+    <h3>スペースのデータ確認（スペース終了後）</h3>
     <div class="tbl-wrap">
     <table>
       <thead><tr><th>確認できる指標</th><th>意味</th></tr></thead>
@@ -705,9 +760,9 @@ tr:nth-child(even) td{background:var(--bg-off)}
     </table>
     </div>
 
-    <div class="box box-grn">
-      <div class="box-title">「選択したフィルターに該当するデータはありません」と表示される場合</div>
-      <p>ライブ配信またはXスペースをまだ実施していない場合に表示されます。フィルターを「すべて」に変更しても表示されない場合は実績がない状態です。これは正常な表示です。</p>
+    <div class="box box-warn">
+      <div class="box-title">現行UIでデータが見当たらない場合</div>
+      <p style="margin:0;font-size:14px">アナリティクスの4タブにライブ・スペースのデータが表示されない場合は、<strong>media.twitter.com（X Media Studio）</strong>にアクセスしてProducerの「アナリティクス」セクションを確認してください。または、X公式のヘルプセンターで最新の確認方法を参照することをおすすめします。</p>
     </div>
 
     <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
@@ -750,14 +805,14 @@ tr:nth-child(even) td{background:var(--bg-off)}
             <div class="purpose-item-title">見るべき指標</div>
             <ul>
               <li>概要タブ：インプレッション数・推移グラフ</li>
-              <li>オーディエンスタブ：アクティブな時間（ヒートマップ）</li>
+              <li>オーディエンスタブ：アクティブな時間（棒グラフ）</li>
               <li>コンテンツタブ：インプレッション上位ポスト</li>
             </ul>
           </div>
           <div class="purpose-item">
             <div class="purpose-item-title">具体的なアクション</div>
             <ul>
-              <li>ヒートマップで最もアクティブな時間帯に投稿をスケジュールする</li>
+              <li>棒グラフで最もアクティブな時間帯に投稿をスケジュールする</li>
               <li>インプレッション上位ポストのテーマ・フォーマットを分析して横展開する</li>
               <li>ターゲット層が関心を持つトレンドテーマに乗った投稿を増やす</li>
             </ul>
@@ -893,7 +948,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
             <div class="purpose-item-title">具体的なアクション</div>
             <ul>
               <li>誘導文のコピーをABテストして<span data-tip="CTR（クリックスルーレート）＝リンクのクリック数÷インプレッション数×100(%)">CTR</span>が高い型を見つける</li>
-              <li>Kindle・note・ CoconalaなどのURL付きポストの反応データを比較する</li>
+              <li>Kindle・note・CoconalaなどのURL付きポストの反応データを比較する</li>
               <li>無料キャンペーン時・告知時の告知文と通常時の数字を比較する</li>
               <li>画像・動画ありポストとテキストのみポストのCTRを比較する</li>
             </ul>
@@ -1005,9 +1060,6 @@ tr:nth-child(even) td{background:var(--bg-off)}
     <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
   </section>
 
-    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
-  </section>
-
   <!-- S08 数字の読み方と行動変換ガイド -->
   <section class="section fade-in" id="s08">
     <div class="sec-hd"><span class="sec-num">08</span><h2>数字の読み方と行動変換ガイド</h2></div>
@@ -1044,7 +1096,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
 
     <h3>指標ごとの完全解読マップ</h3>
 
-    <!-- 指標01: インプレッション -->
+    <!-- 指標01 -->
     <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
       <div style="background:var(--xb);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 01</div>
@@ -1079,7 +1131,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
             <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">こう動く（行動）</div>
             <ul style="font-size:13px;padding-left:16px">
               <li>急増した投稿のテーマ・フォーマット・投稿時間を「バズ分析シート」に記録する</li>
-              <li>インプレが低い日が3日続いたら、投稿時間をオーディエンスタブのアクティブ時間に合わせ直す</li>
+              <li>インプレが低い日が3日続いたら、投稿時間をオーディエンスタブの棒グラフに合わせ直す</li>
               <li>月間インプレが落ちていたら、新しいジャンルのポストを週1本試す</li>
             </ul>
           </div>
@@ -1087,7 +1139,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
       </div>
     </div>
 
-    <!-- 指標02: EG率 -->
+    <!-- 指標02 -->
     <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
       <div style="background:#1a6eb5;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 02</div>
@@ -1138,7 +1190,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
       </div>
     </div>
 
-    <!-- 指標03: フォロワー推移 -->
+    <!-- 指標03 -->
     <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
       <div style="background:#00875a;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 03</div>
@@ -1171,7 +1223,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
       </div>
     </div>
 
-    <!-- 指標04: プロフィールアクセス -->
+    <!-- 指標04 -->
     <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
       <div style="background:var(--org);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 04</div>
@@ -1183,9 +1235,9 @@ tr:nth-child(even) td{background:var(--bg-off)}
         <div style="background:var(--bg-off);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px">
           <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:10px">フォロー転換率の計算</div>
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px">
-            <div style="background:var(--org-light);border:1px solid var(--org-border);border-radius:6px;padding:8px 12px;white-space:nowrap">フォロワー増加数</div>
+            <div style="background:var(--org-light);border:1px solid #fbbf83;border-radius:6px;padding:8px 12px;white-space:nowrap">フォロワー増加数</div>
             <div style="color:var(--muted)">÷</div>
-            <div style="background:var(--org-light);border:1px solid var(--org-border);border-radius:6px;padding:8px 12px;white-space:nowrap">プロフィールアクセス数</div>
+            <div style="background:var(--org-light);border:1px solid #fbbf83;border-radius:6px;padding:8px 12px;white-space:nowrap">プロフィールアクセス数</div>
             <div style="color:var(--muted)">× 100 ＝</div>
             <div style="background:var(--org);color:#fff;border-radius:6px;padding:8px 14px;font-weight:700;white-space:nowrap">フォロー転換率（%）</div>
           </div>
@@ -1210,7 +1262,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
       </div>
     </div>
 
-    <!-- 指標05: 4指標の使い分け -->
+    <!-- 指標05 -->
     <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
       <div style="background:var(--pur);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 05</div>
@@ -1255,7 +1307,7 @@ tr:nth-child(even) td{background:var(--bg-off)}
       </div>
     </div>
 
-    <!-- 指標06: 動画完了率 -->
+    <!-- 指標06 -->
     <div style="border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden">
       <div style="background:#0f1419;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">指標 06</div>
@@ -1284,7 +1336,6 @@ tr:nth-child(even) td{background:var(--bg-off)}
       </div>
     </div>
 
-    <!-- よくある分析ミス -->
     <h3>X初心者がよくやる分析の落とし穴</h3>
     <div class="tbl-wrap">
     <table>
@@ -1300,17 +1351,17 @@ tr:nth-child(even) td{background:var(--bg-off)}
     </table>
     </div>
 
-    <!-- 診断チェック -->
     <h3>数字別・今すぐできる週次診断チェック</h3>
     <div class="code-block">
       <button class="copy-btn" onclick="copyCode(this)">COPY</button>
       <pre>【アナリティクス 週次診断チェック（初心者向け・5分で完了）】
+※ Xプレミアム加入済みであることを確認してから開始
 
 Step1: 概要タブ → 期間「3M」で開く
 
 □ インプレッション数が先月より増えているか
   YES → 今の方向性を維持する
-  NO  → 投稿時間とテーマを見直す（オーディエンスタブのヒートマップを確認）
+  NO  → 投稿時間とテーマを見直す（オーディエンスタブの棒グラフを確認）
 
 □ エンゲージメント率が1%以上あるか
   YES → コンテンツの質はOK。投稿頻度を上げる
@@ -1338,7 +1389,7 @@ Step3: 来週の投稿計画を1行書いて終わる
     <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
   </section>
 
-  <!-- S09 (旧S08) -->
+  <!-- S09 -->
   <section class="section fade-in" id="s09">
     <div class="sec-hd"><span class="sec-num">09</span><h2>データから改善サイクルへ</h2></div>
 
@@ -1375,7 +1426,7 @@ Step3: 来週の投稿計画を1行書いて終わる
 
 オーディエンスタブ（月1回）
   □ 年齢・性別がターゲット層と一致しているか
-  □ アクティブ時間のヒートマップを確認して投稿時間を調整した
+  □ アクティブ時間の棒グラフを確認して投稿時間を調整した
 
 アクション（翌週の投稿計画）
   □ トップポストの型を別テーマで1本作成する
@@ -1398,7 +1449,7 @@ Step3: 来週の投稿計画を1行書いて終わる
       <div class="box-title">数字が動かない時に確認すること</div>
       <ul>
         <li><strong>投稿頻度が落ちていないか</strong>：アルゴリズムは継続的な投稿を評価する</li>
-        <li><strong>投稿時間がアクティブ時間とずれていないか</strong>：オーディエンスタブで再確認する</li>
+        <li><strong>投稿時間がアクティブ時間とずれていないか</strong>：オーディエンスタブの棒グラフで再確認する</li>
         <li><strong>コンテンツのテーマがターゲット層と合っているか</strong>：年齢・性別データと照合する</li>
         <li><strong>フォーマットが単調になっていないか</strong>：箇条書き・問いかけ・体験談などを組み合わせる</li>
       </ul>
@@ -1407,14 +1458,12 @@ Step3: 来週の投稿計画を1行書いて終わる
     <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
   </section>
 
-
   <!-- S10 -->
   <section class="section fade-in" id="s10">
     <div class="sec-hd"><span class="sec-num" style="background:#34a853">10</span><h2>CSV → Googleスプレッドシート → AppSheet アプリ化</h2></div>
 
     <p>バズ分析シートで蓄積したデータは、Googleスプレッドシートを経由して<span data-tip="AppSheetはGoogleが提供するノーコードアプリ開発ツール。スプレッドシートのデータをスマートフォンアプリに変換できる">AppSheet</span>でモバイルアプリ化できます。コードを一切書かずに、スマートフォンからいつでもデータを入力・閲覧できる専用アプリが完成します。</p>
 
-    <!-- フロー図 -->
     <div style="background:var(--bg-off);border-radius:var(--radius);padding:20px 24px;margin:20px 0">
       <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:14px;text-transform:uppercase;letter-spacing:.08em">全体フロー</div>
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
@@ -1450,7 +1499,6 @@ Step3: 来週の投稿計画を1行書いて終わる
       </ul>
     </div>
 
-    <!-- Spreadsheet Mockup -->
     <div class="mockup-wrap">
       <div class="mockup-bar">
         <div class="mockup-dot" style="background:#ff5f57"></div>
@@ -1459,12 +1507,10 @@ Step3: 来週の投稿計画を1行書いて終わる
         <div class="mockup-title-bar">Googleスプレッドシート - バズ分析シート（整形後）</div>
       </div>
       <div style="background:#fff;padding:0;overflow-x:auto">
-        <!-- Sheet tabs -->
         <div style="background:#f1f3f4;border-bottom:1px solid var(--border);padding:6px 12px;display:flex;gap:8px;align-items:center">
           <div style="background:#fff;border:1px solid var(--border);border-bottom:none;border-radius:4px 4px 0 0;padding:4px 14px;font-size:12px;font-weight:700;color:#34a853">バズ分析</div>
           <div style="padding:4px 14px;font-size:12px;color:var(--muted)">+ シートを追加</div>
         </div>
-        <!-- Frozen header row -->
         <div style="overflow-x:auto">
         <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:700px">
           <thead>
@@ -1513,7 +1559,6 @@ Step3: 来週の投稿計画を1行書いて終わる
     </table>
     </div>
 
-    <!-- AppSheet UI Mockup -->
     <div class="mockup-wrap">
       <div class="mockup-bar">
         <div class="mockup-dot" style="background:#ff5f57"></div>
@@ -1522,7 +1567,6 @@ Step3: 来週の投稿計画を1行書いて終わる
         <div class="mockup-title-bar">AppSheet - バズ分析アプリ（スマートフォンイメージ）</div>
       </div>
       <div style="background:#f1f3f4;padding:20px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap">
-        <!-- Phone 1: List View -->
         <div style="background:#fff;border-radius:16px;width:200px;box-shadow:0 4px 20px rgba(0,0,0,.15);overflow:hidden">
           <div style="background:#4285f4;color:#fff;padding:12px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px">
             <div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6)"></div>
@@ -1551,7 +1595,6 @@ Step3: 来週の投稿計画を1行書いて終わる
             <div style="text-align:center;font-size:10px;color:var(--muted)">グラフ</div>
           </div>
         </div>
-        <!-- Phone 2: Form View -->
         <div style="background:#fff;border-radius:16px;width:200px;box-shadow:0 4px 20px rgba(0,0,0,.15);overflow:hidden">
           <div style="background:#4285f4;color:#fff;padding:12px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px">
             <div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6)"></div>
@@ -1628,8 +1671,8 @@ EG率(%)          → Decimal
 </div>
 
 <div class="footer">
-  <p>X Pro アナリティクス完全解説書 2026年版</p>
-  <p>本ガイドの内容は2026年3月時点の情報をもとに作成しています。最新情報はX公式サイトをご確認ください。</p>
+  <p>X アナリティクス完全解説書 2026年版（2026年5月最終更新）</p>
+  <p>本ガイドの内容は2026年5月時点の情報をもとに作成しています。Xの仕様は随時変更されます。最新情報はX公式サイト・ヘルプセンターをご確認ください。</p>
 </div>
 
 <script>
