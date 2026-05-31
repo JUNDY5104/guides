@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Discord 完全解説書 2026年版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dc: #5865f2;
+  --dc2: #4752c4;
+  --dc-light: #eef0fd;
+  --dc-border: #c5c9f8;
+  --grn: #187848;
+  --grn-light: #e8f5ee;
+  --yel: #b87800;
+  --yel-light: #fef8e7;
+  --red: #c8001a;
+  --red-light: #fdeef0;
+  --bg: #ffffff;
+  --bg2: #f8f8f6;
+  --text: #1a1a1a;
+  --muted: #555;
+  --border: #e0e0e0;
+  --max: 1000px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.9; }
+
+/* ヘッダー */
+.site-header {
+  background: linear-gradient(135deg, #3b4abf 0%, #5865f2 60%, #7289da 100%);
+  padding: 64px 24px 52px;
+  text-align: center;
+  color: #fff;
+}
+.hd-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  padding: 4px 16px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.site-header h1 { font-size: clamp(24px,5vw,40px); font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+.site-header .catch { font-size: clamp(13px,2.5vw,17px); color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.site-header .sub { font-size: 14px; color: rgba(255,255,255,0.8); max-width: 540px; margin: 0 auto 24px; line-height: 1.8; }
+.hd-meta { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.hd-meta span { font-size: 11px; color: #fff; border: 1px solid rgba(255,255,255,0.5); padding: 3px 12px; border-radius: 20px; background: rgba(255,255,255,0.15); }
+
+/* スティッキーナビ */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 2px solid var(--dc);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dc-border) transparent;
+}
+.sticky-nav::-webkit-scrollbar { height: 3px; }
+.sticky-nav::-webkit-scrollbar-thumb { background: var(--dc-border); border-radius: 2px; }
+.nav-inner {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 12px;
+}
+.nav-inner a {
+  display: inline-block;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color .2s, border-color .2s;
+  letter-spacing: .02em;
+}
+.nav-inner a:hover { color: var(--dc); }
+.nav-inner a.active { color: var(--dc); border-bottom-color: var(--dc); }
+
+/* ラッパー */
+.wrapper { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+/* 目次 */
+.toc-wrap {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--dc);
+  padding: 26px 30px;
+  margin: 48px 0 40px;
+  border-radius: 0 6px 6px 0;
+}
+.toc-lbl { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dc); margin-bottom: 16px; }
+.toc-list { list-style: none; counter-reset: toc; }
+.toc-list li { counter-increment: toc; border-bottom: 1px solid var(--border); }
+.toc-list li:last-child { border-bottom: none; }
+.toc-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 4px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color .2s;
+}
+.toc-list a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--dc);
+  min-width: 26px;
+  flex-shrink: 0;
+}
+.toc-list a:hover { color: var(--dc); }
+
+/* セクション */
+.section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s, transform .5s;
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+.section:last-of-type { border-bottom: none; }
+.sec-hd { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.sec-num {
+  background: var(--dc);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 5px 11px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  min-width: 44px;
+  text-align: center;
+}
+.sec-hd h2 {
+  font-size: clamp(17px,3vw,21px);
+  font-weight: 700;
+  flex: 1;
+  line-height: 1.35;
+  color: var(--text);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--dc-light);
+}
+
+/* 本文 */
+p { margin-bottom: 16px; color: var(--text); }
+p:last-child { margin-bottom: 0; }
+h3 { font-size: 16px; font-weight: 700; margin: 28px 0 12px; padding-left: 12px; border-left: 3px solid var(--dc); color: var(--dc2); }
+h4 { font-size: 14px; font-weight: 700; margin: 18px 0 8px; color: var(--muted); }
+ul, ol { padding-left: 20px; margin-bottom: 16px; }
+li { margin-bottom: 8px; }
+strong { color: var(--text); font-weight: 700; }
+
+/* ノート */
+.note {
+  background: var(--dc-light);
+  border-left: 3px solid var(--dc);
+  padding: 14px 20px;
+  margin: 18px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 14px;
+}
+.note .lbl {
+  display: block;
+  color: var(--dc);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.note-grn { background: var(--grn-light); border-left-color: var(--grn); }
+.note-grn .lbl { color: var(--grn); }
+.note-yel { background: var(--yel-light); border-left-color: var(--yel); }
+.note-yel .lbl { color: var(--yel); }
+.note-red { background: var(--red-light); border-left-color: var(--red); }
+.note-red .lbl { color: var(--red); }
+
+/* たとえ話ボックス */
+.analogy {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 18px 0;
+  font-size: 14px;
+  position: relative;
+}
+.analogy::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--dc), var(--dc2));
+  border-radius: 4px 0 0 4px;
+}
+.analogy-lbl { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dc); margin-bottom: 8px; }
+
+/* テーブル */
+.tbl-wrap { overflow-x: auto; margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 320px; }
+th { background: var(--dc-light); color: var(--dc2); padding: 10px 14px; text-align: left; font-weight: 700; font-size: 12px; border-bottom: 2px solid var(--dc-border); letter-spacing: .06em; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--bg2); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 700; }
+.tag-d { background: var(--dc-light); color: var(--dc2); border: 1px solid var(--dc-border); }
+.tag-g { background: var(--grn-light); color: var(--grn); }
+.tag-y { background: var(--yel-light); color: var(--yel); }
+.tag-r { background: var(--red-light); color: var(--red); }
+
+/* コードブロック */
+.code-block { position: relative; margin: 16px 0; }
+.code-block pre {
+  background: #f4f4f4;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 52px 16px 18px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #333;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: var(--dc);
+  color: #fff;
+  border: none;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: .08em;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.copy-btn:hover { background: var(--dc2); }
+.copy-btn.copied { background: var(--grn); color: #fff; }
+
+/* ステップ */
+.steps { list-style: none; padding: 0; counter-reset: step; }
+.steps li {
+  counter-increment: step;
+  padding: 14px 14px 14px 56px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.steps li:last-child { border-bottom: none; }
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 12px; top: 14px;
+  width: 28px; height: 28px;
+  background: var(--dc);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.steps li .result {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--grn);
+  font-weight: 700;
+}
+
+/* TOPボタン */
+.to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 36px;
+  padding: 7px 18px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .06em;
+  transition: all .2s;
+  cursor: pointer;
+}
+.to-top:hover { background: var(--dc); color: #fff; border-color: var(--dc); }
+
+/* ツールチップ */
+.tt {
+  border-bottom: 1.5px dotted var(--dc);
+  cursor: help;
+  position: relative;
+  display: inline;
+}
+.tt::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.65;
+  padding: 8px 12px;
+  border-radius: 6px;
+  width: max-content;
+  max-width: 240px;
+  white-space: normal;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: 1px solid var(--dc-border);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .18s ease;
+  z-index: 9999;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0;
+}
+.tt::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--dc-border);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .18s ease;
+  z-index: 9999;
+}
+.tt:hover::after, .tt:hover::before { opacity: 1; }
+
+/* 用語カード */
+.term-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+.term-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; border-top: 3px solid var(--dc); }
+.term-name { font-size: 14px; font-weight: 700; color: var(--dc2); margin-bottom: 4px; }
+.term-easy { font-size: 12px; color: var(--dc); margin-bottom: 6px; font-weight: 700; }
+.term-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* FAQ */
+.faq-item { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 10px; overflow: hidden; background: var(--bg2); }
+.faq-q { padding: 13px 46px 13px 18px; font-weight: 700; font-size: 14px; cursor: pointer; position: relative; user-select: none; color: var(--text); }
+.faq-q::after { content: '+'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 20px; color: var(--dc); font-weight: 400; transition: transform .2s; }
+.faq-item.open .faq-q::after { transform: translateY(-50%) rotate(45deg); }
+.faq-a { display: none; padding: 14px 18px; font-size: 14px; line-height: 1.85; border-top: 1px solid var(--border); color: var(--muted); }
+.faq-item.open .faq-a { display: block; }
+
+/* ===== モックアップ共通 ===== */
+.mockup-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 24px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.mockup-bar { background: #e8e8e8; padding: 8px 14px; display: flex; gap: 6px; align-items: center; border-bottom: 1px solid var(--border); }
+.mockup-bar span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.mockup-bar span:nth-child(1) { background: #ff6058; }
+.mockup-bar span:nth-child(2) { background: #ffbd2e; }
+.mockup-bar span:nth-child(3) { background: #28c840; }
+.mockup-body { background: #f4f4f4; }
+
+/* アカウント登録フォームモックアップ */
+.m-form { background: #fff; max-width: 420px; margin: 0 auto; padding: 28px 28px 24px; }
+.m-form-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 6px; color: #1a1a1a; }
+.m-form-sub { font-size: 12px; color: #888; text-align: center; margin-bottom: 20px; }
+.m-field { margin-bottom: 14px; }
+.m-field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #555; margin-bottom: 5px; }
+.m-field input { width: 100%; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; padding: 9px 12px; font-size: 14px; color: #1a1a1a; font-family: 'Noto Sans JP', sans-serif; }
+.m-field input.filled { background: #eef0fd; border-color: var(--dc); }
+.m-btn { width: 100%; background: var(--dc); color: #fff; border: none; border-radius: 4px; padding: 12px; font-size: 15px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; cursor: default; margin-top: 6px; }
+.m-terms { font-size: 11px; color: #888; text-align: center; margin-top: 12px; line-height: 1.6; }
+.m-terms a { color: var(--dc); text-decoration: none; }
+
+/* ダウンロードページモックアップ */
+.m-dl { background: #23272a; padding: 28px; text-align: center; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+.m-dl-logo { width: 64px; height: 64px; background: var(--dc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #fff; margin: 0 auto; }
+.m-dl-title { color: #fff; font-size: 18px; font-weight: 700; }
+.m-dl-sub { color: #aaa; font-size: 13px; }
+.m-dl-btn { background: var(--dc); color: #fff; border: none; border-radius: 6px; padding: 13px 32px; font-size: 15px; font-weight: 700; cursor: default; font-family: 'Noto Sans JP', sans-serif; }
+.m-dl-note { color: #888; font-size: 11px; }
+
+/* Discordメイン画面モックアップ */
+.m-dc { display: flex; min-height: 280px; background: #313338; }
+.m-server-list { width: 72px; background: #1e1f22; display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 8px; flex-shrink: 0; }
+.m-server-icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; cursor: default; flex-shrink: 0; transition: border-radius .2s; }
+.m-server-icon:hover { border-radius: 30%; }
+.m-server-icon.home { background: var(--dc); }
+.m-server-icon.s1 { background: #e67e22; }
+.m-server-icon.s2 { background: #2ecc71; }
+.m-server-icon.s3 { background: #e74c3c; }
+.m-server-icon.add { background: rgba(255,255,255,.1); font-size: 20px; color: #57f287; }
+.m-divider { width: 32px; height: 2px; background: rgba(255,255,255,.1); border-radius: 1px; }
+.m-channel-list { width: 200px; background: #2b2d31; flex-shrink: 0; overflow: hidden; }
+.m-server-name { padding: 12px 14px; font-size: 13px; font-weight: 700; color: #fff; border-bottom: 1px solid rgba(255,255,255,.06); }
+.m-category { padding: 14px 8px 4px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #96989d; }
+.m-ch { padding: 5px 8px; border-radius: 4px; font-size: 13px; display: flex; align-items: center; gap: 6px; margin: 1px 6px; cursor: default; color: #96989d; }
+.m-ch.on { background: rgba(255,255,255,.1); color: #fff; }
+.m-ch-icon { font-size: 15px; opacity: .6; flex-shrink: 0; }
+.m-main { flex: 1; display: flex; flex-direction: column; }
+.m-chat-header { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #fff; background: #313338; }
+.m-messages { flex: 1; padding: 12px 16px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.m-msg { display: flex; gap: 12px; align-items: flex-start; }
+.m-avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
+.m-msg-content .m-username { font-size: 13px; font-weight: 700; color: #fff; display: inline; margin-right: 8px; }
+.m-msg-content .m-time { font-size: 11px; color: #96989d; }
+.m-msg-content .m-text { font-size: 13px; color: #dcddde; margin-top: 2px; line-height: 1.6; }
+.m-input-area { padding: 10px 16px; }
+.m-input { background: #383a40; border-radius: 8px; padding: 9px 14px; font-size: 13px; color: #96989d; }
+
+/* VCモックアップ */
+.m-vc-wrap { background: #313338; padding: 20px; }
+.m-vc-title { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #96989d; margin-bottom: 14px; }
+.m-vc-members { display: flex; flex-wrap: wrap; gap: 10px; }
+.m-vc-member { background: #2b2d31; border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 12px 14px; text-align: center; width: 86px; }
+.m-vc-avatar { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; }
+.m-vc-avatar.speaking { box-shadow: 0 0 0 3px #57f287; }
+.m-vc-name { font-size: 10px; color: #dcddde; }
+.m-vc-mic { font-size: 10px; color: #96989d; margin-top: 2px; }
+.m-vc-bar { background: #2b2d31; border-top: 1px solid rgba(255,255,255,.06); padding: 10px 16px; display: flex; gap: 10px; align-items: center; }
+.m-vc-btn { background: rgba(255,255,255,.1); border: none; border-radius: 6px; padding: 7px 14px; font-size: 12px; color: #dcddde; cursor: default; font-family: 'Noto Sans JP', sans-serif; }
+.m-vc-btn.end { background: #ed4245; color: #fff; }
+
+/* ファイル添付モックアップ */
+.m-attach { background: #313338; padding: 20px 16px; }
+.m-attach-preview { background: #2b2d31; border-radius: 8px; border: 1px solid rgba(255,255,255,.08); padding: 14px 16px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; }
+.m-attach-icon { width: 40px; height: 40px; background: var(--dc); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.m-attach-info .name { font-size: 13px; font-weight: 700; color: #fff; }
+.m-attach-info .size { font-size: 11px; color: #96989d; margin-top: 2px; }
+.m-attach-input { background: #383a40; border-radius: 8px; padding: 9px 14px; font-size: 13px; color: #96989d; display: flex; justify-content: space-between; align-items: center; }
+.m-attach-input .clip { color: #96989d; font-size: 16px; cursor: default; }
+
+/* 画面共有モックアップ */
+.m-share { background: #1e1f22; padding: 20px; }
+.m-share-title { color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+.m-share-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.m-share-item { background: #2b2d31; border-radius: 6px; overflow: hidden; cursor: default; border: 2px solid transparent; }
+.m-share-item.selected { border-color: var(--dc); }
+.m-share-thumb { height: 52px; background: #3a3c43; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #96989d; }
+.m-share-label { padding: 5px 8px; font-size: 10px; color: #dcddde; font-weight: 700; }
+.m-share-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.m-share-btn { border: none; border-radius: 4px; padding: 8px 16px; font-size: 13px; font-weight: 700; cursor: default; font-family: 'Noto Sans JP', sans-serif; }
+.m-share-btn.cancel { background: rgba(255,255,255,.1); color: #dcddde; }
+.m-share-btn.go { background: var(--dc); color: #fff; }
+
+/* フッター */
+.site-footer { background: #1a1a2e; color: rgba(255,255,255,.6); text-align: center; padding: 40px 24px; font-size: 12px; margin-top: 0; }
+.site-footer strong { display: block; font-size: 14px; margin-bottom: 6px; color: #fff; font-weight: 700; }
+.footer-note { display: inline-block; border: 1px solid rgba(255,255,255,.2); padding: 3px 14px; border-radius: 20px; margin-top: 8px; font-size: 11px; }
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .term-grid { grid-template-columns: 1fr; }
+  .m-server-list { width: 56px; }
+  .m-server-icon { width: 40px; height: 40px; }
+  .m-channel-list { width: 160px; }
+  .m-share-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .site-header { padding: 48px 20px 40px; }
+  .section { padding: 48px 0; }
+  th, td { padding: 8px 10px; }
+  .m-channel-list { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hd-badge">Complete Guide 2026</div>
+  <h1>Discord 完全解説書</h1>
+  <p class="catch">PC初心者でも迷わない！世界一わかりやすいDiscordの教科書</p>
+  <p class="sub">「サーバーって何？」「チャンネルが多すぎてわからない」「通話ってどうやるの？」そんな疑問をすべて解決します。難しい言葉は全部やさしく説明します。</p>
+  <div class="hd-meta">
+    <span>16 セクション</span>
+    <span>2026年5月最新対応</span>
+    <span>PC初心者向け</span>
+    <span>インストールから運営まで</span>
+  </div>
+</header>
+
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#s01">01 Discordとは</a>
+    <a href="#s02">02 アカウント作成</a>
+    <a href="#s03">03 インストール</a>
+    <a href="#s04">04 画面の見方</a>
+    <a href="#s05">05 サーバー</a>
+    <a href="#s06">06 チャンネル</a>
+    <a href="#s07">07 メッセージ</a>
+    <a href="#s08">08 ファイル送信</a>
+    <a href="#s09">09 ボイス通話</a>
+    <a href="#s10">10 画面共有</a>
+    <a href="#s11">11 フレンド・DM</a>
+    <a href="#s12">12 通知設定</a>
+    <a href="#s13">13 サーバー作成</a>
+    <a href="#s14">14 ロール・権限</a>
+    <a href="#s15">15 Nitro</a>
+    <a href="#s16">16 FAQ</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+<nav class="toc-wrap">
+  <div class="toc-lbl">目次</div>
+  <ol class="toc-list">
+    <li><a href="#s01">Discordとは何か（3分で理解）</a></li>
+    <li><a href="#s02">アカウント作成・初期設定</a></li>
+    <li><a href="#s03">アプリのインストール方法（PC・スマホ）</a></li>
+    <li><a href="#s04">画面の見方を完全解説</a></li>
+    <li><a href="#s05">「サーバー」って何？参加の仕方</a></li>
+    <li><a href="#s06">「チャンネル」って何？種類と使い方</a></li>
+    <li><a href="#s07">メッセージの送り方・基本操作</a></li>
+    <li><a href="#s08">ファイル・画像の送り方</a></li>
+    <li><a href="#s09">ボイスチャット・ビデオ通話の使い方</a></li>
+    <li><a href="#s10">画面共有の使い方</a></li>
+    <li><a href="#s11">フレンド登録・DM（個別メッセージ）</a></li>
+    <li><a href="#s12">通知設定・うるさい通知を消す方法</a></li>
+    <li><a href="#s13">自分のサーバーを作る方法</a></li>
+    <li><a href="#s14">ロール（役職）・権限の設定</a></li>
+    <li><a href="#s15">有料プラン「Nitro」とは（2026年最新版）</a></li>
+    <li><a href="#s16">よくある困りごと・FAQ</a></li>
+  </ol>
+</nav>
+
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>Discordとは何か（3分で理解）</h2></div>
+
+  <p>Discord（ディスコード）は、<strong>テキスト・音声・ビデオ・画面共有がすべて無料でできるコミュニケーションツール</strong>です。2015年にアメリカで誕生し、2026年現在は世界中で月間1億5,000万人以上が使っています。</p>
+
+  <p>もともとはゲームをしながら仲間と話すために作られましたが、今ではゲームに限らず、勉強グループ・仕事チーム・趣味のコミュニティ・AIツールの公式コミュニティなど、あらゆる場面で活用されています。</p>
+
+  <div class="analogy">
+    <div class="analogy-lbl">3つの言葉を覚えるだけでDiscordがわかる</div>
+    <p style="margin-bottom:12px;font-size:14px;">Discordには独特の言葉が3つあります。最初にここだけ押さえておけば迷いません。</p>
+    <div style="display:grid;grid-template-columns:1fr;gap:10px">
+      <div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px">
+        <div style="font-size:13px;font-weight:700;color:var(--dc);margin-bottom:4px">サーバー = グループ全体のこと</div>
+        <div style="font-size:13px;color:var(--muted)">「AIコミュニティ」「友達グループ」「〇〇部」など、ひとつのまとまりのことをサーバーと呼びます。LINEの「グループ」に近いイメージです。</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px">
+        <div style="font-size:13px;font-weight:700;color:var(--dc);margin-bottom:4px">チャンネル = サーバーの中にある「部屋」のこと</div>
+        <div style="font-size:13px;color:var(--muted)">ひとつのサーバーの中に「雑談部屋」「お知らせ部屋」「通話部屋」などがあります。話題ごとに部屋が分かれているイメージです。</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px">
+        <div style="font-size:13px;font-weight:700;color:var(--dc);margin-bottom:4px">ロール = サーバー内での役職・バッジのこと</div>
+        <div style="font-size:13px;color:var(--muted)">「管理者」「一般メンバー」「VIP」など、メンバーに付ける役職のことです。最初は気にしなくて大丈夫です。</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>LINEやSlackとどう違うの？</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>比較</th><th>Discord</th><th>LINE</th><th>Slack</th></tr></thead>
+    <tbody>
+      <tr><td>主な用途</td><td>コミュニティ・友人グループ</td><td>個人間の連絡</td><td>仕事チーム</td></tr>
+      <tr><td>音声通話</td><td><span class="tag tag-g">無料・高音質</span></td><td>無料（機能は限定的）</td><td>有料プランのみ</td></tr>
+      <tr><td>グループの規模</td><td>数人から数万人まで対応</td><td>主に小規模</td><td>主にチーム規模</td></tr>
+      <tr><td>画面共有</td><td><span class="tag tag-g">無料で使える</span></td><td>なし</td><td>有料プランのみ</td></tr>
+      <tr><td>料金</td><td><span class="tag tag-g">基本無料</span></td><td>基本無料</td><td>無料〜有料</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-grn">
+    <span class="lbl">まず知っておくこと</span>
+    Discordは「難しそう」という印象がありますが、<strong>基本的な使い方はLINEとほぼ同じ</strong>です。用語が独特なので最初は戸惑いますが、このガイドを1つずつ読んでいけば必ず使えるようになります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>アカウント作成・初期設定</h2></div>
+
+  <p>アカウントの作成は<strong>メールアドレスだけ</strong>あれば始められます。所要時間は5分ほどです。費用は一切かかりません。</p>
+
+  <h3>アカウント作成フォームのイメージ</h3>
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-form">
+        <div class="m-form-title">アカウントを作成</div>
+        <div class="m-form-sub">入力後、メール認証をすれば完了です</div>
+        <div class="m-field">
+          <label>メールアドレス</label>
+          <input type="text" value="example@mail.com" class="filled" readonly>
+        </div>
+        <div class="m-field">
+          <label>表示名（ニックネーム）</label>
+          <input type="text" value="サム" class="filled" readonly>
+        </div>
+        <div class="m-field">
+          <label>ユーザー名（半角英数字）</label>
+          <input type="text" value="sam_tenchou" class="filled" readonly>
+        </div>
+        <div class="m-field">
+          <label>パスワード</label>
+          <input type="text" value="**********" class="filled" readonly>
+        </div>
+        <div class="m-field">
+          <label>生年月日</label>
+          <input type="text" value="1980年 / 1月 / 1日" class="filled" readonly>
+        </div>
+        <button class="m-btn">続ける</button>
+        <div class="m-terms">登録することで、Discordの<a href="#">利用規約</a>および<a href="#">プライバシーポリシー</a>に同意したことになります。</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>アカウント作成の手順</h3>
+  <ol class="steps">
+    <li>
+      ブラウザ（GoogleChromeやEdgeなど）を開き、アドレスバーに <strong>discord.com</strong> と入力してEnterキーを押します。
+      <span class="result">→ Discordの公式サイトが表示されます</span>
+    </li>
+    <li>
+      ページ上の「Discordを開く」または「登録する」ボタンをクリックします。
+      <span class="result">→ アカウント作成フォームが表示されます</span>
+    </li>
+    <li>
+      メールアドレス・表示名（ニックネーム）・<span class="tt" data-tip="ログイン時に使う名前。半角英数字とアンダーバーのみ使えます。後から変更可能です">ユーザー名</span>・パスワード・生年月日を入力して「続ける」をクリックします。
+      <span class="result">→ 入力したメールアドレスに確認メールが届きます</span>
+    </li>
+    <li>
+      届いたメールを開き、「メールアドレスを認証する」ボタンをクリックします。
+      <span class="result">→ 認証完了。Discordのホーム画面が表示されます</span>
+    </li>
+  </ol>
+
+  <div class="note note-yel">
+    <span class="lbl">ユーザー名について</span>
+    2023年のアップデートから、ユーザー名は「半角英数字のみ」の形式になりました。以前あった「#0000」という数字のタグは不要になっています。ユーザー名は後から変更できるので、最初は仮のものでも大丈夫です。
+  </div>
+
+  <h3>最初にやっておくべき3つの設定</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>設定</th><th>場所</th><th>やること</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>プロフィール設定</strong></td>
+        <td>画面左下の自分のアイコンをクリック→「プロフィールを編集」</td>
+        <td>アイコン画像や自己紹介文を設定します。最初は設定しなくても使えます</td>
+      </tr>
+      <tr>
+        <td><strong>マイク・スピーカーの確認</strong></td>
+        <td>画面左下の歯車の形のボタン（設定ボタン）をクリック→「音声・ビデオ」</td>
+        <td>通話を使う前に「マイクのテスト」ボタンで声が入っているか確認します</td>
+      </tr>
+      <tr>
+        <td><strong>通知の設定</strong></td>
+        <td>設定ボタン→「通知」</td>
+        <td>初期設定では全通知がオンになっているので、不要なものをオフにします（詳しくはSection 12）</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>アプリのインストール方法（PC・スマホ）</h2></div>
+
+  <p>Discordはブラウザでもそのまま使えますが、<strong>アプリをインストールする方が通知を受け取りやすく、動作も安定している</strong>のでおすすめです。</p>
+
+  <div class="note">
+    <span class="lbl">ブラウザとアプリ、どちらを使えばいい？</span>
+    「まず試してみたい」という方はブラウザでOKです。「毎日使う予定がある」「通話もしたい」という方はアプリをインストールしましょう。機能はどちらもほぼ同じです。
+  </div>
+
+  <h3>Windowsパソコンへのインストール手順</h3>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-dl">
+        <div class="m-dl-logo">DC</div>
+        <div class="m-dl-title">Windows版をダウンロード</div>
+        <div class="m-dl-sub">discord.com/download からダウンロードできます</div>
+        <button class="m-dl-btn">Windows用をダウンロード</button>
+        <div class="m-dl-note">ファイルサイズ：約100MB / 無料</div>
+      </div>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li>
+      ブラウザで <strong>discord.com/download</strong> を開きます。
+      <span class="result">→ ダウンロードページが表示されます</span>
+    </li>
+    <li>
+      「Windows用をダウンロード」ボタンをクリックします。
+      <span class="result">→ 「DiscordSetup.exe」というファイルのダウンロードが始まります</span>
+    </li>
+    <li>
+      ダウンロードが終わったら、ファイルをダブルクリックして開きます。「このファイルを開きますか？」と聞かれたら「実行」または「開く」をクリックしてください。
+      <span class="result">→ 自動でインストールが始まります</span>
+    </li>
+    <li>
+      数分待つと自動でDiscordが起動します。ログイン画面が表示されたら完了です。
+      <span class="result">→ Section 02で作ったメールアドレスとパスワードでログインできます</span>
+    </li>
+  </ol>
+
+  <h3>Mac（アップルのパソコン）へのインストール手順</h3>
+  <ol class="steps">
+    <li>ブラウザで <strong>discord.com/download</strong> を開き、「Mac用をダウンロード」をクリックします</li>
+    <li>ダウンロードされた「Discord.dmg」というファイルをダブルクリックして開きます</li>
+    <li>表示されたウィンドウの中で、Discordのアイコンを「Applications（アプリケーション）」フォルダにドラッグ（マウスで引っ張って移動）します</li>
+    <li>アプリケーションフォルダからDiscordを開いてログインします</li>
+  </ol>
+
+  <h3>スマートフォンへのインストール手順</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>機種</th><th>ダウンロード場所</th><th>手順</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>iPhone・iPad</strong></td>
+        <td>App Store</td>
+        <td>App Storeを開いて「Discord」で検索→「入手」をタップ→インストール完了後に起動してログイン</td>
+      </tr>
+      <tr>
+        <td><strong>Androidスマホ</strong></td>
+        <td>Google Play</td>
+        <td>Google Playを開いて「Discord」で検索→「インストール」をタップ→インストール完了後に起動してログイン</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-grn">
+    <span class="lbl">スマホとパソコン、両方使えます</span>
+    同じアカウントでスマホとパソコンを同時に使えます。メッセージの履歴はすべての端末で自動的に同期されます。外出中はスマホ、自宅ではパソコン、という使い方もOKです。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>画面の見方を完全解説</h2></div>
+
+  <p>Discordを開くと最初は「何がどこにあるかわからない」と感じる方が多いです。でも実は画面の構造はとてもシンプルで、<strong>左から右に向かって「大→中→小」の順に並んでいる</strong>だけです。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-dc">
+        <div class="m-server-list">
+          <div class="m-server-icon home">DC</div>
+          <div class="m-divider"></div>
+          <div class="m-server-icon s1">AI</div>
+          <div class="m-server-icon s2">仕事</div>
+          <div class="m-server-icon s3">趣味</div>
+          <div class="m-server-icon add">+</div>
+        </div>
+        <div class="m-channel-list">
+          <div class="m-server-name">AIコミュニティ</div>
+          <div class="m-category">お知らせ</div>
+          <div class="m-ch"><span class="m-ch-icon">#</span>ルール</div>
+          <div class="m-ch"><span class="m-ch-icon">#</span>お知らせ</div>
+          <div class="m-category">テキスト</div>
+          <div class="m-ch on"><span class="m-ch-icon">#</span>雑談</div>
+          <div class="m-ch"><span class="m-ch-icon">#</span>質問</div>
+          <div class="m-category">ボイス</div>
+          <div class="m-ch"><span class="m-ch-icon">V</span>作業部屋</div>
+          <div class="m-ch"><span class="m-ch-icon">V</span>雑談部屋</div>
+        </div>
+        <div class="m-main">
+          <div class="m-chat-header"># 雑談</div>
+          <div class="m-messages">
+            <div class="m-msg">
+              <div class="m-avatar" style="background:var(--dc)">S</div>
+              <div class="m-msg-content">
+                <span class="m-username">サム</span><span class="m-time">今日 14:32</span>
+                <div class="m-text">こんにちは！今日から参加しました。よろしくお願いします！</div>
+              </div>
+            </div>
+            <div class="m-msg">
+              <div class="m-avatar" style="background:#e67e22">A</div>
+              <div class="m-msg-content">
+                <span class="m-username">管理人</span><span class="m-time">今日 14:33</span>
+                <div class="m-text">ようこそ！何でも気軽に質問してくださいね。</div>
+              </div>
+            </div>
+          </div>
+          <div class="m-input-area">
+            <div class="m-input">#雑談 にメッセージを送信...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>4つのエリアを覚えるだけでOK</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>エリア</th><th>画面上の位置</th><th>わかりやすい説明</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>サーバーリスト</strong></td>
+        <td>一番左の縦列（アイコンが並んでいる）</td>
+        <td>参加しているグループの一覧です。アイコンをクリックするとそのグループに切り替わります。LINEのグループ一覧と同じイメージです</td>
+      </tr>
+      <tr>
+        <td><strong>チャンネルリスト</strong></td>
+        <td>左から2番目のエリア</td>
+        <td>選んだグループの中にある「部屋の一覧」です。「#雑談」「#お知らせ」など話題ごとに分かれています</td>
+      </tr>
+      <tr>
+        <td><strong>メインエリア</strong></td>
+        <td>画面の中央〜右側</td>
+        <td>選んだ部屋の会話が表示される場所です。一番下の入力欄にメッセージを書いて送ります</td>
+      </tr>
+      <tr>
+        <td><strong>メンバーリスト</strong></td>
+        <td>一番右（パソコン版のみ）</td>
+        <td>そのグループにいるメンバーの一覧です。緑の点がついている人がオンライン（今Discordを開いている）状態です</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>画面左下のボタン3つ</h3>
+  <p>画面の左下には自分のアカウント情報と3つのボタンがあります。これもよく使うので覚えておきましょう。</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>ボタン</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td><strong>マイクのアイコン</strong></td><td>クリックするとマイクをオフ（ミュート）にできます。もう一度クリックするとオンに戻ります</td></tr>
+      <tr><td><strong>ヘッドフォンのアイコン</strong></td><td>クリックすると相手の声が聞こえなくなります</td></tr>
+      <tr><td><strong>歯車のアイコン（設定ボタン）</strong></td><td>クリックするとDiscord全体の設定画面が開きます</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">スマホで見ると画面が違います</span>
+    スマホ版のDiscordは画面が縦型なので、チャンネルリストとメンバーリストが別の画面になっています。画面左上の三本線（ハンバーガーメニューと呼びます）をタップするとチャンネルリストが開きます。基本的な操作はパソコン版と同じです。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>「サーバー」って何？参加の仕方</h2></div>
+
+  <p>サーバーとは、<strong>Discordの中にある「コミュニティ空間」</strong>のことです。「グループ」と言い換えると分かりやすいです。</p>
+
+  <div class="analogy">
+    <div class="analogy-lbl">「サーバー」をわかりやすく例えると</div>
+    <p style="margin:0;font-size:14px;">サーバー = <strong>マンション全体</strong>のようなものです。マンションに入居する（サーバーに参加する）と、そのマンションにある部屋（チャンネル）に自由に出入りできるようになります。マンションごとにルールや雰囲気が違うのと同じように、サーバーごとに目的や雰囲気が違います。</p>
+  </div>
+
+  <h3>サーバーに参加する3つの方法</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>方法</th><th>手順</th><th>こんな時に使う</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>招待リンクから参加</strong></td>
+        <td>管理者から届いたURLをクリックします。「サーバーに参加」というボタンが表示されるのでクリックするだけで完了です</td>
+        <td>友人や知人から招待リンクをもらった時</td>
+      </tr>
+      <tr>
+        <td><strong>招待コードを入力</strong></td>
+        <td>画面左端の「+」ボタンをクリック→「サーバーに参加する」を選択→招待コード（英数字）を入力して参加します</td>
+        <td>SNSでコードだけ教えてもらった時</td>
+      </tr>
+      <tr>
+        <td><strong>公開サーバーを検索</strong></td>
+        <td>画面左下の方にあるコンパスのような形のアイコンをクリック→興味あるキーワードで検索して参加します</td>
+        <td>自分からコミュニティを探したい時</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>サーバーに参加したら最初にすること</h3>
+  <ol class="steps">
+    <li>
+      <strong>「#ルール」または「#rules」というチャンネルを探して読みます。</strong> ほとんどのサーバーにはルールが書かれた専用の部屋があります。禁止事項や注意事項が書かれているので必ず確認しましょう。
+    </li>
+    <li>
+      <strong>「#お知らせ」「#自己紹介」といったチャンネルを確認します。</strong> サーバーの目的や最近の情報、自己紹介のフォーマットが書かれていることが多いです。
+    </li>
+    <li>
+      <strong>不要な通知をミュート（オフ）にします。</strong> チャンネル名の上でマウスの右ボタンをクリック（右クリック）→「通知設定」→「ミュート」を選ぶと、そのチャンネルの通知が届かなくなります。
+    </li>
+  </ol>
+
+  <div class="note note-red">
+    <span class="lbl">サーバーを退出（やめる）するには</span>
+    左端にあるそのサーバーのアイコンの上でマウスの右ボタンをクリック（右クリック）→「サーバーから退出する」を選んでください。退出してもメッセージの履歴には影響しません。もし間違えて退出してしまっても、再度招待リンクをもらえば再参加できます。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>「チャンネル」って何？種類と使い方</h2></div>
+
+  <p>チャンネルとは、<strong>サーバーの中にある「話題ごとの部屋」</strong>のことです。ひとつのサーバーの中にたくさんの部屋があり、目的に合わせて使い分けます。</p>
+
+  <p>チャンネル名の前に付いているマークで種類が分かります。</p>
+
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"># テキストチャンネル</div>
+      <div class="term-easy">= 文字でやり取りする部屋</div>
+      <div class="term-desc">メッセージ・画像・ファイルなどを送る、一番基本的なチャンネルです。「#雑談」「#質問」「#お知らせ」のような名前が多いです</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name">V ボイスチャンネル</div>
+      <div class="term-easy">= 音声で話す部屋</div>
+      <div class="term-desc">チャンネル名をクリックするだけで通話に参加できます。退室するまでずっとつながったままになります（注意）</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name">アナウンスチャンネル</div>
+      <div class="term-easy">= お知らせ専用の部屋</div>
+      <div class="term-desc">管理者からのお知らせが届く部屋です。メンバーは読むだけで書き込めないことがほとんどです</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name">フォーラムチャンネル</div>
+      <div class="term-easy">= 質問ごとに会話がまとまる部屋</div>
+      <div class="term-desc">質問や話題ごとに独立したスレッド（会話のまとまり）が作られます。大きなコミュニティでよく使われます</div>
+    </div>
+  </div>
+
+  <h3>「カテゴリ」とは</h3>
+  <p>チャンネルをまとめるフォルダのようなものです。「お知らせ」「雑談」「ボイス」などのカテゴリでチャンネルがグループ化されています。カテゴリ名の部分をクリックすると中のチャンネルを折りたたんで隠すことができます。</p>
+
+  <div class="note note-yel">
+    <span class="lbl">チャンネルが多すぎて困った時</span>
+    チャンネルが多すぎると感じたら、使わないチャンネルをミュート（通知オフ）にするのがおすすめです。チャンネル名の上でマウスの右ボタンをクリック（右クリック）→「通知設定」→「ミュート」を選ぶと、そのチャンネルの通知が届かなくなります。全部のチャンネルを読む必要はありません。自分に関係あるチャンネルだけ使えばOKです。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S07 -->
+<section class="section" id="s07">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>メッセージの送り方・基本操作</h2></div>
+
+  <p>Discordでメッセージを送る方法はLINEとよく似ています。画面下の入力欄に文字を入力して、キーボードの<strong>Enterキー</strong>を押すと送信されます。</p>
+
+  <div class="note note-yel">
+    <span class="lbl">改行したい時はShift + Enterキー</span>
+    Enterキーを押すとそのままメッセージが送信されます。文章の途中で改行（次の行に移動）したい場合は、キーボードの「Shift」キーを押したまま「Enter」キーを押してください。
+  </div>
+
+  <h3>メッセージの基本操作一覧</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>やりたいこと</th><th>操作方法</th></tr></thead>
+    <tbody>
+      <tr><td>メッセージを送る</td><td>入力欄に文字を入力してEnterキーを押す</td></tr>
+      <tr><td>自分のメッセージを修正する</td><td>自分のメッセージの上にマウスを乗せると右上に鉛筆のアイコンが出る→クリックして修正してEnterキーを押す</td></tr>
+      <tr><td>自分のメッセージを削除する</td><td>自分のメッセージの上にマウスを乗せると右上に「・・・」ボタンが出る→クリックして「メッセージを削除」を選ぶ</td></tr>
+      <tr><td>特定のメッセージに返信する</td><td>返信したいメッセージの上にマウスを乗せると矢印（返信）アイコンが出る→クリックすると、そのメッセージへの返信として投稿できる</td></tr>
+      <tr><td>絵文字リアクションをつける</td><td>メッセージの上にマウスを乗せると笑顔のアイコンが出る→クリックして絵文字を選ぶ</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>文字の装飾（太字・斜体など）</h3>
+  <p>Discordでは特定の記号で文字を囲むと、文字のスタイルを変えることができます。難しそうに見えますが、太字だけ覚えておけば十分です。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>**この部分が太字になります**
+*この部分が斜体になります*
+__この部分に下線が引かれます__
+~~この部分に取り消し線が引かれます~~
+||クリックするまで隠れる文字（ネタバレ防止に使います）||</pre>
+  </div>
+
+  <h3>メンション（特定の人に呼びかける）の使い方</h3>
+  <p><span class="tt" data-tip="メッセージの中で「@名前」と書くと、その人に通知が届きます。大切な用件を伝える時に使います">メンション</span>とは、特定の人に「あなたに向けたメッセージです」と知らせる機能です。入力欄で「@」を入力するとメンバー一覧が表示されるので、名前を選んで送ります。</p>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>@ユーザー名     → その人だけに通知が届きます
+@everyone      → サーバーの全員に通知が届きます（乱用厳禁。管理者に怒られます）
+@here          → 今オンラインの人全員に通知が届きます</pre>
+  </div>
+
+  <div class="note note-grn">
+    <span class="lbl">2026年3月のアップデート情報</span>
+    2026年3月のアップデートで、特定の記号を使って意図せず@everyone（全員通知）が送られてしまうバグが修正されました。以前のバージョンを使っていた方は、最新版にアップデートすることをおすすめします。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S08 -->
+<section class="section" id="s08">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>ファイル・画像の送り方</h2></div>
+
+  <p>Discordでは写真・画像・PDFなどのファイルも簡単に送れます。無料版では<strong>1回に送れるファイルのサイズは最大25MBまで</strong>です。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-attach">
+        <div class="m-attach-preview">
+          <div class="m-attach-icon">PDF</div>
+          <div class="m-attach-info">
+            <div class="name">マニュアル.pdf</div>
+            <div class="size">2.4 MB</div>
+          </div>
+        </div>
+        <div class="m-attach-input">
+          <span>ファイルのコメントを追加（省略OK）</span>
+          <span class="clip">+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>ファイルを送る3つの方法</h3>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>方法</th><th>手順</th><th>おすすめ度</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>クリップアイコンから選ぶ</strong></td>
+        <td>メッセージ入力欄の左にある「+」または「クリップ」のアイコンをクリック→「ファイルをアップロード」を選択→送りたいファイルを選んで「開く」をクリック</td>
+        <td><span class="tag tag-g">一番確実</span></td>
+      </tr>
+      <tr>
+        <td><strong>ドラッグ＆ドロップ</strong></td>
+        <td>送りたいファイルをパソコン上で探す→ファイルをクリックしたままマウスを動かしてDiscordのチャット画面の上に持っていき、そのままマウスのボタンを放す</td>
+        <td><span class="tag tag-d">慣れたら便利</span></td>
+      </tr>
+      <tr>
+        <td><strong>コピー＆ペースト</strong></td>
+        <td>画像ファイルをコピー（Ctrl+C）してDiscordの入力欄でペースト（Ctrl+V）する。画像のみ対応</td>
+        <td><span class="tag tag-d">画像専用</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">ドラッグ＆ドロップって何？</span>
+    ドラッグとはマウスの左ボタンを押したまま移動させること、ドロップはボタンを放すことです。ファイルを「つかんで移動して手放す」操作です。うまくいかない場合はクリップアイコンから選ぶ方法を使ってください。
+  </div>
+
+  <h3>25MBより大きいファイルを送りたい場合</h3>
+  <p>無料版では25MB以上のファイルは直接送れません。その場合は次のいずれかの方法を使いましょう。</p>
+  <ul>
+    <li><strong>Googleドライブ・OneDriveなどのクラウドサービスにアップロードして、共有リンクをDiscordで送る</strong>（最もおすすめ）</li>
+    <li>有料プランの<span class="tt" data-tip="Discordの有料プラン。Section 15で詳しく解説しています">Nitro</span>に加入する（最大500MBまで送れるようになります）</li>
+  </ul>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S09 -->
+<section class="section" id="s09">
+  <div class="sec-hd"><span class="sec-num">09</span><h2>ボイスチャット・ビデオ通話の使い方</h2></div>
+
+  <p>Discordのボイスチャットは<strong>チャンネル名をクリックするだけで通話が始まります</strong>。ZoomやLINE通話のように「発信する・呼び出す・相手に出てもらう」という操作が不要です。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-vc-wrap">
+        <div class="m-vc-title">ボイスチャンネル「作業部屋」に接続中</div>
+        <div class="m-vc-members">
+          <div class="m-vc-member">
+            <div class="m-vc-avatar speaking" style="background:var(--dc)">S</div>
+            <div class="m-vc-name">サム</div>
+            <div class="m-vc-mic">話し中</div>
+          </div>
+          <div class="m-vc-member">
+            <div class="m-vc-avatar" style="background:#e67e22">A</div>
+            <div class="m-vc-name">Aさん</div>
+            <div class="m-vc-mic">ミュート中</div>
+          </div>
+          <div class="m-vc-member">
+            <div class="m-vc-avatar" style="background:#2ecc71">B</div>
+            <div class="m-vc-name">Bさん</div>
+            <div class="m-vc-mic">接続中</div>
+          </div>
+        </div>
+      </div>
+      <div class="m-vc-bar">
+        <button class="m-vc-btn">マイクOFF</button>
+        <button class="m-vc-btn">音声OFF</button>
+        <button class="m-vc-btn">カメラON</button>
+        <button class="m-vc-btn end">通話を切断</button>
+      </div>
+    </div>
+  </div>
+
+  <h3>ボイスチャットの使い方（入退室）</h3>
+  <ol class="steps">
+    <li>
+      チャンネルリストの中にある「V」マークのついたチャンネル名をクリックします。
+      <span class="result">→ 自動的に通話に接続されます。マイクがオンの状態で入室します</span>
+    </li>
+    <li>
+      話している間、自分のアイコンの周りが緑色に光ります（緑のリング = 話し中のサイン）。
+    </li>
+    <li>
+      話していない間や、その場を離れる時は<strong>マイクをオフ（ミュート）</strong>にしましょう。画面左下のマイクアイコンをクリックすると赤くなりオフになります。もう一度クリックするとオンに戻ります。
+    </li>
+    <li>
+      通話を終わる時は、画面左下の<strong>赤い「通話を切断」ボタン</strong>（電話に斜線が入ったアイコン）をクリックします。
+      <span class="result">→ ボイスチャンネルから退室します</span>
+    </li>
+  </ol>
+
+  <div class="note note-red">
+    <span class="lbl">要注意：退室しないとずっとつながったままです</span>
+    ボイスチャンネルは「通話を切断」ボタンを押すまで、ずっと接続中のままです。「会話は終わったのに気づいたらまだつながっていた」というのはDiscordで一番よくある失敗です。使い終わったら必ず切断ボタンを押す習慣をつけましょう。
+  </div>
+
+  <h3>ビデオ通話（カメラをオンにする）</h3>
+  <ol class="steps">
+    <li>まずボイスチャンネルに接続します（上の手順と同じ）</li>
+    <li>接続後、画面下部に表示されるボタンの中から「カメラ」のアイコンをクリックします</li>
+    <li>自分のカメラの映像が相手に届くようになります。もう一度クリックするとカメラがオフになります</li>
+  </ol>
+
+  <div class="note note-grn">
+    <span class="lbl">2026年4月のアップデート情報</span>
+    2026年4月のアップデートで、ボイスチャンネルに接続しようとした時に「接続中...」という表示のまま進まなくなるエラーが約30%減少しました。それでも接続できない場合は、アプリを一度終了して再起動してみてください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S10 -->
+<section class="section" id="s10">
+  <div class="sec-hd"><span class="sec-num">10</span><h2>画面共有の使い方</h2></div>
+
+  <p>画面共有とは、<strong>自分のパソコンの画面を相手に見せながら話す</strong>機能です。プレゼン・作業の共有・オンライン授業などで大活躍します。Discordでは<strong>無料で使えます</strong>（Zoomの無料版では時間制限がありますが、Discordは制限なし）。</p>
+
+  <div class="mockup-wrap">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-body">
+      <div class="m-share">
+        <div class="m-share-title">共有するウィンドウまたは画面を選んでください</div>
+        <div class="m-share-grid">
+          <div class="m-share-item selected">
+            <div class="m-share-thumb">画面全体</div>
+            <div class="m-share-label">画面 1</div>
+          </div>
+          <div class="m-share-item">
+            <div class="m-share-thumb">Chrome</div>
+            <div class="m-share-label">Google Chrome</div>
+          </div>
+          <div class="m-share-item">
+            <div class="m-share-thumb">Word</div>
+            <div class="m-share-label">Word文書</div>
+          </div>
+        </div>
+        <div class="m-share-actions">
+          <button class="m-share-btn cancel">キャンセル</button>
+          <button class="m-share-btn go">ライブ配信を開始</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>画面共有の手順</h3>
+  <ol class="steps">
+    <li>
+      まずボイスチャンネルに接続します（Section 09の手順と同じです）。
+      <span class="result">→ 接続すると画面下部にボタンが表示されます</span>
+    </li>
+    <li>
+      画面下部のボタンの中から「画面」または「ゴーライブ」と書かれたアイコンをクリックします。
+      <span class="result">→ 共有するウィンドウを選ぶ画面が表示されます</span>
+    </li>
+    <li>
+      <strong>「画面全体」または共有したいアプリのウィンドウ</strong>をクリックして選びます。「画面全体」を選ぶとパソコンに表示されているものがすべて相手に見えます。特定のアプリだけ見せたい場合はそのアプリを選びましょう。
+    </li>
+    <li>
+      「ライブ配信を開始」ボタンをクリックします。
+      <span class="result">→ 画面共有が始まります。同じボイスチャンネルにいるメンバーが視聴できます</span>
+    </li>
+    <li>
+      画面共有を終わりにする時は、下部のボタンの中の「共有停止」をクリックします。または「通話を切断」をクリックしても停止します。
+    </li>
+  </ol>
+
+  <div class="note note-yel">
+    <span class="lbl">画面共有中に見せたくないものがある場合</span>
+    「画面全体」を共有すると、デスクトップに表示されているものがすべて相手に見えます。個人情報や見せたくないファイルが開いている場合は、先に閉じてから画面共有を開始してください。または特定のアプリウィンドウだけを選ぶと安心です。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S11 -->
+<section class="section" id="s11">
+  <div class="sec-hd"><span class="sec-num">11</span><h2>フレンド登録・DM（個別メッセージ）</h2></div>
+
+  <p>Discordでは特定の相手と1対1でメッセージや通話ができます。これを<span class="tt" data-tip="ダイレクトメッセージの略。特定の1人とだけやり取りする個別チャットのことです">DM（ダイレクトメッセージ）</span>といいます。LINEの個別チャットと同じイメージです。</p>
+
+  <h3>フレンド登録の手順</h3>
+  <ol class="steps">
+    <li>
+      画面左上のDiscordのロゴ（またはHomeのアイコン）をクリックしてホーム画面を開きます。
+      <span class="result">→ 左側に「ダイレクトメッセージ」のエリアが表示されます</span>
+    </li>
+    <li>
+      上部の「フレンド」タブをクリックします。
+      <span class="result">→ フレンドリストが表示されます</span>
+    </li>
+    <li>
+      「フレンドを追加」ボタンをクリックして、相手のユーザー名を入力します。
+      <span class="result">→ 相手にフレンド申請が届きます</span>
+    </li>
+    <li>
+      相手が申請を承認すると、フレンドリストに追加されます。
+      <span class="result">→ DMができるようになります</span>
+    </li>
+  </ol>
+
+  <div class="note note-grn">
+    <span class="lbl">サーバー内のメンバーにすぐDMを送る方法</span>
+    フレンド登録をしなくても、サーバーの中でメンバーの名前をクリック→「メッセージを送る」を選ぶとDMを送ることができます。ただし相手の設定によっては受け取れない場合もあります。
+  </div>
+
+  <h3>グループDM（3人以上でプライベート通話）</h3>
+  <p>フレンドとのDM画面の右上にある「グループDMに追加」ボタンから、最大9人までのグループDMを作ることができます。少人数でのやり取りや、サーバーを作るほどでもない集まりに便利です。</p>
+
+  <div class="note">
+    <span class="lbl">フレンドリクエストが届かない・送れない場合</span>
+    相手のユーザー名が正確でないと送れません。ユーザー名は大文字と小文字が区別されます。相手に直接ユーザー名を確認してもらいましょう。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S12 -->
+<section class="section" id="s12">
+  <div class="sec-hd"><span class="sec-num">12</span><h2>通知設定・うるさい通知を消す方法</h2></div>
+
+  <p>Discordを始めたばかりの頃に多くの方が困るのが<strong>通知の多さ</strong>です。初期設定のままだと、サーバーに投稿があるたびに通知が届きます。<strong>最初に通知設定を整えることがDiscordを快適に使う最重要ポイント</strong>です。</p>
+
+  <h3>通知を整える3段階の設定</h3>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>設定の範囲</th><th>やること</th><th>操作手順</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>アプリ全体</strong></td>
+        <td>パソコンに届くデスクトップ通知をオフにする</td>
+        <td>画面左下の歯車ボタン（設定ボタン）をクリック→「通知」→「デスクトップ通知を有効にする」のスイッチをクリックしてオフにする</td>
+      </tr>
+      <tr>
+        <td><strong>サーバー単位</strong></td>
+        <td>特定のサーバー全体の通知をオフにする</td>
+        <td>左端のサーバーアイコンの上でマウスの右ボタンをクリック（右クリック）→「通知設定」→「ミュート」を選ぶ</td>
+      </tr>
+      <tr>
+        <td><strong>チャンネル単位</strong></td>
+        <td>特定のチャンネルだけ通知をオフにする</td>
+        <td>チャンネル名の上でマウスの右ボタンをクリック（右クリック）→「通知設定」→「ミュート」を選ぶ</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>通知モードの3種類</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>「すべてのメッセージ」
+→ 誰かがメッセージを送るたびに通知が届く
+→ 活発なサーバーでは通知が鳴りっぱなしになるので注意
+
+「@メンション、@roles、@everyone のみ」 ← これが一番おすすめ
+→ 自分宛て（@自分の名前）の呼びかけがあった時だけ通知が届く
+→ 静かで快適。これだけ設定すれば大抵OK
+
+「何も通知しない」
+→ 一切通知しない。あとでまとめて読む人向け</pre>
+  </div>
+
+  <div class="note note-grn">
+    <span class="lbl">おすすめの設定手順</span>
+    全サーバーの通知を「@メンション時のみ」に変更しましょう。各サーバーアイコンの上でマウスの右ボタンをクリック→「通知設定」→「@メンション、@roles、@everyone のみ」を選択してください。これだけで通知が劇的に減ります。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S13 -->
+<section class="section" id="s13">
+  <div class="sec-hd"><span class="sec-num">13</span><h2>自分のサーバーを作る方法</h2></div>
+
+  <p>Discordのサーバーは<strong>無料で何個でも作れます</strong>。友達グループ・仕事チーム・趣味のコミュニティなど、目的に応じて自由に作れます。</p>
+
+  <h3>サーバー作成の手順</h3>
+  <ol class="steps">
+    <li>
+      画面左端のサーバーリストの一番下にある「+」ボタンをクリックします。
+      <span class="result">→ サーバー作成のメニューが表示されます</span>
+    </li>
+    <li>
+      「オリジナルの作成」をクリックします（テンプレートを使うと最初からチャンネルが整理された状態でスタートできます）。
+    </li>
+    <li>
+      サーバーの用途を選択します（「友達グループ向け」「クラブやコミュニティ向け」「学校向け」など）。どれを選んでも後から変更できます。
+    </li>
+    <li>
+      サーバーの名前とアイコン画像を設定して「完成」をクリックします。
+      <span class="result">→ サーバーが作られます。最初から「一般」というチャンネルが1つ用意されています</span>
+    </li>
+  </ol>
+
+  <h3>メンバーを招待する手順</h3>
+  <ol class="steps">
+    <li>
+      サーバー名の部分をクリックして「招待リンクを作成する」を選択します。
+      <span class="result">→ 招待リンク（URL）が生成されます</span>
+    </li>
+    <li>
+      「リンクをコピー」をクリックしてリンクをコピーします。
+    </li>
+    <li>
+      コピーしたリンクをLINEやメールなどで招待したい人に送ります。受け取った人がリンクをクリックするとサーバーに参加できます。
+    </li>
+  </ol>
+
+  <div class="note note-yel">
+    <span class="lbl">招待リンクには有効期限があります</span>
+    デフォルトでは招待リンクは7日間で失効します。ずっと有効なリンクを使いたい場合は、リンク生成時に「有効期限：永久」を選択してください。
+  </div>
+
+  <h3>最低限用意しておくべきチャンネルの構成例</h3>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+    <pre>【小規模（友達グループ・5〜20人）のシンプルな構成例】
+
+カテゴリ名：INFO（インフォメーション）
+  #ルール     ← 管理者だけが書けるお知らせ専用部屋
+  #自己紹介   ← 参加者が自己紹介を投稿する部屋
+
+カテゴリ名：TALK（トーク）
+  #雑談       ← 自由に話せる部屋
+  #質問       ← わからないことを聞く部屋
+
+カテゴリ名：VOICE（ボイス）
+  通話部屋    ← 音声で話す部屋
+
+アドバイス：最初はチャンネルを少なめにして、
+必要になったら追加するのがおすすめです。</pre>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S14 -->
+<section class="section" id="s14">
+  <div class="sec-hd"><span class="sec-num">14</span><h2>ロール（役職）・権限の設定</h2></div>
+
+  <p><span class="tt" data-tip="サーバー内のメンバーに付ける役職・バッジのこと。名前の色が変わり、役職によってできることが変わります">ロール</span>とは、サーバーのメンバーに付ける「役職・バッジ」のことです。「管理者」「一般メンバー」「VIP」など、役割ごとに異なる権限を設定できます。</p>
+
+  <div class="analogy">
+    <div class="analogy-lbl">ロールをわかりやすく例えると</div>
+    <p style="margin:0;font-size:14px;">会社の「部長」「社員」「アルバイト」のような役職のイメージです。部長は全部屋に入れるけど、アルバイトは特定の部屋には入れない、というような違いをDiscordでも設定できます。小規模なグループで使う分にはロールの設定は不要な場合がほとんどです。</p>
+  </div>
+
+  <h3>ロールの設定手順</h3>
+  <ol class="steps">
+    <li>サーバー名をクリックして「サーバー設定」を選択します</li>
+    <li>左側のメニューから「ロール」をクリックして「ロールを作成」ボタンを押します</li>
+    <li>ロールの名前・色・権限（チャンネルの閲覧可否・書き込み権限など）を設定します</li>
+    <li>「メンバー」のタブに切り替えて、割り当てたいメンバーにロールを設定します</li>
+  </ol>
+
+  <h3>よく使うロールの設定例</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>ロール名</th><th>権限の設定例</th><th>どんな人に付与するか</th></tr></thead>
+    <tbody>
+      <tr><td><strong>管理者</strong></td><td>すべての権限あり</td><td>サーバーのオーナー・信頼できる運営メンバー</td></tr>
+      <tr><td><strong>モデレーター</strong></td><td>メッセージの削除・メンバーのキック（追い出し）が可能</td><td>荒らし対策を担う人</td></tr>
+      <tr><td><strong>メンバー</strong></td><td>通常チャンネルの閲覧・発言が可能</td><td>一般参加者全員</td></tr>
+      <tr><td><strong>VIP</strong></td><td>限定チャンネルへのアクセスが可能</td><td>特別なメンバーや有料会員</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S15 -->
+<section class="section" id="s15">
+  <div class="sec-hd"><span class="sec-num">15</span><h2>有料プラン「Nitro」とは（2026年最新版）</h2></div>
+
+  <p>Discordの基本機能はすべて無料で使えます。その上で、さらに便利な機能を使いたい方向けに<strong>Nitro（ナイトロ）</strong>という有料プランがあります。ただし、<strong>普通に使うだけなら無料プランで十分</strong>です。</p>
+
+  <h3>Nitroプランの比較（2026年5月現在）</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>プラン</th><th>料金（月額）</th><th>主な特典</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>無料</strong></td>
+        <td>0円</td>
+        <td>テキスト・音声通話・ビデオ通話・画面共有・サーバー作成など基本機能がすべて使えます。通常利用には十分です</td>
+      </tr>
+      <tr>
+        <td><strong>Nitro Basic</strong></td>
+        <td>約740円/月（月額$2.99）</td>
+        <td>カスタム絵文字をどのサーバーでも使えるようになる・プロフィールバナー設定・アニメーションアバター</td>
+      </tr>
+      <tr>
+        <td><strong>Nitro</strong></td>
+        <td>約1,480円/月（月額$9.99）</td>
+        <td>Nitro Basicの全機能＋ファイル送信上限が25MBから500MBに拡大・サーバーブースト2個・動画の高画質配信・カスタムサウンドボード</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note note-yel">
+    <span class="lbl">料金は為替レートによって変わります</span>
+    NitroはドルUSドル建ての料金を日本円に換算して請求されます。そのため円安・円高によって実際の円換算額が変動します。最新の料金はDiscordアプリの「設定」→「Nitroを入手」画面で確認してください。
+  </div>
+
+  <h3>2026年5月新登場：Nitro Rewards</h3>
+  <p>2026年5月11日に、Nitro加入者向けの新しい特典プログラム「<strong>Nitro Rewards</strong>」が追加されました。</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>特典内容</th><th>対象プラン</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Xbox Game Pass Starter Edition</strong></td><td>Nitro Basic・Nitro両方</td><td>Nitro加入者全員が無料でXbox Game Passのスターター版を利用できます</td></tr>
+      <tr><td><strong>Logitech G製品の割引</strong></td><td>Nitro Basic・Nitro両方</td><td>ゲーミングデバイスブランド「Logitech G」製品の割引コードが使えます</td></tr>
+      <tr><td><strong>SteelSeries製品の割引</strong></td><td>Nitro Basic・Nitro両方</td><td>ゲーミングデバイスブランド「SteelSeries」製品の割引コードが使えます</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>サーバーブーストとは</h3>
+  <p>Nitroに加入すると「サーバーブースト」を2個もらえます。好きなサーバーに付与することでそのサーバー全体の機能が強化されます。</p>
+  <ul>
+    <li><strong>レベル1（2ブースト）：</strong> カスタム絵文字が50個追加・音質が向上します</li>
+    <li><strong>レベル2（7ブースト）：</strong> サーバーバナー・招待URLのカスタマイズができます</li>
+    <li><strong>レベル3（14ブースト）：</strong> 最高音質・絵文字の上限がさらに拡大します</li>
+  </ul>
+
+  <div class="note note-grn">
+    <span class="lbl">結論：Nitroは必須ではない</span>
+    テキスト・音声通話・画面共有・サーバー作成など、Discordの主要機能はすべて無料で使えます。「カスタム絵文字をたくさん使いたい」「大きなファイルを頻繁に送りたい」「お気に入りのサーバーを応援したい」という場合にNitroを検討してください。
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+
+<!-- S16 -->
+<section class="section" id="s16">
+  <div class="sec-hd"><span class="sec-num">16</span><h2>よくある困りごと・FAQ</h2></div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">サーバーに参加したのにチャンネルが何も見えません</div>
+    <div class="faq-a">ロール（役職）が割り当てられていないため、チャンネルが表示されない状態の可能性があります。多くのサーバーでは参加後に「#ルール」を読んで特定の絵文字をクリックするとロールが付与されてチャンネルが見えるようになる仕組みになっています。まず「#ルール」「#自己紹介」などのチャンネルを確認してみてください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">マイクが反応しません。声が相手に届いていないようです</div>
+    <div class="faq-a">画面左下の歯車ボタン（設定ボタン）をクリック→「音声・ビデオ」→「入力デバイス」で正しいマイクが選択されているか確認してください。「自動」になっている場合は、実際に使いたいマイクを手動で選択してみてください。また「入力感度を自動的に判断する」をオフにして、スライダーを手動で左に動かすと改善する場合があります。それでも解決しない場合は「音声設定をリセット」ボタンで初期化してみてください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">通知がうるさすぎます。減らしたいです</div>
+    <div class="faq-a">各サーバーのアイコンの上でマウスの右ボタンをクリック（右クリック）→「通知設定」→「@メンション、@roles、@everyone のみ」に変更してください。これで自分宛てのメンションがあった時だけ通知が届くようになります。特に活発なサーバーは「ミュート」にするのも効果的です。詳しい設定方法はSection 12をご覧ください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">誤って送ったメッセージを削除したいです</div>
+    <div class="faq-a">自分が送ったメッセージの上にマウスを乗せると、右上に「・・・」ボタンが表示されます。そこをクリックして「メッセージを削除」を選択してください。削除したメッセージは元に戻せません。また、削除できるのは自分が送ったメッセージだけです（サーバーの管理者は他の人のメッセージも削除できます）。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">スマホとパソコンで同じアカウントを使えますか？</div>
+    <div class="faq-a">はい、同じアカウントでスマホ・パソコン・ブラウザのすべてで使えます。メッセージの履歴やサーバーへの参加状況はすべての端末で自動的に同期されます。外出中はスマホ、家ではパソコンという使い方も問題ありません。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">知らない人から突然DMが届いて怖いです</div>
+    <div class="faq-a">画面左下の歯車ボタン（設定ボタン）をクリック→「プライバシー・安全」→「サーバーメンバーからのダイレクトメッセージを許可する」をオフにすると、フレンド以外からのDMをブロックできます。また、怪しいリンクが送られてきた場合は絶対にクリックしないでください。スパムや詐欺の可能性があります。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">ボイスチャンネルに入ったら出方がわかりません</div>
+    <div class="faq-a">画面左下を見てください。自分のユーザー名の左下に赤い電話のアイコン（斜め線が入っている）があります。それが「通話を切断」ボタンです。クリックするとボイスチャンネルから退室できます。このボタンを押さない限り接続したままになっているので注意してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Discordアプリを最新版に更新するにはどうすればいいですか？</div>
+    <div class="faq-a">パソコン版のDiscordは、アプリを起動するたびに自動的に最新版に更新されます。手動で更新したい場合はDiscordを一度完全に終了して、再起動するだけでOKです。スマホ版はApp Store（iPhone）またはGoogle Play（Android）を開いて「Discord」を検索し、「アップデート」ボタンが表示されていればタップして更新してください。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">アカウントをやめたい・削除したいです</div>
+    <div class="faq-a">画面左下の歯車ボタン→「マイアカウント」→「アカウントを無効化する」（一時的な停止）または「アカウントを削除する」（完全削除）を選べます。完全削除は14日間の猶予期間後に実行されます。削除すると送ったメッセージの表示が「削除されたユーザー」になりますが、メッセージの内容自体は残ることがあります。</div>
+  </div>
+
+  <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP へ戻る</a>
+</section>
+
+</div>
+
+<footer class="site-footer">
+  <strong>Discord 完全解説書 2026年版</strong>
+  本ガイドは2026年5月時点の情報を基に制作されています。Discordのアップデートにより画面・機能が変更される場合があります。最新情報はDiscord公式サイト（discord.com）でご確認ください。
+  <br><span class="footer-note">完全版 / 最終更新：2026年5月</span>
+</footer>
+
+<script>
+// スクロールアニメーション
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.05 });
+document.querySelectorAll('.section').forEach(el => obs.observe(el));
+
+// スティッキーナビ アクティブ連動
+const navLinks = document.querySelectorAll('.nav-inner a');
+const sections = document.querySelectorAll('.section');
+const navObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector('.nav-inner a[href="#' + e.target.id + '"]');
+      if (active) {
+        active.classList.add('active');
+        active.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+      }
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => navObs.observe(s));
+
+// コピーボタン
+function copyCode(btn) {
+  const text = btn.nextElementSibling.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showCopied(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
+}
+function showCopied(btn) {
+  btn.textContent = 'COPIED';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+}
+
+// FAQ
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// アンカーリンク
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    const t = document.querySelector(href);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
