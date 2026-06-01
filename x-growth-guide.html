@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>X アカウント成長マニュアル 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#1858a8;--primary-dark:#0f3d7a;--primary-light:#e8f0fb;
+  --accent:#e8a000;--accent-dark:#c08000;--accent-light:#fff8e6;
+  --text:#1a1a2e;--text-sub:#4a4a6a;--text-muted:#8888aa;
+  --bg:#f8f8f6;--white:#ffffff;--border:#dde3f0;
+  --danger:#cc2200;--danger-light:#fff0ee;--success:#187848;--success-light:#edfaf3;
+  --card-shadow:0 2px 12px rgba(24,88,168,.08);--card-shadow-hover:0 6px 24px rgba(24,88,168,.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}
+.container{max-width:1000px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+#sticky-nav{position:sticky;top:0;z-index:100;background:var(--primary-dark);border-bottom:2px solid var(--accent);overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--accent) var(--primary-dark)}
+#sticky-nav::-webkit-scrollbar{height:3px}
+#sticky-nav::-webkit-scrollbar-thumb{background:var(--accent)}
+.nav-inner{display:flex;min-width:max-content;padding:0 12px}
+.nav-inner a{color:rgba(255,255,255,.75);text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.04em;padding:12px 14px;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.nav-inner a:hover,.nav-inner a.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 60%,#2a70c8 100%);color:#fff;padding:72px 24px 64px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(232,160,0,.18) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-block;background:var(--accent);color:var(--primary-dark);font-size:11px;font-weight:900;letter-spacing:.12em;padding:4px 14px;border-radius:2px;margin-bottom:20px}
+.hero h1{font-family:'Oswald',sans-serif;font-size:clamp(28px,5vw,48px);font-weight:700;letter-spacing:.04em;color:#fff;line-height:1.2;margin-bottom:16px}
+.hero h1 span{color:var(--accent)}
+.hero p{font-size:15px;color:rgba(255,255,255,.82);max-width:560px;margin:0 auto;line-height:1.8}
+
+/* Profile Panel */
+#profile-panel{background:linear-gradient(135deg,#0a2a5a 0%,#1a4080 100%);border-bottom:3px solid var(--accent);padding:28px 24px}
+#profile-panel .container{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.profile-panel-title{font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.1em;white-space:nowrap}
+.profile-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;flex:1}
+.pf-group{display:flex;flex-direction:column;gap:4px}
+.pf-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.08em}
+.pf-input,.pf-select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:7px 10px;color:#fff;font-size:12px;font-family:'Noto Sans JP',sans-serif;outline:none;transition:border-color .2s;width:100%}
+.pf-input::placeholder{color:rgba(255,255,255,.35)}
+.pf-input:focus,.pf-select:focus{border-color:var(--accent)}
+.pf-select option{background:var(--primary-dark);color:#fff}
+.profile-save-btn{background:var(--accent);color:var(--primary-dark);border:none;border-radius:4px;padding:8px 20px;font-size:12px;font-weight:900;font-family:'Noto Sans JP',sans-serif;cursor:pointer;white-space:nowrap;letter-spacing:.06em;transition:background .2s;align-self:flex-end}
+.profile-save-btn:hover{background:var(--accent-dark)}
+.profile-saved-msg{font-size:11px;color:var(--accent);font-weight:700;display:none}
+.profile-note{font-size:10px;color:rgba(255,255,255,.4);margin-top:6px;width:100%}
+
+/* Section */
+.section{padding:72px 0;opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:nth-child(even){background:var(--white)}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:40px}
+.section-num{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.1em;background:var(--accent-light);border:1px solid var(--accent);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.section-header h2{font-family:'Oswald',sans-serif;font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--primary-dark);letter-spacing:.03em;border-left:4px solid var(--accent);padding-left:16px}
+
+/* Cards */
+.card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:24px;box-shadow:var(--card-shadow);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--card-shadow-hover)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:24px 0}
+.card-title{font-weight:700;font-size:15px;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card-title::before{content:'';display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* Prompt Generator */
+.pg-box{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:28px;box-shadow:var(--card-shadow);margin:24px 0}
+.pg-title{font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;color:var(--primary);letter-spacing:.06em;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.pg-title::before{content:'PROMPT GENERATOR';font-size:9px;font-weight:900;background:var(--primary);color:#fff;padding:2px 8px;border-radius:2px;letter-spacing:.1em}
+.pg-fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.pg-full{grid-column:1/-1}
+.pg-group{display:flex;flex-direction:column;gap:5px}
+.pg-label{font-size:11px;font-weight:700;color:var(--primary);letter-spacing:.06em}
+.pg-input,.pg-select,.pg-textarea{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:9px 12px;color:var(--text);font-size:13px;font-family:'Noto Sans JP',sans-serif;outline:none;transition:border-color .2s;width:100%}
+.pg-input:focus,.pg-select:focus,.pg-textarea:focus{border-color:var(--primary)}
+.pg-input::placeholder,.pg-textarea::placeholder{color:var(--text-muted)}
+.pg-textarea{resize:vertical;min-height:80px}
+.pg-btn{width:100%;background:var(--primary);color:#fff;border:none;border-radius:6px;padding:12px;font-size:14px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;letter-spacing:.06em;transition:background .2s;margin-bottom:16px}
+.pg-btn:hover{background:var(--primary-dark)}
+.pg-output{display:none;background:#1a1a2e;border-radius:8px;padding:20px}
+.pg-output.visible{display:block}
+.pg-output-label{font-size:10px;font-weight:900;letter-spacing:.12em;color:var(--accent);margin-bottom:10px}
+.pg-output-content{font-size:13px;line-height:1.9;white-space:pre-wrap;color:#e0e8ff;font-family:'Noto Sans JP',sans-serif}
+.pg-note{font-size:12px;color:var(--text-muted);margin-top:10px;line-height:1.7}
+
+/* Copy Button */
+.copy-btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--primary-dark);border:none;border-radius:4px;padding:7px 16px;font-size:12px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;margin-top:12px;transition:all .2s;letter-spacing:.04em}
+.copy-btn:hover{background:var(--accent-dark)}
+.copy-btn.copied{background:var(--success);color:#fff}
+
+/* Flowchart */
+.flow-steps{display:flex;align-items:stretch;margin:32px 0;flex-wrap:wrap}
+.flow-step{flex:1;min-width:140px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:20px 16px;text-align:center;position:relative}
+.flow-step+.flow-step{margin-left:32px}
+.flow-step+.flow-step::before{content:'';position:absolute;left:-22px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:12px solid var(--accent)}
+.flow-num{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:var(--primary);line-height:1;margin-bottom:8px}
+.flow-label{font-size:12px;font-weight:700;color:var(--text-sub);line-height:1.4}
+
+/* Checklist */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:10px;margin:20px 0}
+.checklist li{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .2s}
+.checklist li:hover{border-color:var(--primary)}
+.checklist li.checked{background:var(--success-light);border-color:var(--success)}
+.checklist li input[type="checkbox"]{width:18px;height:18px;accent-color:var(--success);cursor:pointer;flex-shrink:0;margin-top:2px}
+.checklist li span{font-size:14px;line-height:1.6}
+.checklist li.checked span{color:var(--success)}
+
+/* Table */
+.compare-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.compare-table th{background:var(--primary);color:#fff;padding:12px 16px;text-align:left;font-weight:700;font-size:13px}
+.compare-table th:first-child{border-radius:6px 0 0 0}
+.compare-table th:last-child{border-radius:0 6px 0 0}
+.compare-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.compare-table tr:nth-child(even) td{background:var(--bg)}
+.compare-table .ng{color:var(--danger);font-weight:700}
+.compare-table .ok{color:var(--success);font-weight:700}
+
+/* Tooltip */
+.tt{border-bottom:1px dotted var(--primary);cursor:help;position:relative}
+.tt::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;font-size:12px;line-height:1.6;padding:8px 12px;border-radius:4px;width:max-content;max-width:240px;white-space:normal;pointer-events:none;opacity:0;transition:opacity .2s;z-index:200}
+.tt:hover::after{opacity:1}
+
+/* Penalty */
+.penalty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:24px 0}
+.penalty-card{border-radius:8px;padding:18px;border-left:4px solid}
+.penalty-card.high{background:var(--danger-light);border-color:var(--danger)}
+.penalty-card.mid{background:#fff8e6;border-color:var(--accent)}
+.penalty-card-title{font-weight:700;font-size:14px;margin-bottom:6px}
+.penalty-card.high .penalty-card-title{color:var(--danger)}
+.penalty-card.mid .penalty-card-title{color:var(--accent-dark)}
+.penalty-badge{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.08em;padding:2px 8px;border-radius:2px;margin-bottom:8px}
+.penalty-card.high .penalty-badge{background:var(--danger);color:#fff}
+.penalty-card.mid .penalty-badge{background:var(--accent);color:var(--primary-dark)}
+.penalty-card p{font-size:13px;color:var(--text-sub);line-height:1.6}
+
+/* Schedule */
+.schedule-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:24px 0}
+.schedule-day{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px 10px;text-align:center}
+.schedule-day-name{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px;letter-spacing:.04em}
+.schedule-item{font-size:11px;color:var(--text-sub);line-height:1.5;margin-bottom:4px;background:var(--bg);border-radius:3px;padding:3px 5px}
+.schedule-item.accent{background:var(--accent-light);color:var(--accent-dark);font-weight:700}
+
+/* Analytics dark panel */
+.dark-panel{background:linear-gradient(135deg,var(--primary-dark) 0%,#1a3a7a 100%);border-radius:12px;padding:32px;color:#fff;margin:24px 0}
+.dark-panel h3{font-family:'Oswald',sans-serif;font-size:18px;color:var(--accent);margin-bottom:8px;letter-spacing:.04em}
+.dark-panel p{color:rgba(255,255,255,.8);font-size:14px;margin-bottom:16px}
+.dark-panel .pg-output-content{color:#e0e8ff}
+
+/* Info/Warn */
+.info-box{background:var(--primary-light);border:1px solid var(--primary);border-left:4px solid var(--primary);border-radius:6px;padding:16px 20px;margin:20px 0;font-size:14px;line-height:1.8;color:var(--primary-dark)}
+.info-box strong{color:var(--primary)}
+.warn-box{background:#fff8e6;border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:6px;padding:16px 20px;margin:20px 0;font-size:14px;line-height:1.8;color:#5a4000}
+
+/* TOP Button */
+.top-btn{display:inline-block;margin:40px auto 0;padding:9px 24px;border:2px solid var(--primary);border-radius:20px;color:var(--primary);text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.06em;transition:all .2s;text-align:center}
+.top-btn:hover{background:var(--primary);color:#fff}
+.top-btn-wrap{text-align:center;padding-bottom:16px}
+
+/* Coconala */
+.coconala-banner{background:linear-gradient(135deg,#6b21a8 0%,#9333ea 50%,#7c3aed 100%);padding:40px 24px;text-align:center;color:#fff}
+.coconala-banner h3{font-family:'Oswald',sans-serif;font-size:22px;margin-bottom:10px;letter-spacing:.04em}
+.coconala-banner p{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:20px}
+.coconala-btn{display:inline-block;background:#fff;color:#6b21a8;text-decoration:none;padding:12px 32px;border-radius:4px;font-weight:900;font-size:14px;letter-spacing:.06em;transition:all .2s}
+.coconala-btn:hover{background:#f0e6ff}
+
+/* Footer */
+footer{background:var(--primary-dark);color:rgba(255,255,255,.6);text-align:center;padding:28px 24px;font-size:12px}
+
+/* Utility */
+p{margin-bottom:14px}
+p:last-child{margin-bottom:0}
+ul.body-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:16px 0}
+ul.body-list li{padding-left:18px;position:relative;font-size:14px;line-height:1.7}
+ul.body-list li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;background:var(--accent);border-radius:50%}
+h3.sub-title{font-weight:700;font-size:16px;color:var(--primary);margin:32px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.signal-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px}
+.signal-row:last-child{border-bottom:none}
+.signal-name{flex:1;font-weight:500}
+.signal-value{font-family:'Oswald',sans-serif;font-weight:700;color:var(--primary);font-size:13px;min-width:120px;text-align:right}
+
+/* Style desc */
+.style-desc{font-size:12px;color:var(--text-sub);margin-top:6px;padding:7px 10px;background:var(--bg);border-radius:4px;line-height:1.6;min-height:36px}
+
+@media(max-width:680px){
+  .flow-steps{flex-direction:column}
+  .flow-step+.flow-step{margin-left:0;margin-top:24px}
+  .flow-step+.flow-step::before{left:50%;top:-18px;transform:translateX(-50%) rotate(90deg)}
+  .schedule-grid{grid-template-columns:repeat(2,1fr)}
+  .penalty-grid{grid-template-columns:1fr}
+  #profile-panel .container{flex-direction:column}
+  .profile-fields{grid-template-columns:1fr 1fr}
+  .pg-fields{grid-template-columns:1fr}
+  .pg-full{grid-column:1}
+  .compare-table{font-size:12px}
+  .compare-table th,.compare-table td{padding:8px 10px}
+  .hero>div[style]{flex-direction:column}
+  .card-grid{grid-template-columns:1fr}
+  div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+}
+@media(max-width:480px){
+  .profile-fields{grid-template-columns:1fr}
+  .schedule-grid{grid-template-columns:repeat(2,1fr)}
+  .section-header h2{font-size:18px}
+  .pg-box{padding:18px 14px}
+}
+
+/* ===== pg-output 長文対応 ===== */
+.pg-output-content{
+  max-height:360px;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--accent) rgba(255,255,255,.1);
+}
+.pg-output-content::-webkit-scrollbar{width:4px}
+.pg-output-content::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:4px}
+.pg-output-content::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
+.pg-output .copy-btn{
+  position:sticky;
+  bottom:0;
+  width:100%;
+  justify-content:center;
+  margin-top:12px;
+}
+
+/* ===== フォーム入力済みバッジ ===== */
+.pf-saved-badge{
+  display:none;
+  font-size:10px;
+  font-weight:700;
+  color:var(--success);
+  background:var(--success-light);
+  border:1px solid var(--success);
+  border-radius:3px;
+  padding:1px 6px;
+  margin-left:6px;
+  vertical-align:middle;
+}
+.pg-input.has-value,.pg-select.has-value{
+  border-color:var(--success);
+  background:var(--success-light);
+  color:var(--text);
+}
+.pg-label .saved-tag{
+  display:inline-block;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.06em;
+  color:var(--success);
+  background:var(--success-light);
+  border:1px solid var(--success);
+  border-radius:2px;
+  padding:1px 5px;
+  margin-left:6px;
+  vertical-align:middle;
+}
+
+/* ===== Password Screen ===== */
+#pw-screen {
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);
+  z-index:9999;display:flex;align-items:center;justify-content:center;
+}
+.pw-box {
+  background:#fff;border-radius:12px;padding:48px 40px;
+  text-align:center;max-width:400px;width:90%;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.pw-logo {
+  font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;
+  color:var(--accent);letter-spacing:.12em;margin-bottom:20px;
+}
+.pw-title {
+  font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;
+  color:var(--primary-dark);margin-bottom:8px;letter-spacing:.04em;
+}
+.pw-sub {
+  font-size:13px;color:var(--text-sub);margin-bottom:28px;line-height:1.7;
+}
+.pw-input {
+  width:100%;padding:12px 16px;border:2px solid var(--border);
+  border-radius:6px;font-size:15px;font-family:'Noto Sans JP',sans-serif;
+  outline:none;text-align:center;letter-spacing:.12em;
+  transition:border-color .2s;margin-bottom:12px;
+}
+.pw-input:focus { border-color:var(--primary); }
+.pw-input.error { border-color:var(--danger);animation:shake .3s ease; }
+.pw-btn {
+  width:100%;background:var(--primary);color:#fff;border:none;
+  border-radius:6px;padding:13px;font-size:14px;font-weight:700;
+  font-family:'Noto Sans JP',sans-serif;cursor:pointer;
+  letter-spacing:.06em;transition:background .2s;
+}
+.pw-btn:hover { background:var(--primary-dark); }
+.pw-error {
+  font-size:12px;color:var(--danger);margin-top:8px;
+  min-height:18px;font-weight:700;
+}
+.pw-note {
+  font-size:11px;color:var(--text-muted);margin-top:20px;line-height:1.7;
+}
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
+}
+</style>
+</head>
+<body>
+
+<!-- Password Screen -->
+<div id="pw-screen">
+  <div class="pw-box">
+    <div class="pw-logo">2026 ALGORITHM EDITION</div>
+    <div class="pw-title">X アカウント成長マニュアル</div>
+    <div class="pw-sub">ご購入ありがとうございます。<br>パスワードを入力してコンテンツにアクセスしてください。</div>
+    <input type="password" class="pw-input" id="pw-input" placeholder="パスワードを入力" maxlength="20"
+      onkeydown="if(event.key==='Enter')checkPassword()">
+    <button class="pw-btn" onclick="checkPassword()">アクセスする</button>
+    <div class="pw-error" id="pw-error"></div>
+    <div class="pw-note">※ 同じブラウザ・端末では次回から自動的にアクセスできます。<br>※ 別のブラウザや端末では再度入力が必要です。</div>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">2026 ALGORITHM EDITION</div>
+  <h1>X アカウント<span>成長マニュアル</span></h1>
+  <p>アルゴリズムの仕組みを覚える必要はありません。<br>この順番通りに実行するだけで、結果が出ます。</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px">
+    <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:16px 20px;text-align:left;min-width:200px">
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.1em;color:var(--accent);margin-bottom:6px">このガイドでできること</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.9">
+        ✓ アルゴリズムに沿った投稿設計<br>
+        ✓ 返信・スレッドで会話を増やす<br>
+        ✓ Analytics数値を正しく読む<br>
+        ✓ AIで投稿・返信を効率生成
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:16px 20px;text-align:left;min-width:200px">
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.1em;color:var(--accent);margin-bottom:6px">使い方</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.9">
+        ① マイプロフィールを設定・保存<br>
+        ② Section 1から順に読んで理解<br>
+        ③ 各セクションのツールで実行<br>
+        ④ Section 9で分析・改善を継続
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- My Profile Panel -->
+<div id="profile-panel">
+  <div class="container">
+    <div style="width:100%">
+      <div class="profile-panel-title" style="margin-bottom:4px">マイプロフィール設定</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6">入力して「保存する」を押すと、全セクションのプロンプト生成に自動反映されます。具体的に入力するほど精度が上がります。</div>
+    </div>
+    <div class="profile-fields">
+      <div class="pf-group">
+        <label class="pf-label">発信テーマ・ニッチ</label>
+        <input class="pf-input" id="pf-theme" placeholder="例：AIツール活用・副業">
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">肩書き・経歴</label>
+        <input class="pf-input" id="pf-title" placeholder="例：元飲食店店長・30年">
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">ターゲット</label>
+        <input class="pf-input" id="pf-target" placeholder="例：AI未経験の非エンジニア">
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">実績・証拠</label>
+        <input class="pf-input" id="pf-achievement" placeholder="例：Kindle出版・受講生100名">
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">トーン・キャラクター</label>
+        <input class="pf-input" id="pf-tone" placeholder="例：親しみやすい・実体験ベース">
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">フォロワー数</label>
+        <select class="pf-select" id="pf-followers">
+          <option value="100未満">100未満</option>
+          <option value="100〜500">100〜500</option>
+          <option value="500〜1,000">500〜1,000</option>
+          <option value="1,000〜5,000" selected>1,000〜5,000</option>
+          <option value="5,000以上">5,000以上</option>
+        </select>
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">投稿頻度</label>
+        <select class="pf-select" id="pf-frequency">
+          <option value="ほぼ投稿していない">ほぼ投稿していない</option>
+          <option value="週1〜2回">週1〜2回</option>
+          <option value="週3〜5回">週3〜5回</option>
+          <option value="毎日1〜3回" selected>毎日1〜3回</option>
+          <option value="毎日4回以上">毎日4回以上</option>
+        </select>
+      </div>
+      <div class="pf-group">
+        <label class="pf-label">X Premium</label>
+        <select class="pf-select" id="pf-premium">
+          <option value="未加入">未加入</option>
+          <option value="Basic">Basic</option>
+          <option value="Premium" selected>Premium</option>
+          <option value="Premium+">Premium+</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px">
+      <button class="profile-save-btn" onclick="saveProfile()">保存する</button>
+      <span class="profile-saved-msg" id="profile-saved-msg">✓ 保存しました</span>
+    </div>
+    <div class="profile-note">※ このページを開いているブラウザ・端末に保存されます。スマートフォンとPCでは別々に保存されます。</div>
+  </div>
+</div>
+
+<!-- Sticky Nav -->
+<nav id="sticky-nav">
+  <div class="nav-inner">
+    <a href="#s0">使い方</a>
+    <a href="#s1">今すぐやること</a>
+    <a href="#s2">プロフィール</a>
+    <a href="#s3">投稿ルール</a>
+    <a href="#s4">何を書くか</a>
+    <a href="#s5">スレッド</a>
+    <a href="#s6">投稿後15分</a>
+    <a href="#s7">返信・活動</a>
+    <a href="#s9">Analytics</a>
+    <a href="#s10">AI診断</a>
+  </div>
+</nav>
+
+<!-- Section 0 -->
+<section class="section" id="s0">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 0</span><h2>このガイドの使い方</h2></div>
+    <p>このマニュアルは<strong>2026年のXアルゴリズム（Phoenix/Grok更新版）</strong>に基づいて設計されています。各セクションは「理解する→実行する」の順で構成されています。まず上部の「マイプロフィール設定」を入力・保存してから、Section 1から順に読み進めてください。</p>
+
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-num">1</div><div class="flow-label">プロフィール設定<br>（ページ上部）<br><span style="font-size:10px;color:var(--accent)">最初に必ず入力</span></div></div>
+      <div class="flow-step"><div class="flow-num">2</div><div class="flow-label">基盤を整える<br>（Section 1〜2）<br><span style="font-size:10px;color:var(--text-muted)">Premium・プロフィール</span></div></div>
+      <div class="flow-step"><div class="flow-num">3</div><div class="flow-label">投稿を設計する<br>（Section 3〜5）<br><span style="font-size:10px;color:var(--text-muted)">ルール・内容・スレッド</span></div></div>
+      <div class="flow-step"><div class="flow-num">4</div><div class="flow-label">投稿後に動く<br>（Section 6〜7）<br><span style="font-size:10px;color:var(--text-muted)">初動・返信・活動</span></div></div>
+      <div class="flow-step"><div class="flow-num">5</div><div class="flow-label">分析して改善<br>（Section 9〜10）<br><span style="font-size:10px;color:var(--text-muted)">Analytics・AI診断</span></div></div>
+    </div>
+
+    <div class="info-box">
+      <strong>プロンプト生成ツールについて</strong><br>
+      各セクションには「プロンプト生成ツール」が付いています。これは<strong>理解した内容を実行に移すための補助ツール</strong>です。まず説明を読んで「なぜそれをやるか」を理解してから、ツールを使って実行してください。ツールを使うことが目的ではありません。
+    </div>
+
+    <div class="warn-box">
+      <strong>プロンプト生成の精度はあなたの入力の質で決まります</strong><br>
+      マイプロフィール設定・各フォームの入力が雑だと、生成されるプロンプトも雑になります。「具体的な数字・体験・言葉」を入力するほど、あなただけの精度の高いプロンプトが生成されます。
+    </div>
+
+    <h3 class="sub-title">Analytics（分析機能）へのアクセス方法</h3>
+    <p>Section 9で使います。最初に確認しておきましょう。</p>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Web（推奨）</div><p style="font-size:14px;color:var(--text-sub)">x.com → 左メニュー「もっと見る」→「Premium」→「Analytics」<br>または直接 <strong>x.com/i/account_analytics</strong></p></div>
+      <div class="card"><div class="card-title">モバイル</div><p style="font-size:14px;color:var(--text-sub)">プロフィール写真をタップ → 「Premium」→「Analytics」<br>※ フル機能はPremium加入後に解放</p></div>
+      <div class="card"><div class="card-title">個別投稿の確認</div><p style="font-size:14px;color:var(--text-sub)">投稿の下のグラフアイコンをタップするとその投稿のインプレッション・エンゲージメントを確認できます</p></div>
+    </div>
+    <div class="top-btn-wrap"><a href="#s1" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">Section 1へ進む →</a></div>
+  </div>
+</section>
+
+<!-- Section 1 -->
+<section class="section" id="s1">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 1</span><h2>今すぐやるべき3つのこと</h2></div>
+
+    <div style="background:linear-gradient(135deg,var(--danger-light) 0%,#fff5f5 100%);border:2px solid var(--danger);border-radius:8px;padding:20px 24px;margin-bottom:32px">
+      <div style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;color:var(--danger);letter-spacing:.08em;margin-bottom:10px">⚠ このセクションを飛ばさないでください</div>
+      <p style="font-size:14px;color:var(--text);margin:0;line-height:1.8">この3つが整っていない状態でどれだけ良い投稿をしても、アルゴリズムに正しく評価されません。すべての行動の<strong>土台</strong>です。先に進む前に必ず完了してください。</p>
+    </div>
+
+    <h3 class="sub-title">1. X Premiumに加入する（最優先）</h3>
+    <p>Premiumは「課金」ではなく「アルゴリズムの土俵に上がる行為」です。未加入のままでは Analytics のフル機能も使えず、このガイドの効果が半減します。今日中に加入してください。</p>
+    <div class="card-grid">
+      <div class="card" style="border-top:3px solid var(--danger)">
+        <div class="card-title">加入しないと起きること</div>
+        <ul class="body-list">
+          <li>Analytics のフル機能が使えない（投稿タイミングの最適化ができない）</li>
+          <li><span class="tt" data-tip="アカウントの信頼度を示す評価スコア。Premiumユーザーは非ユーザーより有利に評価されます">Author Authority</span> スコアが非Premium状態に留まる</li>
+          <li>長い投稿・編集機能が使えない</li>
+          <li>検証バッジ・優先表示が得られない</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:3px solid var(--success)">
+        <div class="card-title">加入すると得られること</div>
+        <ul class="body-list">
+          <li>アカウント権威への直接ブースト</li>
+          <li>Analytics フル機能の解放</li>
+          <li>長い投稿・編集機能の利用</li>
+          <li>優先表示・検証バッジの付与</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box"><strong>加入方法</strong><br>x.com → 左メニュー「Premium」→ プランを選択。Basic・Premium・Premium+ の3プランあり。まずは Basic または Premium から始めることを推奨します。</div>
+
+    <h3 class="sub-title">2. ニッチとテーマを固定する</h3>
+    <p>Xのアルゴリズムは投稿内容を AI で読み取り、あなたのアカウントを「どのジャンルの人か」に自動分類します。テーマが散漫だと分類されず、関心のあるユーザーに届きません。<strong>発信するテーマは今日から1〜2ジャンルに絞ってください。</strong></p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">ニッチ固定の考え方</div>
+        <p style="font-size:14px;color:var(--text-sub)">「誰に・何を・なぜ届けるか」を1文で言えるまで絞り込みます。</p>
+        <div style="background:var(--bg);border-radius:5px;padding:12px;margin-top:10px;font-size:13px;color:var(--text-sub);line-height:1.8">
+          ✅ 「副業を始めたいサラリーマンに、AIツールの使い方を教える」<br>
+          ✅ 「子育て中の主婦に、時短家事の仕組みを共有する」<br>
+          ❌ 「日常・仕事・趣味・育児について発信します」（分類不能）
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">テーマが散漫なときに起きること</div>
+        <ul class="body-list">
+          <li>アルゴリズムがあなたを「どのジャンルか」と判断できない</li>
+          <li><span class="tt" data-tip="14.5万以上の興味クラスタでユーザーとコンテンツをグループ化するシステム">SimClusters</span> での分類が正しく機能しない</li>
+          <li>フォロワーと興味が一致するユーザーへの推薦が減る</li>
+          <li>投稿のたびに異なるオーディエンスに届き、エンゲージメントが安定しない</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub-title">3. プロフィールの点検チェックリスト</h3>
+    <p>投稿が良くても、プロフィールが弱いとフォローされません。以下を全てチェックできる状態にしてから次に進んでください。</p>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>アイコンに顔写真またはブランドを表す明確な画像を設定している</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>ヘッダー画像に価値提案（何をしている人か）が伝わるビジュアルを設定している</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>Bioにニッチ・実績・フォローする理由が明確に書かれている</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>固定ポストに最も反応が良かった投稿またはスレッドを設定している</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>X Premiumに加入済みである</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>投稿テーマを1〜2ジャンルに絞っている</span></li>
+    </ul>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s2" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：プロフィールを整える →</a></div>
+  </div>
+</section>
+
+<!-- Section 2 -->
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 2</span><h2>プロフィールを整える</h2></div>
+    <p>プロフィールはアカウントの「顔」です。投稿を見た人が最初に確認する場所であり、フォローするかどうかの判断はここで決まります。</p>
+    <h3 class="sub-title">4パーツの最適化</h3>
+    <table class="compare-table">
+      <thead><tr><th>パーツ</th><th class="ng">NG例</th><th class="ok">OK例</th></tr></thead>
+      <tbody>
+        <tr><td><strong>アイコン</strong></td><td class="ng">デフォルト・風景写真・顔が見えない</td><td class="ok">顔がはっきり見える写真またはブランドロゴ</td></tr>
+        <tr><td><strong>ヘッダー</strong></td><td class="ng">デフォルト・文字なし・ただの写真</td><td class="ok">「何をしている人か」が2秒で伝わるビジュアル＋コピー</td></tr>
+        <tr><td><strong>Bio</strong></td><td class="ng">「日常をつぶやきます」「フォロバ100%」</td><td class="ok">ニッチ＋実績＋フォローする理由（価値提案）</td></tr>
+        <tr><td><strong>固定ポスト</strong></td><td class="ng">宣伝・古い投稿</td><td class="ok">最もエンゲージメントが高かったスレッドまたは価値提供投稿</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-title">Bio作成プロンプト生成</h3>
+    <div class="info-box" style="margin-bottom:0;border-radius:6px 6px 0 0;border-bottom:none">
+      <strong>マイプロフィール設定が保存済みの場合</strong>、下のフォームに自動入力されています。内容を確認・修正してからプロンプトを生成してください。
+    </div>
+    <div class="pg-box" style="border-radius:0 0 8px 8px;border-top:none">
+      <div class="pg-title">Bio作成</div>
+      <div class="pg-fields">
+        <div class="pg-group"><label class="pg-label">肩書き・経歴</label><input class="pg-input" id="bio-title" placeholder="例：元飲食店店長・30年のキャリア"></div>
+        <div class="pg-group"><label class="pg-label">発信テーマ・ニッチ</label><input class="pg-input" id="bio-theme" placeholder="例：AIツール活用・副業・発信"></div>
+        <div class="pg-group"><label class="pg-label">ターゲット</label><input class="pg-input" id="bio-target" placeholder="例：AI未経験の非エンジニア"></div>
+        <div class="pg-group"><label class="pg-label">提供できる価値</label><input class="pg-input" id="bio-value" placeholder="例：AIを使って副業を加速する方法"></div>
+        <div class="pg-group"><label class="pg-label">実績・証拠</label><input class="pg-input" id="bio-achievement" placeholder="例：Kindle出版・受講生100名以上"></div>
+        <div class="pg-group"><label class="pg-label">提案パターン数</label><select class="pg-select" id="bio-patterns"><option value="3">3パターン</option><option value="5">5パターン</option></select></div>
+      </div>
+      <button class="pg-btn" onclick="genBio()">プロンプトを生成する</button>
+      <div class="pg-output" id="bio-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="bio-content"></div>
+        <button class="copy-btn" onclick="copyPg('bio-content',this)">コピーする</button>
+      </div>
+    </div>
+
+    <h3 class="sub-title">固定ポスト用スレッド作成プロンプト生成</h3>
+    <div class="pg-box">
+      <div class="pg-title">固定ポストスレッド作成</div>
+      <div class="pg-fields">
+        <div class="pg-group"><label class="pg-label">発信テーマ</label><input class="pg-input" id="fp-theme" placeholder="例：AIツール活用・副業・元店長の経験"></div>
+        <div class="pg-group"><label class="pg-label">ターゲット</label><input class="pg-input" id="fp-target" placeholder="例：AIを仕事に使いたい非エンジニア"></div>
+        <div class="pg-group"><label class="pg-label">最大の実績・転換点</label><input class="pg-input" id="fp-achievement" placeholder="例：30年の飲食店勤務→AI活用で副業収益化"></div>
+        <div class="pg-group pg-full"><label class="pg-label">解決できる悩み</label><input class="pg-input" id="fp-problem" placeholder="例：AIが難しくて使えない・副業の始め方がわからない"></div>
+      </div>
+      <button class="pg-btn" onclick="genFixedPost()">プロンプトを生成する</button>
+      <div class="pg-output" id="fp-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="fp-content"></div>
+        <button class="copy-btn" onclick="copyPg('fp-content',this)">コピーする</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s3" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：投稿の絶対ルール →</a></div>
+  </div>
+</section>
+
+<!-- Section 3 -->
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 3</span><h2>投稿の絶対ルール</h2></div>
+    <p>これを守らないと、どれだけ良い内容を書いてもリーチが伸びません。</p>
+    <h3 class="sub-title">投稿頻度とタイミング</h3>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">1日の投稿数</div><p style="font-size:14px;color:var(--text-sub)">1日2〜4投稿が最適です。10投稿以上は<span class="tt" data-tip="アカウントの信頼度を示す評価スコア。低品質な投稿を連発するとスコアが下がりリーチが落ちます">Author Authority</span>が下がります。量より質を優先してください。</p></div>
+      <div class="card"><div class="card-title">毎日同じ時間帯に投稿する</div><p style="font-size:14px;color:var(--text-sub)">アルゴリズムは一定パターンで投稿するアカウントを学習し、安定したリーチを与えます。</p></div>
+      <div class="card"><div class="card-title">投稿タイミングの決め方</div><p style="font-size:14px;color:var(--text-sub)">Analyticsの「オーディエンスのアクティブ時間帯」を確認してください。日本の目安：<strong>朝7〜9時・昼12時・夜20〜22時</strong></p></div>
+    </div>
+    <h3 class="sub-title">守るべきルールと絶対にやってはいけないこと</h3>
+    <p>以下は「知らなかった」では済まないルールです。1つでも破るとリーチが大幅に低下します。</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0">
+      <div style="background:var(--success-light);border:1px solid var(--success);border-left:4px solid var(--success);border-radius:8px;padding:18px">
+        <div style="font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--success);margin-bottom:10px">✅ やること</div>
+        <ul class="body-list" style="margin:0">
+          <li>1日2〜4投稿（量より質）</li>
+          <li>毎日同じ時間帯に投稿する</li>
+          <li>ハッシュタグ0〜1個まで</li>
+          <li>外部リンクは自己返信に配置</li>
+          <li>オリジナルコンテンツを優先</li>
+          <li>AIで書いた文章に自分の言葉を必ず加える</li>
+        </ul>
+      </div>
+      <div style="background:var(--danger-light);border:1px solid var(--danger);border-left:4px solid var(--danger);border-radius:8px;padding:18px">
+        <div style="font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--danger);margin-bottom:10px">❌ やってはいけないこと</div>
+        <ul class="body-list" style="margin:0">
+          <li>本文に外部リンクを貼る（-50%）</li>
+          <li>ハッシュタグ3個以上（スパム判定）</li>
+          <li>AI生成丸出しの投稿（Slop Score検知）</li>
+          <li>1日10投稿以上（Authority低下）</li>
+          <li>エンゲージメントベイト（「いいねで〇〇」）</li>
+          <li>フォロー・アンフォロー乱発</li>
+          <li>論争を煽る投稿（Report -369x）</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub-title">ペナルティの大きさ（アルゴリズム根拠）</h3>
+    <div class="penalty-grid">
+      <div class="penalty-card high"><div class="penalty-badge">最重大</div><div class="penalty-card-title">本文に外部リンクを貼る</div><p>リーチが約50%カットされます。リンクは必ず自己返信に配置してください。<br><br>手順：①本文のみで投稿 → ②自分の投稿に返信 → ③返信にリンクを貼る</p></div>
+      <div class="penalty-card high"><div class="penalty-badge">最重大</div><div class="penalty-card-title">ブロック・報告を多く受ける</div><p>報告は-369x、ブロックは-74xのペナルティです。論争を煽る投稿は絶対に避けてください。</p></div>
+      <div class="penalty-card high"><div class="penalty-badge">重大</div><div class="penalty-card-title">AI生成丸出しの投稿</div><p><span class="tt" data-tip="AI生成コンテンツの低品質度を検知するスコア。高いほどリーチが抑制されます">Slop Score</span>で自動検知され、リーチが抑制されます。必ず自分の言葉・体験を加えてください。</p></div>
+      <div class="penalty-card high"><div class="penalty-badge">重大</div><div class="penalty-card-title">ハッシュタグ3個以上</div><p>スパムと判定されリーチが落ちます。0〜1個に抑えてください。</p></div>
+      <div class="penalty-card mid"><div class="penalty-badge">注意</div><div class="penalty-card-title">1日10投稿以上</div><p>投稿の質が下がり<span class="tt" data-tip="アカウントの信頼度を示す評価スコア">Author Authority</span>が低下します。2〜4投稿に抑えてください。</p></div>
+      <div class="penalty-card mid"><div class="penalty-badge">注意</div><div class="penalty-card-title">エンゲージメントベイト</div><p>「いいねで〇〇」のような投稿はアルゴリズムが検知してペナルティを与えます。</p></div>
+      <div class="penalty-card mid"><div class="penalty-badge">注意</div><div class="penalty-card-title">フォロー・アンフォロー乱発</div><p>スパム判定の原因になります。フォローは興味のあるアカウントのみに絞ってください。</p></div>
+      <div class="penalty-card mid"><div class="penalty-badge">注意</div><div class="penalty-card-title">繰り返し・低品質コンテンツ</div><p>同じ内容の使い回しや薄い内容の連投は、アカウント全体の評価を下げます。</p></div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s4" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：何を書くか →</a></div>
+  </div>
+</section>
+
+<!-- Section 4 -->
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 4</span><h2>何を書くか（コンテンツ種類と使い分け）</h2></div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">体験談型</div><p style="font-size:14px;color:var(--text-sub)">自分の失敗・成功・変化のストーリー。共感を呼びやすく返信が多くなります。週1〜2回推奨。</p><p style="font-size:12px;color:var(--accent-dark);margin-top:8px;font-weight:700">返信・引用が多い ／ 会話の深さが生まれやすい</p></div>
+      <div class="card"><div class="card-title">ステップ解説型</div><p style="font-size:14px;color:var(--text-sub)">「〇〇を△△する方法」のように番号付きで手順を解説。ブックマーク率が高いです。週2〜3回推奨。</p><p style="font-size:12px;color:var(--accent-dark);margin-top:8px;font-weight:700">ブックマークが多い ／ 保存価値が高い</p></div>
+      <div class="card"><div class="card-title">質問型</div><p style="font-size:14px;color:var(--text-sub)">フォロワーに質問を投げかける投稿。返信を誘発しやすく会話の深さが生まれます。週1〜2回推奨。</p><p style="font-size:12px;color:var(--accent-dark);margin-top:8px;font-weight:700">返信数が増える ／ アルゴリズムが最重視するRepliesを稼げる</p></div>
+      <div class="card"><div class="card-title">結果発表型</div><p style="font-size:14px;color:var(--text-sub)">数字や実績を使って結果を報告。拡散されやすいです。月2〜4回推奨。</p><p style="font-size:12px;color:var(--accent-dark);margin-top:8px;font-weight:700">リポストが多い ／ Out-of-Network拡散に有利</p></div>
+    </div>
+
+    <h3 class="sub-title">1投稿の黄金構成</h3>
+    <p>投稿タイプに関わらず、この3段構成を意識するだけでエンゲージメントが大きく変わります。アルゴリズムは「最初の数秒で読み続けるかどうかを判断したユーザーの行動」を見ています。フックで止め、本文で価値を届け、呼びかけで行動を引き出す流れが基本です。</p>
+    <div class="card-grid">
+      <div class="card" style="border-top:3px solid var(--primary)">
+        <div class="card-title">① フック（最初の1〜2行）</div>
+        <p style="font-size:14px;color:var(--text-sub)">スクロールの手を止める一文。数字・意外な事実・強い共感の3パターンが特に有効です。ここで読まれなければその先はありません。</p>
+        <div style="background:var(--bg);border-radius:5px;padding:10px 12px;margin-top:10px;font-size:13px;color:var(--text-sub)">
+          ✅ 「週70時間働いていた私が、今は週15時間で3倍稼いでいます。」<br>
+          ✅ 「AIを使っても全然うまくいかない理由、わかりました。」<br>
+          ❌ 「今日は〇〇について話します。」（読まれない）
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <div class="card-title">② 本文（具体的な中身）</div>
+        <p style="font-size:14px;color:var(--text-sub)">体験談・ステップ・理由など。具体的な数字・エピソードを入れると信頼度が上がります。AI感のある抽象的な表現は避け、自分だけが語れる具体性を入れることがポイントです。</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--success)">
+        <div class="card-title">③ 呼びかけ（最後の1文）</div>
+        <p style="font-size:14px;color:var(--text-sub)">「あなたはどう思いますか？返信で教えてください」のように、相手に行動を促す一文で締めます。Repliesはアルゴリズムが最も高く評価するシグナルです（Likesの約27倍）。必ず入れてください。</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>エンゲージメントシグナルの重み（アルゴリズム根拠）</strong><br>
+      返信：Likesの約27倍 ／ リポスト：約20倍 ／ ブックマーク：約12倍 ／ いいね：1倍（最低）<br>
+      つまり1件の返信は、27件のいいねと同じ価値があります。呼びかけで返信を増やすことが最優先です。
+    </div>
+
+    <h3 class="sub-title">単発投稿プロンプト生成</h3>
+    <div class="pg-box">
+      <div class="pg-title">単発投稿作成</div>
+      <div class="pg-fields">
+        <div class="pg-group pg-full"><label class="pg-label">投稿テーマ</label><input class="pg-input" id="post-theme" placeholder="例：AIツールを使って作業時間を半分にした方法"></div>
+        <div class="pg-group"><label class="pg-label">投稿タイプ</label><select class="pg-select" id="post-type"><option value="体験談型">体験談型</option><option value="ステップ解説型">ステップ解説型</option><option value="質問型">質問型</option><option value="結果発表型">結果発表型</option></select></div>
+        <div class="pg-group"><label class="pg-label">提案パターン数</label><select class="pg-select" id="post-patterns"><option value="3">3パターン</option><option value="5">5パターン</option></select></div>
+      </div>
+      <button class="pg-btn" onclick="genPost()">プロンプトを生成する</button>
+      <div class="pg-output" id="post-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="post-content"></div>
+        <button class="copy-btn" onclick="copyPg('post-content',this)">コピーする</button>
+      </div>
+    </div>
+
+    <h3 class="sub-title">ビジュアル添付の重要性</h3>
+    <div class="info-box"><strong>画像・動画の添付は必須に近い</strong><br>ビジュアルがある投稿は、ない投稿に比べて閲覧時間（<span class="tt" data-tip="ユーザーがその投稿に滞在した時間。長いほどアルゴリズムから高評価を受けます">dwell time</span>）が大幅に伸びます。Canvaで作ったシンプルなチャート・ビフォーアフター画像・スクリーンショットでも十分効果があります。</div>
+
+    <h3 class="sub-title">X投稿用画像生成プロンプト生成（DALL-E 2対応）</h3>
+    <p>投稿文を貼り付けてスタイルとサイズを選ぶと、ChatGPT（DALL-E 2）用の画像生成プロンプトが自動生成されます。キャラクター・アバター画像がある場合はChatGPTへの送信時に一緒に添付してください。</p>
+    <div class="warn-box">キャラクター・アバター画像を使いたい場合は、生成されたプロンプトをChatGPTに貼り付ける際に画像ファイルも一緒に添付してください。添付がない場合はビジュアルのみで構成されます。</div>
+    <div class="pg-box">
+      <div class="pg-title">画像生成プロンプト作成</div>
+      <div class="pg-fields">
+        <div class="pg-group pg-full"><label class="pg-label">X投稿文を貼り付ける</label><textarea class="pg-textarea" id="img-post-text" placeholder="ここにX投稿文を貼り付けてください..."></textarea></div>
+        <div class="pg-group">
+          <label class="pg-label">スタイルを選ぶ</label>
+          <select class="pg-select" id="img-style" onchange="updateStyleDesc()">
+            <option value="infographic">インフォグラフィック</option>
+            <option value="flat">フラットデザイン</option>
+            <option value="minimal">ミニマル</option>
+            <option value="anime">アニメ・イラスト調</option>
+            <option value="realistic">リアル写真風</option>
+          </select>
+          <div class="style-desc" id="style-desc">情報をフロー・比較表・図解で整理した教育的な画像。手順説明・比較・数字の多い投稿に最適。</div>
+        </div>
+        <div class="pg-group">
+          <label class="pg-label">サイズを選ぶ</label>
+          <select class="pg-select" id="img-size">
+            <option value="1:1">1:1（正方形）― タイムラインで目立ちやすい</option>
+            <option value="16:9">16:9（横長）― 情報量が多い投稿に最適</option>
+          </select>
+        </div>
+      </div>
+      <button class="pg-btn" onclick="genImagePrompt()">画像生成プロンプトを生成する</button>
+      <div class="pg-output" id="img-output">
+        <div class="pg-output-label">生成されたプロンプト（ChatGPTに貼り付けて使用）</div>
+        <div class="pg-output-content" id="img-content"></div>
+        <button class="copy-btn" onclick="copyPg('img-content',this)">コピーする</button>
+        <div class="pg-note">※ ChatGPTを開き、このプロンプトを貼り付けて送信してください。<br>※ キャラクター・アバター画像を使いたい場合は、画像ファイルも一緒に添付してください。<br>※ 生成された英語プロンプトをDALL-E 2に貼り付けると画像が生成されます。</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s5" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：スレッドの作り方 →</a></div>
+  </div>
+</section>
+
+<!-- Section 5 -->
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 5</span><h2>スレッドの作り方</h2></div>
+    <p>スレッドはXで最もパフォーマンスが高いコンテンツ形式です。<span class="tt" data-tip="返信が返信を呼ぶ連鎖。深い会話ほどアルゴリズムから高く評価されます">会話の深さ</span>が生まれやすく、アルゴリズムから強く評価されます。</p>
+    <div class="info-box"><strong>スレッドが最強な理由</strong><br>現在のアルゴリズムは「返信の数」よりも「会話の深さ（何往復したか）」を重視します。スレッドは自然と多層の返信が生まれるためエンゲージメントが積み上がります。推奨は3〜7ツイートです。</div>
+    <div class="card-grid">
+      <div class="card" style="border-top:3px solid var(--primary)"><div class="card-title">1ツイート目：フック</div><p style="font-size:14px;color:var(--text-sub)">衝撃的な体験・数字・結果を一文で提示し「続きはスレッドで」と予告します。ここで興味を持たれないと読まれません。</p></div>
+      <div class="card" style="border-top:3px solid var(--accent)"><div class="card-title">中盤：ステップ・体験</div><p style="font-size:14px;color:var(--text-sub)">各ツイートに具体的なステップや失敗談を1つずつ配置。ツイート末尾に「次のツイートで...」とつなぎを入れると完読率が上がります。</p></div>
+      <div class="card" style="border-top:3px solid var(--success)"><div class="card-title">最終ツイート：呼びかけ</div><p style="font-size:14px;color:var(--text-sub)">まとめ＋質問形式の呼びかけ＋ブックマーク誘導。リンクは自己返信に配置します。</p></div>
+    </div>
+
+    <h3 class="sub-title">3つのパターンと使い分け</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">失敗談→教訓型</div>
+        <p style="font-size:14px;color:var(--text-sub)">自分の失敗体験を起点に、そこから学んだ教訓を語る構成。共感を呼びやすく返信が自然に発生します。フォロワーとの信頼関係を深めたいときに最適です。</p>
+        <p style="font-size:12px;color:var(--accent-dark);margin-top:8px;font-weight:700">週1回程度 ／ 返信・会話の深さを狙う</p>
+      </div>
+      <div class="card">
+        <div class="card-title">ステップ解説型</div>
+        <p style="font-size:14px;color:var(--text-sub)">「〇〇を達成した5つのステップ」のように手順を番号付きで解説する構成。保存・ブックマーク率が最も高く、後で見返される投稿になります。</p>
+        <p style="font-size:12px;color:var(--accent-dark);margin-top:8px;font-weight:700">週2回程度 ／ ブックマーク・保存を狙う</p>
+      </div>
+      <div class="card">
+        <div class="card-title">結果発表型</div>
+        <p style="font-size:14px;color:var(--text-sub)">数字を使って結果・変化を報告する短めの構成。完読率が高く、リポストによる拡散が起きやすいです。フォロワー外への認知拡大に向いています。</p>
+        <p style="font-size:12px;color:var(--accent-dark);margin-top:8px;font-weight:700">月2〜3回程度 ／ 拡散・Out-of-Network到達を狙う</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>スレッドの投稿本数と効果</strong><br>
+      3ツイート：最低限の構成。完読率が高い。<br>
+      5〜6ツイート：最もバランスが良い。情報量と完読率を両立できる。<br>
+      7ツイート以上：情報量は多いが完読率が下がりやすい。特にこだわりがなければ5〜6ツイートを推奨します。
+    </div>
+
+    <h3 class="sub-title">スレッド作成プロンプト生成</h3>
+    <div class="info-box" style="margin-bottom:0;border-radius:6px 6px 0 0;border-bottom:none;font-size:13px">
+      発信テーマ・トーンはマイプロフィール設定の内容が自動で使われます。設定が保存されているほど、あなたらしいスレッドが生成されます。
+    </div>
+    <div class="pg-box" style="border-radius:0 0 8px 8px;border-top:none">
+      <div class="pg-title">スレッド作成</div>
+      <div class="pg-fields">
+        <div class="pg-group pg-full"><label class="pg-label">スレッドのテーマ</label><input class="pg-input" id="thread-theme" placeholder="例：全部自分で抱え込んでいた時代の失敗と、仕組み化で変わったこと"></div>
+        <div class="pg-group"><label class="pg-label">スレッドの型</label><select class="pg-select" id="thread-type"><option value="失敗談→教訓型">失敗談→教訓型（共感・返信が多い）</option><option value="ステップ解説型">ステップ解説型（保存・ブックマークが多い）</option><option value="結果発表型">結果発表型（短め・拡散狙い）</option></select></div>
+        <div class="pg-group"><label class="pg-label">具体的な数字・変化</label><input class="pg-input" id="thread-numbers" placeholder="例：月収2.8倍・作業時間が半分に"></div>
+      </div>
+      <button class="pg-btn" onclick="genThread()">プロンプトを生成する</button>
+      <div class="pg-output" id="thread-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="thread-content"></div>
+        <button class="copy-btn" onclick="copyPg('thread-content',this)">コピーする</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s6" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：投稿後15分の動き方 →</a></div>
+  </div>
+</section>
+
+<!-- Section 6 -->
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 6</span><h2>投稿後15分の動き方</h2></div>
+    <p>投稿した後の動きが、リーチの大小をほぼ決定します。</p>
+    <div class="info-box"><strong>なぜ最初の15分が最重要なのか</strong><br>アルゴリズムは投稿直後のエンゲージメントの勢い（<span class="tt" data-tip="投稿公開直後のエンゲージメントの速度と量。最初の15分で10件以上集まるとフォロワー以外にも一気に拡散されます">Velocity</span>）を見て「この投稿をもっと多くの人に見せるか」を判断します。15分以内に10件以上のエンゲージメントが集まるとフォロワー外への拡散が始まります。</div>
+
+    <h3 class="sub-title">初動15分の具体的な行動手順</h3>
+    <p>投稿後にすることは5つだけです。この順番で動いてください。</p>
+    <div class="card-grid">
+      <div class="card" style="border-left:4px solid var(--primary)">
+        <div class="card-title">① 投稿直後（0〜2分）</div>
+        <p style="font-size:14px;color:var(--text-sub)">通知をONにして待機します。リンクがある場合はこのタイミングで自己返信にリンクを追加します。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--primary)">
+        <div class="card-title">② 最初の反応が来たら（5分以内）</div>
+        <p style="font-size:14px;color:var(--text-sub)">いいね・返信に対して即座に返信します。「ありがとうございます」だけでなく、深掘り質問を添えて会話を続けます。この1往復が次の反応を呼ぶ起点になります。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <div class="card-title">③ 初動が弱い場合（5〜10分）</div>
+        <p style="font-size:14px;color:var(--text-sub)">相互フォローや普段交流のあるフォロワー数人に「見てみてください」と軽くメンションまたはDMします。3件以上のエンゲージメントで2〜3倍のブースト、10件以上でOut-of-Network拡散が始まります。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <div class="card-title">④ 返信への返信（15〜30分）</div>
+        <p style="font-size:14px;color:var(--text-sub)">返信が来るたびにすぐ返します。1往復で終わらせず「深掘り質問」で会話を続けることで、多層リプライが生まれアルゴリズム評価が積み上がります。</p>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <strong>初動が弱い投稿を無理に伸ばそうとしない</strong><br>
+      反応が全くない投稿に自分でいいねを重ねたり、同じ投稿を何度もシェアするような行為はスパム判定の原因になります。初動が弱かった場合は原因を分析（フックが弱い・時間帯が悪い・テーマがずれている）して次の投稿に活かしてください。
+    </div>
+
+    <h3 class="sub-title">投稿直後チェックリスト</h3>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>投稿直後に通知をONにして待機する</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>最初の返信・いいねに5分以内に返信する</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>相互フォローや親しいフォロワーに「見てみて」と軽く声をかける</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>15分以内に10件以上のエンゲージメントを目標にする</span></li>
+      <li onclick="toggleCheck(this)"><input type="checkbox"><span>リンクがある場合は自己返信でリンクを追加する</span></li>
+    </ul>
+
+    <h3 class="sub-title">初動返信プロンプト生成</h3>
+    <div class="pg-box">
+      <div class="pg-title">初動返信作成</div>
+      <div class="pg-fields">
+        <div class="pg-group pg-full"><label class="pg-label">自分の投稿内容</label><textarea class="pg-textarea" id="reply-early-post" placeholder="ここに自分の投稿文を貼り付けてください..."></textarea></div>
+        <div class="pg-group pg-full"><label class="pg-label">相手の返信内容</label><textarea class="pg-textarea" id="reply-early-reply" placeholder="ここに相手の返信文を貼り付けてください..."></textarea></div>
+      </div>
+      <button class="pg-btn" onclick="genReplyEarly()">プロンプトを生成する</button>
+      <div class="pg-output" id="reply-early-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="reply-early-content"></div>
+        <button class="copy-btn" onclick="copyPg('reply-early-content',this)">コピーする</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s7" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：返信・アウトバウンド →</a></div>
+  </div>
+</section>
+
+<!-- Section 7 -->
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 7</span><h2>返信・アウトバウンド活動</h2></div>
+    <p>投稿するだけでは成長の限界があります。返信対応とアウトバウンド活動を組み合わせることで、アルゴリズムに評価される「会話の質」を高めることができます。</p>
+
+    <div class="info-box">
+      <strong>なぜ返信がそれほど重要なのか</strong><br>
+      現在のアルゴリズムはLikesよりRepliesを約27倍高く評価します。さらに「会話の深さ（何往復したか）」も評価対象です。1往復の返信より3往復の会話の方がはるかに価値があります。返信対応は投稿と同じくらい重要な「発信行為」として位置づけてください。
+    </div>
+
+    <div class="card-grid">
+      <div class="card"><div class="card-title">全返信に誠実に返す</div><p style="font-size:14px;color:var(--text-sub)">特に投稿後の最初の1時間が重要です。「ありがとうございます」だけで終わらず、会話を続けることを意識してください。</p></div>
+      <div class="card"><div class="card-title">会話の深さを作る</div><p style="font-size:14px;color:var(--text-sub)">1往復で終わらせず質問や共感を重ねて会話を深めます。<span class="tt" data-tip="返信が3往復以上になると、アルゴリズムからの評価が大幅に上昇します">多層リプライ</span>はアルゴリズムから非常に高く評価されます。</p></div>
+      <div class="card"><div class="card-title">相互エンゲージメント</div><p style="font-size:14px;color:var(--text-sub)">同じニッチのアカウントと定期的に交流すると<span class="tt" data-tip="どれだけそのアカウントと関わりがあるかの評価。強い関係性は双方のリーチ向上につながります">Relationship Strength</span>が高まり、互いの投稿が届きやすくなります。</p></div>
+    </div>
+
+    <h3 class="sub-title">価値ある返信の作り方</h3>
+    <p>返信の「質」がアルゴリズム評価を左右します。以下の3段構成を意識してください。</p>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:20px;margin:16px 0">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="background:var(--primary);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</div><div style="font-size:14px"><strong>感謝・共感</strong>：相手の投稿や返信の内容を受け止める一文</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="background:var(--accent);color:var(--primary-dark);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</div><div style="font-size:14px"><strong>自分の体験・知識を追加</strong>：「私も同じ経験があって〇〇でした」のように具体性を添える</div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="background:var(--success);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</div><div style="font-size:14px"><strong>会話が続く質問で締める</strong>：「〇〇さんの場合はどうでしたか？」で次の返信を引き出す</div></div>
+      </div>
+    </div>
+    <div class="pg-box">
+      <div class="pg-title">返信文作成</div>
+      <div class="pg-fields">
+        <div class="pg-group pg-full"><label class="pg-label">自分の投稿内容</label><textarea class="pg-textarea" id="reply-post" placeholder="ここに自分の投稿文を貼り付けてください..."></textarea></div>
+        <div class="pg-group pg-full"><label class="pg-label">相手の返信内容</label><textarea class="pg-textarea" id="reply-reply" placeholder="ここに相手の返信文を貼り付けてください..."></textarea></div>
+      </div>
+      <button class="pg-btn" onclick="genReply()">プロンプトを生成する</button>
+      <div class="pg-output" id="reply-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="reply-content"></div>
+        <button class="copy-btn" onclick="copyPg('reply-content',this)">コピーする</button>
+      </div>
+    </div>
+
+    <h3 class="sub-title">エンゲージメント誘導文プロンプト生成</h3>
+    <div class="pg-box">
+      <div class="pg-title">投稿末尾の誘導文作成</div>
+      <div class="pg-fields">
+        <div class="pg-group pg-full"><label class="pg-label">投稿内容</label><textarea class="pg-textarea" id="engage-post" placeholder="ここに投稿文を貼り付けてください..."></textarea></div>
+        <div class="pg-group"><label class="pg-label">目的</label><select class="pg-select" id="engage-goal"><option value="返信を増やしたい">返信を増やしたい</option><option value="ブックマークを増やしたい">ブックマークを増やしたい</option><option value="リポストを増やしたい">リポストを増やしたい</option><option value="バランスよく全部">バランスよく全部</option></select></div>
+      </div>
+      <button class="pg-btn" onclick="genEngage()">プロンプトを生成する</button>
+      <div class="pg-output" id="engage-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="engage-content"></div>
+        <button class="copy-btn" onclick="copyPg('engage-content',this)">コピーする</button>
+      </div>
+    </div>
+
+    <h3 class="sub-title">アウトバウンド活動（大手アカウントへの返信）</h3>
+    <table class="compare-table">
+      <thead><tr><th>やること</th><th class="ng">やってはいけないこと</th></tr></thead>
+      <tbody>
+        <tr><td>自分の体験や知識を追加した価値ある返信</td><td class="ng">「いいですね！」「同意します」だけの空返信</td></tr>
+        <tr><td>相手の投稿への補足・具体例の提供</td><td class="ng">自分のアカウントやサービスの宣伝</td></tr>
+        <tr><td>質問形式で会話を広げる返信</td><td class="ng">論争を煽る・批判的な内容の返信</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-title">AIでリプライ文を生成する（2段階運用）</h3>
+    <p>最初に自分のプロフィール画像をAIに認識させてから、フォロワーの投稿画像を貼るだけでリプライ候補が連続生成できます。</p>
+    <div class="warn-box">AIが生成した文章をそのまま使わないでください。あくまで「たたき台」として活用し、必ず自分の言葉・体験・感情に置き換えてから投稿してください。</div>
+    <div class="info-box"><strong>2段階の運用フロー</strong><br>STEP 1：自分のプロフィール画像＋プロンプト1を送信してAIに自分を認識させる（セッション最初に1回だけ）<br>STEP 2：リプライしたいフォロワーの投稿画像＋プロンプト2を送信する（何件でも繰り返せる）</div>
+
+    <div class="pg-box">
+      <div class="pg-title">STEP 1｜プロフィール認識プロンプト（最初に1回だけ）</div>
+      <p style="font-size:13px;color:var(--text-sub);margin-bottom:16px">自分のXプロフィールのスクリーンショットを添付して、以下のプロンプトを送信してください。</p>
+      <div id="reply-step1-content" style="background:#1a1a2e;border-radius:8px;padding:18px;font-size:13px;line-height:1.9;color:#e0e8ff;white-space:pre-wrap;font-family:'Noto Sans JP',sans-serif;"></div>
+      <button class="copy-btn" onclick="copyPg('reply-step1-content',this)">コピーする</button>
+    </div>
+
+    <div class="pg-box">
+      <div class="pg-title">STEP 2｜リプライ生成プロンプト（フォロワーごとに繰り返す）</div>
+      <p style="font-size:13px;color:var(--text-sub);margin-bottom:16px">返信したいフォロワーの投稿をスクリーンショットで保存し、以下のプロンプトと一緒に送信してください。</p>
+      <div style="background:#1a1a2e;border-radius:8px;padding:18px;font-size:13px;line-height:1.9;color:#e0e8ff;white-space:pre-wrap;font-family:'Noto Sans JP',sans-serif;" id="reply-step2-content">この投稿へのリプライをお願いします。</div>
+      <button class="copy-btn" onclick="copyPg('reply-step2-content',this)">コピーする</button>
+    </div>
+
+    <div class="info-box"><strong>使い方の手順</strong><br>1. ClaudeまたはGeminiを開く<br>2. 自分のXプロフィールのスクリーンショットを用意する<br>3. STEP 1プロンプトをコピーして貼り付け、プロフィール画像を添付して送信する<br>4. AIが「準備完了」と返したら、リプライしたい投稿のスクリーンショットを用意する<br>5. STEP 2プロンプトと投稿画像を一緒に送信する（以降は繰り返すだけ）<br>6. 生成された3パターンから選び、必ず自分の言葉に置き換えてから返信する</div>
+
+    <h3 class="sub-title">毎日のReply活動ルーティン</h3>
+    <div class="info-box">毎日15〜30分だけ、同じニッチのアカウント5〜10件に「価値ある返信」をします。宣伝は一切せず、自分の体験・知識・共感を添えた返信のみに絞ることが重要です。</div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s9" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：Analyticsの見方 →</a></div>
+  </div>
+</section>
+
+<!-- Section 9 -->
+<section class="section" id="s9">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 9</span><h2>Analyticsの見方と改善ループ</h2></div>
+    <p>Analyticsは「何が起きたか」を教えてくれるツールです。数字を見るだけで終わらせず、「なぜそうなったか」を仮説立てて行動の改善につなげることが重要です。</p>
+
+    <div style="background:linear-gradient(135deg,var(--primary-light) 0%,#f0f5ff 100%);border:2px solid var(--primary);border-radius:8px;padding:20px 24px;margin-bottom:32px">
+      <div style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;color:var(--primary);letter-spacing:.08em;margin-bottom:10px">▶ まず今日からやること（毎日5分）</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><span style="background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</span><span>Analyticsを開き、前日のトップ投稿（インプレッション上位）を確認する</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><span style="background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</span><span>トップ投稿の共通点を1つ特定する（フックの型・投稿時間・ビジュアル有無）</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><span style="background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</span><span>その共通点を今日の投稿に1つ反映させる</span></div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-sub)">これだけで十分です。週次・月次のルーティンは下に記載しています。</div>
+    </div>
+
+    <h3 class="sub-title">主要指標の読み方</h3>
+    <p>それぞれの指標が何を意味するかを理解することが分析の出発点です。</p>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:24px">
+      <div class="signal-row" style="background:var(--primary);color:#fff;font-weight:700;font-size:13px"><div style="flex:1">指標</div><div style="flex:2">意味・見方</div><div style="min-width:160px;text-align:right">目標値</div></div>
+      <div class="signal-row"><div class="signal-name">インプレッション</div><div style="flex:2;font-size:13px;color:var(--text-sub)">投稿が表示された回数。リーチの広さを示す。急激な低下はペナルティシグナルを疑う</div><div class="signal-value">フォロワー数の1〜3倍以上</div></div>
+      <div class="signal-row"><div class="signal-name">エンゲージメント率</div><div style="flex:2;font-size:13px;color:var(--text-sub)">(エンゲージメント÷インプレッション)×100。コンテンツの質を示す最重要指標</div><div class="signal-value">1%以上・2%以上が優秀</div></div>
+      <div class="signal-row"><div class="signal-name">返信数</div><div style="flex:2;font-size:13px;color:var(--text-sub)">アルゴリズムが最も高く評価するシグナル（Likesの約27倍）。会話の起点になっているか確認する</div><div class="signal-value">投稿あたり5件以上を目指す</div></div>
+      <div class="signal-row"><div class="signal-name">ブックマーク数</div><div style="flex:2;font-size:13px;color:var(--text-sub)">「保存して後で見返したい」投稿の証拠。高い場合はそのテーマ・形式を量産する</div><div class="signal-value">Likesの10〜20%が理想</div></div>
+      <div class="signal-row"><div class="signal-name">プロフィール訪問</div><div style="flex:2;font-size:13px;color:var(--text-sub)">フォロワー獲得の前段階。投稿に興味を持って「この人は誰？」と確認しに来た数</div><div class="signal-value">訪問の3〜8%がフォロー転換</div></div>
+      <div class="signal-row"><div class="signal-name">フォロワー純増</div><div style="flex:2;font-size:13px;color:var(--text-sub)">最終的な成果指標。インプレッション・エンゲージメント・プロフィール訪問の連鎖で決まる</div><div class="signal-value">月間+10%以上を目指す</div></div>
+    </div>
+    <div class="warn-box"><strong>vanity metricsの罠</strong><br>インプレッションだけが多くても意味がありません。エンゲージメント率が低い場合はコンテンツの質に問題があります。インプレッションが低くエンゲージメント率が高い場合はリーチの問題です。2つを合わせて診断してください。</div>
+
+    <h3 class="sub-title">毎日・毎週・毎月の改善ルーティン</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">毎日（5分）</div>
+        <ul class="body-list">
+          <li>前日のトップ投稿を確認し、インプレッション上位3件の共通点を抽出する（フック・時間帯・ビジュアル・質問の有無）</li>
+          <li>エンゲージメント率が低かった投稿のパターンを記録する</li>
+          <li>オーディエンスのアクティブ時間帯を確認して今日の投稿タイミングを調整する</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">毎週（30分）</div>
+        <ul class="body-list">
+          <li>週別レポートでインプレッション・エンゲージメント率・プロフィール訪問の推移を比較する</li>
+          <li>成功パターンを法則化する（例：「失敗談スレッドが強い」「朝8時投稿＋質問でReplyが多い」）</li>
+          <li>A/Bテストを1件実施する（下記参照）</li>
+          <li>プロフィール訪問→フォロー転換率を計算する</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">毎月（1時間）</div>
+        <ul class="body-list">
+          <li>プロフィールを見直し、実績・Bio・固定ポストを更新する</li>
+          <li>月間トップ投稿を分析し、成功パターンを量産する計画を立てる</li>
+          <li>コンテンツタイプ別（スレッド・単発・体験談・ステップ解説）のフォロワー純増への貢献度を比較する</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub-title">A/Bテストの具体的なやり方</h3>
+    <p>同じテーマの投稿を2パターン作り、どちらが成果が高いかを比較します。一度に複数の要素を変えると原因が特定できないため、1回のテストで変える要素は1つだけにしてください。</p>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">テスト例①：フックの種類</div><p style="font-size:14px;color:var(--text-sub)">A：数字から始める「週70時間→15時間に減らした方法」<br>B：質問から始める「残業が減らない本当の理由、知ってますか？」<br>→ どちらのエンゲージメント率が高いか比較</p></div>
+      <div class="card"><div class="card-title">テスト例②：投稿タイプ</div><p style="font-size:14px;color:var(--text-sub)">A：同じテーマをスレッドで投稿<br>B：同じテーマを単発投稿で投稿<br>→ インプレッション・返信数・ブックマーク数を比較</p></div>
+      <div class="card"><div class="card-title">テスト例③：ビジュアル</div><p style="font-size:14px;color:var(--text-sub)">A：画像添付あり<br>B：テキストのみ<br>→ dwell timeとエンゲージメント率を比較</p></div>
+    </div>
+    <h3 class="sub-title">週間スケジュールテンプレート</h3>
+    <p>以下を基本の週次ルーティンとして使ってください。自分のAnalytics結果に合わせて調整します。</p>
+    <div class="schedule-grid">
+      <div class="schedule-day"><div class="schedule-day-name">MON</div><div class="schedule-item accent">スレッド投稿（朝）</div><div class="schedule-item">返信対応</div><div class="schedule-item">アウトバウンド15分</div></div>
+      <div class="schedule-day"><div class="schedule-day-name">TUE</div><div class="schedule-item">単発投稿（夜）</div><div class="schedule-item">返信対応</div><div class="schedule-item">Analytics確認</div></div>
+      <div class="schedule-day"><div class="schedule-day-name">WED</div><div class="schedule-item accent">スレッド投稿（朝）</div><div class="schedule-item">返信対応</div><div class="schedule-item">アウトバウンド15分</div></div>
+      <div class="schedule-day"><div class="schedule-day-name">THU</div><div class="schedule-item">単発投稿（夜）</div><div class="schedule-item">返信対応</div><div class="schedule-item">Analytics確認</div></div>
+      <div class="schedule-day"><div class="schedule-day-name">FRI</div><div class="schedule-item accent">スレッド投稿（朝）</div><div class="schedule-item">返信対応</div><div class="schedule-item">アウトバウンド15分</div></div>
+      <div class="schedule-day"><div class="schedule-day-name">SAT</div><div class="schedule-item">質問型投稿</div><div class="schedule-item">返信対応</div><div class="schedule-item">週次振り返り30分</div></div>
+      <div class="schedule-day"><div class="schedule-day-name">SUN</div><div class="schedule-item">翌週スレッド準備</div><div class="schedule-item">A/Bテスト設計</div></div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-bottom:16px"><a href="#sticky-nav" class="top-btn">ページ上部へ</a><a href="#s10" class="top-btn" style="background:var(--primary);color:#fff;border-color:var(--primary)">次：AI診断を使う →</a></div>
+  </div>
+</section>
+
+<!-- Section 10 -->
+<section class="section" id="s10">
+  <div class="container">
+    <div class="section-header"><span class="section-num">SECTION 10</span><h2>AIによる個別アドバイス生成</h2></div>
+    <p>2つのAI診断プロンプトを用意しています。まず「数値の矛盾パターン」を理解してから診断を使うと、AIのアドバイスをより正確に活用できます。</p>
+
+    <h3 class="sub-title">よくある数値パターンと診断の考え方</h3>
+    <div class="card-grid">
+      <div class="card" style="border-left:4px solid var(--danger)">
+        <div class="card-title">インプレッション急減 ＋ エンゲージメント率が高い</div>
+        <p style="font-size:14px;color:var(--text-sub)">コンテンツの質は高いが、リーチを下げるペナルティシグナルが発生している可能性があります。直近の投稿に外部リンク・ハッシュタグ過多・AI丸出し投稿がないか確認してください。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <div class="card-title">インプレッション高い ＋ エンゲージメント率が低い</div>
+        <p style="font-size:14px;color:var(--text-sub)">リーチはあるが内容が刺さっていない状態です。フックの弱さ・テーマのズレ・呼びかけの不足が原因として考えられます。投稿の構成を見直してください。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--success)">
+        <div class="card-title">ブックマーク急増</div>
+        <p style="font-size:14px;color:var(--text-sub)">「保存して後で見返したい」と思われる価値ある投稿が出ている証拠です。そのテーマ・形式・構成を分析して量産してください。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--primary)">
+        <div class="card-title">プロフィール訪問が増えている</div>
+        <p style="font-size:14px;color:var(--text-sub)">「この人は誰？」と興味を持たれています。フォローに転換できていない場合はプロフィールの最適化が必要です。Bio・固定ポスト・アイコンを見直してください。</p>
+      </div>
+    </div>
+
+    <h3 class="sub-title">① Analytics画像診断プロンプト（スクリーンショットがある場合・推奨）</h3>
+    <p>XのAnalyticsのスクリーンショットをClaudeまたはGeminiに添付して使います。数値を画像で渡すことで、AIがより正確に診断できます。</p>
+    <div class="pg-box" style="border:2px solid var(--accent)">
+      <div class="pg-title" style="color:var(--accent-dark)">Analytics画像診断プロンプト</div>
+      <div style="background:var(--accent-light);border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--accent-dark);line-height:1.8">
+        <strong>使い方：</strong> ① <a href="https://claude.ai" target="_blank" style="color:var(--primary)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--primary)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ AnalyticsのスクリーンショットをAIに添付する　④ 送信する
+      </div>
+      <div style="background:#1a1a2e;border-radius:8px;padding:18px;font-size:13px;line-height:1.9;color:#e0e8ff;white-space:pre-wrap;font-family:'Noto Sans JP',sans-serif;" id="analytics-prompt-content">添付した画像はXのアカウントAnalyticsのスクリーンショットです。
+2026年のXアルゴリズム（Phoenix/Grok更新版）の観点から、以下の手順で分析してください。
+
+【ステップ1：数値の読み取り】
+画像に含まれる全ての指標と数値・前週比を読み取り、一覧で整理してください。
+
+【ステップ2：矛盾・異常値の検出】
+指標同士の矛盾（例：インプレッション大幅減なのにエンゲージメント率が高いなど）や
+極端な増減がある項目を特定し、その意味を説明してください。
+
+【ステップ3：現状診断】
+以下の観点から現状を診断してください。
+- リーチが落ちている場合、考えられるペナルティシグナルの原因
+- エンゲージメントの質（返信・ブックマーク・リポストのバランス）
+- 強みとして活かせる数値はどれか
+
+【ステップ4：今週すぐやるべき行動】
+診断結果をもとに、今週中に実行すべき具体的な改善行動を3つ挙げてください。
+抽象的なアドバイスではなく「何を・どう変えるか」を明示してください。
+
+【ステップ5：注目すべき指標】
+来週のAnalyticsで特に確認すべき指標と、その目標値を教えてください。</div>
+      <button class="copy-btn" onclick="copyPg('analytics-prompt-content',this)" style="margin-top:12px;width:100%;justify-content:center">コピーする</button>
+    </div>
+
+    <h3 class="sub-title">② テキスト入力でアドバイスを生成する（スクリーンショットがない場合）</h3>
+    <div class="pg-box">
+      <div class="pg-title">アカウント診断＆行動指針生成</div>
+      <div class="pg-fields">
+        <div class="pg-group"><label class="pg-label">現在の最大の悩み</label><textarea class="pg-textarea" id="diag-problem" placeholder="例：インプレッションが急落している。エンゲージメント率は高いのにリーチが伸びない"></textarea></div>
+        <div class="pg-group"><label class="pg-label">3ヶ月後の目標</label><textarea class="pg-textarea" id="diag-goal" placeholder="例：フォロワー5,000人・毎日安定して1万インプレッション"></textarea></div>
+      </div>
+      <button class="pg-btn" onclick="genDiagnosis()">プロンプトを生成する</button>
+      <div class="pg-output" id="diag-output">
+        <div class="pg-output-label">生成されたプロンプト</div>
+        <div style="background:rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8">
+          <strong style="color:var(--accent)">使い方：</strong>
+          ① <a href="https://claude.ai" target="_blank" style="color:var(--accent)">Claude.ai</a> または <a href="https://gemini.google.com" target="_blank" style="color:var(--accent)">Gemini</a> を開く　② 下のプロンプトをコピーして貼り付ける　③ 送信する
+        </div>
+        <div class="pg-output-content" id="diag-content"></div>
+        <button class="copy-btn" onclick="copyPg('diag-content',this)">コピーする</button>
+        <div class="pg-note">※ Analyticsのスクリーンショットがある場合は画像も一緒に添付すると精度が上がります</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">診断結果を受け取ったら</h3>
+    <div class="card-grid">
+      <div class="card" style="border-left:4px solid var(--primary)">
+        <div class="card-title">「投稿内容を改善せよ」と言われた場合</div>
+        <p style="font-size:14px;color:var(--text-sub)"><a href="#s4" style="color:var(--primary);font-weight:700">→ Section 4「何を書くか」</a>に戻り、1投稿の黄金構成とフックの作り方を見直してください。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--primary)">
+        <div class="card-title">「リーチが落ちている」と言われた場合</div>
+        <p style="font-size:14px;color:var(--text-sub)"><a href="#s3" style="color:var(--primary);font-weight:700">→ Section 3「投稿の絶対ルール」</a>に戻り、ペナルティシグナルの原因を特定してください。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--primary)">
+        <div class="card-title">「返信・会話が少ない」と言われた場合</div>
+        <p style="font-size:14px;color:var(--text-sub)"><a href="#s7" style="color:var(--primary);font-weight:700">→ Section 7「返信・アウトバウンド活動」</a>に戻り、返信の質と毎日のルーティンを見直してください。</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--primary)">
+        <div class="card-title">「プロフィールが弱い」と言われた場合</div>
+        <p style="font-size:14px;color:var(--text-sub)"><a href="#s2" style="color:var(--primary);font-weight:700">→ Section 2「プロフィールを整える」</a>に戻り、Bio・固定ポスト・ヘッダーを見直してください。</p>
+      </div>
+    </div>
+    <div class="top-btn-wrap"><a href="#sticky-nav" class="top-btn">ページ上部へ</a></div>
+  </div>
+</section>
+
+<!-- Coconala Banner -->
+<div class="coconala-banner">
+  <h3>HTML解説書の制作をお任せください</h3>
+  <p>あなたのノウハウをプロ品質のHTML解説書に仕上げます。<br>コピーボタン・インタラクティブ機能付きで納品。</p>
+  <a href="https://coconala.com/services/3034205" target="_blank" class="coconala-btn">Coconalaで詳細を見る</a>
+</div>
+<footer><p>X アカウント成長マニュアル 2026 | 元飲食店店長サム</p></footer>
+
+<script>
+// ===== Password =====
+const PW_KEY = 'xgrowth_pw_ok';
+const CORRECT_PW = 'SUM0601';
+
+function checkPassword() {
+  const input = document.getElementById('pw-input');
+  const errorEl = document.getElementById('pw-error');
+  const val = input.value.trim();
+  if(val === CORRECT_PW) {
+    localStorage.setItem(PW_KEY, '1');
+    document.getElementById('pw-screen').style.display = 'none';
+    document.body.style.overflow = '';
+  } else {
+    input.classList.add('error');
+    errorEl.textContent = 'パスワードが正しくありません。';
+    setTimeout(() => { input.classList.remove('error'); }, 400);
+    input.value = '';
+    input.focus();
+  }
+}
+
+function initPassword() {
+  if(localStorage.getItem(PW_KEY) === '1') {
+    document.getElementById('pw-screen').style.display = 'none';
+  } else {
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { document.getElementById('pw-input').focus(); }, 100);
+  }
+}
+
+// ===== Profile =====
+const PF_KEY = 'xgrowth_profile';
+function getPf() { try { return JSON.parse(localStorage.getItem(PF_KEY)) || {}; } catch(e) { return {}; } }
+function saveProfile() {
+  const d = {
+    theme: document.getElementById('pf-theme').value,
+    title: document.getElementById('pf-title').value,
+    target: document.getElementById('pf-target').value,
+    achievement: document.getElementById('pf-achievement').value,
+    tone: document.getElementById('pf-tone').value,
+    followers: document.getElementById('pf-followers').value,
+    frequency: document.getElementById('pf-frequency').value,
+    premium: document.getElementById('pf-premium').value
+  };
+  localStorage.setItem(PF_KEY, JSON.stringify(d));
+  const msg = document.getElementById('profile-saved-msg');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2000);
+  fillForms();
+  updateStep1Prompt();
+}
+function loadProfile() {
+  const d = getPf();
+  if(d.theme) document.getElementById('pf-theme').value = d.theme;
+  if(d.title) document.getElementById('pf-title').value = d.title;
+  if(d.target) document.getElementById('pf-target').value = d.target;
+  if(d.achievement) document.getElementById('pf-achievement').value = d.achievement;
+  if(d.tone) document.getElementById('pf-tone').value = d.tone;
+  if(d.followers) document.getElementById('pf-followers').value = d.followers;
+  if(d.frequency) document.getElementById('pf-frequency').value = d.frequency;
+  if(d.premium) document.getElementById('pf-premium').value = d.premium;
+}
+function fillForms() {
+  const d = getPf();
+  const maps = [
+    ['bio-theme','theme'],['bio-title','title'],['bio-target','target'],['bio-achievement','achievement'],
+    ['fp-theme','theme'],['fp-target','target'],['fp-achievement','achievement'],
+    ['post-theme','theme'],
+    ['thread-theme','theme']
+  ];
+  maps.forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(d[key] && !el.value) {
+      el.value = d[key];
+    }
+    // 保存済み値が入っている場合はスタイルを付与
+    if(el.value && d[key] && el.value === d[key]) {
+      el.classList.add('has-value');
+      const label = el.closest('.pg-group')?.querySelector('.pg-label');
+      if(label && !label.querySelector('.saved-tag')) {
+        const tag = document.createElement('span');
+        tag.className = 'saved-tag';
+        tag.textContent = '保存済み';
+        label.appendChild(tag);
+      }
+    }
+  });
+}
+function pf(key, fallback='') { return getPf()[key] || fallback; }
+
+// ===== Style Desc =====
+const styleDescs = {
+  infographic:'情報をフロー・比較表・図解で整理した教育的な画像。手順説明・比較・数字の多い投稿に最適。',
+  flat:'シンプルな色面と線で構成された現代的でスッキリした画像。どんな投稿にも合わせやすい。',
+  minimal:'余白多め・要素を極限まで絞ったシンプルな画像。メッセージ性の強い短い投稿に最適。',
+  anime:'キャラクターや手描き風イラストを使った親しみやすい画像。アバター・キャラクターを配置したい場合に最適。',
+  realistic:'実写に近いリアルなビジュアル。臨場感・信頼感を出したい投稿に最適。'
+};
+const styleEnMap = {
+  infographic:'infographic style, flat design, information visualization with charts, icons and structured layout',
+  flat:'flat design style, clean geometric shapes, modern minimalist illustration',
+  minimal:'minimalist design, large white space, simple typography, clean and elegant',
+  anime:'anime illustration style, cute character design, vibrant colors, manga-inspired',
+  realistic:'photorealistic style, high quality photography, professional lighting'
+};
+function updateStyleDesc() {
+  const v = document.getElementById('img-style').value;
+  document.getElementById('style-desc').textContent = styleDescs[v] || '';
+}
+
+// ===== Step1 Prompt =====
+function updateStep1Prompt() {
+  const theme = pf('theme','【発信テーマ・ニッチ】');
+  const tone = pf('tone','【トーン・キャラクター】');
+  const text = `添付した画像は私のXプロフィールです。
+画像から以下の情報を読み取り、私のアカウントを把握してください。
+
+- 名前・肩書き
+- 発信テーマ・ニッチ
+- Bio（自己紹介文）
+- 固定ポストがあれば内容も確認する
+
+【補足情報】
+- 発信テーマ：${theme}
+- トーン・キャラクター：${tone}
+
+読み取った内容をもとに、私のトーン・キャラクター・発信軸を理解した上で、
+これ以降に投稿画像を貼るたびに、私らしいリプライ候補を3パターン生成してください。
+
+【リプライの生成ルール】
+- 各パターン80文字以内
+- 私の発信テーマ・トーンに合った自然な言葉遣い
+- ハッシュタグなし・宣伝なし・誘導なし
+- AI感・テンプレート感のない人間らしい文体
+- パターンA：共感＋自分の体験を1文添える
+- パターンB：投稿内容を補足する知識・視点を加える
+- パターンC：会話が続く質問で締める
+
+準備ができたら「準備完了です。投稿画像を貼ってください」と返してください。`;
+  const el = document.getElementById('reply-step1-content');
+  if(el) el.textContent = text;
+}
+
+// ===== Generators =====
+function showOutput(outputId, contentId, text) {
+  document.getElementById(contentId).textContent = text;
+  const out = document.getElementById(outputId);
+  out.classList.add('visible');
+  out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function genBio() {
+  const title = document.getElementById('bio-title').value || pf('title','【肩書き・経歴】');
+  const theme = document.getElementById('bio-theme').value || pf('theme','【発信テーマ】');
+  const target = document.getElementById('bio-target').value || pf('target','【ターゲット】');
+  const value = document.getElementById('bio-value').value || '【提供できる価値】';
+  const achievement = document.getElementById('bio-achievement').value || pf('achievement','【実績・証拠】');
+  const patterns = document.getElementById('bio-patterns').value;
+  const text = `私のXプロフィールのBio文を作成してください。
+
+【私の情報】
+- 肩書き・経歴：${title}
+- 発信テーマ・ニッチ：${theme}
+- ターゲット：${target}
+- 提供できる価値：${value}
+- 実績・証拠：${achievement}
+
+【条件】
+- 160文字以内
+- 肩書き＋価値提案＋フォローする理由の3要素を含める
+- 自然な日本語・押しつけがましくない
+- ハッシュタグなし
+- ${patterns}パターン提案してください`;
+  showOutput('bio-output', 'bio-content', text);
+}
+
+function genFixedPost() {
+  const theme = document.getElementById('fp-theme').value || pf('theme','【発信テーマ】');
+  const target = document.getElementById('fp-target').value || pf('target','【ターゲット】');
+  const achievement = document.getElementById('fp-achievement').value || pf('achievement','【実績・転換点】');
+  const problem = document.getElementById('fp-problem').value || '【解決できる悩み】';
+  const text = `私のXアカウントの固定ポストに使うスレッドを作成してください。
+
+【私の情報】
+- 発信テーマ：${theme}
+- ターゲット：${target}
+- 最大の実績・転換点：${achievement}
+- 解決できる悩み：${problem}
+
+【条件】
+- 3〜4ツイート構成
+- 1ツイート目：共感を呼ぶ自己紹介＋実績の提示
+- 中盤：解決できる悩みとその証拠
+- 最終ツイート：フォローする理由＋どんな発信をしているか
+- 各ツイート280文字以内・ハッシュタグなし`;
+  showOutput('fp-output', 'fp-content', text);
+}
+
+function genPost() {
+  const theme = document.getElementById('post-theme').value || pf('theme','【発信テーマ】');
+  const postTheme = document.getElementById('post-theme').value || '【投稿テーマ】';
+  const type = document.getElementById('post-type').value;
+  const patterns = document.getElementById('post-patterns').value;
+  const tone = pf('tone','親しみやすい・実体験ベース');
+  const text = `X用の投稿文を作成してください。
+
+【投稿テーマ】
+${postTheme}
+
+【投稿タイプ】${type}
+
+【私の基本情報】
+- 発信テーマ：${theme}
+- キャラクター・トーン：${tone}
+
+【条件】
+- 280文字以内
+- 最初の1〜2行に強力なフック（数字・意外な事実・共感できる悩み）
+- 本文に具体的な体験・数字・ステップを入れる
+- 最後に返信を促す一文で締める
+- ハッシュタグなし・外部リンクなし
+- AI感のない自然な文体
+- ${patterns}パターン提案してください`;
+  showOutput('post-output', 'post-content', text);
+}
+
+function genImagePrompt() {
+  const postText = document.getElementById('img-post-text').value.trim();
+  if(!postText) { alert('投稿文を入力してください。'); return; }
+  const style = document.getElementById('img-style').value;
+  const size = document.getElementById('img-size').value;
+  const styleEl = document.getElementById('img-style');
+  const styleName = styleEl.options[styleEl.selectedIndex].text;
+  const styleEn = styleEnMap[style];
+  const text = `以下のX投稿文をもとに、DALL-E 2（GPT Image）で使用する画像生成プロンプトを英語で作成してください。
+
+【X投稿文】
+${postText}
+
+【スタイル】${styleName}
+【サイズ】${size}
+
+【条件】
+・投稿文から核心メッセージ・数字・キーワードを3つ以内に抽出し、画像内のテキストに反映させる
+・テキストは短く・大きく・読みやすいレイアウトで配置する
+・日本語テキストをそのまま画像内に使用する
+・スタイル：${styleEn}
+・サイズ：${size === '1:1' ? 'square format 1:1 aspect ratio' : 'wide format 16:9 aspect ratio'}
+・X投稿への添付として視覚的に目を引くデザインにする
+・キャラクター・アバター画像を添付している場合は、そのキャラクターを画像内に自然に配置する。添付がない場合はビジュアルのみで構成する
+・出力は英語プロンプトのみ。説明文・前置き・日本語は一切不要`;
+  showOutput('img-output', 'img-content', text);
+}
+
+function genThread() {
+  const theme = document.getElementById('thread-theme').value || pf('theme','【発信テーマ】');
+  const type = document.getElementById('thread-type').value;
+  const numbers = document.getElementById('thread-numbers').value || pf('achievement','【具体的な数字・変化】');
+  const tone = pf('tone','親しみやすい・実体験ベース');
+
+  let typeDetail = '';
+  if(type === '失敗談→教訓型') typeDetail = `- 1ツイート目：衝撃的な失敗体験または結果＋「続きはスレッドで」
+- 2〜3ツイート目：最大の失敗の具体的な内容
+- 4ツイート目：転機と具体的な行動ステップ
+- 5ツイート目：結果の変化（数字を使う）
+- 最終ツイート：質問形式の呼びかけ＋ブックマーク誘導
+- 5〜6ツイート構成`;
+  else if(type === 'ステップ解説型') typeDetail = `- 1ツイート目：「〇〇は無理」という思い込みを崩すフック＋実績の提示
+- 2〜4ツイート目：ステップを1〜2個ずつ具体的に解説
+- 最終ツイート：まとめ＋質問形式の呼びかけ
+- 各ステップに自分の実体験・エピソードを1文添える
+- 5ツイート構成`;
+  else typeDetail = `- 1ツイート目：数字を使った変化の提示＋「一番良かったのは〇〇」
+- 2〜3ツイート目：変化を1〜2個ずつ具体的に説明
+- 最終ツイート：感情的な変化＋「何から始めればいい？」という返信誘導
+- 4ツイート構成`;
+
+  const text = `X用のスレッドを作成してください。
+
+【テーマ】
+${theme}
+
+【型】${type}
+【具体的な数字・変化】${numbers}
+【キャラクター・トーン】${tone}
+
+【条件】
+${typeDetail}
+- 各ツイート280文字以内・ハッシュタグなし・外部リンクなし
+- AI感のない自然な文体`;
+  showOutput('thread-output', 'thread-content', text);
+}
+
+function genReplyEarly() {
+  const post = document.getElementById('reply-early-post').value || '【自分の投稿内容】';
+  const reply = document.getElementById('reply-early-reply').value || '【相手の返信内容】';
+  const theme = pf('theme','【発信テーマ】');
+  const tone = pf('tone','親しみやすい・実体験ベース');
+  const text = `私のX投稿への返信に対して、会話が続く返信文を作成してください。
+
+【私の投稿内容】
+${post}
+
+【相手の返信内容】
+${reply}
+
+【私の発信テーマ・トーン】
+${theme}／${tone}
+
+【条件】
+- 80文字以内
+- 感謝＋自分の体験や知識を1文添える＋会話が続く質問で締める
+- AI感・テンプレート感のない自然な文体
+- ハッシュタグなし・宣伝なし
+- 2パターン提案してください`;
+  showOutput('reply-early-output', 'reply-early-content', text);
+}
+
+function genReply() {
+  const post = document.getElementById('reply-post').value || '【自分の投稿内容】';
+  const reply = document.getElementById('reply-reply').value || '【相手の返信内容】';
+  const theme = pf('theme','【発信テーマ】');
+  const tone = pf('tone','親しみやすい・実体験ベース');
+  const text = `私のX投稿への返信に対して、多層の会話が生まれる返信文を作成してください。
+
+【私の投稿内容】
+${post}
+
+【相手の返信内容】
+${reply}
+
+【私の発信テーマ・トーン】
+${theme}／${tone}
+
+【条件】
+- 80〜120文字
+- 感謝＋自分の体験・知識を具体的に1〜2文添える＋さらに会話が続く質問で締める
+- 1往復で終わらせない構成にする
+- AI感・テンプレート感のない自然な文体
+- ハッシュタグなし・宣伝なし
+- 3パターン提案してください（共感型・体験追加型・質問返し型）`;
+  showOutput('reply-output', 'reply-content', text);
+}
+
+function genEngage() {
+  const post = document.getElementById('engage-post').value || '【投稿内容】';
+  const goal = document.getElementById('engage-goal').value;
+  const text = `X投稿の末尾に添えるエンゲージメント誘導文を作成してください。
+
+【投稿内容】
+${post}
+
+【目的】${goal}
+
+【条件】
+- 30文字以内でシンプルに
+- 押しつけがましくない自然なトーン
+- ハッシュタグなし
+- 3パターン提案してください`;
+  showOutput('engage-output', 'engage-content', text);
+}
+
+function genDiagnosis() {
+  const theme = pf('theme','【発信テーマ】');
+  const followers = pf('followers','【フォロワー数】');
+  const frequency = pf('frequency','【投稿頻度】');
+  const premium = pf('premium','【Premium状況】');
+  const problem = document.getElementById('diag-problem').value || '【現在の最大の悩み】';
+  const goal = document.getElementById('diag-goal').value || '【3ヶ月後の目標】';
+  const text = `私のXアカウントの現状を診断し、2026年のXアルゴリズムに基づいた具体的な行動指針を提示してください。
+
+【私のアカウント情報】
+- 発信テーマ・ニッチ：${theme}
+- 現在のフォロワー数：${followers}
+- 現在の投稿頻度：${frequency}
+- X Premiumの加入状況：${premium}
+- 現在の最大の悩み：${problem}
+- 3ヶ月後の目標：${goal}
+
+【回答形式】
+1. 現状診断（2〜3行）
+2. 今週すぐにやるべき行動（3つ・具体的に）
+3. 1ヶ月で取り組む改善ポイント（3つ）
+4. このニッチで成果を出すための特有のポイント（2つ）
+5. 3ヶ月後の目標達成に向けた指針（1〜2行）
+
+各アドバイスにアルゴリズムの根拠を簡潔に添えてください。
+テンプレートではなく、私の状況に完全に特化した内容にしてください。`;
+  showOutput('diag-output', 'diag-content', text);
+}
+
+// ===== Copy =====
+function copyPg(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ COPIED';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'コピーする'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ COPIED';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'コピーする'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ===== Checklist =====
+function toggleCheck(li) {
+  const cb = li.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  li.classList.toggle('checked', cb.checked);
+}
+
+// ===== Scroll Animation =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+// ===== Active Nav =====
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('#sticky-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+
+// ===== Init =====
+document.addEventListener('DOMContentLoaded', () => {
+  initPassword();
+  loadProfile();
+  fillForms();
+  updateStyleDesc();
+  updateStep1Prompt();
+});
+</script>
+</body>
+</html>
