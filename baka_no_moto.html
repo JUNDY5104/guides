@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<title>バカの素 - AIの引き出しが変わる、18の問い方</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #c85010;
+    --accent2: #b87800;
+    --accent-light: #fff4ef;
+    --accent2-light: #fffbe8;
+    --bg: #ffffff;
+    --bg2: #f8f8f6;
+    --text: #1a1a1a;
+    --text-sub: #555555;
+    --border: #e0e0e0;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* =========== HEADER =========== */
+  .site-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #3a1a0a 100%);
+    color: #fff;
+    padding: 60px 24px 50px;
+    text-align: center;
+  }
+  .site-header .label {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .site-header h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .site-header h1 span {
+    color: var(--accent);
+  }
+  .site-header .subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 10px;
+  }
+  .site-header .desc {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.55);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* =========== STICKY NAV =========== */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1a1a1a;
+    border-bottom: 2px solid var(--accent);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) #333;
+  }
+  .sticky-nav::-webkit-scrollbar { height: 3px; }
+  .sticky-nav::-webkit-scrollbar-track { background: #333; }
+  .sticky-nav::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+  .sticky-nav ul {
+    display: flex;
+    list-style: none;
+    white-space: nowrap;
+    padding: 0 16px;
+    gap: 0;
+  }
+  .sticky-nav ul li a {
+    display: block;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+    transition: color 0.2s, border-bottom 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+  }
+  .sticky-nav ul li a:hover,
+  .sticky-nav ul li a.active {
+    color: #fff;
+    border-bottom-color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* =========== MAIN =========== */
+  main { padding: 48px 0 80px; }
+
+  /* =========== INTRO =========== */
+  .intro-box {
+    background: var(--bg2);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+  }
+  .intro-box p { color: var(--text-sub); line-height: 1.9; }
+  .intro-box p + p { margin-top: 10px; }
+  .intro-box strong { color: var(--accent); }
+
+  /* =========== SECTION =========== */
+  .section { margin-bottom: 64px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .section-num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .section-header h2 {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .section-header h2 span {
+    color: var(--accent);
+  }
+
+  /* =========== CARD =========== */
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .card.visible { opacity: 1; transform: translateY(0); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .card-num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .card-title-block { flex: 1; }
+  .card-type {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .card-desc {
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    margin-top: 4px;
+    line-height: 1.7;
+  }
+
+  .card-body { padding: 20px 24px 24px; }
+
+  /* =========== TEMPLATE BLOCK =========== */
+  .template-block {
+    background: var(--accent-light);
+    border: 1px solid rgba(200,80,16,0.2);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .template-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .template-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text);
+    font-weight: 500;
+    white-space: pre-wrap;
+  }
+  .template-text .placeholder {
+    background: rgba(200,80,16,0.12);
+    border: 1px dashed var(--accent);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.9em;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.05em;
+  }
+  .copy-btn:hover { background: #a04008; }
+  .copy-btn:active { transform: scale(0.96); }
+  .copy-btn.copied { background: #187848; }
+
+  /* =========== PANEL =========== */
+  .panel-block {
+    background: var(--accent2-light);
+    border: 1px solid rgba(184,120,0,0.2);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .panel-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  .panel-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .panel-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .panel-row label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(200,80,16,0.1);
+    border: 1px dashed var(--accent);
+    border-radius: 4px;
+    padding: 2px 8px;
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: center;
+  }
+  .panel-row input {
+    flex: 1;
+    min-width: 160px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    background: #fff;
+    transition: border-color 0.2s;
+  }
+  .panel-row input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .panel-note {
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-top: 8px;
+  }
+
+  /* =========== EXAMPLES =========== */
+  .examples-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 600px) {
+    .examples-grid { grid-template-columns: 1fr; }
+  }
+  .example-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .example-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent2);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .example-text {
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.7;
+    padding-right: 50px;
+  }
+  .example-copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    border-radius: 5px;
+    padding: 3px 9px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: background 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .example-copy-btn:hover { background: var(--accent2); color: #fff; }
+  .example-copy-btn.copied { background: #187848; color: #fff; border-color: #187848; }
+
+  /* =========== DIVIDER =========== */
+  .part-divider {
+    background: linear-gradient(135deg, #1a1a1a 0%, #3a1a0a 100%);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 40px;
+    color: #fff;
+  }
+  .part-divider .part-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .part-divider h2 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  .part-divider p {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+
+  /* =========== TOOLTIP =========== */
+  .tt {
+    border-bottom: 1px dashed var(--accent);
+    cursor: help;
+    position: relative;
+  }
+  .tt::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.6;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    max-width: 260px;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 200;
+    font-weight: 400;
+  }
+  .tt:hover::after { opacity: 1; }
+
+  /* =========== TOP BUTTON =========== */
+  .top-btn-wrap { text-align: center; margin-top: 32px; }
+  .top-btn {
+    display: inline-block;
+    background: var(--bg2);
+    color: var(--text-sub);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 9px 24px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.05em;
+  }
+  .top-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* =========== COCONALA BANNER =========== */
+  .coconala-banner {
+    background: linear-gradient(135deg, #7040c8 0%, #c85010 100%);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+  .coconala-banner .bn-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+  .coconala-banner h3 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  .coconala-banner p {
+    font-size: 0.875rem;
+    opacity: 0.85;
+    margin-bottom: 18px;
+  }
+  .coconala-banner a {
+    display: inline-block;
+    background: #fff;
+    color: #7040c8;
+    font-weight: 900;
+    font-size: 13px;
+    padding: 11px 28px;
+    border-radius: 24px;
+    transition: opacity 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .coconala-banner a:hover { opacity: 0.88; text-decoration: none; }
+
+  /* =========== FOOTER =========== */
+  footer {
+    background: #1a1a1a;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  footer a { color: rgba(255,255,255,0.6); }
+
+  @media (max-width: 640px) {
+    .site-header { padding: 40px 20px 36px; }
+    .card-body { padding: 16px 16px 20px; }
+    .intro-box { padding: 20px 20px; }
+    .panel-row { flex-direction: column; align-items: flex-start; }
+    .panel-row input { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="label">やきさかな式 読者限定特典</div>
+    <h1>バカの<span>素</span></h1>
+    <p class="subtitle">AIの引き出しが変わる、18の問い方</p>
+    <p class="desc">「バカがAIを支配する」の内容をもとに制作した実践ツールです。本書で解説した「常識の外から投げる」問い方を、そのまま使える形にまとめました。</p>
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <ul>
+    <li><a href="#intro">はじめに</a></li>
+    <li><a href="#part1">PART1 投げる型</a></li>
+    <li><a href="#s01">素材01</a></li>
+    <li><a href="#s02">素材02</a></li>
+    <li><a href="#s03">素材03</a></li>
+    <li><a href="#s04">素材04</a></li>
+    <li><a href="#s05">素材05</a></li>
+    <li><a href="#s06">素材06</a></li>
+    <li><a href="#s07">素材07</a></li>
+    <li><a href="#s08">素材08</a></li>
+    <li><a href="#s09">素材09</a></li>
+    <li><a href="#s10">素材10</a></li>
+    <li><a href="#s11">素材11</a></li>
+    <li><a href="#s12">素材12</a></li>
+    <li><a href="#part2">PART2 戻す型</a></li>
+    <li><a href="#s13">素材13</a></li>
+    <li><a href="#s14">素材14</a></li>
+    <li><a href="#s15">素材15</a></li>
+    <li><a href="#s16">素材16</a></li>
+    <li><a href="#s17">素材17</a></li>
+    <li><a href="#s18">素材18</a></li>
+  </ul>
+</nav>
+
+<main>
+<div class="container">
+
+  <!-- INTRO -->
+  <section id="intro" class="section">
+    <div class="intro-box">
+      <p><strong>プロンプトエンジニアリングは「正しく伝える」技術です。</strong>明確に、論理的に、条件を揃えて。</p>
+      <p>バカの素は、その土俵に乗らない問い方の集まりです。整えなくていい。まとめなくていい。</p>
+      <p>「こんなことを聞いてどうするの」という声が聞こえたとき、それが<strong>投げどき</strong>です。</p>
+      <p>各素材の<span class="tt" data-tip="オレンジ色の背景のエリア。〔　〕部分を自分の状況に書き換えて使います">テンプレート</span>内の<span class="tt" data-tip="自分の状況に置き換える部分。パネルから入力すると自動で反映されます">〔　〕部分</span>を「カスタマイズパネル」で書き換えて、そのままAIに貼り付けてください。理由はわからなくていい。とりあえず投げてみてください。</p>
+    </div>
+  </section>
+
+  <!-- PART 1 -->
+  <div id="part1" class="part-divider">
+    <div class="part-tag">PART 1</div>
+    <h2>投げる型</h2>
+    <p>常識の外から問いを投げる12の素材。AIが普段使わない引き出しを開けるための、「正しくない」問い方です。</p>
+  </div>
+
+  <!-- 素材01 -->
+  <section id="s01" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">01</div>
+        <div class="card-title-block">
+          <div class="card-type">逆張り型</div>
+          <div class="card-title">「〜することで、逆に〜する方法」</div>
+          <div class="card-desc">常識と逆の前提を置くことで、AIが普段使わない引き出しを開ける。本書第3章「怒らせることで常連にする」がこの型。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't01')">コピー</button>
+          <div class="template-text" id="t01-display">「<span class="placeholder" id="t01-p1-display">一見ネガティブな行為・状況</span>することで、逆に<span class="placeholder" id="t01-p2-display">本来の目的</span>する方法はありますか」</div>
+          <input type="hidden" id="t01-raw" value="「[P1]することで、逆に[P2]する方法はありますか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t01-p1">一見ネガティブな行為</label>
+              <input type="text" id="t01-p1" placeholder="例：値段を上げる" oninput="updateTemplate('t01')">
+            </div>
+            <div class="panel-row">
+              <label for="t01-p2">本来の目的</label>
+              <input type="text" id="t01-p2" placeholder="例：リピーターを増やす" oninput="updateTemplate('t01')">
+            </div>
+          </div>
+          <p class="panel-note">入力すると上のテンプレートに自動反映されます。コピーボタンで完成したプロンプトをコピーできます。</p>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「値段を上げることで、逆にリピーターを増やす方法はありますか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「メニューを減らすことで、逆に売上を上げる方法はありますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材02 -->
+  <section id="s02" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">02</div>
+        <div class="card-title-block">
+          <div class="card-type">経験掘り起こし型</div>
+          <div class="card-title">「〜年やって気づいた、人間が変わらない本質」</div>
+          <div class="card-desc">主観的な経験をAIに聞くのは意味がない、という常識を外すことで、AIが誰も引き出せていなかった答えを返してくる。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't02')">コピー</button>
+          <div class="template-text" id="t02-display">「<span class="placeholder" id="t02-p1-display">経験年数</span>年<span class="placeholder" id="t02-p2-display">仕事・活動</span>をやって気づいた、人間が絶対に変わらない本質を教えてください」</div>
+          <input type="hidden" id="t02-raw" value="「[P1]年[P2]をやって気づいた、人間が絶対に変わらない本質を教えてください」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t02-p1">経験年数</label>
+              <input type="text" id="t02-p1" placeholder="例：30" oninput="updateTemplate('t02')">
+            </div>
+            <div class="panel-row">
+              <label for="t02-p2">仕事・活動</label>
+              <input type="text" id="t02-p2" placeholder="例：飲食店の店長" oninput="updateTemplate('t02')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「20年介護の仕事をやって気づいた、人間が変わらない本質を教えてください」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「15年子育てをしてきて気づいた、子どもが本当に変わる瞬間の共通点を教えてください」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材03 -->
+  <section id="s03" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">03</div>
+        <div class="card-title-block">
+          <div class="card-type">もやっと投下型</div>
+          <div class="card-title">「なんかおかしいと思うんだけど、言葉にならない」</div>
+          <div class="card-desc">整っていなくていい。「乱暴にいうと」から始めることで、AIが言語化を引き受けてくれる。本書第6章・場面1の著者の一言がこの型。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't03')">コピー</button>
+          <div class="template-text" id="t03-display">「<span class="placeholder" id="t03-p1-display">分野・状況</span>について、なんかおかしいと思っていることがあります。うまく言えないんですが、<span class="placeholder" id="t03-p2-display">もやっとした感覚</span>。これって何が起きているんですか」</div>
+          <input type="hidden" id="t03-raw" value="「[P1]について、なんかおかしいと思っていることがあります。うまく言えないんですが、[P2]。これって何が起きているんですか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t03-p1">分野・状況</label>
+              <input type="text" id="t03-p1" placeholder="例：SNSの発信" oninput="updateTemplate('t03')">
+            </div>
+            <div class="panel-row">
+              <label for="t03-p2">もやっとした感覚</label>
+              <input type="text" id="t03-p2" placeholder="例：頑張っているのに何か違う気がする" oninput="updateTemplate('t03')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「SNSの発信について、頑張っているのに何か違う気がする。これって何が起きているんですか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「部下の育て方について、正しいことを言っているはずなのに伝わらない気がする。何が起きているんですか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材04 -->
+  <section id="s04" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">04</div>
+        <div class="card-title-block">
+          <div class="card-type">前提壊し型</div>
+          <div class="card-title">「〜が存在しない世界では、どうなるか」</div>
+          <div class="card-desc">「そんな前提で聞いてどうするの」という声が聞こえたら、それが投げどき。当たり前を一つ取り除くことで別の組み合わせが動き出す。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't04')">コピー</button>
+          <div class="template-text" id="t04-display">「もし<span class="placeholder" id="t04-p1-display">当たり前に存在するもの・仕組み</span>がなかったとしたら、<span class="placeholder" id="t04-p2-display">状況・業界</span>はどう変わっていたと思いますか」</div>
+          <input type="hidden" id="t04-raw" value="「もし[P1]がなかったとしたら、[P2]はどう変わっていたと思いますか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t04-p1">存在するもの・仕組み</label>
+              <input type="text" id="t04-p1" placeholder="例：値引きという概念" oninput="updateTemplate('t04')">
+            </div>
+            <div class="panel-row">
+              <label for="t04-p2">状況・業界</label>
+              <input type="text" id="t04-p2" placeholder="例：飲食店の集客" oninput="updateTemplate('t04')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「もし"値引き"という概念がなかったとしたら、飲食店の集客はどう変わっていたと思いますか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「もし"役職"がなかったとしたら、会社の中の人間関係はどう変わっていたと思いますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材05 -->
+  <section id="s05" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">05</div>
+        <div class="card-title-block">
+          <div class="card-type">時間軸ずらし型</div>
+          <div class="card-title">「100年後の人が見たら、これをどう思うか」</div>
+          <div class="card-desc">現在の常識を「過去のもの」として見る視点を作る。「今」を絶対視しないことで、AIが時代の常識から抜け出す。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't05')">コピー</button>
+          <div class="template-text" id="t05-display">「100年後の人が<span class="placeholder" id="t05-p1-display">今の当たり前の慣習・仕組み</span>を見たとき、どんなことを不思議に思うと思いますか」</div>
+          <input type="hidden" id="t05-raw" value="「100年後の人が[P1]を見たとき、どんなことを不思議に思うと思いますか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t05-p1">今の当たり前の慣習</label>
+              <input type="text" id="t05-p1" placeholder="例：就職活動" oninput="updateTemplate('t05')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「100年後の人が"就職活動"を見たとき、どんなことを不思議に思うと思いますか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「100年後の人が"定年退職"という制度を見たとき、どんなことを不思議に思うと思いますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材06 -->
+  <section id="s06" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">06</div>
+        <div class="card-title-block">
+          <div class="card-type">敵視点型</div>
+          <div class="card-title">「自分のやり方を一番批判する人は、何と言うか」</div>
+          <div class="card-desc">AIは褒める方向に流れやすい。「批判者」を意図的に登場させることで平均値を崩す。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't06')">コピー</button>
+          <div class="template-text" id="t06-display">「<span class="placeholder" id="t06-p1-display">自分のやり方・考え方・事業</span>に対して、一番批判的な立場の人間はどんな反論をしてきますか。その反論に対して、どう答えればいいですか」</div>
+          <input type="hidden" id="t06-raw" value="「[P1]に対して、一番批判的な立場の人間はどんな反論をしてきますか。その反論に対して、どう答えればいいですか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t06-p1">やり方・事業</label>
+              <input type="text" id="t06-p1" placeholder="例：私のKindle出版ビジネス" oninput="updateTemplate('t06')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「私のKindle出版ビジネスに対して、一番批判的な立場の人間はどんな反論をしてきますか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「私の子育て方針に対して、一番批判的な立場の人間はどんな反論をしてきますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材07 -->
+  <section id="s07" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">07</div>
+        <div class="card-title-block">
+          <div class="card-type">失敗資産化型</div>
+          <div class="card-title">「この失敗は、何の準備だったか」</div>
+          <div class="card-desc">失敗を「悪いもの」として扱わず「何かの前段階」として再定義させる。AIは失敗を慰める方向に流れるが、「準備」という枠がその流れを断ち切る。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't07')">コピー</button>
+          <div class="template-text" id="t07-display">「<span class="placeholder" id="t07-p1-display">具体的な失敗・うまくいかなかった経験</span>は、何の準備だったと解釈できますか。その失敗がなければ気づけなかったことは何ですか」</div>
+          <input type="hidden" id="t07-raw" value="「[P1]は、何の準備だったと解釈できますか。その失敗がなければ気づけなかったことは何ですか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t07-p1">失敗・経験</label>
+              <input type="text" id="t07-p1" placeholder="例：飲食店を閉めたこと" oninput="updateTemplate('t07')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「飲食店を閉めたことは、何の準備だったと解釈できますか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「SNSの発信が3年間まったく伸びなかったことは、何の準備だったと解釈できますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材08 -->
+  <section id="s08" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">08</div>
+        <div class="card-title-block">
+          <div class="card-type">比較禁止型</div>
+          <div class="card-title">「他と比べずに、これだけで語ってほしい」</div>
+          <div class="card-desc">AIは「一般的には〜」という平均値の答えになりやすい。比較を禁じることで、目の前の一点だけを深く掘らせる。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't08')">コピー</button>
+          <div class="template-text" id="t08-display">「<span class="placeholder" id="t08-p1-display">テーマ・状況</span>について、他の事例や一般論と比較せずに、これだけを深く掘り下げてください」</div>
+          <input type="hidden" id="t08-raw" value="「[P1]について、他の事例や一般論と比較せずに、これだけを深く掘り下げてください」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t08-p1">テーマ・状況</label>
+              <input type="text" id="t08-p1" placeholder="例：私の文章スタイル" oninput="updateTemplate('t08')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「私の文章スタイルについて、他の著者と比較せずに、これだけを深く掘り下げてください」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「うちの店の常連客の行動パターンについて、他の業態と比較せずに、これだけを掘り下げてください」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材09 -->
+  <section id="s09" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">09</div>
+        <div class="card-title-block">
+          <div class="card-type">感情直結型</div>
+          <div class="card-title">「なぜこれをやっていると、〔この感情〕になるのか」</div>
+          <div class="card-desc">AIは「どうすればいいか」には平均値を返しやすいが、「なぜこの感情が起きるのか」という問いには別の引き出しが開くことがある。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't09')">コピー</button>
+          <div class="template-text" id="t09-display">「<span class="placeholder" id="t09-p1-display">行動・状況</span>をしていると、なぜ<span class="placeholder" id="t09-p2-display">具体的な感情・感覚</span>になるのか、心理的・構造的に説明してもらえますか」</div>
+          <input type="hidden" id="t09-raw" value="「[P1]をしていると、なぜ[P2]になるのか、心理的・構造的に説明してもらえますか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t09-p1">行動・状況</label>
+              <input type="text" id="t09-p1" placeholder="例：SNSに投稿する" oninput="updateTemplate('t09')">
+            </div>
+            <div class="panel-row">
+              <label for="t09-p2">感情・感覚</label>
+              <input type="text" id="t09-p2" placeholder="例：反応がくるまで落ち着かない" oninput="updateTemplate('t09')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「SNSに投稿すると、なぜ反応がくるまで落ち着かない気持ちになるのか、構造的に説明してもらえますか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「人に何かを教えているとき、なぜ自分も何かがわかっていく感覚になるのか、説明してもらえますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材10 -->
+  <section id="s10" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">10</div>
+        <div class="card-title-block">
+          <div class="card-type">規模転換型</div>
+          <div class="card-title">「これを10倍の規模でやったら、何が壊れるか」</div>
+          <div class="card-desc">極端に拡大・縮小することで、普段見えていない構造上の弱点や意外な強みが浮かび上がる。「できるか」ではなく「壊れるか」を聞くのがポイント。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't10')">コピー</button>
+          <div class="template-text" id="t10-display">「今<span class="placeholder" id="t10-p1-display">やっていること・仕組み</span>を10倍の規模でやったとしたら、最初に壊れるのはどこですか。逆に10分の1にしたら何だけが残りますか」</div>
+          <input type="hidden" id="t10-raw" value="「今[P1]を10倍の規模でやったとしたら、最初に壊れるのはどこですか。逆に10分の1にしたら何だけが残りますか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t10-p1">やっていること</label>
+              <input type="text" id="t10-p1" placeholder="例：私のKindle出版" oninput="updateTemplate('t10')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「今の私のKindle出版を10倍の規模でやったとしたら、最初に壊れるのはどこですか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「今のチームを10倍に増やしたら最初に壊れるのはどこで、10分の1にしたら何だけが残りますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材11 -->
+  <section id="s11" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">11</div>
+        <div class="card-title-block">
+          <div class="card-type">子ども目線型</div>
+          <div class="card-title">「10歳の子どもが聞いたら、何を変だと思うか」</div>
+          <div class="card-desc">大人が「当たり前」として見えなくなっているものを、知識のないフィルターで再発見する。本書のバカの定義——常識の外にいる人間——を人物として借りるバージョン。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyTemplate(this, 't11')">コピー</button>
+          <div class="template-text" id="t11-display">「<span class="placeholder" id="t11-p1-display">業界の慣習・当たり前のルール</span>を10歳の子どもに説明したとき、子どもが「なんで？」と聞いてきそうな部分はどこですか」</div>
+          <input type="hidden" id="t11-raw" value="「[P1]を10歳の子どもに説明したとき、子どもが「なんで？」と聞いてきそうな部分はどこですか」">
+        </div>
+        <div class="panel-block">
+          <div class="panel-label">カスタマイズパネル</div>
+          <div class="panel-inputs">
+            <div class="panel-row">
+              <label for="t11-p1">業界の慣習・ルール</label>
+              <input type="text" id="t11-p1" placeholder="例：正社員と非正規雇用の区別" oninput="updateTemplate('t11')">
+            </div>
+          </div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">例 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「"正社員と非正規雇用"の区別を10歳の子どもに説明したとき、子どもが「なんで？」と聞いてきそうな部分はどこですか」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">例 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「飲食店で料理が来るまで何もせず待つ文化を10歳の子どもに説明したとき、不思議に思う部分はどこですか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材12 -->
+  <section id="s12" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">12</div>
+        <div class="card-title-block">
+          <div class="card-type">違う返し型</div>
+          <div class="card-title">AIが平均値に寄ってきたときの戻し方</div>
+          <div class="card-desc">説明しなくていい。理由も要らない。「なんか違う」の一言がAIを平均値の外へ引き戻す。本書第6章・場面2で著者が実際に行ったやりとり。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">使える返し言葉（そのままコピーして使えます）</div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block">
+            <div class="example-label">返し 1</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「なんか違う」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">返し 2</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「そこじゃない」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">返し 3</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「きれいにまとめすぎている」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">返し 4</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「もっと現場の話で」</div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">返し 5（迷子になったとき）</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「わからなくなってきた」</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:14px 18px;font-size:0.85rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px;">
+          AIの答えを読んで「違う」と感じたら、その感覚を説明せずにそのまま返す。AIが「どこが違いますか」と聞き返してきたら、自分の言葉で答えることで核心に近づいていく。
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 2 -->
+  <div id="part2" class="part-divider">
+    <div class="part-tag">PART 2</div>
+    <h2>戻す型</h2>
+    <p>AIは「直前のやりとりに引っ張られる」という構造を持っています（本書第1章）。長い対話では、気づかないうちに本筋からズレていく。そのときに使う問い直しの型です。</p>
+  </div>
+
+  <!-- 素材13 -->
+  <section id="s13" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">13</div>
+        <div class="card-title-block">
+          <div class="card-type">棚卸し型</div>
+          <div class="card-title">最初の目的と今いる場所を並べさせる</div>
+          <div class="card-desc">「評価してください」より一歩踏み込んで、出発点と現在地を明示させる。ズレの自覚をAI自身に促す。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyRaw(this, '「最初に私が言いたかったことと、今の議論の方向は一致していますか。ズレているとしたらどこからですか」')">コピー</button>
+          <div class="template-text">「最初に私が言いたかったことと、今の議論の方向は一致していますか。ズレているとしたらどこからですか」</div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block" style="grid-column: 1 / -1;">
+            <div class="example-label">応用版</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「ここまでの会話を3行で要約してください。そのうえで、最初の問いに対してどこまで答えられていますか」</div>
+          </div>
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材14 -->
+  <section id="s14" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">14</div>
+        <div class="card-title-block">
+          <div class="card-type">自己診断型</div>
+          <div class="card-title">どこに引っ張られているかをAI自身に言わせる</div>
+          <div class="card-desc">AIは問われると自分の傾向を比較的正直に返す。ズレの原因をAIに語らせると、次の返答が変わる。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyRaw(this, '「今の議論で、あなたはどの方向に引っ張られていましたか。正直に教えてください」')">コピー</button>
+          <div class="template-text">「今の議論で、あなたはどの方向に引っ張られていましたか。正直に教えてください」</div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block" style="grid-column: 1 / -1;">
+            <div class="example-label">応用版</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「この議論であなたが避けていたこと、または言いにくかったことはありますか」</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:14px 18px;font-size:0.85rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px;">
+          AIが「無難にまとめようとしていた」と認識した瞬間、次の返答の質が変わることが多い。
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材15 -->
+  <section id="s15" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">15</div>
+        <div class="card-title-block">
+          <div class="card-type">反論役型</div>
+          <div class="card-title">今の議論に反論させる</div>
+          <div class="card-desc">AIは同意・肯定に流れやすい。「否定する役」を明示的に与えると、平均値への引力に抵抗できる。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyRaw(this, '「今まで話してきた内容に、一番強く反論するとしたら何と言いますか」')">コピー</button>
+          <div class="template-text">「今まで話してきた内容に、一番強く反論するとしたら何と言いますか」</div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block" style="grid-column: 1 / -1;">
+            <div class="example-label">応用版</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「ここまでの方向性に懐疑的な人間が読んだら、どこを突っ込んできますか」</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:14px 18px;font-size:0.85rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px;">
+          AIが「肯定モード」から抜け出し、見落としていた穴を自分から出してくる。
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材16 -->
+  <section id="s16" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">16</div>
+        <div class="card-title-block">
+          <div class="card-type">白紙型</div>
+          <div class="card-title">「今まで忘れて」から再出発させる</div>
+          <div class="card-desc">ズレが深くなりすぎたとき、部分修正より白紙に戻した方が早い。本書場面3で著者が「わからなくなってきた」と言った後の動きを、自分から起動する型。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyRaw(this, '「今まで話してきた内容をいったん忘れてください。最初の問いだけ見て、改めて答えるとしたら何と言いますか」')">コピー</button>
+          <div class="template-text">「今まで話してきた内容をいったん忘れてください。最初の問いだけ見て、改めて答えるとしたら何と言いますか」</div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block" style="grid-column: 1 / -1;">
+            <div class="example-label">応用版</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「この議論を知らない第三者が最初の問いだけ読んだとき、どう答えると思いますか」</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:14px 18px;font-size:0.85rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px;">
+          「直前のやりとりに引っ張られる」というAIの構造的欠点を、文脈リセットで無効化する。
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材17 -->
+  <section id="s17" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">17</div>
+        <div class="card-title-block">
+          <div class="card-type">蒸留型</div>
+          <div class="card-title">余分を捨てて本質だけ残させる</div>
+          <div class="card-desc">議論が広がりすぎたとき、全部を否定せずに「本当に大事な部分」だけを取り出させる。捨てることで核心が見える。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyRaw(this, '「ここまで話してきた中で、絶対に外してはいけないことを1つだけ選ぶとしたら何ですか」')">コピー</button>
+          <div class="template-text">「ここまで話してきた中で、絶対に外してはいけないことを1つだけ選ぶとしたら何ですか」</div>
+        </div>
+        <div class="examples-grid">
+          <div class="example-block" style="grid-column: 1 / -1;">
+            <div class="example-label">応用版</div>
+            <button class="example-copy-btn" onclick="copyExample(this)">コピー</button>
+            <div class="example-text">「今まで話したことの9割を捨てるとしたら、残す1割はどこですか」</div>
+          </div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:14px 18px;font-size:0.85rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px;">
+          AIが「全部大事」という曖昧な返しから脱して、優先順位を強制的に持つ。
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 素材18 -->
+  <section id="s18" class="section">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">18</div>
+        <div class="card-title-block">
+          <div class="card-type">予防型</div>
+          <div class="card-title">ズレる前に「監視役」を設置する</div>
+          <div class="card-desc">軌道修正は「ズレた後」に使うものだが、最初から仕込んでおくと会話全体の質が変わる。長くなりそうな壁打ちの冒頭に一言置く。</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="template-block">
+          <div class="template-label">テンプレート</div>
+          <button class="copy-btn" onclick="copyRaw(this, '「この議論を進める中で、私の最初の問いから話がズレてきたと感じたら、その都度指摘してください。指摘のタイミングはあなたの判断に任せます」')">コピー</button>
+          <div class="template-text">「この議論を進める中で、私の最初の問いから話がズレてきたと感じたら、その都度指摘してください。指摘のタイミングはあなたの判断に任せます」</div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:14px 18px;font-size:0.85rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px;">
+          複数ターンにわたる深掘りのときに効く。短い会話には不要。AIが自分から「少しズレてきています」と言ってくることがある。
+        </div>
+        <div class="top-btn-wrap"><button class="top-btn" onclick="scrollToTop()">ページ先頭へ</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COCONALA BANNER -->
+  <div class="coconala-banner">
+    <div class="bn-label">やきさかな式 公式サービス</div>
+    <h3>HTMLインタラクティブ解説書の制作承ります</h3>
+    <p>あなたのコンテンツを、読むだけでなく「使える」形に仕上げます。</p>
+    <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener">Coconalaで詳細を見る</a>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <p>やきさかな式 @sum_tenchou</p>
+  <p style="margin-top:6px;">「バカがAIを支配する」読者限定特典</p>
+</footer>
+
+<script>
+  // スクロールアニメーション
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.card').forEach(el => observer.observe(el));
+
+  // スティッキーナビ アクティブ
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.sticky-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // テンプレート更新
+  const templateDefs = {
+    t01: { template: '「[P1]することで、逆に[P2]する方法はありますか」', params: ['p1','p2'], defaults: ['一見ネガティブな行為・状況','本来の目的'] },
+    t02: { template: '「[P1]年[P2]をやって気づいた、人間が絶対に変わらない本質を教えてください」', params: ['p1','p2'], defaults: ['経験年数','仕事・活動'] },
+    t03: { template: '「[P1]について、なんかおかしいと思っていることがあります。うまく言えないんですが、[P2]。これって何が起きているんですか」', params: ['p1','p2'], defaults: ['分野・状況','もやっとした感覚'] },
+    t04: { template: '「もし[P1]がなかったとしたら、[P2]はどう変わっていたと思いますか」', params: ['p1','p2'], defaults: ['当たり前に存在するもの・仕組み','状況・業界'] },
+    t05: { template: '「100年後の人が[P1]を見たとき、どんなことを不思議に思うと思いますか」', params: ['p1'], defaults: ['今の当たり前の慣習・仕組み'] },
+    t06: { template: '「[P1]に対して、一番批判的な立場の人間はどんな反論をしてきますか。その反論に対して、どう答えればいいですか」', params: ['p1'], defaults: ['自分のやり方・考え方・事業'] },
+    t07: { template: '「[P1]は、何の準備だったと解釈できますか。その失敗がなければ気づけなかったことは何ですか」', params: ['p1'], defaults: ['具体的な失敗・うまくいかなかった経験'] },
+    t08: { template: '「[P1]について、他の事例や一般論と比較せずに、これだけを深く掘り下げてください」', params: ['p1'], defaults: ['テーマ・状況'] },
+    t09: { template: '「[P1]をしていると、なぜ[P2]になるのか、心理的・構造的に説明してもらえますか」', params: ['p1','p2'], defaults: ['行動・状況','具体的な感情・感覚'] },
+    t10: { template: '「今[P1]を10倍の規模でやったとしたら、最初に壊れるのはどこですか。逆に10分の1にしたら何だけが残りますか」', params: ['p1'], defaults: ['やっていること・仕組み'] },
+    t11: { template: '「[P1]を10歳の子どもに説明したとき、子どもが「なんで？」と聞いてきそうな部分はどこですか」', params: ['p1'], defaults: ['業界の慣習・当たり前のルール'] },
+  };
+
+  function updateTemplate(id) {
+    const def = templateDefs[id];
+    if (!def) return;
+    let result = def.template;
+    const display = document.getElementById(id + '-display');
+    if (!display) return;
+
+    let htmlResult = def.template;
+    def.params.forEach((p, i) => {
+      const input = document.getElementById(id + '-' + p);
+      const val = input && input.value.trim() ? input.value.trim() : def.defaults[i];
+      result = result.replace('[P' + (i+1) + ']', val);
+      htmlResult = htmlResult.replace('[P' + (i+1) + ']', '<span class="placeholder">' + escHtml(val) + '</span>');
+    });
+
+    display.innerHTML = htmlResult;
+    const raw = document.getElementById(id + '-raw');
+    if (raw) raw.value = result;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function copyTemplate(btn, id) {
+    const raw = document.getElementById(id + '-raw');
+    const text = raw ? raw.value : '';
+    copyText(btn, text);
+  }
+
+  function copyRaw(btn, text) {
+    copyText(btn, text);
+  }
+
+  function copyExample(btn) {
+    const text = btn.nextElementSibling.textContent.trim();
+    copyText(btn, text);
+  }
+
+  function copyText(btn, text) {
+    const orig = btn.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => flashCopy(btn, orig));
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      flashCopy(btn, orig);
+    }
+  }
+
+  function flashCopy(btn, orig) {
+    btn.textContent = '✓ COPIED';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
