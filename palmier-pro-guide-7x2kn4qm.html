@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Palmier Pro 完全解説書 | やきさかな式</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --main: #7040c8;
+  --sub: #0098b0;
+  --main-light: #f0eafa;
+  --sub-light: #e0f5f9;
+  --text: #1a1a2e;
+  --muted: #555;
+  --border: #e0e0e0;
+  --bg: #ffffff;
+  --bg-off: #f8f8f6;
+  --radius: 8px;
+  --nav-h: 52px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.8;
+}
+
+a { color: var(--main); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===== LAYOUT ===== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d1b5e 60%, #0d3a4a 100%);
+  color: #fff;
+  padding: 64px 20px 56px;
+  text-align: center;
+}
+.hero .badge {
+  display: inline-block;
+  background: rgba(112,64,200,0.6);
+  border: 1px solid rgba(112,64,200,0.8);
+  color: #d4b8ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(22px, 5vw, 34px);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.hero h1 span { color: #b48fff; }
+.hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.78);
+  max-width: 620px;
+  margin: 0 auto 28px;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+.hero-meta span::before { content: "/ "; }
+.hero-meta span:first-child::before { content: ""; }
+
+/* ===== STICKY NAV ===== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+}
+.sticky-nav .nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 12px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--main) transparent;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+.sticky-nav .nav-inner::-webkit-scrollbar { height: 3px; }
+.sticky-nav .nav-inner::-webkit-scrollbar-thumb { background: var(--main); border-radius: 3px; }
+.sticky-nav a {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.sticky-nav a:hover,
+.sticky-nav a.active {
+  background: var(--main-light);
+  color: var(--main);
+  text-decoration: none;
+}
+
+/* ===== SECTION ===== */
+.section {
+  padding: 56px 0 48px;
+  scroll-margin-top: var(--nav-h);
+}
+.section:nth-child(even) { background: var(--bg-off); }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.section-num {
+  background: var(--main);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  border-left: 4px solid var(--main);
+  padding-left: 14px;
+}
+
+/* ===== CARDS ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+}
+.card .card-icon {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--main);
+}
+.card p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+
+/* ===== TABLE ===== */
+.tbl-wrap { overflow-x: auto; margin-top: 20px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th {
+  background: var(--main);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 13px;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: #faf8ff; }
+.check { color: #22b060; font-weight: 700; }
+.cross { color: #cc2200; font-weight: 700; }
+.partial { color: #c07800; font-weight: 700; }
+
+/* ===== INFO BOXES ===== */
+.info-box {
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.info-box.note {
+  background: var(--main-light);
+  border-left: 4px solid var(--main);
+  color: #3d2080;
+}
+.info-box.warn {
+  background: #fff8e0;
+  border-left: 4px solid #c89000;
+  color: #6b4c00;
+}
+.info-box.tip {
+  background: var(--sub-light);
+  border-left: 4px solid var(--sub);
+  color: #005060;
+}
+.info-box strong { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; }
+
+/* ===== STEPS ===== */
+.steps { margin-top: 20px; }
+.step {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+.step-num {
+  background: var(--sub);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.step-body p { font-size: 14px; color: var(--muted); }
+.step-body code {
+  display: inline-block;
+  background: #f0eafa;
+  color: var(--main);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  margin-top: 4px;
+}
+
+/* ===== SPEC LIST ===== */
+.spec-list {
+  list-style: none;
+  margin-top: 16px;
+}
+.spec-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.spec-list li:last-child { border-bottom: none; }
+.spec-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 120px;
+  padding-top: 1px;
+}
+
+/* ===== PRICE CARDS ===== */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.price-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 18px;
+  text-align: center;
+  background: #fff;
+  position: relative;
+}
+.price-card.featured {
+  border-color: var(--main);
+  box-shadow: 0 4px 16px rgba(112,64,200,0.18);
+}
+.price-card .plan-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.price-card .price {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--main);
+  line-height: 1.2;
+}
+.price-card .price-orig {
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+.price-card .price-note {
+  font-size: 11px;
+  color: #e05000;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.price-card ul {
+  list-style: none;
+  text-align: left;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 14px;
+}
+.price-card ul li {
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.price-card ul li:last-child { border-bottom: none; }
+.price-card ul li::before { content: "- "; color: var(--main); }
+.price-card.free-card .price { color: var(--sub); }
+.badge-launch {
+  display: inline-block;
+  background: #e05000;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+/* ===== TOOLTIP ===== */
+.tt {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dashed var(--main);
+  display: inline;
+}
+.tt::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  transform: none;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: normal;
+  width: 240px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 200;
+}
+.tt:hover::after { opacity: 1; }
+
+/* ===== TOP BTN ===== */
+.top-btn-wrap { text-align: right; margin-top: 40px; }
+.top-btn {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 2px solid var(--main);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--main);
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.top-btn:hover {
+  background: var(--main);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ===== COCONALA BANNER ===== */
+.coconala-banner {
+  background: linear-gradient(135deg, #6a0dad 0%, #9b30d0 50%, #4b0082 100%);
+  padding: 36px 20px;
+  text-align: center;
+}
+.coconala-banner h3 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.coconala-banner p {
+  color: rgba(255,255,255,0.85);
+  font-size: 13.5px;
+  margin-bottom: 20px;
+}
+.coconala-btn {
+  display: inline-block;
+  background: #fff;
+  color: #6a0dad;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 32px;
+  border-radius: 24px;
+  transition: opacity 0.15s;
+}
+.coconala-btn:hover { opacity: 0.85; text-decoration: none; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: #1a1a2e;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 13px;
+}
+footer a { color: #b48fff; }
+
+/* ===== ANIMATION ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .price-grid { grid-template-columns: 1fr 1fr; }
+  .step { gap: 12px; }
+  .hero h1 { font-size: 22px; }
+}
+@media (max-width: 420px) {
+  .price-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="badge">やきさかな式 AI動画ツール解説</div>
+  <h1>Palmier Pro<br><span>完全解説書</span></h1>
+  <p>AIエージェントと一緒に動画を編集できる、次世代のオープンソース動画エディタの全機能と正確な仕様を解説します。</p>
+  <div class="hero-meta">
+    <span>macOS 26（Tahoe）以降 / Apple Silicon専用</span>
+    <span>オープンソース（GPLv3）</span>
+    <span>MCP対応（Claude / Cursor / Codex）</span>
+  </div>
+</div>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="sticky-nav" id="sticky-nav">
+  <div class="nav-inner">
+    <a href="#s1">S1 概要</a>
+    <a href="#s2">S2 無料機能</a>
+    <a href="#s3">S3 AI生成機能</a>
+    <a href="#s4">S4 MCP連携</a>
+    <a href="#s5">S5 料金プラン</a>
+    <a href="#s6">S6 エクスポート</a>
+  </div>
+</nav>
+
+<!-- ===== S1 概要 ===== -->
+<section class="section" id="s1">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S1</span>
+      <h2>Palmier Proとは何か</h2>
+    </div>
+
+    <p class="fade-in">Palmier Pro（パルミエ プロ）は、<span class="tt" data-tip="AIエージェントとリアルタイムに連携することを前提に、ゼロから設計された動画エディタです。">AIのために作られた動画エディタ</span>です。YCombinator S24バッチ出身のスタートアップ「Palmier Inc.」が開発し、2026年にオープンソースとして公開しました。</p>
+
+    <div class="info-box note fade-in" style="margin-top:20px;">
+      <strong>開発背景</strong>
+      RunwayやHiggsfield等のWeb生成ツールとPremiereを行き来する煩雑なワークフロー（生成→ダウンロード→インポート→再編集のループ）を解消するために開発されました。動画エディタを「単一の情報源」とし、スクリプト・生成・編集をすべて同一プロジェクト内で完結させることを目指しています。
+    </div>
+
+    <div class="fade-in" style="margin-top: 28px;">
+      <ul class="spec-list">
+        <li>
+          <span class="spec-label">対応OS</span>
+          <span>macOS 26（Tahoe）以降のみ対応</span>
+        </li>
+        <li>
+          <span class="spec-label">対応ハードウェア</span>
+          <span>Apple Silicon（M1以降）専用。<span class="tt" data-tip="Intelプロセッサ搭載のMac、Windows、Linuxでは動作しません。">Intel Mac・Windows・Linuxでは動作しない</span></span>
+        </li>
+        <li>
+          <span class="spec-label">開発言語</span>
+          <span>Swift製ネイティブアプリ（AVFoundation + Metal使用）</span>
+        </li>
+        <li>
+          <span class="spec-label">ライセンス</span>
+          <span>エディタ本体・MCPサーバーはGPLv3のオープンソース。AI生成処理部分のみクローズド</span>
+        </li>
+        <li>
+          <span class="spec-label">アカウント</span>
+          <span>エディタ・MCP使用にアカウント登録不要</span>
+        </li>
+        <li>
+          <span class="spec-label">公式サイト</span>
+          <span><a href="https://www.palmier.io" target="_blank" rel="noopener">palmier.io</a>（GitHub: palmier-io/palmier-pro）</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="info-box warn fade-in">
+      <strong>注意</strong>
+      インターネット上でPalmier Proに関する情報（AI生成のPDFを含む）には不正確な内容が含まれる場合があります。本解説書は公式サイト（palmier.io）・公式ドキュメント（palmier.io/docs）・公式GitHub（github.com/palmier-io/palmier-pro）のみを情報源としています。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S2 無料機能 ===== -->
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S2</span>
+      <h2>無料でできること</h2>
+    </div>
+
+    <p class="fade-in">Palmier Proは「エディタ本体とMCPは無料、AI生成機能はクレジット制」というシンプルな構造です。アカウント登録なしで以下の機能をすぐに使えます。</p>
+
+    <div class="card-grid fade-in" style="margin-top:24px;">
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>動画の読み込みと編集</h3>
+        <p>自分で用意した素材をインポートしてタイムラインに並べ、クリップのトリム・分割・並び替え・調整ができます。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>AI生成クリップの再調整</h3>
+        <p>タイムライン上のAI生成クリップをクリックして、プロンプトを微調整して再生成できます（再生成自体はクレジット消費）。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>エクスポート</h3>
+        <p>MP4（H.264 / H.265 / ProRes）と、Premiere Pro・DaVinci Resolve向けNLE XML形式でのエクスポートが無料です。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>MCPサーバー</h3>
+        <p>Claude Desktop・Cursor・Claude Code・Codexなど外部エージェントとのMCP接続が完全無料で利用できます。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>エージェントによるクリップ編集</h3>
+        <p>MCP経由でエージェントがクリップのトリム・分割・並び替え・調整を実行できます（AI素材の新規生成は除く）。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>内蔵チャット（BYOK）</h3>
+        <p>自分のAnthropicのAPIキーを持ち込む「BYOK」方式なら、内蔵のPalmier Chatを追加費用なしで使えます（APIの利用料は別途発生）。</p>
+      </div>
+    </div>
+
+    <div class="info-box tip fade-in" style="margin-top:24px;">
+      <strong>整理すると</strong>
+      「自分の素材を使った編集全般」と「外部エージェントへの編集依頼」は無料の範囲内です。「AIによる新しい素材の生成」はすべてクレジットが必要です。
+    </div>
+
+    <div class="tbl-wrap fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:55%">作業</th>
+            <th style="width:22%">無料</th>
+            <th style="width:23%">備考</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>素材インポート・タイムライン編集</td>
+            <td><span class="check">無料</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>クリップのトリム・分割・並び替え</td>
+            <td><span class="check">無料</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>MP4 / NLE XMLエクスポート</td>
+            <td><span class="check">無料</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>MCPサーバー（エージェント接続）</td>
+            <td><span class="check">無料</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>エージェントによるクリップ編集</td>
+            <td><span class="check">無料</span></td>
+            <td>AI生成を伴わない操作に限る</td>
+          </tr>
+          <tr>
+            <td>内蔵チャット（Palmier Chat）</td>
+            <td><span class="partial">条件付き</span></td>
+            <td>BYOKまたはサブスク必要</td>
+          </tr>
+          <tr>
+            <td>AI動画・画像・音声の生成</td>
+            <td><span class="cross">クレジット必要</span></td>
+            <td>有料プランのクレジットを消費</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S3 AI生成機能 ===== -->
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S3</span>
+      <h2>AI生成機能（有料クレジット）</h2>
+    </div>
+
+    <p class="fade-in">有料プランのクレジットを使うと、タイムラインを離れることなく動画・画像・音声をその場で生成してプロジェクトに組み込めます。</p>
+
+    <div class="info-box note fade-in">
+      <strong>対応AIモデル（公式GitHubに明記されているもの）</strong>
+      Seedance・Kling・Nano Banana Pro の3モデルが確認されています。※ネット上で流通している「Veo 3.1」「Grok Imagine」の対応は公式情報では確認できていません。
+    </div>
+
+    <h3 class="fade-in" style="margin:28px 0 16px; font-size:16px; color:var(--main);">タイムライン上でのAI生成フロー</h3>
+
+    <div class="steps fade-in">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>メディアパネルでモデルを選択</h3>
+          <p>左ペインのメディアパネルでモデルを選び、生成したい内容のプロンプトを入力します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>解像度・秒数・アスペクト比を設定</h3>
+          <p>動画生成の場合は解像度・長さ・アスペクト比を設定できます。最初と最後のフレームを指定して、クリップの始点・終点を固定することも可能です。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>参照画像の追加（任意）</h3>
+          <p>スタイルや被写体の一貫性を保ちたい場合は参照画像を追加できます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>タイムラインに自動配置</h3>
+          <p>生成されたクリップはそのままプロジェクトのライブラリに追加され、タイムラインに配置できます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h3>プロンプトを微調整して再生成</h3>
+          <p>AI生成クリップはダブルクリックで元のプロンプト・フレーム・参照画像を確認できます。プロンプトを変えてバリエーション生成も可能です（再生成のたびにクレジット消費）。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box tip fade-in">
+      <strong>内蔵チャット（Palmier Chat）からも生成可能</strong>
+      自然言語で「このシーンにBロールを追加して」と指示すると、チャットがアセットを生成してタイムラインに配置します。@マークで特定の画像を参照しながら指示することもできます。内蔵チャットはBYOK（自前のAnthropicのAPIキー）またはサブスクリプションが必要です。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S4 MCP連携 ===== -->
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S4</span>
+      <h2>AIエージェントとのMCP連携</h2>
+    </div>
+
+    <p class="fade-in">Palmier Proには<span class="tt" data-tip="Model Context Protocol。AIエージェントが外部ツールと通信するためのオープン標準規格です。">MCP（Model Context Protocol）</span>サーバーが内蔵されており、Claude Desktop・Claude Code・Cursor・Codexなど外部のAIエージェントから直接タイムラインを操作できます。MCP機能は完全無料です。</p>
+
+    <div class="info-box tip fade-in" style="margin-top:20px;">
+      <strong>エージェントからできること</strong>
+      プロジェクト全体のコンテキストを把握した上で、画像・動画・音声の生成とタイムラインへの配置、クリップのトリム・分割・並び替え・調整、AI生成クリップのプロンプト再調整と再生成が可能です。
+    </div>
+
+    <h3 class="fade-in" style="margin:28px 0 16px; font-size:16px; color:var(--main);">接続手順</h3>
+
+    <div class="steps fade-in">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Palmier Proを起動する</h3>
+          <p>アプリが起動すると自動的に<code>http://127.0.0.1:19789/mcp</code>でHTTP形式のMCPサーバーが公開されます。設定から有効・無効を切り替えられます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>接続手順を確認する</h3>
+          <p>アプリ内の<code>Help → MCP Instructions</code>を開くと、各ツール向けの接続手順と1クリックインストールボタンが表示されます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>エージェントに指示を出す</h3>
+          <p>接続が完了したら、エージェントのチャットから自然言語で編集指示を出せます。エージェントはタイムラインの構造を読み取りながら作業します。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box note fade-in">
+      <strong>MCP接続先の設定ファイル例（Cursor）</strong>
+      <code style="display:block;background:#1a1a2e;color:#b48fff;padding:12px 14px;border-radius:6px;font-size:13px;margin-top:10px;white-space:pre;">{"mcpServers": {"palmier-pro": {"type": "http","url": "http://127.0.0.1:19789/mcp"}}}</code>
+      Claude Desktopへの接続は「Help → MCP Instructions → Install in Claude Desktop」から1クリックで完了します。
+    </div>
+
+    <div class="info-box warn fade-in">
+      <strong>注意</strong>
+      MCPはローカル通信のため、Palmier Proをバックグラウンドで起動したままの状態が必要です。また、AI素材を新規生成する指示はクレジットを消費します。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S5 料金プラン ===== -->
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S5</span>
+      <h2>料金プラン</h2>
+    </div>
+
+    <p class="fade-in">エディタ本体とMCPは無料です。AI生成を使う時だけクレジットを購入する仕組みです。</p>
+
+    <div class="price-grid fade-in">
+      <div class="price-card free-card">
+        <div class="plan-name">FREE</div>
+        <div class="price">$0</div>
+        <div style="height:20px;"></div>
+        <ul>
+          <li>プロ動画エディタ</li>
+          <li>MCP（Cursor・Claude Desktop・Codex）</li>
+          <li>アカウント不要</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="badge-launch">期間限定</div>
+        <div class="plan-name">PRO</div>
+        <div class="price-orig">$49/mo</div>
+        <div class="price">$29<span style="font-size:14px;font-weight:400;">/mo</span></div>
+        <div class="price-note">ローンチ価格</div>
+        <ul>
+          <li>Freeの全機能</li>
+          <li>5,000クレジット/月</li>
+          <li>画像・動画・音声生成</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="badge-launch">期間限定</div>
+        <div class="plan-name">MAX</div>
+        <div class="price-orig">$99/mo</div>
+        <div class="price">$69<span style="font-size:14px;font-weight:400;">/mo</span></div>
+        <div class="price-note">ローンチ価格</div>
+        <ul>
+          <li>Proの全機能</li>
+          <li>12,000クレジット/月</li>
+          <li>優先サポート</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="plan-name">CUSTOM</div>
+        <div class="price" style="font-size:18px;margin-top:10px;">要相談</div>
+        <div style="height:24px;"></div>
+        <ul>
+          <li>大容量クレジット</li>
+          <li>プライベートSlack</li>
+          <li>セキュリティ・調達サポート</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box note fade-in" style="margin-top:24px;">
+      <strong>クレジットの目安</strong>
+      5,000クレジットで画像約333枚、または動画3〜7分程度が目安です。ただし実際の消費量はモデルと解像度によって異なります。編集機能のみの使用ではクレジットは消費されません。
+    </div>
+
+    <div class="info-box warn fade-in">
+      <strong>ローンチ価格について</strong>
+      ProとMaxの料金は期間限定のローンチ価格です。通常価格に戻るタイミングは公表されていないため、利用を検討する場合は早めの判断をおすすめします。最新の料金は palmier.io/pricing でご確認ください。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S6 エクスポート ===== -->
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S6</span>
+      <h2>エクスポートと外部連携</h2>
+    </div>
+
+    <p class="fade-in">Palmier Proで編集した内容は以下の形式でエクスポートできます。エクスポートは常に無料です。</p>
+
+    <div class="card-grid fade-in" style="margin-top:24px;">
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>MP4（H.264 / H.265 / ProRes）</h3>
+        <p>一般的な動画形式でエクスポートできます。SNS投稿・納品など用途に合わせて選択してください。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9654;</div>
+        <h3>NLE XML形式</h3>
+        <p>Adobe Premiere ProやDaVinci Resolveにインポートできる形式です。カット位置やクリップリンクを保持したまま移行できます。</p>
+      </div>
+    </div>
+
+    <div class="info-box tip fade-in" style="margin-top:24px;">
+      <strong>推奨ワークフロー例</strong>
+      Palmier ProでAIを活用したラフカット・素材生成を行い、カラーグレーディングや高度な音響編集はPremiere ProやDaVinci Resolveに引き継ぐという使い方が公式で案内されています。
+    </div>
+
+    <div class="info-box warn fade-in">
+      <strong>CapCutへのインポートについて</strong>
+      ネット上にはCapCut（PC版）へのXMLインポートが可能という情報がありますが、公式ドキュメント・GitHubいずれにもCapCutへの対応は記載されていません。公式に連携が確認されているのはPremiere ProとDaVinci Resolveのみです。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COCONALA BANNER ===== -->
+<div class="coconala-banner">
+  <h3>HTML解説書の制作代行はお任せください</h3>
+  <p>あなたのノウハウをPC・スマホで使えるHTML解説書に仕上げます。<br>やきさかな式 / 元飲食店店長サム</p>
+  <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener" class="coconala-btn">Coconalaで詳細を見る</a>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>本解説書の情報は palmier.io・docs・GitHubの公式情報のみを参照しています。</p>
+  <p style="margin-top:8px;">制作：<a href="https://x.com/sum_tenchou" target="_blank" rel="noopener">元飲食店店長サム（@sum_tenchou）</a> / やきさかな式</p>
+  <p style="margin-top:8px; font-size:12px;">Copyright &copy; 2026 やきさかな式. All rights reserved.</p>
+</footer>
+
+<script>
+// ===== SCROLL ANIMATION =====
+const fadeEls = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+fadeEls.forEach(el => observer.observe(el));
+
+// ===== STICKY NAV ACTIVE =====
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.sticky-nav a');
+function updateNav() {
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top <= 70) current = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+</script>
+</body>
+</html>
