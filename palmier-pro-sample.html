@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Palmier Pro 完全解説書【サンプル版】| やきさかな式</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --main: #7040c8;
+  --sub: #0098b0;
+  --main-light: #f0eafa;
+  --sub-light: #e0f5f9;
+  --text: #1a1a2e;
+  --muted: #555;
+  --border: #e0e0e0;
+  --bg: #ffffff;
+  --bg-off: #f8f8f6;
+  --radius: 8px;
+  --nav-h: 52px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.8;
+}
+
+a { color: var(--main); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===== LAYOUT ===== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d1b5e 60%, #0d3a4a 100%);
+  color: #fff;
+  padding: 64px 20px 56px;
+  text-align: center;
+}
+.hero .badge {
+  display: inline-block;
+  background: rgba(112,64,200,0.6);
+  border: 1px solid rgba(112,64,200,0.8);
+  color: #d4b8ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(22px, 5vw, 34px);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.hero h1 span { color: #b48fff; }
+.hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.78);
+  max-width: 620px;
+  margin: 0 auto 28px;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+.hero-meta span::before { content: "/ "; }
+.hero-meta span:first-child::before { content: ""; }
+
+/* ===== STICKY NAV ===== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+}
+.sticky-nav .nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 12px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--main) transparent;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+.sticky-nav .nav-inner::-webkit-scrollbar { height: 3px; }
+.sticky-nav .nav-inner::-webkit-scrollbar-thumb { background: var(--main); border-radius: 3px; }
+.sticky-nav a {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.sticky-nav a:hover,
+.sticky-nav a.active {
+  background: var(--main-light);
+  color: var(--main);
+  text-decoration: none;
+}
+
+/* ===== SECTION ===== */
+.section {
+  padding: 56px 0 48px;
+  scroll-margin-top: var(--nav-h);
+}
+.section:nth-child(even) { background: var(--bg-off); }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.section-num {
+  background: var(--main);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  border-left: 4px solid var(--main);
+  padding-left: 14px;
+}
+
+/* ===== CARDS ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+}
+.card .card-icon {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--main);
+}
+.card p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+
+/* ===== TABLE ===== */
+.tbl-wrap { overflow-x: auto; margin-top: 20px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th {
+  background: var(--main);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 13px;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: #faf8ff; }
+.check { color: #22b060; font-weight: 700; }
+.cross { color: #cc2200; font-weight: 700; }
+.partial { color: #c07800; font-weight: 700; }
+
+/* ===== INFO BOXES ===== */
+.info-box {
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.info-box.note {
+  background: var(--main-light);
+  border-left: 4px solid var(--main);
+  color: #3d2080;
+}
+.info-box.warn {
+  background: #fff8e0;
+  border-left: 4px solid #c89000;
+  color: #6b4c00;
+}
+.info-box.tip {
+  background: var(--sub-light);
+  border-left: 4px solid var(--sub);
+  color: #005060;
+}
+.info-box strong { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; }
+
+/* ===== STEPS ===== */
+.steps { margin-top: 20px; }
+.step {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+.step-num {
+  background: var(--sub);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.step-body p { font-size: 14px; color: var(--muted); }
+.step-body code {
+  display: inline-block;
+  background: #f0eafa;
+  color: var(--main);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  margin-top: 4px;
+}
+
+/* ===== SPEC LIST ===== */
+.spec-list {
+  list-style: none;
+  margin-top: 16px;
+}
+.spec-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.spec-list li:last-child { border-bottom: none; }
+.spec-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 120px;
+  padding-top: 1px;
+}
+
+/* ===== PRICE CARDS ===== */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.price-card {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 18px;
+  text-align: center;
+  background: #fff;
+  position: relative;
+}
+.price-card.featured {
+  border-color: var(--main);
+  box-shadow: 0 4px 16px rgba(112,64,200,0.18);
+}
+.price-card .plan-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.price-card .price {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--main);
+  line-height: 1.2;
+}
+.price-card .price-orig {
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+.price-card .price-note {
+  font-size: 11px;
+  color: #e05000;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.price-card ul {
+  list-style: none;
+  text-align: left;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 14px;
+}
+.price-card ul li {
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.price-card ul li:last-child { border-bottom: none; }
+.price-card ul li::before { content: "- "; color: var(--main); }
+.price-card.free-card .price { color: var(--sub); }
+.badge-launch {
+  display: inline-block;
+  background: #e05000;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+/* ===== TOOLTIP ===== */
+.tt {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dashed var(--main);
+  display: inline;
+}
+.tt::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  transform: none;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: normal;
+  width: 240px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 200;
+}
+.tt:hover::after { opacity: 1; }
+
+/* ===== TOP BTN ===== */
+.top-btn-wrap { text-align: right; margin-top: 40px; }
+.top-btn {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 2px solid var(--main);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--main);
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.top-btn:hover {
+  background: var(--main);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ===== COCONALA BANNER ===== */
+.coconala-banner {
+  background: linear-gradient(135deg, #6a0dad 0%, #9b30d0 50%, #4b0082 100%);
+  padding: 36px 20px;
+  text-align: center;
+}
+.coconala-banner h3 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.coconala-banner p {
+  color: rgba(255,255,255,0.85);
+  font-size: 13.5px;
+  margin-bottom: 20px;
+}
+.coconala-btn {
+  display: inline-block;
+  background: #fff;
+  color: #6a0dad;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 32px;
+  border-radius: 24px;
+  transition: opacity 0.15s;
+}
+.coconala-btn:hover { opacity: 0.85; text-decoration: none; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: #1a1a2e;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 13px;
+}
+footer a { color: #b48fff; }
+
+/* ===== ANIMATION ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ===== LOCKED SECTION ===== */
+.locked-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--bg-off);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  margin-top: 12px;
+}
+.lock-icon { font-size: 36px; margin-bottom: 12px; }
+.lock-msg {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.lock-btn {
+  display: inline-block;
+  background: var(--main);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 24px;
+  transition: opacity 0.15s;
+  text-decoration: none;
+}
+.lock-btn:hover { opacity: 0.85; text-decoration: none; }
+
+/* ===== LINE CTA ===== */
+.line-cta {
+  background: linear-gradient(135deg, #00b900 0%, #00c900 60%, #009900 100%);
+  padding: 48px 20px;
+  text-align: center;
+}
+.line-cta .cta-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.line-cta h3 {
+  color: #fff;
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.line-cta p {
+  color: rgba(255,255,255,0.9);
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+.line-cta .keyword-box {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.6);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 8px 28px;
+  border-radius: 8px;
+  margin: 12px 0 24px;
+  letter-spacing: 0.06em;
+}
+.line-cta .line-btn {
+  display: inline-block;
+  background: #fff;
+  color: #00b900;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 40px;
+  border-radius: 30px;
+  transition: opacity 0.15s, transform 0.15s;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+.line-cta .line-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.line-cta .line-btn-icon { margin-right: 8px; font-size: 18px; vertical-align: -3px; }
+.line-cta .cta-note {
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .price-grid { grid-template-columns: 1fr 1fr; }
+  .step { gap: 12px; }
+  .hero h1 { font-size: 22px; }
+}
+@media (max-width: 420px) {
+  .price-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="badge">やきさかな式 AI動画ツール解説</div>
+  <h1>Palmier Pro<br><span>完全解説書【サンプル版】</span></h1>
+  <p>AIエージェントと一緒に動画を編集できる、次世代のオープンソース動画エディタの全機能と正確な仕様を解説します。<br><strong style="color:#ffcc66;">※こちらはS1のみ公開のサンプル版です。完全版はLINEよりお受け取りください。</strong></p>
+  <div class="hero-meta">
+    <span>macOS 26（Tahoe）以降 / Apple Silicon専用</span>
+    <span>オープンソース（GPLv3）</span>
+    <span>MCP対応（Claude / Cursor / Codex）</span>
+  </div>
+</div>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="sticky-nav" id="sticky-nav">
+  <div class="nav-inner">
+    <a href="#s1">S1 概要</a>
+    <a href="#s2">S2 無料機能</a>
+    <a href="#s3">S3 AI生成機能</a>
+    <a href="#s4">S4 MCP連携</a>
+    <a href="#s5">S5 料金プラン</a>
+    <a href="#s6">S6 エクスポート</a>
+  </div>
+</nav>
+
+<!-- ===== S1 概要 ===== -->
+<section class="section" id="s1">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S1</span>
+      <h2>Palmier Proとは何か</h2>
+    </div>
+
+    <p class="fade-in">Palmier Pro（パルミエ プロ）は、<span class="tt" data-tip="AIエージェントとリアルタイムに連携することを前提に、ゼロから設計された動画エディタです。">AIのために作られた動画エディタ</span>です。YCombinator S24バッチ出身のスタートアップ「Palmier Inc.」が開発し、2026年にオープンソースとして公開しました。</p>
+
+    <div class="info-box note fade-in" style="margin-top:20px;">
+      <strong>開発背景</strong>
+      RunwayやHiggsfield等のWeb生成ツールとPremiereを行き来する煩雑なワークフロー（生成→ダウンロード→インポート→再編集のループ）を解消するために開発されました。動画エディタを「単一の情報源」とし、スクリプト・生成・編集をすべて同一プロジェクト内で完結させることを目指しています。
+    </div>
+
+    <div class="fade-in" style="margin-top: 28px;">
+      <ul class="spec-list">
+        <li>
+          <span class="spec-label">対応OS</span>
+          <span>macOS 26（Tahoe）以降のみ対応</span>
+        </li>
+        <li>
+          <span class="spec-label">対応ハードウェア</span>
+          <span>Apple Silicon（M1以降）専用。<span class="tt" data-tip="Intelプロセッサ搭載のMac、Windows、Linuxでは動作しません。">Intel Mac・Windows・Linuxでは動作しない</span></span>
+        </li>
+        <li>
+          <span class="spec-label">開発言語</span>
+          <span>Swift製ネイティブアプリ（AVFoundation + Metal使用）</span>
+        </li>
+        <li>
+          <span class="spec-label">ライセンス</span>
+          <span>エディタ本体・MCPサーバーはGPLv3のオープンソース。AI生成処理部分のみクローズド</span>
+        </li>
+        <li>
+          <span class="spec-label">アカウント</span>
+          <span>エディタ・MCP使用にアカウント登録不要</span>
+        </li>
+        <li>
+          <span class="spec-label">公式サイト</span>
+          <span><a href="https://www.palmier.io" target="_blank" rel="noopener">palmier.io</a>（GitHub: palmier-io/palmier-pro）</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="info-box warn fade-in">
+      <strong>注意</strong>
+      インターネット上でPalmier Proに関する情報（AI生成のPDFを含む）には不正確な内容が含まれる場合があります。本解説書は公式サイト（palmier.io）・公式ドキュメント（palmier.io/docs）・公式GitHub（github.com/palmier-io/palmier-pro）のみを情報源としています。
+    </div>
+
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S2 無料機能（サンプル版：ロック） ===== -->
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S2</span>
+      <h2>無料でできること</h2>
+    </div>
+    <div class="locked-section fade-in">
+      <div class="lock-icon">🔒</div>
+      <p class="lock-msg">この章は完全版でご覧いただけます</p>
+      <a href="#cta-line" class="lock-btn">完全版を無料で受け取る →</a>
+    </div>
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S3 AI生成機能（サンプル版：ロック） ===== -->
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S3</span>
+      <h2>AI生成機能（有料クレジット）</h2>
+    </div>
+    <div class="locked-section fade-in">
+      <div class="lock-icon">🔒</div>
+      <p class="lock-msg">この章は完全版でご覧いただけます</p>
+      <a href="#cta-line" class="lock-btn">完全版を無料で受け取る →</a>
+    </div>
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S4 MCP連携（サンプル版：ロック） ===== -->
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S4</span>
+      <h2>AIエージェントとのMCP連携</h2>
+    </div>
+    <div class="locked-section fade-in">
+      <div class="lock-icon">🔒</div>
+      <p class="lock-msg">この章は完全版でご覧いただけます</p>
+      <a href="#cta-line" class="lock-btn">完全版を無料で受け取る →</a>
+    </div>
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S5 料金プラン（サンプル版：ロック） ===== -->
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S5</span>
+      <h2>料金プラン</h2>
+    </div>
+    <div class="locked-section fade-in">
+      <div class="lock-icon">🔒</div>
+      <p class="lock-msg">この章は完全版でご覧いただけます</p>
+      <a href="#cta-line" class="lock-btn">完全版を無料で受け取る →</a>
+    </div>
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S6 エクスポート（サンプル版：ロック） ===== -->
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-num">S6</span>
+      <h2>エクスポートと外部連携</h2>
+    </div>
+    <div class="locked-section fade-in">
+      <div class="lock-icon">🔒</div>
+      <p class="lock-msg">この章は完全版でご覧いただけます</p>
+      <a href="#cta-line" class="lock-btn">完全版を無料で受け取る →</a>
+    </div>
+    <div class="top-btn-wrap">
+      <a href="#" class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">TOP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LINE CTA ===== -->
+<div class="line-cta" id="cta-line">
+  <div class="container">
+    <div class="cta-badge">🎁 無料プレゼント</div>
+    <h3>Palmier Pro完全解説書を<br>無料でお受け取りください</h3>
+    <p>S2〜S6（無料機能の全リスト・AI生成の使い方・MCP接続手順・<br>料金プランの詳細・エクスポート方法）を収録した完全版を<br>公式LINEにご登録いただいた方に無料でお配りしています。</p>
+    <p style="margin-top:12px;">受け取り方法：LINE登録後、下記のキーワードを送信してください。</p>
+    <div class="keyword-box">動画革命</div>
+    <br>
+    <a href="#" class="line-btn">
+      <span class="line-btn-icon">💬</span>公式LINEを登録して受け取る
+    </a>
+    <p class="cta-note">※登録は無料です。折り返し、完全版のURLをお送りします。</p>
+  </div>
+</div>
+
+<!-- ===== COCONALA BANNER ===== -->
+<div class="coconala-banner">
+  <h3>HTML解説書の制作代行はお任せください</h3>
+  <p>あなたのノウハウをPC・スマホで使えるHTML解説書に仕上げます。<br>やきさかな式 / 元飲食店店長サム</p>
+  <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener" class="coconala-btn">Coconalaで詳細を見る</a>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>本解説書の情報は palmier.io・docs・GitHubの公式情報のみを参照しています。</p>
+  <p style="margin-top:8px;">制作：<a href="https://x.com/sum_tenchou" target="_blank" rel="noopener">元飲食店店長サム（@sum_tenchou）</a> / やきさかな式</p>
+  <p style="margin-top:8px; font-size:12px;">Copyright &copy; 2026 やきさかな式. All rights reserved.</p>
+</footer>
+
+<script>
+// ===== SCROLL ANIMATION =====
+const fadeEls = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+fadeEls.forEach(el => observer.observe(el));
+
+// ===== STICKY NAV ACTIVE =====
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.sticky-nav a');
+function updateNav() {
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top <= 70) current = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+</script>
+</body>
+</html>
