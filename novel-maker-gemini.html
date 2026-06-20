@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>やきさかな式 小説メーカー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   リセット・基本
+================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #f5f0eb;
+  color: #2d2410;
+  min-height: 100vh;
+}
+
+/* ================================================================
+   カラー変数
+================================================================ */
+:root {
+  --primary: #7b4f28;
+  --primary-light: #a06b3a;
+  --accent: #c9813a;
+  --accent-light: #e8a85a;
+  --bg: #f5f0eb;
+  --bg-card: #ffffff;
+  --bg-ai: #fdf6ee;
+  --border: #e0d4c0;
+  --text: #2d2410;
+  --text-muted: #7a6548;
+  --success: #2d7a2d;
+  --shadow: 0 2px 12px rgba(123,79,40,0.10);
+}
+
+/* ================================================================
+   ヘッダー
+================================================================ */
+.header {
+  background: var(--primary);
+  color: #fff;
+  padding: 20px 24px;
+  text-align: center;
+}
+.header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.header p {
+  font-size: 0.82rem;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* ================================================================
+   メインレイアウト
+================================================================ */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 80px;
+}
+
+/* ================================================================
+   モード選択画面
+================================================================ */
+.mode-select {
+  padding-top: 16px;
+}
+.mode-select h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+.mode-select p {
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+.mode-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.mode-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mode-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+.mode-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.mode-card-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  background: var(--accent-light);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: 8px;
+}
+.mode-card-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ================================================================
+   チャット画面
+================================================================ */
+.chat-screen { display: none; }
+.chat-screen.active { display: block; }
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+  min-height: 300px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+}
+.message.ai { align-self: flex-start; }
+.message.user { align-self: flex-end; }
+
+.message-bubble {
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+.message.ai .message-bubble {
+  background: var(--bg-ai);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+}
+.message.user .message-bubble {
+  background: var(--primary);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.message-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.message.user .message-label {
+  text-align: right;
+}
+
+/* 設定書ブロック */
+.settei-block {
+  background: #fffbf5;
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 12px;
+  font-size: 0.87rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.settei-block h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+/* ================================================================
+   入力エリア
+================================================================ */
+.input-area {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.input-area textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: transparent;
+  min-height: 80px;
+  line-height: 1.7;
+}
+.input-area textarea::placeholder {
+  color: #bbb;
+}
+.input-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* ================================================================
+   ボタン
+================================================================ */
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 8px;
+  border: none;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--primary-light); }
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-accent:hover:not(:disabled) { background: var(--accent-light); }
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+}
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+.btn-copy {
+  background: var(--success);
+  color: #fff;
+  padding: 8px 18px;
+  font-size: 0.82rem;
+}
+.btn-sm { padding: 7px 14px; font-size: 0.82rem; }
+
+/* ================================================================
+   アクション行
+================================================================ */
+.action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+/* ================================================================
+   フォーム（設問モード）
+================================================================ */
+.form-screen { display: none; }
+.form-screen.active { display: block; }
+
+.form-step {
+  display: none;
+}
+.form-step.active { display: block; }
+
+.form-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+.form-card label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.form-card .hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.form-card input[type="text"],
+.form-card textarea,
+.form-card select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--text);
+  background: #fafafa;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+  border-color: var(--accent);
+}
+.form-card textarea { resize: vertical; min-height: 80px; line-height: 1.7; }
+
+.progress-bar {
+  background: var(--border);
+  border-radius: 99px;
+  height: 6px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+.progress-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* ================================================================
+   ローディング
+================================================================ */
+.loading {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  color: var(--text-muted);
+  font-size: 0.87rem;
+}
+.loading.active { display: flex; }
+.loading-dots span {
+  display: inline-block;
+  width: 7px; height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin: 0 2px;
+  animation: bounce 1.2s infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+}
+
+/* ================================================================
+   APIキーエリア
+================================================================ */
+.apikey-area {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+.apikey-area label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.apikey-row {
+  display: flex;
+  gap: 8px;
+}
+.apikey-area input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-family: monospace;
+  color: var(--text);
+  outline: none;
+}
+.apikey-area input:focus { border-color: var(--accent); }
+.apikey-status {
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
+.apikey-status.ok { color: var(--success); }
+.apikey-status.ng { color: #c0392b; }
+
+/* ================================================================
+   設定書表示
+================================================================ */
+.settei-result {
+  display: none;
+  background: #fffbf5;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.settei-result.active { display: block; }
+.settei-result h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.settei-text {
+  font-size: 0.87rem;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  color: var(--text);
+}
+.settei-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.usage-hint {
+  background: #f0f8f0;
+  border: 1px solid #a8d5a8;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: #2d5a2d;
+  margin-top: 14px;
+}
+
+/* ================================================================
+   Coconalaバナー
+================================================================ */
+.coconala-banner {
+  background: linear-gradient(135deg, #6b21a8, #9333ea);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.coconala-banner p {
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+.coconala-banner a {
+  display: inline-block;
+  background: #fff;
+  color: #6b21a8;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 9px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.coconala-banner a:hover { opacity: 0.9; }
+
+/* ================================================================
+   フッター
+================================================================ */
+footer {
+  text-align: center;
+  padding: 24px 16px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ================================================================
+   戻るボタン
+================================================================ */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-bottom: 16px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 4px 0;
+}
+.back-btn:hover { color: var(--primary); }
+
+/* ================================================================
+   レスポンシブ
+================================================================ */
+@media (max-width: 480px) {
+  .header h1 { font-size: 1.1rem; }
+  .container { padding: 16px 12px 80px; }
+  .mode-card { padding: 16px; }
+  .form-card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="header">
+  <h1>やきさかな式 小説メーカー</h1>
+  <p>AIと対話しながら、あなただけの物語の設定書を作ります</p>
+</div>
+
+<div class="container">
+
+  <!-- APIキーエリア（常時表示） -->
+  <div class="apikey-area">
+    <label>Gemini APIキー</label>
+    <div class="apikey-row">
+      <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off">
+      <button class="btn btn-outline btn-sm" onclick="saveApiKey()">保存</button>
+    </div>
+    <div class="apikey-status" id="apiKeyStatus"></div>
+  </div>
+
+  <!-- モード選択 -->
+  <div id="modeSelect" class="mode-select">
+    <h2>どちらから始めますか？</h2>
+    <p>書きたいものが決まっていない方も大丈夫です。<br>AIが一緒に引き出します。</p>
+    <div class="mode-cards">
+      <div class="mode-card" onclick="startChat()">
+        <div class="mode-card-tag">おすすめ</div>
+        <div class="mode-card-title">AIと話しながら決める</div>
+        <div class="mode-card-desc">
+          「なんとなく書きたいけど、何を書けばいいかわからない」という方向け。
+          AIがやさしく質問しながら、あなたの物語のアイデアを引き出します。
+        </div>
+      </div>
+      <div class="mode-card" onclick="startForm()">
+        <div class="mode-card-title">設問に答えて作る</div>
+        <div class="mode-card-desc">
+          ある程度書きたいものが決まっている方向け。
+          シンプルな設問に答えるだけで設定書が完成します。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- チャット画面 -->
+  <div id="chatScreen" class="chat-screen">
+    <button class="back-btn" onclick="goBack()">← 最初に戻る</button>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="loading" id="chatLoading">
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+      考えています...
+    </div>
+
+    <!-- 設定書表示エリア -->
+    <div class="settei-result" id="chatSettei">
+      <h2>設定書が完成しました</h2>
+      <div class="settei-text" id="chatSetteiText"></div>
+      <div class="settei-actions">
+        <button class="btn btn-copy" onclick="copySettei('chatSetteiText')">設定書をコピーする</button>
+        <button class="btn btn-outline btn-sm" onclick="continueChat()">もう少し話す</button>
+      </div>
+      <div class="usage-hint">
+        この設定書をコピーして、Claudeのチャット画面に貼り付け、<br>
+        「この設定で第1章を書いてください」と入力してください。<br>
+        章ごとに確認しながら執筆を進められます。
+      </div>
+    </div>
+
+    <!-- 入力エリア -->
+    <div id="chatInputArea">
+      <div class="input-area">
+        <textarea id="chatInput" placeholder="ここに入力してください..." rows="3"
+          onkeydown="handleEnter(event)"></textarea>
+        <div class="input-footer">
+          <button class="btn btn-primary" onclick="sendChat()" id="chatSendBtn">送信</button>
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="btn btn-accent btn-sm" onclick="requestSummary()">今の内容で設定書を作る</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- フォーム画面 -->
+  <div id="formScreen" class="form-screen">
+    <button class="back-btn" onclick="goBack()">← 最初に戻る</button>
+
+    <div class="progress-label" id="formProgressLabel">STEP 1 / 4</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="formProgress" style="width: 25%"></div>
+    </div>
+
+    <!-- STEP 1：基本情報 -->
+    <div class="form-step active" id="formStep1">
+      <div class="form-card">
+        <label>どんな話を書きたいですか？</label>
+        <div class="hint">ジャンル・雰囲気・テーマなど、思いつくままに書いてください</div>
+        <textarea id="f_concept" placeholder="例：悲しいけど最後は温かい気持ちになる話、家族の絆についての話、など"></textarea>
+      </div>
+      <div class="form-card">
+        <label>舞台・時代背景は？</label>
+        <div class="hint">現代・過去・近未来・異世界など</div>
+        <input type="text" id="f_setting" placeholder="例：現代の東京、江戸時代、魔法のある異世界、など">
+      </div>
+      <div class="form-card">
+        <label>読んだ人にどんな気持ちになってほしいですか？</label>
+        <input type="text" id="f_emotion" placeholder="例：感動して涙が出る、わくわくする、考えさせられる、など">
+      </div>
+      <button class="btn btn-primary" onclick="nextFormStep(2)">次へ</button>
+    </div>
+
+    <!-- STEP 2：主人公 -->
+    <div class="form-step" id="formStep2">
+      <div class="form-card">
+        <label>主人公はどんな人ですか？</label>
+        <div class="hint">名前・年齢・職業・性格など思いつくことを書いてください</div>
+        <textarea id="f_hero" placeholder="例：30代の会社員、無口だけど優しい、昔夢を諦めた人、など"></textarea>
+      </div>
+      <div class="form-card">
+        <label>主人公が一番抱えていることは？</label>
+        <div class="hint">悩み・傷・過去のこと、なんでも</div>
+        <textarea id="f_problem" placeholder="例：大切な人を失った後悔、自分に自信がない、家族との不和、など"></textarea>
+      </div>
+      <div class="form-card">
+        <label>主人公以外に重要な人物はいますか？</label>
+        <div class="hint">いなければ空白でOK</div>
+        <textarea id="f_sub" placeholder="例：幼なじみの女性、謎めいた老人、ライバルの同僚、など"></textarea>
+      </div>
+      <div class="action-row">
+        <button class="btn btn-outline" onclick="nextFormStep(1)">戻る</button>
+        <button class="btn btn-primary" onclick="nextFormStep(3)">次へ</button>
+      </div>
+    </div>
+
+    <!-- STEP 3：ストーリー -->
+    <div class="form-step" id="formStep3">
+      <div class="form-card">
+        <label>物語の始まりのイメージは？</label>
+        <div class="hint">主人公の日常・出会い・事件のきっかけなど</div>
+        <textarea id="f_start" placeholder="例：主人公が突然リストラされるところから始まる、など"></textarea>
+      </div>
+      <div class="form-card">
+        <label>物語の山場・クライマックスのイメージは？</label>
+        <div class="hint">なんとなくでOK</div>
+        <textarea id="f_climax" placeholder="例：主人公が大切な選択を迫られる場面、など"></textarea>
+      </div>
+      <div class="form-card">
+        <label>結末のイメージは？</label>
+        <div class="hint">ハッピーエンド・バッドエンド・余韻を残すなど</div>
+        <input type="text" id="f_ending" placeholder="例：完全なハッピーエンドではなく、成長した主人公が歩み出す終わり方、など">
+      </div>
+      <div class="action-row">
+        <button class="btn btn-outline" onclick="nextFormStep(2)">戻る</button>
+        <button class="btn btn-primary" onclick="nextFormStep(4)">次へ</button>
+      </div>
+    </div>
+
+    <!-- STEP 4：スタイル -->
+    <div class="form-step" id="formStep4">
+      <div class="form-card">
+        <label>タイトルのイメージはありますか？</label>
+        <div class="hint">なければAIが提案します</div>
+        <input type="text" id="f_title" placeholder="例：「雨の降る前に」、まだ未定、など">
+      </div>
+      <div class="form-card">
+        <label>文体・雰囲気のイメージは？</label>
+        <div class="hint">文章のスタイルについて</div>
+        <input type="text" id="f_style" placeholder="例：やさしい文体・読みやすい、硬派でリアル、詩的で美しい、など">
+      </div>
+      <div class="form-card">
+        <label>参考にしたい作家・作品はありますか？</label>
+        <div class="hint">なければ空白でOK</div>
+        <input type="text" id="f_ref" placeholder="例：東野圭吾、村上春樹、ハリーポッター、など">
+      </div>
+      <div class="action-row">
+        <button class="btn btn-outline" onclick="nextFormStep(3)">戻る</button>
+        <button class="btn btn-accent" onclick="generateFromForm()">設定書を作成する</button>
+      </div>
+    </div>
+
+    <div class="loading" id="formLoading">
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+      設定書を作成中...
+    </div>
+
+    <!-- 設定書表示エリア（フォームモード） -->
+    <div class="settei-result" id="formSettei">
+      <h2>設定書が完成しました</h2>
+      <div class="settei-text" id="formSetteiText"></div>
+      <div class="settei-actions">
+        <button class="btn btn-copy" onclick="copySettei('formSetteiText')">設定書をコピーする</button>
+        <button class="btn btn-outline btn-sm" onclick="goBack()">最初からやり直す</button>
+      </div>
+      <div class="usage-hint">
+        この設定書をコピーして、Claudeのチャット画面に貼り付け、<br>
+        「この設定で第1章を書いてください」と入力してください。<br>
+        章ごとに確認しながら執筆を進められます。
+      </div>
+    </div>
+  </div>
+
+  <!-- Coconalaバナー -->
+  <div class="coconala-banner">
+    <p>AIツールの使い方でお困りですか？<br>個別サポートはこちらから</p>
+    <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener">ココナラでサポートを見る</a>
+  </div>
+
+</div>
+
+<footer>
+  やきさかな式 小説メーカー &copy; 元飲食店店長サム
+</footer>
+
+<script>
+// ================================================================
+// GAS エンドポイント（デプロイ後に差し替え）
+// ================================================================
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbw0v53NRfHoQyKACIQmv1hoEi1VEwLqsqav1G5AN5A7j5hscO4GbnF8LaGZxPCoN_-DZg/exec';
+
+// ================================================================
+// APIキー管理
+// ================================================================
+let apiKey = '';
+
+function loadApiKey() {
+  const saved = localStorage.getItem('novel_maker_gemini_apikey');
+  if (saved) {
+    apiKey = saved;
+    document.getElementById('apiKeyInput').value = saved;
+    setApiKeyStatus('保存済み', true);
+  }
+}
+
+function saveApiKey() {
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if (!val) {
+    setApiKeyStatus('APIキーを入力してください', false);
+    return;
+  }
+  if (!val.startsWith('AIza... {
+    setApiKeyStatus('Anthropic APIキーは AIza...�ら始まります', false);
+    return;
+  }
+  apiKey = val;
+  localStorage.setItem('novel_maker_gemini_apikey', val);
+  setApiKeyStatus('保存しました', true);
+}
+
+function setApiKeyStatus(msg, ok) {
+  const el = document.getElementById('apiKeyStatus');
+  el.textContent = msg;
+  el.className = 'apikey-status ' + (ok ? 'ok' : 'ng');
+}
+
+// ================================================================
+// 画面切り替え
+// ================================================================
+function goBack() {
+  document.getElementById('modeSelect').style.display = '';
+  document.getElementById('chatScreen').classList.remove('active');
+  document.getElementById('formScreen').classList.remove('active');
+  chatHistory = [];
+  document.getElementById('chatMessages').innerHTML = '';
+  document.getElementById('chatSettei').classList.remove('active');
+  document.getElementById('chatInputArea').style.display = '';
+}
+
+// ================================================================
+// チャットモード
+// ================================================================
+let chatHistory = [];
+
+function startChat() {
+  if (!checkApiKey()) return;
+  document.getElementById('modeSelect').style.display = 'none';
+  document.getElementById('chatScreen').classList.add('active');
+  chatHistory = [];
+  document.getElementById('chatMessages').innerHTML = '';
+  document.getElementById('chatSettei').classList.remove('active');
+  document.getElementById('chatInputArea').style.display = '';
+
+  // 最初のAIメッセージを取得
+  sendToGAS('chat', [], true);
+}
+
+function handleEnter(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendChat();
+  }
+}
+
+function sendChat() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  if (!checkApiKey()) return;
+
+  appendMessage('user', text);
+  chatHistory.push({ role: 'user', content: text });
+  input.value = '';
+
+  sendToGAS('chat', chatHistory, false);
+}
+
+function continueChat() {
+  document.getElementById('chatSettei').classList.remove('active');
+  document.getElementById('chatInputArea').style.display = '';
+}
+
+function requestSummary() {
+  if (chatHistory.length === 0) {
+    alert('まず少し話してみてください。');
+    return;
+  }
+  const summaryMsg = [
+    { role: 'user', content: '今までの会話をもとに設定書にまとめてください' }
+  ];
+  sendToGAS('summary', [...chatHistory, ...summaryMsg], false, true);
+}
+
+async function sendToGAS(mode, messages, isFirst, isSummary) {
+  setLoading(true, 'chat');
+
+  // 最初のメッセージは空のユーザーメッセージで始める
+  let msgs = messages;
+  if (isFirst) {
+    msgs = [{ role: 'user', content: '始めてください' }];
+  }
+
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode, messages: msgs, apiKey })
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      appendMessage('ai', 'エラーが発生しました：' + data.error);
+    } else {
+      const reply = data.reply;
+
+      if (isSummary || reply.includes('---設定書ここから---')) {
+        // 設定書を表示
+        showSettei(reply, 'chat');
+      } else {
+        appendMessage('ai', reply);
+        chatHistory.push({ role: 'assistant', content: reply });
+      }
+    }
+  } catch (err) {
+    appendMessage('ai', '通信エラーが発生しました。GAS URLを確認してください。');
+  }
+
+  setLoading(false, 'chat');
+}
+
+function appendMessage(role, text) {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'message ' + role;
+
+  const label = document.createElement('div');
+  label.className = 'message-label';
+  label.textContent = role === 'ai' ? 'AI' : 'あなた';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'message-bubble';
+  bubble.textContent = text;
+
+  div.appendChild(label);
+  div.appendChild(bubble);
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+// ================================================================
+// フォームモード
+// ================================================================
+function startForm() {
+  if (!checkApiKey()) return;
+  document.getElementById('modeSelect').style.display = 'none';
+  document.getElementById('formScreen').classList.add('active');
+  document.getElementById('formSettei').classList.remove('active');
+  showFormStep(1);
+}
+
+function showFormStep(n) {
+  [1,2,3,4].forEach(i => {
+    document.getElementById('formStep' + i).classList.toggle('active', i === n);
+  });
+  const pct = n * 25;
+  document.getElementById('formProgress').style.width = pct + '%';
+  document.getElementById('formProgressLabel').textContent = 'STEP ' + n + ' / 4';
+}
+
+function nextFormStep(n) {
+  showFormStep(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function generateFromForm() {
+  if (!checkApiKey()) return;
+
+  const data = {
+    concept: document.getElementById('f_concept').value,
+    setting: document.getElementById('f_setting').value,
+    emotion: document.getElementById('f_emotion').value,
+    hero: document.getElementById('f_hero').value,
+    problem: document.getElementById('f_problem').value,
+    sub: document.getElementById('f_sub').value,
+    start: document.getElementById('f_start').value,
+    climax: document.getElementById('f_climax').value,
+    ending: document.getElementById('f_ending').value,
+    title: document.getElementById('f_title').value,
+    style: document.getElementById('f_style').value,
+    ref: document.getElementById('f_ref').value
+  };
+
+  const prompt = buildFormPrompt(data);
+  setLoading(true, 'form');
+
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mode: 'form',
+        messages: [{ role: 'user', content: prompt }],
+        apiKey
+      })
+    });
+    const result = await res.json();
+
+    if (result.error) {
+      alert('エラー：' + result.error);
+    } else {
+      showSettei(result.reply, 'form');
+    }
+  } catch (err) {
+    alert('通信エラーが発生しました。');
+  }
+
+  setLoading(false, 'form');
+}
+
+function buildFormPrompt(d) {
+  return [
+    '以下の情報をもとに小説の設定書を作成してください。',
+    '',
+    '【書きたい話のイメージ】' + (d.concept || '未入力'),
+    '【舞台・時代背景】' + (d.setting || '未入力'),
+    '【読者に感じてほしい感情】' + (d.emotion || '未入力'),
+    '【主人公】' + (d.hero || '未入力'),
+    '【主人公の悩み・抱えているもの】' + (d.problem || '未入力'),
+    '【その他の登場人物】' + (d.sub || 'なし'),
+    '【物語の始まり】' + (d.start || '未入力'),
+    '【クライマックス】' + (d.climax || '未入力'),
+    '【結末】' + (d.ending || '未入力'),
+    '【タイトル案】' + (d.title || 'AIに提案してほしい'),
+    '【文体・雰囲気】' + (d.style || '未入力'),
+    '【参考作品・作家】' + (d.ref || 'なし')
+  ].join('\n');
+}
+
+// ================================================================
+// 設定書表示・コピー
+// ================================================================
+function showSettei(text, mode) {
+  // ---設定書--- タグを除去して表示
+  const cleaned = text
+    .replace('---設定書ここから---', '')
+    .replace('---設定書ここまで---', '')
+    .trim();
+
+  if (mode === 'chat') {
+    document.getElementById('chatSetteiText').textContent = cleaned;
+    document.getElementById('chatSettei').classList.add('active');
+    document.getElementById('chatInputArea').style.display = 'none';
+    document.getElementById('chatSettei').scrollIntoView({ behavior: 'smooth' });
+  } else {
+    document.getElementById('formSetteiText').textContent = cleaned;
+    document.getElementById('formSettei').classList.add('active');
+    [1,2,3,4].forEach(i => {
+      document.getElementById('formStep' + i).classList.remove('active');
+    });
+    document.getElementById('formSettei').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function copySettei(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'コピーしました！';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  }).catch(() => {
+    // フォールバック
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'コピーしました！';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+}
+
+// ================================================================
+// ローディング
+// ================================================================
+function setLoading(on, mode) {
+  const id = mode === 'chat' ? 'chatLoading' : 'formLoading';
+  document.getElementById(id).classList.toggle('active', on);
+  if (mode === 'chat') {
+    document.getElementById('chatSendBtn').disabled = on;
+  }
+}
+
+// ================================================================
+// APIキーチェック
+// ================================================================
+function checkApiKey() {
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if (!val) {
+    setApiKeyStatus('まずAPIキーを入力・保存してください', false);
+    document.getElementById('apiKeyInput').focus();
+    return false;
+  }
+  apiKey = val;
+  return true;
+}
+
+// ================================================================
+// 初期化
+// ================================================================
+loadApiKey();
+</script>
+</body>
+</html>
