@@ -763,10 +763,7 @@ function saveApiKey() {
     setApiKeyStatus('APIキーを入力してください', false);
     return;
   }
-  if (!val.startsWith('AIza')) {
-    setApiKeyStatus('Gemini APIキーは AIza から始まります', false);
-    return;
-  }
+  // キー形式チェックなし（Gemini APIキーの形式は複数ある）
   apiKey = val;
   localStorage.setItem('novel_maker_gemini_apikey', val);
   setApiKeyStatus('保存しました', true);
