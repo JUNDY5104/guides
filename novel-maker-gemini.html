@@ -763,8 +763,8 @@ function saveApiKey() {
     setApiKeyStatus('APIキーを入力してください', false);
     return;
   }
-  if (!val.startsWith('AIza... {
-    setApiKeyStatus('Anthropic APIキーは AIza...�ら始まります', false);
+  if (!val.startsWith('AIza')) {
+    setApiKeyStatus('Gemini APIキーは AIza から始まります', false);
     return;
   }
   apiKey = val;
