@@ -855,10 +855,11 @@ async function sendToGAS(mode, messages, isFirst, isSummary) {
   }
 
   try {
+    const params = new URLSearchParams();
+    params.append('payload', JSON.stringify({ mode, messages: msgs, apiKey }));
     const res = await fetch(GAS_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mode, messages: msgs, apiKey })
+      body: params
     });
     const data = await res.json();
 
@@ -948,14 +949,15 @@ async function generateFromForm() {
   setLoading(true, 'form');
 
   try {
+    const params = new URLSearchParams();
+    params.append('payload', JSON.stringify({
+      mode: 'form',
+      messages: [{ role: 'user', content: prompt }],
+      apiKey
+    }));
     const res = await fetch(GAS_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        mode: 'form',
-        messages: [{ role: 'user', content: prompt }],
-        apiKey
-      })
+      body: params
     });
     const result = await res.json();
 
