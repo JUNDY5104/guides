@@ -531,9 +531,9 @@ footer {
 
   <!-- APIキーエリア（常時表示） -->
   <div class="apikey-area">
-    <label>Claude APIキー</label>
+    <label>Gemini APIキー</label>
     <div class="apikey-row">
-      <input type="password" id="apiKeyInput" placeholder="sk-ant-..." autocomplete="off">
+      <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off">
       <button class="btn btn-outline btn-sm" onclick="saveApiKey()">保存</button>
     </div>
     <div class="apikey-status" id="apiKeyStatus"></div>
@@ -749,7 +749,7 @@ const GAS_URL = 'https://script.google.com/macros/s/AKfycbw0v53NRfHoQyKACIQmv1ho
 let apiKey = '';
 
 function loadApiKey() {
-  const saved = localStorage.getItem('novel_maker_apikey');
+  const saved = localStorage.getItem('novel_maker_gemini_apikey');
   if (saved) {
     apiKey = saved;
     document.getElementById('apiKeyInput').value = saved;
@@ -763,12 +763,12 @@ function saveApiKey() {
     setApiKeyStatus('APIキーを入力してください', false);
     return;
   }
-  if (!val.startsWith('sk-ant-')) {
-    setApiKeyStatus('Anthropic APIキーは sk-ant- から始まります', false);
+  if (!val.startsWith('AIza... {
+    setApiKeyStatus('Anthropic APIキーは AIza...�ら始まります', false);
     return;
   }
   apiKey = val;
-  localStorage.setItem('novel_maker_apikey', val);
+  localStorage.setItem('novel_maker_gemini_apikey', val);
   setApiKeyStatus('保存しました', true);
 }
 
