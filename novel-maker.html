@@ -1,0 +1,1087 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ja"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;meta name="color-scheme" content="light"&gt;</p>
+<p class="p1">&lt;meta name="robots" content="noindex, nofollow"&gt;</p>
+<p class="p1">&lt;title&gt;やきさかな式 小説メーカー&lt;/title&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>リセット・基本</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }</p>
+<p class="p1">html { font-size: 16px; scroll-behavior: smooth; }</p>
+<p class="p1">body {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: 'Noto Sans JP', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: #f5f0eb;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #2d2410;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>min-height: 100vh;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>カラー変数</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">:root {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--primary: #7b4f28;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--primary-light: #a06b3a;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--accent: #c9813a;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--accent-light: #e8a85a;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg: #f5f0eb;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg-card: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg-ai: #fdf6ee;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--border: #e0d4c0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--text: #2d2410;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--text-muted: #7a6548;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--success: #2d7a2d;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--shadow: 0 2px 12px rgba(123,79,40,0.10);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>ヘッダー</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.header {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 20px 24px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-align: center;</p>
+<p class="p1">}</p>
+<p class="p1">.header h1 {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 1.3rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing: 0.05em;</p>
+<p class="p1">}</p>
+<p class="p1">.header p {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.82rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>opacity: 0.8;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 4px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>メインレイアウト</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.container {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>max-width: 680px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 24px 16px 80px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>モード選択画面</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.mode-select {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding-top: 16px;</p>
+<p class="p1">}</p>
+<p class="p1">.mode-select h2 {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 1.05rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--primary);</p>
+<p class="p1">}</p>
+<p class="p1">.mode-select p {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.7;</p>
+<p class="p1">}</p>
+<p class="p1">.mode-cards {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 14px;</p>
+<p class="p1">}</p>
+<p class="p1">.mode-card {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--bg-card);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 2px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: border-color 0.2s, box-shadow 0.2s;</p>
+<p class="p1">}</p>
+<p class="p1">.mode-card:hover {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-color: var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>box-shadow: var(--shadow);</p>
+<p class="p1">}</p>
+<p class="p1">.mode-card-title {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 6px;</p>
+<p class="p1">}</p>
+<p class="p1">.mode-card-tag {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.72rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--accent-light);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 2px 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 8px;</p>
+<p class="p1">}</p>
+<p class="p1">.mode-card-desc {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.84rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.7;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>チャット画面</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.chat-screen { display: none; }</p>
+<p class="p1">.chat-screen.active { display: block; }</p>
+<p class="p2"><br></p>
+<p class="p1">.chat-messages {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>min-height: 300px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.message {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>max-width: 90%;</p>
+<p class="p1">}</p>
+<p class="p1">.message.ai { align-self: flex-start; }</p>
+<p class="p1">.message.user { align-self: flex-end; }</p>
+<p class="p2"><br></p>
+<p class="p1">.message-bubble {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 14px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.9rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.75;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>white-space: pre-wrap;</p>
+<p class="p1">}</p>
+<p class="p1">.message.ai .message-bubble {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--bg-ai);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-bottom-left-radius: 4px;</p>
+<p class="p1">}</p>
+<p class="p1">.message.user .message-bubble {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-bottom-right-radius: 4px;</p>
+<p class="p1">}</p>
+<p class="p1">.message-label {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.72rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 4px;</p>
+<p class="p1">}</p>
+<p class="p1">.message.user .message-label {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-align: right;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* 設定書ブロック */</p>
+<p class="p1">.settei-block {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: #fffbf5;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 2px solid var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.87rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.8;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>white-space: pre-wrap;</p>
+<p class="p1">}</p>
+<p class="p1">.settei-block h3 {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.95rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 10px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>入力エリア</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.input-area {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--bg-card);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 12px;</p>
+<p class="p1">}</p>
+<p class="p1">.input-area textarea {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>resize: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.9rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>min-height: 80px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.7;</p>
+<p class="p1">}</p>
+<p class="p1">.input-area textarea::placeholder {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #bbb;</p>
+<p class="p1">}</p>
+<p class="p1">.input-footer {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>justify-content: flex-end;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 8px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>ボタン</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.btn {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 10px 22px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.88rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: opacity 0.2s, transform 0.1s;</p>
+<p class="p1">}</p>
+<p class="p1">.btn:active { transform: scale(0.97); }</p>
+<p class="p1">.btn:disabled { opacity: 0.5; cursor: not-allowed; }</p>
+<p class="p1">.btn-primary {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1">}</p>
+<p class="p1">.btn-primary:hover:not(:disabled) { background: var(--primary-light); }</p>
+<p class="p1">.btn-accent {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1">}</p>
+<p class="p1">.btn-accent:hover:not(:disabled) { background: var(--accent-light); }</p>
+<p class="p1">.btn-outline {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1">}</p>
+<p class="p1">.btn-outline:hover { border-color: var(--primary); color: var(--primary); }</p>
+<p class="p1">.btn-copy {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--success);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 8px 18px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.82rem;</p>
+<p class="p1">}</p>
+<p class="p1">.btn-sm { padding: 7px 14px; font-size: 0.82rem; }</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>アクション行</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.action-row {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 16px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>フォーム（設問モード）</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.form-screen { display: none; }</p>
+<p class="p1">.form-screen.active { display: block; }</p>
+<p class="p2"><br></p>
+<p class="p1">.form-step {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: none;</p>
+<p class="p1">}</p>
+<p class="p1">.form-step.active { display: block; }</p>
+<p class="p2"><br></p>
+<p class="p1">.form-card {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--bg-card);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 22px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1px solid var(--border);</p>
+<p class="p1">}</p>
+<p class="p1">.form-card label {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.88rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 8px;</p>
+<p class="p1">}</p>
+<p class="p1">.form-card .hint {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.78rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.6;</p>
+<p class="p1">}</p>
+<p class="p1">.form-card input[type="text"],</p>
+<p class="p1">.form-card textarea,</p>
+<p class="p1">.form-card select {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 10px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.88rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: #fafafa;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: border-color 0.2s;</p>
+<p class="p1">}</p>
+<p class="p1">.form-card input:focus,</p>
+<p class="p1">.form-card textarea:focus,</p>
+<p class="p1">.form-card select:focus {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-color: var(--accent);</p>
+<p class="p1">}</p>
+<p class="p1">.form-card textarea { resize: vertical; min-height: 80px; line-height: 1.7; }</p>
+<p class="p2"><br></p>
+<p class="p1">.progress-bar {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 99px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>height: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>overflow: hidden;</p>
+<p class="p1">}</p>
+<p class="p1">.progress-fill {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 99px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: width 0.4s ease;</p>
+<p class="p1">}</p>
+<p class="p1">.progress-label {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.78rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 6px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>ローディング</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.loading {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 14px 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.87rem;</p>
+<p class="p1">}</p>
+<p class="p1">.loading.active { display: flex; }</p>
+<p class="p1">.loading-dots span {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 7px; height: 7px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin: 0 2px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>animation: bounce 1.2s infinite;</p>
+<p class="p1">}</p>
+<p class="p1">.loading-dots span:nth-child(2) { animation-delay: 0.2s; }</p>
+<p class="p1">.loading-dots span:nth-child(3) { animation-delay: 0.4s; }</p>
+<p class="p1">@keyframes bounce {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>0%, 80%, 100% { transform: translateY(0); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>40% { transform: translateY(-8px); }</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>APIキーエリア</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.apikey-area {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--bg-card);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 20px;</p>
+<p class="p1">}</p>
+<p class="p1">.apikey-area label {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.78rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 6px;</p>
+<p class="p1">}</p>
+<p class="p1">.apikey-row {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 8px;</p>
+<p class="p1">}</p>
+<p class="p1">.apikey-area input {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 8px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 7px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.82rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: monospace;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>outline: none;</p>
+<p class="p1">}</p>
+<p class="p1">.apikey-area input:focus { border-color: var(--accent); }</p>
+<p class="p1">.apikey-status {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 5px;</p>
+<p class="p1">}</p>
+<p class="p1">.apikey-status.ok { color: var(--success); }</p>
+<p class="p1">.apikey-status.ng { color: #c0392b; }</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>設定書表示</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.settei-result {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: #fffbf5;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 2px solid var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 20px;</p>
+<p class="p1">}</p>
+<p class="p1">.settei-result.active { display: block; }</p>
+<p class="p1">.settei-result h2 {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 12px;</p>
+<p class="p1">}</p>
+<p class="p1">.settei-text {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.87rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.85;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>white-space: pre-wrap;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text);</p>
+<p class="p1">}</p>
+<p class="p1">.settei-actions {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-wrap: wrap;</p>
+<p class="p1">}</p>
+<p class="p1">.usage-hint {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: #f0f8f0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1px solid #a8d5a8;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 12px 14px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.82rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.7;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #2d5a2d;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 14px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>Coconalaバナー</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.coconala-banner {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: linear-gradient(135deg, #6b21a8, #9333ea);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1">}</p>
+<p class="p1">.coconala-banner p {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>opacity: 0.9;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.6;</p>
+<p class="p1">}</p>
+<p class="p1">.coconala-banner a {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #6b21a8;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.88rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 9px 24px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-decoration: none;</p>
+<p class="p1">}</p>
+<p class="p1">.coconala-banner a:hover { opacity: 0.9; }</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>フッター</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">footer {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 24px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>戻るボタン</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">.back-btn {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: inline-flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.82rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 4px 0;</p>
+<p class="p1">}</p>
+<p class="p1">.back-btn:hover { color: var(--primary); }</p>
+<p class="p2"><br></p>
+<p class="p1">/* ================================================================</p>
+<p class="p1"><span class="Apple-converted-space">   </span>レスポンシブ</p>
+<p class="p1">================================================================ */</p>
+<p class="p1">@media (max-width: 480px) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.header h1 { font-size: 1.1rem; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.container { padding: 16px 12px 80px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.mode-card { padding: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.form-card { padding: 16px; }</p>
+<p class="p1">}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- ヘッダー --&gt;</p>
+<p class="p1">&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;やきさかな式 小説メーカー&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;AIと対話しながら、あなただけの物語の設定書を作ります&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- APIキーエリア（常時表示） --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="apikey-area"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;Claude APIキー&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="apikey-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="password" id="apiKeyInput" placeholder="sk-ant-..." autocomplete="off"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-outline btn-sm" onclick="saveApiKey()"&gt;保存&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="apikey-status" id="apiKeyStatus"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- モード選択 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="modeSelect" class="mode-select"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;どちらから始めますか？&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;書きたいものが決まっていない方も大丈夫です。&lt;br&gt;AIが一緒に引き出します。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mode-cards"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mode-card" onclick="startChat()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mode-card-tag"&gt;おすすめ&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mode-card-title"&gt;AIと話しながら決める&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mode-card-desc"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>「なんとなく書きたいけど、何を書けばいいかわからない」という方向け。</p>
+<p class="p1"><span class="Apple-converted-space">          </span>AIがやさしく質問しながら、あなたの物語のアイデアを引き出します。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mode-card" onclick="startForm()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mode-card-title"&gt;設問に答えて作る&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mode-card-desc"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>ある程度書きたいものが決まっている方向け。</p>
+<p class="p1"><span class="Apple-converted-space">          </span>シンプルな設問に答えるだけで設定書が完成します。</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- チャット画面 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="chatScreen" class="chat-screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="back-btn" onclick="goBack()"&gt;← 最初に戻る&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="chat-messages" id="chatMessages"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="loading" id="chatLoading"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="loading-dots"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>考えています...</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 設定書表示エリア --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="settei-result" id="chatSettei"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;設定書が完成しました&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="settei-text" id="chatSetteiText"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="settei-actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-copy" onclick="copySettei('chatSetteiText')"&gt;設定書をコピーする&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-outline btn-sm" onclick="continueChat()"&gt;もう少し話す&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="usage-hint"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>この設定書をコピーして、Claudeのチャット画面に貼り付け、&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>「この設定で第1章を書いてください」と入力してください。&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>章ごとに確認しながら執筆を進められます。</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 入力エリア --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="chatInputArea"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-area"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="chatInput" placeholder="ここに入力してください..." rows="3"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onkeydown="handleEnter(event)"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-footer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button class="btn btn-primary" onclick="sendChat()" id="chatSendBtn"&gt;送信&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="action-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-accent btn-sm" onclick="requestSummary()"&gt;今の内容で設定書を作る&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- フォーム画面 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="formScreen" class="form-screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="back-btn" onclick="goBack()"&gt;← 最初に戻る&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="progress-label" id="formProgressLabel"&gt;STEP 1 / 4&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="progress-bar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="progress-fill" id="formProgress" style="width: 25%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- STEP 1：基本情報 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="form-step active" id="formStep1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;どんな話を書きたいですか？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;ジャンル・雰囲気・テーマなど、思いつくままに書いてください&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="f_concept" placeholder="例：悲しいけど最後は温かい気持ちになる話、家族の絆についての話、など"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;舞台・時代背景は？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;現代・過去・近未来・異世界など&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="f_setting" placeholder="例：現代の東京、江戸時代、魔法のある異世界、など"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;読んだ人にどんな気持ちになってほしいですか？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="f_emotion" placeholder="例：感動して涙が出る、わくわくする、考えさせられる、など"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-primary" onclick="nextFormStep(2)"&gt;次へ&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- STEP 2：主人公 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="form-step" id="formStep2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;主人公はどんな人ですか？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;名前・年齢・職業・性格など思いつくことを書いてください&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="f_hero" placeholder="例：30代の会社員、無口だけど優しい、昔夢を諦めた人、など"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;主人公が一番抱えていることは？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;悩み・傷・過去のこと、なんでも&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="f_problem" placeholder="例：大切な人を失った後悔、自分に自信がない、家族との不和、など"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;主人公以外に重要な人物はいますか？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;いなければ空白でOK&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="f_sub" placeholder="例：幼なじみの女性、謎めいた老人、ライバルの同僚、など"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="action-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-outline" onclick="nextFormStep(1)"&gt;戻る&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-primary" onclick="nextFormStep(3)"&gt;次へ&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- STEP 3：ストーリー --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="form-step" id="formStep3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;物語の始まりのイメージは？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;主人公の日常・出会い・事件のきっかけなど&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="f_start" placeholder="例：主人公が突然リストラされるところから始まる、など"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;物語の山場・クライマックスのイメージは？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;なんとなくでOK&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="f_climax" placeholder="例：主人公が大切な選択を迫られる場面、など"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;結末のイメージは？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;ハッピーエンド・バッドエンド・余韻を残すなど&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="f_ending" placeholder="例：完全なハッピーエンドではなく、成長した主人公が歩み出す終わり方、など"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="action-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-outline" onclick="nextFormStep(2)"&gt;戻る&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-primary" onclick="nextFormStep(4)"&gt;次へ&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- STEP 4：スタイル --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="form-step" id="formStep4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;タイトルのイメージはありますか？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;なければAIが提案します&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="f_title" placeholder="例：「雨の降る前に」、まだ未定、など"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;文体・雰囲気のイメージは？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;文章のスタイルについて&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="f_style" placeholder="例：やさしい文体・読みやすい、硬派でリアル、詩的で美しい、など"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;参考にしたい作家・作品はありますか？&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;なければ空白でOK&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="f_ref" placeholder="例：東野圭吾、村上春樹、ハリーポッター、など"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="action-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-outline" onclick="nextFormStep(3)"&gt;戻る&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-accent" onclick="generateFromForm()"&gt;設定書を作成する&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="loading" id="formLoading"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="loading-dots"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>設定書を作成中...</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 設定書表示エリア（フォームモード） --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="settei-result" id="formSettei"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;設定書が完成しました&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="settei-text" id="formSetteiText"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="settei-actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-copy" onclick="copySettei('formSetteiText')"&gt;設定書をコピーする&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-outline btn-sm" onclick="goBack()"&gt;最初からやり直す&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="usage-hint"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>この設定書をコピーして、Claudeのチャット画面に貼り付け、&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>「この設定で第1章を書いてください」と入力してください。&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>章ごとに確認しながら執筆を進められます。</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Coconalaバナー --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="coconala-banner"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;AIツールの使い方でお困りですか？&lt;br&gt;個別サポートはこちらから&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="https://coconala.com/services/3034205" target="_blank" rel="noopener"&gt;ココナラでサポートを見る&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;footer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>やきさかな式 小説メーカー &amp;copy; 元飲食店店長サム</p>
+<p class="p1">&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// GAS エンドポイント（デプロイ後に差し替え）</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">const GAS_URL = 'https://script.google.com/macros/s/AKfycbw0v53NRfHoQyKACIQmv1hoEi1VEwLqsqav1G5AN5A7j5hscO4GbnF8LaGZxPCoN_-DZg/exec';</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// APIキー管理</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">let apiKey = '';</p>
+<p class="p2"><br></p>
+<p class="p1">function loadApiKey() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const saved = localStorage.getItem('novel_maker_apikey');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (saved) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>apiKey = saved;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('apiKeyInput').value = saved;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setApiKeyStatus('保存済み', true);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function saveApiKey() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const val = document.getElementById('apiKeyInput').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!val) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setApiKeyStatus('APIキーを入力してください', false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!val.startsWith('sk-ant-')) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setApiKeyStatus('Anthropic APIキーは sk-ant- から始まります', false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>apiKey = val;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('novel_maker_apikey', val);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>setApiKeyStatus('保存しました', true);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function setApiKeyStatus(msg, ok) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const el = document.getElementById('apiKeyStatus');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.textContent = msg;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.className = 'apikey-status ' + (ok ? 'ok' : 'ng');</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// 画面切り替え</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">function goBack() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modeSelect').style.display = '';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatScreen').classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('formScreen').classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>chatHistory = [];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatMessages').innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatSettei').classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatInputArea').style.display = '';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// チャットモード</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">let chatHistory = [];</p>
+<p class="p2"><br></p>
+<p class="p1">function startChat() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!checkApiKey()) return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modeSelect').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatScreen').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>chatHistory = [];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatMessages').innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatSettei').classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatInputArea').style.display = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// 最初のAIメッセージを取得</p>
+<p class="p1"><span class="Apple-converted-space">  </span>sendToGAS('chat', [], true);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function handleEnter(e) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (e.key === 'Enter' &amp;&amp; !e.shiftKey) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sendChat();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function sendChat() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const input = document.getElementById('chatInput');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const text = input.value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!text) return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!checkApiKey()) return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>appendMessage('user', text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>chatHistory.push({ role: 'user', content: text });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input.value = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>sendToGAS('chat', chatHistory, false);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function continueChat() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatSettei').classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('chatInputArea').style.display = '';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function requestSummary() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (chatHistory.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>alert('まず少し話してみてください。');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const summaryMsg = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{ role: 'user', content: '今までの会話をもとに設定書にまとめてください' }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>sendToGAS('summary', [...chatHistory, ...summaryMsg], false, true);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">async function sendToGAS(mode, messages, isFirst, isSummary) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>setLoading(true, 'chat');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// 最初のメッセージは空のユーザーメッセージで始める</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let msgs = messages;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (isFirst) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>msgs = [{ role: 'user', content: '始めてください' }];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const res = await fetch(GAS_URL, {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>method: 'POST',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>headers: { 'Content-Type': 'application/json' },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>body: JSON.stringify({ mode, messages: msgs, apiKey })</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const data = await res.json();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (data.error) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>appendMessage('ai', 'エラーが発生しました：' + data.error);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const reply = data.reply;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (isSummary || reply.includes('---設定書ここから---')) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 設定書を表示</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showSettei(reply, 'chat');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appendMessage('ai', reply);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>chatHistory.push({ role: 'assistant', content: reply });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>appendMessage('ai', '通信エラーが発生しました。GAS URLを確認してください。');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>setLoading(false, 'chat');</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function appendMessage(role, text) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const container = document.getElementById('chatMessages');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const div = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>div.className = 'message ' + role;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const label = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>label.className = 'message-label';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>label.textContent = role === 'ai' ? 'AI' : 'あなた';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const bubble = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>bubble.className = 'message-bubble';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>bubble.textContent = text;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>div.appendChild(label);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>div.appendChild(bubble);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>container.appendChild(div);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>container.scrollTop = container.scrollHeight;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// フォームモード</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">function startForm() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!checkApiKey()) return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('modeSelect').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('formScreen').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('formSettei').classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>showFormStep(1);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function showFormStep(n) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>[1,2,3,4].forEach(i =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('formStep' + i).classList.toggle('active', i === n);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const pct = n * 25;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('formProgress').style.width = pct + '%';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('formProgressLabel').textContent = 'STEP ' + n + ' / 4';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function nextFormStep(n) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>showFormStep(n);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>window.scrollTo({ top: 0, behavior: 'smooth' });</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">async function generateFromForm() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!checkApiKey()) return;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const data = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>concept: document.getElementById('f_concept').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setting: document.getElementById('f_setting').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>emotion: document.getElementById('f_emotion').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>hero: document.getElementById('f_hero').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>problem: document.getElementById('f_problem').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sub: document.getElementById('f_sub').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>start: document.getElementById('f_start').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>climax: document.getElementById('f_climax').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ending: document.getElementById('f_ending').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>title: document.getElementById('f_title').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>style: document.getElementById('f_style').value,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ref: document.getElementById('f_ref').value</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const prompt = buildFormPrompt(data);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>setLoading(true, 'form');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const res = await fetch(GAS_URL, {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>method: 'POST',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>headers: { 'Content-Type': 'application/json' },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>body: JSON.stringify({</p>
+<p class="p1"><span class="Apple-converted-space">        </span>mode: 'form',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>messages: [{ role: 'user', content: prompt }],</p>
+<p class="p1"><span class="Apple-converted-space">        </span>apiKey</p>
+<p class="p1"><span class="Apple-converted-space">      </span>})</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const result = await res.json();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (result.error) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>alert('エラー：' + result.error);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showSettei(result.reply, 'form');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>alert('通信エラーが発生しました。');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>setLoading(false, 'form');</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function buildFormPrompt(d) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'以下の情報をもとに小説の設定書を作成してください。',</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'',</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【書きたい話のイメージ】' + (d.concept || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【舞台・時代背景】' + (d.setting || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【読者に感じてほしい感情】' + (d.emotion || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【主人公】' + (d.hero || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【主人公の悩み・抱えているもの】' + (d.problem || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【その他の登場人物】' + (d.sub || 'なし'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【物語の始まり】' + (d.start || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【クライマックス】' + (d.climax || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【結末】' + (d.ending || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【タイトル案】' + (d.title || 'AIに提案してほしい'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【文体・雰囲気】' + (d.style || '未入力'),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'【参考作品・作家】' + (d.ref || 'なし')</p>
+<p class="p1"><span class="Apple-converted-space">  </span>].join('\n');</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// 設定書表示・コピー</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">function showSettei(text, mode) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// ---設定書--- タグを除去して表示</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cleaned = text</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.replace('---設定書ここから---', '')</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.replace('---設定書ここまで---', '')</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.trim();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (mode === 'chat') {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('chatSetteiText').textContent = cleaned;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('chatSettei').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('chatInputArea').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('chatSettei').scrollIntoView({ behavior: 'smooth' });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('formSetteiText').textContent = cleaned;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('formSettei').classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>[1,2,3,4].forEach(i =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('formStep' + i).classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('formSettei').scrollIntoView({ behavior: 'smooth' });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function copySettei(id) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const text = document.getElementById(id).textContent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>navigator.clipboard.writeText(text).then(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const btn = event.target;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const orig = btn.textContent;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btn.textContent = 'コピーしました！';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setTimeout(() =&gt; { btn.textContent = orig; }, 2000);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}).catch(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// フォールバック</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const ta = document.createElement('textarea');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ta.value = text;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.body.appendChild(ta);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ta.select();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.execCommand('copy');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.body.removeChild(ta);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const btn = event.target;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const orig = btn.textContent;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btn.textContent = 'コピーしました！';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setTimeout(() =&gt; { btn.textContent = orig; }, 2000);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// ローディング</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">function setLoading(on, mode) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const id = mode === 'chat' ? 'chatLoading' : 'formLoading';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById(id).classList.toggle('active', on);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (mode === 'chat') {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('chatSendBtn').disabled = on;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// APIキーチェック</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">function checkApiKey() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const val = document.getElementById('apiKeyInput').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!val) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setApiKeyStatus('まずAPIキーを入力・保存してください', false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('apiKeyInput').focus();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return false;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>apiKey = val;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return true;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ================================================================</p>
+<p class="p1">// 初期化</p>
+<p class="p1">// ================================================================</p>
+<p class="p1">loadApiKey();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
