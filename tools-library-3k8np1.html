@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <title>やきさかな式 ツールライブラリ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2a4a;
+      --navy-light: #243558;
+      --gold: #c9a84c;
+      --gold-light: #e0c070;
+      --gold-pale: #fdf8ee;
+      --text: #1a1a1a;
+      --text-sub: #555;
+      --border: #e0e0e0;
+      --bg: #ffffff;
+      --bg-section: #f7f8fa;
+      --card-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      --card-shadow-hover: 0 6px 20px rgba(26,42,74,0.15);
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ヘッダー */
+    .site-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 48px 20px 40px;
+      text-align: center;
+    }
+    .site-header .label {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 3px 12px;
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+    .site-header h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    .site-header p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+    .header-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 4px;
+      padding: 8px 20px;
+      font-size: 13px;
+      color: var(--gold-light);
+    }
+    .header-count strong {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* ナビバー */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      border-bottom: 2px solid var(--gold);
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) var(--navy);
+    }
+    .sticky-nav::-webkit-scrollbar { height: 3px; }
+    .sticky-nav::-webkit-scrollbar-track { background: var(--navy); }
+    .sticky-nav::-webkit-scrollbar-thumb { background: var(--gold); }
+
+    .sticky-nav ul {
+      display: flex;
+      list-style: none;
+      max-width: 1000px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+    .sticky-nav ul li a {
+      display: block;
+      padding: 13px 18px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s, background 0.2s;
+    }
+    .sticky-nav ul li a:hover,
+    .sticky-nav ul li a.active {
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
+    }
+
+    /* メインラッパー */
+    .main-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* セクション */
+    .cat-section {
+      margin-top: 60px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .cat-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* カテゴリヘッダー */
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--navy);
+    }
+    .cat-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cat-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--gold);
+    }
+    .cat-title-wrap h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.03em;
+    }
+    .cat-title-wrap p {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+    .cat-count {
+      margin-left: auto;
+      background: var(--gold-pale);
+      border: 1px solid var(--gold);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* カードグリッド */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    /* ツールカード */
+    .tool-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .tool-card:hover {
+      box-shadow: var(--card-shadow-hover);
+      transform: translateY(-3px);
+      border-color: var(--gold);
+    }
+    .tool-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.4;
+    }
+    .tool-card-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+    .tool-card-btn {
+      display: inline-block;
+      margin-top: 4px;
+      background: var(--navy);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 4px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .tool-card:hover .tool-card-btn {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* TOPボタン */
+    .top-btn-wrap {
+      text-align: right;
+      margin-top: 40px;
+    }
+    .top-btn {
+      display: inline-block;
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .top-btn:hover {
+      background: var(--gold-pale);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+
+    /* Coconalaバナー */
+    .coconala-banner {
+      margin: 60px 0 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #6a0dad 0%, #9b30d0 60%, #c060f0 100%);
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .coconala-banner .banner-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .coconala-banner h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .coconala-banner p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 20px;
+    }
+    .coconala-banner a {
+      display: inline-block;
+      background: #fff;
+      color: #6a0dad;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .coconala-banner a:hover { opacity: 0.88; }
+
+    /* フッター */
+    .site-footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 11px;
+      margin-top: 60px;
+    }
+    .site-footer span {
+      color: var(--gold);
+    }
+
+    @media (max-width: 600px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .sticky-nav ul li a {
+        padding: 12px 12px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header class="site-header" id="top">
+  <div class="label">LINE登録者限定</div>
+  <h1>やきさかな式 ツールライブラリ</h1>
+  <p>収録コンテンツ一覧 ─ 目的のツールをすぐに開けます</p>
+  <div class="header-count">
+    全 <strong>25</strong> コンテンツ収録
+  </div>
+</header>
+
+<!-- スティッキーナビ -->
+<nav class="sticky-nav" aria-label="カテゴリナビ">
+  <ul>
+    <li><a href="#cat-video">動画・音声編集</a></li>
+    <li><a href="#cat-design">デザイン・画像制作</a></li>
+    <li><a href="#cat-ai">AI・自動化</a></li>
+    <li><a href="#cat-sns">SNS・ブログ発信</a></li>
+    <li><a href="#cat-comm">コミュニケーション・会議</a></li>
+    <li><a href="#cat-biz">ビジネス・管理</a></li>
+  </ul>
+</nav>
+
+<!-- メイン -->
+<main class="main-wrap">
+
+  <!-- 1. 動画・音声編集 -->
+  <section class="cat-section" id="cat-video">
+    <div class="cat-header">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+      </div>
+      <div class="cat-title-wrap">
+        <h2>動画・音声編集</h2>
+        <p>ショート動画から本格編集まで対応するツール群</p>
+      </div>
+      <span class="cat-count">5 コンテンツ</span>
+    </div>
+
+    <div class="card-grid">
+      <a class="tool-card" href="https://jundy5104.github.io/guides/capcut-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">CapCut 完全解説書</div>
+        <div class="tool-card-desc">スマホ・PC両対応の無料動画編集アプリ。カット編集からテロップ・BGM追加・エフェクトまで、全機能を体系的に解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/capcut-free-checklist-8v2kx4.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">CapCut 無料でここまでできる！完全チェックリスト</div>
+        <div class="tool-card-desc">CapCutの無料プランで使える機能をまとめたチェックリスト。課金なしで何ができるかを一目で確認できます。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/capcut-template-7m3nz9.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">SNS動画で伸びる構成はこれだけ テンプレート5種完全版</div>
+        <div class="tool-card-desc">再生数が取れるショート動画の構成パターンを5種類収録。そのままCapCutに当てはめるだけで使えるテンプレート集です。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/imovie-manual.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">iMovie 完全ガイド</div>
+        <div class="tool-card-desc">Apple純正の無料動画編集ソフト。iPhone・Macで使える基本操作から書き出し設定まで、初心者でもわかるよう丁寧に解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/premiere-manual.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Adobe Premiere Pro 完全ガイド</div>
+        <div class="tool-card-desc">プロも使う本格動画編集ソフトの全機能解説書。カット・テロップ・カラーグレーディング・書き出しまで網羅しています。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+    </div>
+
+    <div class="top-btn-wrap">
+      <a class="top-btn" href="#top">ページ先頭へ</a>
+    </div>
+  </section>
+
+  <!-- 2. デザイン・画像制作 -->
+  <section class="cat-section" id="cat-design">
+    <div class="cat-header">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-6h2v2h-2zm0-8h2v6h-2z" fill="none"/><path d="M21 6.5l-4-4-1.41 1.41L17.17 5.5H3v2h14.17l-1.59 1.59L17 10.5l4-4z"/></svg>
+      </div>
+      <div class="cat-title-wrap">
+        <h2>デザイン・画像制作</h2>
+        <p>アイキャッチ・バナー・スライドをブラウザで作るツール</p>
+      </div>
+      <span class="cat-count">4 コンテンツ</span>
+    </div>
+
+    <div class="card-grid">
+      <a class="tool-card" href="https://jundy5104.github.io/guides/canva-complete-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Canva 完全解説書</div>
+        <div class="tool-card-desc">ブラウザだけでプロ品質のデザインが作れるツールの全機能解説。テンプレート活用からブランドキット設定まで網羅した決定版ガイドです。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/canva-animation-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Canva アニメーション作成 完全ガイド</div>
+        <div class="tool-card-desc">Canvaのアニメーション機能に特化したガイド。動くSNS投稿・動画サムネイル・スライドの作り方を手順を追って解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/canva-starter-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Canva 入門ガイド</div>
+        <div class="tool-card-desc">Canvaをはじめて使う方向けの入門解説書。アカウント作成から最初のデザイン完成まで、つまずきやすいポイントをわかりやすく説明します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/oiioii-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">OiiOii ガイド</div>
+        <div class="tool-card-desc">アニメ動画を手軽に作成できるツールのガイド。キャラクターや背景の設定から動画書き出しまで、操作手順をわかりやすく解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+    </div>
+
+    <div class="top-btn-wrap">
+      <a class="top-btn" href="#top">ページ先頭へ</a>
+    </div>
+  </section>
+
+  <!-- 3. AI・自動化 -->
+  <section class="cat-section" id="cat-ai">
+    <div class="cat-header">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 0 0 5 15.5 2.5 2.5 0 0 0 7.5 18 2.5 2.5 0 0 0 10 15.5 2.5 2.5 0 0 0 7.5 13m9 0A2.5 2.5 0 0 0 14 15.5a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5z"/></svg>
+      </div>
+      <div class="cat-title-wrap">
+        <h2>AI・自動化ツール</h2>
+        <p>AIリサーチとノーコード自動化で作業を効率化する</p>
+      </div>
+      <span class="cat-count">2 コンテンツ</span>
+    </div>
+
+    <div class="card-grid">
+      <a class="tool-card" href="https://jundy5104.github.io/guides/gas-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">GASツールの作り方 完全ガイド ─ プログラミング不要でAIと作る自動化入門</div>
+        <div class="tool-card-desc">Google Apps Scriptを使った業務自動化の入門ガイド。AIと対話しながらコードを作る方法を解説。プログラミング経験ゼロから始められます。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/gemini-deep-research-guide-full.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Gemini Deep Research 完全版活用ガイド</div>
+        <div class="tool-card-desc">GeminiのDeep Research機能を最大限に活用するための完全版ガイド。調査プロンプトの設計から出力の読み解き方まで詳しく解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+    </div>
+
+    <div class="top-btn-wrap">
+      <a class="top-btn" href="#top">ページ先頭へ</a>
+    </div>
+  </section>
+
+  <!-- 4. SNS・ブログ発信 -->
+  <section class="cat-section" id="cat-sns">
+    <div class="cat-header">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+      </div>
+      <div class="cat-title-wrap">
+        <h2>SNS・ブログ発信</h2>
+        <p>X・アメブロを軸にした集客と認知拡大のツール群</p>
+      </div>
+      <span class="cat-count">4 コンテンツ</span>
+    </div>
+
+    <div class="card-grid">
+      <a class="tool-card" href="https://jundy5104.github.io/guides/ameblo-guide-v2.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">アメブロ 完全解説書</div>
+        <div class="tool-card-desc">Amebaブログの全機能を網羅した解説書。記事投稿・カテゴリ設定・集客導線の構築まで、発信者として必要な設定を一冊にまとめています。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/x-analytics-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">X アナリティクス 完全解説書</div>
+        <div class="tool-card-desc">Xのアナリティクス機能の読み方と活用法を解説。インプレッション・エンゲージメント・フォロワー推移から次の投稿戦略を導き出す方法がわかります。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/x-growth-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">X アカウント成長マニュアル</div>
+        <div class="tool-card-desc">Xのアルゴリズムを理解してフォロワーを増やすための戦略マニュアル。投稿の型・返信設計・プロフィール最適化まで具体的な手順で解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/xaccount-max-9p2m7k4n.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">ソーシャルドッグでXアカウントを最大化する戦略ガイド</div>
+        <div class="tool-card-desc">X専用の分析・予約投稿ツール「ソーシャルドッグ」の活用ガイド。データを見ながらアカウントを戦略的に育てる方法を解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+    </div>
+
+    <div class="top-btn-wrap">
+      <a class="top-btn" href="#top">ページ先頭へ</a>
+    </div>
+  </section>
+
+  <!-- 5. コミュニケーション・会議 -->
+  <section class="cat-section" id="cat-comm">
+    <div class="cat-header">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+      </div>
+      <div class="cat-title-wrap">
+        <h2>コミュニケーション・会議</h2>
+        <p>オンライン会議・ビジネスチャット・LINE連携を完全網羅</p>
+      </div>
+      <span class="cat-count">7 コンテンツ</span>
+    </div>
+
+    <div class="card-grid">
+      <a class="tool-card" href="https://jundy5104.github.io/guides/zoom-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Zoom Workplace 完全解説書</div>
+        <div class="tool-card-desc">Zoomの全機能を網羅した解説書。参加・ホスト操作・録画・ブレイクアウトルームなど、オンライン会議で使うすべての機能を解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/zoom-guide-community.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Zoom Workplace 完全解説書（コミュニティ配布版）</div>
+        <div class="tool-card-desc">コミュニティメンバー向けに配布しているZoom解説書。内容は完全解説書に準じ、参加者がすぐに使いこなせるよう設計されています。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/zoom-line-guide-5p8qn2.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Zoom x LINE公式 連携活用ガイド</div>
+        <div class="tool-card-desc">ZoomとLINE公式アカウントを連携して集客・案内・リマインドを効率化する方法を解説。セミナー運営の導線設計に役立ちます。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/zoom-host-checklist-4r7wj1.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Zoomホスト運営チェックリスト</div>
+        <div class="tool-card-desc">Zoomセミナー・勉強会をホスト運営するための28項目チェックリスト。開催前・開催中・終了後の流れを抜け漏れなく確認できます。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/line-official-starter.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">LINE公式アカウント 入門ガイド</div>
+        <div class="tool-card-desc">LINE公式アカウントの開設から基本設定・メッセージ配信・リッチメニュー作成まで、リスト収集の起点となる設定を一通り解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/chatwork-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Chatwork 完全解説書 ─ 全機能・なりすまし詐欺対策まで徹底網羅</div>
+        <div class="tool-card-desc">ビジネスチャットツールChatworkの全機能解説書。基本操作に加え、実際に増えているなりすまし詐欺の手口と対策まで収録しています。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/discord-guide.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Discord 完全解説書</div>
+        <div class="tool-card-desc">コミュニティ運営に最適なDiscordの全機能解説書。サーバー作成・チャンネル設計・権限設定・ボット活用まで、運営者視点で網羅しています。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+    </div>
+
+    <div class="top-btn-wrap">
+      <a class="top-btn" href="#top">ページ先頭へ</a>
+    </div>
+  </section>
+
+  <!-- 6. ビジネス・管理 -->
+  <section class="cat-section" id="cat-biz">
+    <div class="cat-header">
+      <div class="cat-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+      </div>
+      <div class="cat-title-wrap">
+        <h2>ビジネス・管理ツール</h2>
+        <p>情報整理・コンテンツ設計・ビジネス構築を支援するツール</p>
+      </div>
+      <span class="cat-count">2 コンテンツ</span>
+    </div>
+
+    <div class="card-grid">
+      <a class="tool-card" href="https://jundy5104.github.io/guides/notion-manual.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">Notion 完全ガイド</div>
+        <div class="tool-card-desc">メモ・データベース・タスク管理を一元化できるNotionの完全ガイド。ページ構成・テンプレート活用・チームでの共有方法まで解説します。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+      <a class="tool-card" href="https://jundy5104.github.io/guides/yakisakana-line-tokuten.html" target="_blank" rel="noopener">
+        <div class="tool-card-name">AIショート動画量産スタートキット</div>
+        <div class="tool-card-desc">AIを活用してショート動画のネタ・台本・編集を効率化するスターターキット。量産体制を整えるための設計思想と実践手順をまとめています。</div>
+        <span class="tool-card-btn">解説書を開く</span>
+      </a>
+    </div>
+
+    <div class="top-btn-wrap">
+      <a class="top-btn" href="#top">ページ先頭へ</a>
+    </div>
+  </section>
+
+  <!-- Coconalaバナー -->
+  <div class="coconala-banner">
+    <div class="banner-label">COCONALA</div>
+    <h3>あなたのノウハウをHTML解説書に仕上げます</h3>
+    <p>PDFはもう古い。PCで開きながらコピペできるWebツール形式で、あなたのコンテンツをプロ品質に仕上げます。</p>
+    <a href="https://coconala.com/services/3034205" target="_blank" rel="noopener">サービスページを見る</a>
+  </div>
+
+</main>
+
+<!-- フッター -->
+<footer class="site-footer">
+  <p>やきさかな式 ツールライブラリ ─ <span>LINE登録者限定コンテンツ</span></p>
+  <p style="margin-top:6px;">このページは第三者への共有・転載を禁じます。</p>
+</footer>
+
+<script>
+  // スクロールアニメーション
+  const sections = document.querySelectorAll('.cat-section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(sec => observer.observe(sec));
+
+  // ナビアクティブ
+  const navLinks = document.querySelectorAll('.sticky-nav a');
+  const secList = document.querySelectorAll('.cat-section');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  secList.forEach(sec => navObserver.observe(sec));
+</script>
+
+</body>
+</html>
