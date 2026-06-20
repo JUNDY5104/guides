@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H0Q3X5GQH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4H0Q3X5GQH');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>副業マッチング診断Pro | あなたに最適な副業を診断</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 650px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 40px; animation: fadeIn 0.6s ease; }
+    .header-icon { font-size: 56px; margin-bottom: 15px; }
+    .header h1 {
+      font-size: 28px; font-weight: 900; color: white;
+      margin-bottom: 10px; letter-spacing: 2px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    }
+    .header p { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.6; text-shadow: 1px 1px 4px rgba(0,0,0,0.2); }
+    .progress-area { margin-bottom: 30px; }
+    .progress-labels {
+      display: flex; justify-content: space-between;
+      margin-bottom: 10px; font-size: 14px;
+      color: rgba(255,255,255,0.9); font-weight: 500;
+    }
+    .progress-bar-bg {
+      height: 10px; background: rgba(255,255,255,0.2);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .progress-bar-fill {
+      height: 100%; background: linear-gradient(90deg, #06C755 0%, #00E676 100%);
+      border-radius: 20px; transition: width 0.4s ease;
+      box-shadow: 0 2px 12px rgba(6,199,85,0.6);
+    }
+    .card {
+      background: white; border-radius: 24px; padding: 40px 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: slideIn 0.4s ease-out;
+    }
+    .question-icon { text-align: center; font-size: 56px; margin-bottom: 15px; }
+    .question-text {
+      font-size: 22px; font-weight: bold; color: #333;
+      margin-bottom: 30px; text-align: center; line-height: 1.6;
+    }
+    .options { display: flex; flex-direction: column; gap: 15px; }
+    .option-btn {
+      display: flex; align-items: center; gap: 15px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border: 2px solid #e9ecef; border-radius: 16px;
+      font-size: 16px; color: #333; cursor: pointer;
+      text-align: left; transition: all 0.3s ease;
+      font-family: 'Noto Sans JP', sans-serif; font-weight: 500;
+      width: 100%;
+    }
+    .option-btn:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-color: #667eea; color: white;
+      transform: translateX(10px);
+      box-shadow: 0 8px 24px rgba(102,126,234,0.4);
+    }
+    .option-emoji { font-size: 32px; }
+    .option-label { flex: 1; }
+    .option-arrow { font-size: 20px; }
+    .footer {
+      text-align: center; padding: 30px 20px;
+      font-size: 13px; color: rgba(255,255,255,0.8);
+    }
+    .footer p { margin-bottom: 4px; }
+
+    /* 結果画面 */
+    .result-container { max-width: 700px; margin: 0 auto; animation: fadeIn 0.6s ease; }
+    .result-header {
+      background: white; border-radius: 24px; padding: 40px 30px;
+      margin-bottom: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .result-icon { font-size: 64px; margin-bottom: 20px; }
+    .result-badge {
+      font-size: 14px; color: #666; margin-bottom: 10px;
+      letter-spacing: 3px; text-transform: uppercase; font-weight: 500;
+    }
+    .result-name {
+      font-size: 32px; font-weight: 900; margin-bottom: 20px; line-height: 1.3;
+    }
+    .result-desc-box {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8eef4 100%);
+      padding: 25px; border-radius: 16px; margin-top: 20px;
+      font-size: 16px; color: #444; line-height: 1.8;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+    .mini-card {
+      background: white; border-radius: 20px; padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;
+    }
+    .mini-card-icon { font-size: 32px; margin-bottom: 10px; }
+    .mini-card-label { font-size: 14px; color: #999; margin-bottom: 8px; }
+    .mini-card-value { font-size: 20px; font-weight: bold; }
+    .mini-card-value.skills { font-size: 15px; font-weight: 500; color: #333; line-height: 1.6; }
+    .roadmap-card {
+      background: white; border-radius: 20px; padding: 30px;
+      margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .roadmap-title {
+      font-size: 22px; font-weight: bold; margin-bottom: 25px;
+      color: #333; display: flex; align-items: center; gap: 10px;
+    }
+    .roadmap-steps { display: flex; flex-direction: column; gap: 15px; }
+    .roadmap-step { display: flex; gap: 15px; align-items: flex-start; }
+    .step-badge {
+      min-width: 60px; height: 60px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: bold;
+    }
+    .step-text { flex: 1; font-size: 16px; color: #333; font-weight: 500; line-height: 1.6; padding-top: 16px; }
+    .pdf-box {
+      margin-top: 20px; padding: 20px; background: #FFF9E6;
+      border-radius: 12px; border: 2px solid #FFE066;
+    }
+    .pdf-box-title { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 12px; }
+    .pdf-box-content { font-size: 15px; color: #555; line-height: 1.7; }
+    .cta-card {
+      background: white; border-radius: 20px; padding: 30px;
+      margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;
+    }
+    .cta-title { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 10px; }
+    .cta-desc { font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.7; }
+    .cta-btn {
+      display: inline-block; padding: 18px 40px;
+      background: linear-gradient(135deg, #06C755 0%, #00E676 100%);
+      color: white; font-size: 18px; font-weight: bold;
+      border-radius: 50px; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(6,199,85,0.4);
+      transition: all 0.3s; border: none; cursor: pointer;
+      font-family: 'Noto Sans JP', sans-serif; margin-bottom: 12px;
+    }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(6,199,85,0.5); }
+    .cta-note { font-size: 12px; color: #999; }
+    .restart-btn {
+      display: block; width: 100%; max-width: 350px;
+      margin: 0 auto; padding: 15px;
+      background: white; border: 2px solid #DDD; border-radius: 50px;
+      font-size: 16px; color: #666; cursor: pointer;
+      transition: all 0.3s; font-weight: 500;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .restart-btn:hover { background: #f8f9fa; border-color: #667eea; color: #667eea; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 480px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 30px 20px; }
+      .header h1 { font-size: 22px; }
+      .result-name { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    const questions = [
+      { id: 'q1', question: '副業に使える時間は？', icon: '⏰',
+        options: [
+          { value: 'A', label: '週5時間未満', emoji: '🕐' },
+          { value: 'B', label: '週5-10時間', emoji: '🕑' },
+          { value: 'C', label: '週10-20時間', emoji: '🕒' },
+          { value: 'D', label: '週20時間以上', emoji: '🕓' }
+        ]
+      },
+      { id: 'q2', question: '現在のスキルレベルは？', icon: '📊',
+        options: [
+          { value: 'A', label: '特別なスキルはない', emoji: '🌱' },
+          { value: 'B', label: '基本的なPC操作ができる', emoji: '💻' },
+          { value: 'C', label: '専門スキルがある', emoji: '⭐' },
+          { value: 'D', label: '高度な専門スキルがある', emoji: '🏆' }
+        ]
+      },
+      { id: 'q3', question: '初期投資可能額は？', icon: '💰',
+        options: [
+          { value: 'A', label: '0円（投資なし）', emoji: '🆓' },
+          { value: 'B', label: '1-5万円', emoji: '💵' },
+          { value: 'C', label: '5-20万円', emoji: '💴' },
+          { value: 'D', label: '20万円以上', emoji: '💸' }
+        ]
+      },
+      { id: 'q4', question: '月収目標は？', icon: '🎯',
+        options: [
+          { value: 'A', label: '月1-3万円', emoji: '📈' },
+          { value: 'B', label: '月3-10万円', emoji: '📊' },
+          { value: 'C', label: '月10-30万円', emoji: '💹' },
+          { value: 'D', label: '月30万円以上', emoji: '🚀' }
+        ]
+      },
+      { id: 'q5', question: '好みの働き方は？', icon: '🏠',
+        options: [
+          { value: 'A', label: '完全在宅', emoji: '🏡' },
+          { value: 'B', label: '時々外出もOK', emoji: '🚶' },
+          { value: 'C', label: '人と関わりたい', emoji: '👥' },
+          { value: 'D', label: '場所は問わない', emoji: '🌏' }
+        ]
+      },
+      { id: 'q6', question: 'リスク許容度は？', icon: '⚖️',
+        options: [
+          { value: 'A', label: '安定志向（確実な収入重視）', emoji: '🛡️' },
+          { value: 'B', label: '少しのリスクはOK', emoji: '⚡' },
+          { value: 'C', label: '成長のためならリスクを取る', emoji: '🎲' },
+          { value: 'D', label: 'ハイリスク・ハイリターン志向', emoji: '🎰' }
+        ]
+      },
+      { id: 'q7', question: '学習意欲は？', icon: '📚',
+        options: [
+          { value: 'A', label: '新しいことは苦手', emoji: '😓' },
+          { value: 'B', label: '必要なら学ぶ', emoji: '🤔' },
+          { value: 'C', label: '積極的に学びたい', emoji: '😊' },
+          { value: 'D', label: '常に新しいスキルを習得したい', emoji: '🔥' }
+        ]
+      },
+      { id: 'q8', question: 'コミュニケーションは？', icon: '💬',
+        options: [
+          { value: 'A', label: '人と話すのは苦手', emoji: '😶' },
+          { value: 'B', label: '必要最小限のやり取り', emoji: '🙂' },
+          { value: 'C', label: '人とのやり取りは好き', emoji: '😄' },
+          { value: 'D', label: '人脈作りが得意', emoji: '🤝' }
+        ]
+      },
+      { id: 'q9', question: '継続性について', icon: '📅',
+        options: [
+          { value: 'A', label: '短期間で結果を求める', emoji: '⚡' },
+          { value: 'B', label: '3-6ヶ月は継続できる', emoji: '📆' },
+          { value: 'C', label: '1年以上継続できる', emoji: '📊' },
+          { value: 'D', label: '長期的な視点で取り組める', emoji: '🎯' }
+        ]
+      },
+      { id: 'q10', question: '理想の副業スタイルは？', icon: '✨',
+        options: [
+          { value: 'A', label: '単発の作業で稼ぎたい', emoji: '💼' },
+          { value: 'B', label: '定期的な収入が欲しい', emoji: '💰' },
+          { value: 'C', label: 'スキルアップしながら稼ぎたい', emoji: '📈' },
+          { value: 'D', label: '将来の独立を目指したい', emoji: '🚀' }
+        ]
+      }
+    ];
+
+    const fukugyoData = {
+      data: {
+        name: 'データ入力・事務系',
+        color: '#4A90E2', icon: '📝',
+        description: 'パソコンを使った単純作業中心の副業。初心者でも始めやすく、安定した収入が期待できます。',
+        income: '月1-8万円', skills: '基本的なPC操作、タイピング',
+        roadmap: {
+          month1: 'タイピング練習とクラウドソーシング登録',
+          month2: '簡単な案件で実績作り',
+          month3: '継続クライアント獲得'
+        },
+        pdf: 'データ入力スタートガイド', password: 'データ入力'
+      },
+      writing: {
+        name: 'ライティング・翻訳系',
+        color: '#E67E22', icon: '✍️',
+        description: '文章作成や翻訳を通じて収入を得る副業。継続により単価向上が期待でき、スキルアップも可能です。',
+        income: '月3-30万円', skills: '文章力、SEO知識、リサーチ能力',
+        roadmap: {
+          month1: 'ライティング基礎学習とポートフォリオ作成',
+          month2: '低単価案件で実績作り',
+          month3: '専門分野確立と単価向上'
+        },
+        pdf: 'Webライティング完全マニュアル', password: 'ライティング'
+      },
+      design: {
+        name: 'デザイン・クリエイティブ系',
+        color: '#9B59B6', icon: '🎨',
+        description: 'デザインスキルを活用した創造性の高い副業。スキル次第で高収入も期待できます。',
+        income: '月5-50万円以上', skills: 'デザインソフト操作、色彩感覚',
+        roadmap: {
+          month1: 'デザインソフト習得とポートフォリオ作成',
+          month2: '実績作りのため低価格受注',
+          month3: 'SNS発信と継続クライアント獲得'
+        },
+        pdf: 'デザイン副業完全ガイド', password: 'デザイン'
+      },
+      programming: {
+        name: 'プログラミング・IT系',
+        color: '#27AE60', icon: '💻',
+        description: '技術スキルを活用した高収入が期待できる副業。需要が高く、将来性も抜群です。',
+        income: '月10-100万円以上', skills: 'プログラミング言語、フレームワーク',
+        roadmap: {
+          month1: 'プログラミング言語選択と集中学習',
+          month2: 'ポートフォリオ作成とGitHub公開',
+          month3: '簡単な案件から実績作り'
+        },
+        pdf: 'プログラミング副業マニュアル', password: 'プログラミング'
+      },
+      consulting: {
+        name: 'コンサルティング・講師系',
+        color: '#E74C3C', icon: '🎓',
+        description: '専門知識や経験を活かして指導・助言を行う高付加価値な副業です。',
+        income: '月10-100万円以上', skills: '専門知識、コミュニケーション力',
+        roadmap: {
+          month1: '専門分野の棚卸しとサービス設計',
+          month2: 'オンライン講座・相談サービス開始',
+          month3: 'セミナー開催と口コミ拡大'
+        },
+        pdf: 'コンサル・講師副業ガイド', password: 'コンサル'
+      },
+      sales: {
+        name: '物販・転売系',
+        color: '#F39C12', icon: '📦',
+        description: '商品を仕入れて販売することで利益を得る副業。リサーチ力と継続力が重要です。',
+        income: '月1-100万円以上', skills: '市場リサーチ、商品選定眼',
+        roadmap: {
+          month1: '物販基礎学習とプラットフォーム選定',
+          month2: '少額仕入れでテスト販売',
+          month3: '売れ筋商品確立と仕入れ拡大'
+        },
+        pdf: 'Amazon物販スタートガイド', password: '物販'
+      },
+      investment: {
+        name: '投資・資産運用系',
+        color: '#16A085', icon: '📈',
+        description: '資金を運用して利益を得る副業。リスク管理と継続的な学習が必要です。',
+        income: '年利3-15%', skills: '金融知識、リスク管理能力',
+        roadmap: {
+          month1: '投資基礎学習と証券口座開設',
+          month2: '少額投資でスタート（積立NISA等）',
+          month3: '分散投資実践と継続学習'
+        },
+        pdf: '投資副業完全ガイド', password: '投資'
+      },
+      service: {
+        name: 'サービス業系',
+        color: '#3498DB', icon: '🚴',
+        description: '身体的なサービスや地域密着型の副業。確実な収入が期待できます。',
+        income: '月3-20万円', skills: '基本的な体力、時間管理能力',
+        roadmap: {
+          month1: 'サービス選定とプラットフォーム登録',
+          month2: '稼働時間確保と効率化研究',
+          month3: '最適エリア・時間帯の確立'
+        },
+        pdf: 'サービス業副業マニュアル', password: 'サービス'
+      }
+    };
+
+    let currentQuestion = 0;
+    let answers = {};
+
+    function diagnose(ans) {
+      const { q1, q2, q3, q4, q5, q6, q7, q8, q9, q10 } = ans;
+      let scores = { data:0, writing:0, design:0, programming:0, consulting:0, sales:0, investment:0, service:0 };
+
+      if (q1==='A') { scores.data+=3; scores.service+=2; }
+      else if (q1==='B') { scores.writing+=3; scores.data+=2; scores.service+=2; }
+      else if (q1==='C') { scores.design+=3; scores.writing+=2; scores.sales+=2; }
+      else if (q1==='D') { scores.programming+=3; scores.consulting+=3; scores.sales+=2; }
+
+      if (q2==='A') { scores.data+=4; scores.service+=3; }
+      else if (q2==='B') { scores.writing+=3; scores.data+=2; scores.sales+=2; }
+      else if (q2==='C') { scores.design+=3; scores.writing+=2; scores.sales+=2; }
+      else if (q2==='D') { scores.programming+=4; scores.consulting+=4; }
+
+      if (q3==='A') { scores.data+=4; scores.writing+=3; scores.service+=3; }
+      else if (q3==='B') { scores.design+=2; scores.service+=2; }
+      else if (q3==='C') { scores.sales+=3; scores.programming+=2; }
+      else if (q3==='D') { scores.investment+=4; scores.sales+=3; }
+
+      if (q4==='A') { scores.data+=3; scores.service+=2; }
+      else if (q4==='B') { scores.writing+=3; scores.design+=2; }
+      else if (q4==='C') { scores.programming+=3; scores.design+=3; scores.sales+=2; }
+      else if (q4==='D') { scores.programming+=4; scores.consulting+=4; scores.investment+=3; }
+
+      if (q5==='A') { scores.data+=3; scores.writing+=3; scores.programming+=2; }
+      else if (q5==='B') { scores.design+=2; scores.sales+=2; }
+      else if (q5==='C') { scores.consulting+=4; scores.service+=3; }
+      else if (q5==='D') { scores.sales+=2; scores.investment+=2; }
+
+      if (q6==='A') { scores.data+=4; scores.writing+=3; scores.service+=3; }
+      else if (q6==='B') { scores.design+=2; scores.programming+=2; }
+      else if (q6==='C') { scores.sales+=3; scores.consulting+=2; }
+      else if (q6==='D') { scores.investment+=4; }
+
+      if (q7==='A') { scores.data+=3; scores.service+=3; }
+      else if (q7==='B') { scores.writing+=2; scores.sales+=2; }
+      else if (q7==='C') { scores.design+=3; scores.writing+=2; }
+      else if (q7==='D') { scores.programming+=4; scores.consulting+=3; }
+
+      if (q8==='A') { scores.data+=3; scores.programming+=2; scores.investment+=2; }
+      else if (q8==='B') { scores.writing+=2; scores.design+=2; }
+      else if (q8==='C') { scores.service+=3; scores.sales+=2; }
+      else if (q8==='D') { scores.consulting+=4; scores.sales+=3; }
+
+      if (q9==='A') { scores.service+=3; scores.data+=2; }
+      else if (q9==='B') { scores.writing+=2; scores.design+=2; }
+      else if (q9==='C') { scores.programming+=3; scores.sales+=2; }
+      else if (q9==='D') { scores.investment+=4; scores.consulting+=3; }
+
+      if (q10==='A') { scores.data+=3; scores.service+=3; }
+      else if (q10==='B') { scores.writing+=3; scores.programming+=2; }
+      else if (q10==='C') { scores.design+=3; scores.writing+=2; scores.programming+=2; }
+      else if (q10==='D') { scores.consulting+=4; scores.programming+=3; }
+
+      let maxScore = 0, selected = 'data';
+      Object.keys(scores).forEach(k => { if (scores[k] > maxScore) { maxScore = scores[k]; selected = k; } });
+      return fukugyoData[selected];
+    }
+
+    function hexToRgba(hex, alpha) {
+      const r = parseInt(hex.slice(1,3),16);
+      const g = parseInt(hex.slice(3,5),16);
+      const b = parseInt(hex.slice(5,7),16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      const progress = ((currentQuestion + 1) / questions.length) * 100;
+      document.getElementById('app').innerHTML = `
+        <div class="container">
+          <div class="header">
+            <div class="header-icon">🎯</div>
+            <h1>副業マッチング診断Pro</h1>
+            <p>10の質問であなたに最適な副業を診断<br>詳細ロードマップPDF無料進呈</p>
+          </div>
+          <div class="progress-area">
+            <div class="progress-labels">
+              <span>質問 ${currentQuestion + 1} / ${questions.length}</span>
+              <span>${Math.round(progress)}%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:${progress}%"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="question-icon">${q.icon}</div>
+            <h2 class="question-text">${q.question}</h2>
+            <div class="options">
+              ${q.options.map(opt => `
+                <button class="option-btn" onclick="handleAnswer('${opt.value}')">
+                  <span class="option-emoji">${opt.emoji}</span>
+                  <span class="option-label">${opt.label}</span>
+                  <span class="option-arrow">→</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div class="footer">
+            <p>副業診断作成：元店長サム</p>
+            <p>在宅起業15年の経験を凝縮</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderResult(result) {
+      const c = result.color;
+      document.getElementById('app').innerHTML = `
+        <div class="result-container">
+          <div class="result-header" style="border: 4px solid ${c}">
+            <div class="result-icon">${result.icon}</div>
+            <div class="result-badge">Your Best Match</div>
+            <h2 class="result-name" style="color:${c}">${result.name}</h2>
+            <div class="result-desc-box">${result.description}</div>
+          </div>
+
+          <div class="grid-2">
+            <div class="mini-card">
+              <div class="mini-card-icon">💰</div>
+              <div class="mini-card-label">収入目安</div>
+              <div class="mini-card-value" style="color:${c}">${result.income}</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-icon">🎯</div>
+              <div class="mini-card-label">必要スキル</div>
+              <div class="mini-card-value skills">${result.skills}</div>
+            </div>
+          </div>
+
+          <div class="roadmap-card">
+            <div class="roadmap-title">📅 3ヶ月ロードマップ（簡易版）</div>
+            <div class="roadmap-steps">
+              <div class="roadmap-step">
+                <div class="step-badge" style="background:${hexToRgba(c,0.2)};color:${c}">1ヶ月</div>
+                <div class="step-text">${result.roadmap.month1}</div>
+              </div>
+              <div class="roadmap-step">
+                <div class="step-badge" style="background:${hexToRgba(c,0.3)};color:${c}">2ヶ月</div>
+                <div class="step-text">${result.roadmap.month2}</div>
+              </div>
+              <div class="roadmap-step">
+                <div class="step-badge" style="background:${c};color:white">3ヶ月</div>
+                <div class="step-text">${result.roadmap.month3}</div>
+              </div>
+            </div>
+            <div class="pdf-box">
+              <div class="pdf-box-title">📄 無料PDF特典：「${result.pdf}」</div>
+              <div class="pdf-box-content">
+                詳細な3ヶ月ロードマップと実践ガイドをPDFでプレゼント！<br>
+                下記ボタンからLINEに登録してパスワード「<strong>${result.password}</strong>」と送ってください。
+              </div>
+            </div>
+          </div>
+
+          <div class="cta-card">
+            <div class="cta-title">🎁 無料PDFを受け取る</div>
+            <div class="cta-desc">
+              元店長サムの公式LINEに登録して<br>
+              「${result.password}」と送信するだけ！<br>
+              詳細ロードマップPDFを無料でお届けします。
+            </div>
+            <a href="https://lin.ee/xAf3xNl" class="cta-btn" target="_blank" rel="noopener">📲 LINEで無料PDFを受け取る</a>
+            <div class="cta-note">登録無料・いつでも解除できます</div>
+          </div>
+
+          <button class="restart-btn" onclick="restart()">🔄 もう一度診断する</button>
+          <div class="footer">
+            <p>副業診断作成：元店長サム</p>
+            <p>在宅起業15年の経験を凝縮</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleAnswer(value) {
+      answers[questions[currentQuestion].id] = value;
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        setTimeout(renderQuestion, 300);
+      } else {
+        const result = diagnose(answers);
+        setTimeout(() => renderResult(result), 300);
+      }
+    }
+
+    function restart() {
+      currentQuestion = 0;
+      answers = {};
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
