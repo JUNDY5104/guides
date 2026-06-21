@@ -580,7 +580,7 @@ footer {
       <h2>設定書が完成しました</h2>
       <div class="settei-text" id="chatSetteiText"></div>
       <div class="settei-actions">
-        <button class="btn btn-copy" onclick="copySettei('chatSetteiText')">設定書をコピーする</button>
+        <button class="btn btn-copy" onclick="copySettei('chatSetteiText', this)">設定書をコピーする</button>
         <button class="btn btn-outline btn-sm" onclick="continueChat()">もう少し話す</button>
       </div>
       <div class="usage-hint">
@@ -698,7 +698,7 @@ footer {
       </div>
       <div class="action-row">
         <button class="btn btn-outline" onclick="nextFormStep(3)">戻る</button>
-        <button class="btn btn-accent" onclick="generateFromForm()">設定書を作成する</button>
+        <button class="btn btn-accent" id="formGenerateBtn" onclick="generateFromForm()">設定書を作成する</button>
       </div>
     </div>
 
@@ -714,7 +714,7 @@ footer {
       <h2>設定書が完成しました</h2>
       <div class="settei-text" id="formSetteiText"></div>
       <div class="settei-actions">
-        <button class="btn btn-copy" onclick="copySettei('formSetteiText')">設定書をコピーする</button>
+        <button class="btn btn-copy" onclick="copySettei('formSetteiText', this)">設定書をコピーする</button>
         <button class="btn btn-outline btn-sm" onclick="goBack()">最初からやり直す</button>
       </div>
       <div class="usage-hint">
@@ -807,7 +807,7 @@ function startChat() {
 }
 
 function handleEnter(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
+  if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
     e.preventDefault();
     sendChat();
   }
@@ -868,6 +868,7 @@ async function sendToGAS(mode, messages, isFirst, isSummary) {
       if (isSummary || reply.includes('---設定書ここから---')) {
         // 設定書を表示
         showSettei(reply, 'chat');
+        chatHistory.push({ role: 'assistant', content: reply });
       } else {
         appendMessage('ai', reply);
         chatHistory.push({ role: 'assistant', content: reply });
@@ -1014,23 +1015,19 @@ function showSettei(text, mode) {
   }
 }
 
-function copySettei(id) {
+function copySettei(id, btn) {
   const text = document.getElementById(id).textContent;
+  const orig = btn.textContent;
   navigator.clipboard.writeText(text).then(() => {
-    const btn = event.target;
-    const orig = btn.textContent;
     btn.textContent = 'コピーしました！';
     setTimeout(() => { btn.textContent = orig; }, 2000);
   }).catch(() => {
-    // フォールバック
     const ta = document.createElement('textarea');
     ta.value = text;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    const btn = event.target;
-    const orig = btn.textContent;
     btn.textContent = 'コピーしました！';
     setTimeout(() => { btn.textContent = orig; }, 2000);
   });
@@ -1044,6 +1041,10 @@ function setLoading(on, mode) {
   document.getElementById(id).classList.toggle('active', on);
   if (mode === 'chat') {
     document.getElementById('chatSendBtn').disabled = on;
+  }
+  if (mode === 'form') {
+    const btn = document.getElementById('formGenerateBtn');
+    if (btn) btn.disabled = on;
   }
 }
 
