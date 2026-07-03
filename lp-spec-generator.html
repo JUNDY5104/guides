@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>LP仕様書ジェネレーター｜やきさかな式</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#152238;
+    --navy-2:#1f3358;
+    --navy-soft:#3a4d70;
+    --gold:#c9a84c;
+    --gold-soft:#e6d6a8;
+    --paper:#f7f4ec;
+    --paper-2:#efe9d8;
+    --ink:#1c1c1c;
+    --line:#d8d0b8;
+    --ok:#3f7d58;
+    --ok-bg:#e9f2ea;
+    --warn:#a84b2a;
+    --warn-bg:#faece3;
+    --danger:#a8342f;
+    --danger-bg:#fbe9e7;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans JP',sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold-soft);}
+
+  /* ---------- layout shell ---------- */
+  .shell{max-width:920px;margin:0 auto;padding:0 24px 96px;}
+  header.top{
+    background:var(--navy);
+    color:#f3efe2;
+    padding:44px 24px 40px;
+    border-bottom:6px solid var(--gold);
+  }
+  header.top .inner{max-width:920px;margin:0 auto;}
+  .eyebrow{
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    letter-spacing:.24em;
+    font-size:11px;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+    margin:0 0 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold);display:inline-block;}
+  h1.brand-title{
+    font-family:'Noto Serif JP',serif;
+    font-weight:900;
+    font-size:clamp(26px,4vw,38px);
+    margin:0 0 12px;
+    letter-spacing:.02em;
+  }
+  header.top p.lead{
+    margin:0;
+    max-width:56ch;
+    color:#d9d3c1;
+    font-size:14.5px;
+  }
+
+  /* ---------- prerequisite notice ---------- */
+  .notice{
+    margin:28px 0 8px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:4px solid var(--gold);
+    padding:18px 20px;
+    font-size:13.5px;
+    color:#3a3a3a;
+  }
+  .notice strong{color:var(--navy-2);}
+  .notice ul{margin:10px 0 0;padding-left:1.2em;}
+  .notice li{margin-bottom:4px;}
+
+  /* ---------- step nav ---------- */
+  .steps{
+    display:flex;
+    margin:40px 0 32px;
+    border:1px solid var(--line);
+    background:#fff;
+  }
+  .step-btn{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 14px;
+    background:none;
+    border:none;
+    border-right:1px solid var(--line);
+    cursor:pointer;
+    text-align:left;
+    font-family:'Noto Sans JP',sans-serif;
+    color:#8a8474;
+    transition:background .15s ease;
+  }
+  .step-btn:last-child{border-right:none;}
+  .step-btn .num{
+    font-family:'Noto Serif JP',serif;
+    font-weight:900;
+    font-size:22px;
+    color:var(--paper-2);
+    -webkit-text-stroke:1px var(--line);
+  }
+  .step-btn .label{font-size:12.5px;font-weight:700;line-height:1.4;}
+  .step-btn.active{background:var(--navy);}
+  .step-btn.active .num{color:var(--gold);-webkit-text-stroke:0;}
+  .step-btn.active .label{color:#f4f0e4;}
+  .step-btn.done .num{color:var(--ok);-webkit-text-stroke:0;}
+  .step-btn:not(.active):hover{background:var(--paper-2);}
+
+  section.panel{display:none;}
+  section.panel.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  h2.panel-title{
+    font-family:'Noto Serif JP',serif;
+    font-size:21px;
+    font-weight:700;
+    color:var(--navy);
+    margin:0 0 4px;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  h2.panel-title small{
+    font-family:'Noto Sans JP',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    color:#a08c4a;
+    letter-spacing:.1em;
+  }
+  p.panel-desc{color:#5c5646;font-size:13.5px;margin:0 0 28px;}
+
+  /* ---------- form ---------- */
+  fieldset{border:none;padding:0;margin:0 0 32px;}
+  legend{
+    font-family:'Noto Serif JP',serif;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--navy);
+    padding:0 0 10px;
+    border-bottom:1px solid var(--line);
+    width:100%;
+    margin-bottom:16px;
+  }
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:700;
+    color:#4a4536;
+    margin-bottom:6px;
+  }
+  .field .hint{font-weight:400;color:#9c9480;font-size:11.5px;margin-left:6px;}
+  input[type=text],input[type=color],textarea,select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-family:inherit;
+    font-size:13.5px;
+    color:var(--ink);
+    border-radius:var(--radius);
+  }
+  textarea{resize:vertical;min-height:64px;}
+  input:focus,textarea:focus,select:focus{
+    outline:2px solid var(--gold);
+    outline-offset:1px;
+    border-color:var(--gold);
+  }
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .colorfield{display:flex;gap:8px;align-items:center;}
+  .colorfield input[type=color]{width:44px;height:38px;padding:2px;flex:none;}
+
+  .chip-group{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:7px 14px;
+    font-size:12.5px;
+    cursor:pointer;
+    user-select:none;
+    color:#6b6552;
+  }
+  .chip.on{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+  /* ---------- cards repeater ---------- */
+  .card-row{
+    display:grid;
+    grid-template-columns:1fr 2fr auto;
+    gap:10px;
+    margin-bottom:10px;
+    align-items:start;
+  }
+  .card-row input{margin:0;}
+  .btn-mini{
+    background:#fff;border:1px solid var(--line);color:#a8342f;
+    width:38px;height:38px;cursor:pointer;font-size:15px;flex:none;
+  }
+  .btn-mini:hover{background:var(--danger-bg);}
+  .btn-add{
+    background:none;border:1px dashed var(--navy-soft);color:var(--navy-2);
+    padding:9px 16px;font-size:12.5px;cursor:pointer;font-weight:700;
+  }
+  .btn-add:hover{background:#fff;}
+
+  /* ---------- buttons ---------- */
+  .btn-primary{
+    background:var(--navy);
+    color:#f4f0e4;
+    border:1px solid var(--navy);
+    padding:14px 30px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:.03em;
+    cursor:pointer;
+    font-family:'Noto Sans JP',sans-serif;
+  }
+  .btn-primary:hover{background:var(--navy-2);}
+  .btn-secondary{
+    background:#fff;
+    color:var(--navy);
+    border:1px solid var(--navy);
+    padding:12px 22px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .btn-secondary:hover{background:var(--paper-2);}
+  .btn-gold{
+    background:var(--gold);
+    color:var(--navy);
+    border:1px solid var(--gold);
+    padding:12px 22px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .btn-gold:hover{filter:brightness(0.95);}
+  .actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+
+  /* ---------- step2: prompt output ---------- */
+  .prompt-box{
+    background:var(--navy);
+    color:#e9e4d3;
+    padding:24px;
+    font-family:'SFMono-Regular',Consolas,monospace;
+    font-size:12.5px;
+    line-height:1.9;
+    white-space:pre-wrap;
+    max-height:520px;
+    overflow-y:auto;
+    border-left:4px solid var(--gold);
+  }
+  .copy-feedback{
+    display:inline-block;margin-left:12px;font-size:12.5px;color:var(--ok);
+    opacity:0;transition:opacity .2s;
+  }
+  .copy-feedback.show{opacity:1;}
+
+  /* ---------- step3: check & edit ---------- */
+  .upload-area{
+    border:2px dashed var(--line);
+    background:#fff;
+    padding:32px 20px;
+    text-align:center;
+    color:#9c9480;
+    font-size:13px;
+    margin-bottom:20px;
+  }
+  .upload-area.drag{border-color:var(--gold);background:var(--paper-2);}
+  .upload-area input[type=file]{display:none;}
+  .upload-area label{
+    display:inline-block;margin-top:10px;
+    padding:9px 18px;border:1px solid var(--navy);color:var(--navy);
+    font-size:12.5px;font-weight:700;cursor:pointer;background:#fff;
+  }
+  textarea#raw-html{
+    width:100%;min-height:120px;font-family:monospace;font-size:12px;
+  }
+
+  .check-summary{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);margin:24px 0;border:1px solid var(--line);
+  }
+  .check-summary div{background:#fff;padding:16px;text-align:center;}
+  .check-summary .n{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:900;}
+  .check-summary .l{font-size:11px;color:#8a8474;margin-top:4px;}
+  .n.ok{color:var(--ok);} .n.warn{color:var(--warn);} .n.danger{color:var(--danger);}
+
+  .check-list{list-style:none;margin:0 0 28px;padding:0;}
+  .check-list li{
+    display:flex;gap:12px;padding:12px 14px;margin-bottom:6px;
+    border-left:4px solid var(--line);background:#fff;font-size:13px;
+  }
+  .check-list li.danger{border-left-color:var(--danger);background:var(--danger-bg);}
+  .check-list li.warn{border-left-color:var(--warn);background:var(--warn-bg);}
+  .check-list li.ok{border-left-color:var(--ok);background:var(--ok-bg);}
+  .check-list .tag{
+    font-size:10px;font-weight:700;letter-spacing:.05em;
+    padding:2px 8px;height:fit-content;white-space:nowrap;
+  }
+  .check-list li.danger .tag{background:var(--danger);color:#fff;}
+  .check-list li.warn .tag{background:var(--warn);color:#fff;}
+  .check-list li.ok .tag{background:var(--ok);color:#fff;}
+
+  .preview-toolbar{
+    display:flex;justify-content:space-between;align-items:center;
+    margin:32px 0 12px;flex-wrap:wrap;gap:10px;
+  }
+  .width-toggle{display:flex;border:1px solid var(--navy);}
+  .width-toggle button{
+    background:#fff;border:none;border-right:1px solid var(--navy);
+    padding:8px 16px;font-size:12px;cursor:pointer;color:var(--navy);
+  }
+  .width-toggle button:last-child{border-right:none;}
+  .width-toggle button.active{background:var(--navy);color:#fff;}
+  .edit-hint{font-size:11.5px;color:#9c9480;}
+  .preview-frame-wrap{
+    border:1px solid var(--line);background:#e9e4d3;padding:24px;
+    display:flex;justify-content:center;
+  }
+  iframe#preview{
+    width:100%;height:640px;border:1px solid var(--navy);background:#fff;
+    transition:width .2s ease;
+  }
+
+  footer.tool-footer{
+    text-align:center;padding:40px 24px;color:#9c9480;font-size:11.5px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <p class="eyebrow">やきさかな式 / AI駆動LP制作ツール</p>
+    <h1 class="brand-title">LP仕様書ジェネレーター</h1>
+    <p class="lead">フォームに入力すると、Cowork の <code>/create-website</code> にそのまま渡せる仕様書プロンプトを自動で組み立てます。生成後のLPはこの画面でチェック・編集まで行えます。</p>
+  </div>
+</header>
+
+<div class="shell">
+
+  <div class="notice">
+    <strong>ご利用前に</strong>：本ツールは、専用のWebサイト生成プラグイン（別途Coworkにインストール）と組み合わせてお使いいただきます。<strong>デザインシステムをご自身で一から作成する必要はありません。</strong>プラグインのインストール後、以下の手順で進めてください。ツール自体は無料・ブラウザだけで動作し、AI APIは使用しません。
+    <ul>
+      <li>プラグインをCoworkにインストール（初回のみ）</li>
+      <li>Step1〜2でLPの内容を入力・仕様書プロンプトを生成</li>
+      <li>Coworkでプラグインを実行してLPを生成</li>
+      <li>Step3で生成されたLPをチェック・編集</li>
+    </ul>
+    Cowork の利用には <strong>Claude Pro／Maxプラン</strong> への加入が必要です。
+    <details style="margin-top:12px;">
+      <summary style="cursor:pointer;font-weight:700;color:var(--navy-2);">上級者向け：自分で用意したプラグインを使いたい場合</summary>
+      <div style="margin-top:10px;">Claude Designでご自身のデザインシステムを作成し、Cowork上でプラグインをカスタマイズすれば、本ツールで作った仕様書プロンプトをそちらに渡すこともできます。その場合、特殊フォント・購入フォントの追加はClaude Designの工程内で行ってください（ライセンス上「Webサイトへの埋め込み利用」が許可されているか事前確認をおすすめします）。</div>
+    </details>
+  </div>
+
+  <nav class="steps">
+    <button class="step-btn active" data-step="1">
+      <span class="num">01</span>
+      <span class="label">LPの内容を<br>入力する</span>
+    </button>
+    <button class="step-btn" data-step="2">
+      <span class="num">02</span>
+      <span class="label">仕様書を生成し<br>Coworkへコピー</span>
+    </button>
+    <button class="step-btn" data-step="3">
+      <span class="num">03</span>
+      <span class="label">生成されたLPを<br>チェック・編集</span>
+    </button>
+  </nav>
+
+  <!-- ===================== STEP 1 ===================== -->
+  <section class="panel active" id="panel-1">
+    <h2 class="panel-title">Step 1 <small>INPUT</small></h2>
+    <p class="panel-desc">わかる範囲でOKです。未入力の項目は仕様書から自動で除外されます。</p>
+
+    <fieldset>
+      <legend>基本情報</legend>
+      <div class="field">
+        <label>ブランド名・サービス名</label>
+        <input type="text" id="brandName" placeholder="例）◯◯スクール／△△サービス">
+      </div>
+      <div class="field">
+        <label>LPの目的・コンセプト <span class="hint">誰に何をしてもらうためのLPか</span></label>
+        <textarea id="purpose" placeholder="例）起業・副業・フリーランスに必要なスキルを無料で学べることを伝え、LINE登録につなげる"></textarea>
+      </div>
+      <div class="field">
+        <label>ペルソナ <span class="hint">誰の・どんな悩みに向けているか</span></label>
+        <textarea id="persona" placeholder="例）副業を始めたいが何から手をつけていいかわからない会社員"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>訴求・コピーライティング</legend>
+      <div class="field">
+        <label>訴求の型</label>
+        <select id="framework">
+          <option value="PASONA">PASONA（悩み→共感→解決→提案→絞込→行動）</option>
+          <option value="QUEST">QUEST（Qualify→Understand→Educate→Stimulate→Transition）</option>
+          <option value="AIDA">AIDA（注意→関心→欲求→行動）</option>
+          <option value="自由">指定しない（AIに任せる）</option>
+        </select>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>なぜ今なのか</label>
+          <input type="text" id="why1" placeholder="例）今から始めれば来年の副業解禁に間に合う">
+        </div>
+        <div class="field">
+          <label>なぜあなた（このブランド）からなのか</label>
+          <input type="text" id="why2" placeholder="例）会員15.6万人・指導実績28万人以上">
+        </div>
+      </div>
+      <div class="field">
+        <label>なぜこのオファーなのか</label>
+        <input type="text" id="why3" placeholder="例）無料でここまで学べるスクールは他にない">
+      </div>
+      <div class="field">
+        <label>実績・数値 <span class="hint">任意</span></label>
+        <textarea id="achievements" placeholder="例）累計会員数15.6万人突破／指導実績28万人以上／動画教材100本以上"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>デザイン要件</legend>
+      <div class="row2">
+        <div class="field">
+          <label>メインカラー</label>
+          <div class="colorfield">
+            <input type="color" id="mainColorPicker" value="#152238">
+            <input type="text" id="mainColor" value="#152238">
+          </div>
+        </div>
+        <div class="field">
+          <label>アクセントカラー</label>
+          <div class="colorfield">
+            <input type="color" id="accentColorPicker" value="#c9a84c">
+            <input type="text" id="accentColor" value="#c9a84c">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>トーン <span class="hint">複数選択可</span></label>
+        <div class="chip-group" id="toneChips">
+          <span class="chip" data-value="明るい">明るい</span>
+          <span class="chip" data-value="信頼感がある">信頼感がある</span>
+          <span class="chip" data-value="高級感がある">高級感がある</span>
+          <span class="chip" data-value="親しみやすい">親しみやすい</span>
+          <span class="chip" data-value="実践的">実践的</span>
+          <span class="chip" data-value="学校感より実践コミュニティ感">学校感より実践コミュニティ感</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>カード（コース・サービス一覧）</legend>
+      <div id="cardRows"></div>
+      <button type="button" class="btn-add" id="addCard">＋ カードを追加</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>CTA・登録導線</legend>
+      <div class="field">
+        <label>CTA文言 <span class="hint">LP全体で統一する1文</span></label>
+        <input type="text" id="ctaText" placeholder="例）無料で今すぐ学びはじめる">
+      </div>
+      <div class="row2">
+        <div class="field"><label>STEP1</label><input type="text" id="step1text" placeholder="例）ボタンをタップ"></div>
+        <div class="field"><label>STEP2</label><input type="text" id="step2text" placeholder="例）LINEで友だち追加"></div>
+      </div>
+      <div class="field"><label>STEP3</label><input type="text" id="step3text" placeholder="例）学習スタート"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>基本SEO・注意点</legend>
+      <div class="field">
+        <label>title <span class="hint">30〜35字目安</span></label>
+        <input type="text" id="seoTitle" placeholder="例）無料で学べる◯◯講座｜△△サービス">
+      </div>
+      <div class="field">
+        <label>H1</label>
+        <input type="text" id="seoH1" placeholder="例）起業・副業・フリーランスに必要なビジネススキルを、無料で学び放題。">
+      </div>
+      <div class="field">
+        <label>必須注記 <span class="hint">該当するものを選択</span></label>
+        <div class="chip-group" id="disclaimerChips">
+          <span class="chip" data-value="結果には個人差があります。">結果には個人差があります</span>
+          <span class="chip" data-value="成果を保証するものではありません。">成果を保証するものではありません</span>
+          <span class="chip" data-value="登録は無料です。パスワード設定や面倒なログインは不要です。">登録無料・ログイン不要</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button class="btn-primary" id="toStep2">仕様書を生成する →</button>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 2 ===================== -->
+  <section class="panel" id="panel-2">
+    <h2 class="panel-title">Step 2 <small>PROMPT</small></h2>
+    <p class="panel-desc">生成された仕様書プロンプトです。Coworkの新規タスクで、お使いのWebサイト生成プラグインのcreate-website系スキルを呼び出した後に貼り付けてください。</p>
+
+    <div class="prompt-box" id="promptOutput"></div>
+    <div class="actions">
+      <button class="btn-gold" id="copyPrompt">プロンプトをコピー</button>
+      <span class="copy-feedback" id="copyFeedback">コピーしました</span>
+      <button class="btn-secondary" id="backTo1">← 入力に戻る</button>
+      <button class="btn-secondary" id="toStep3">LPが生成できたらチェックへ進む →</button>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 3 ===================== -->
+  <section class="panel" id="panel-3">
+    <h2 class="panel-title">Step 3 <small>CHECK &amp; EDIT</small></h2>
+    <p class="panel-desc">Coworkで生成された <code>index.html</code> を読み込むと、自動チェックとその場編集ができます（すべてブラウザ内で完結し、外部送信は行いません）。</p>
+
+    <div class="upload-area" id="dropArea">
+      <div>ここに index.html をドラッグ＆ドロップ</div>
+      <label for="fileInput">ファイルを選択</label>
+      <input type="file" id="fileInput" accept=".html,.htm">
+      <div style="margin-top:14px;font-size:11.5px;">またはHTMLソースを直接貼り付け：</div>
+      <textarea id="raw-html" placeholder="<!DOCTYPE html> ... の全体を貼り付け"></textarea>
+      <div style="margin-top:10px;"><button class="btn-secondary" id="runCheck">このHTMLをチェックする</button></div>
+    </div>
+
+    <div id="resultsWrap" style="display:none;">
+      <div class="check-summary">
+        <div><div class="n danger" id="cntDanger">0</div><div class="l">要修正</div></div>
+        <div><div class="n warn" id="cntWarn">0</div><div class="l">要確認</div></div>
+        <div><div class="n ok" id="cntOk">0</div><div class="l">問題なし</div></div>
+      </div>
+      <ul class="check-list" id="checkList"></ul>
+
+      <div class="preview-toolbar">
+        <div class="width-toggle">
+          <button data-w="100%" class="active">PC</button>
+          <button data-w="768px">タブレット</button>
+          <button data-w="390px">スマホ</button>
+        </div>
+        <div class="edit-hint">プレビュー内のテキストは直接クリックして編集できます</div>
+      </div>
+      <div class="preview-frame-wrap">
+        <iframe id="preview" title="LPプレビュー"></iframe>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" id="downloadHtml">編集済みHTMLをダウンロード</button>
+        <button class="btn-secondary" id="backTo2">← プロンプトに戻る</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="tool-footer">やきさかな式 LP仕様書ジェネレーター（Lite版） ／ このツールはブラウザ内で完結し、入力内容は外部に送信されません</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- step navigation ---------------- */
+  const stepButtons = document.querySelectorAll('.step-btn');
+  const panels = { 1: document.getElementById('panel-1'), 2: document.getElementById('panel-2'), 3: document.getElementById('panel-3') };
+  function goToStep(n){
+    Object.keys(panels).forEach(k=>panels[k].classList.toggle('active', Number(k)===n));
+    stepButtons.forEach(b=>{
+      const s = Number(b.dataset.step);
+      b.classList.toggle('active', s===n);
+      b.classList.toggle('done', s<n);
+    });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  stepButtons.forEach(b=>b.addEventListener('click',()=>goToStep(Number(b.dataset.step))));
+  document.getElementById('toStep2').addEventListener('click', ()=>{ buildPrompt(); goToStep(2); });
+  document.getElementById('backTo1').addEventListener('click', ()=>goToStep(1));
+  document.getElementById('toStep3').addEventListener('click', ()=>goToStep(3));
+  document.getElementById('backTo2').addEventListener('click', ()=>goToStep(2));
+
+  /* ---------------- color pickers sync ---------------- */
+  function syncColor(pickerId, textId){
+    const picker = document.getElementById(pickerId);
+    const text = document.getElementById(textId);
+    picker.addEventListener('input', ()=> text.value = picker.value);
+    text.addEventListener('input', ()=>{
+      if(/^#[0-9a-fA-F]{6}$/.test(text.value)) picker.value = text.value;
+    });
+  }
+  syncColor('mainColorPicker','mainColor');
+  syncColor('accentColorPicker','accentColor');
+
+  /* ---------------- chip toggles ---------------- */
+  document.querySelectorAll('.chip-group').forEach(group=>{
+    group.addEventListener('click', e=>{
+      const chip = e.target.closest('.chip');
+      if(!chip) return;
+      chip.classList.toggle('on');
+    });
+  });
+  function selectedChips(groupId){
+    return [...document.querySelectorAll('#'+groupId+' .chip.on')].map(c=>c.dataset.value);
+  }
+
+  /* ---------------- card repeater ---------------- */
+  const cardRows = document.getElementById('cardRows');
+  function addCardRow(name='', desc=''){
+    const row = document.createElement('div');
+    row.className = 'card-row';
+    row.innerHTML =
+      '<input type="text" placeholder="カード名（例：ChatGPT活用コース）" class="card-name" value="'+escapeAttr(name)+'">' +
+      '<input type="text" placeholder="1行説明" class="card-desc" value="'+escapeAttr(desc)+'">' +
+      '<button type="button" class="btn-mini" title="削除">✕</button>';
+    row.querySelector('.btn-mini').addEventListener('click', ()=>row.remove());
+    cardRows.appendChild(row);
+  }
+  document.getElementById('addCard').addEventListener('click', ()=>addCardRow());
+  addCardRow(); addCardRow(); addCardRow();
+
+  function escapeAttr(s){ return (s||'').replace(/"/g,'&quot;'); }
+  function val(id){ return document.getElementById(id).value.trim(); }
+
+  /* ---------------- prompt builder ---------------- */
+  function buildPrompt(){
+    const brand = val('brandName') || '（ブランド名未入力）';
+    const purpose = val('purpose');
+    const persona = val('persona');
+    const framework = document.getElementById('framework').value;
+    const why1 = val('why1'), why2 = val('why2'), why3 = val('why3');
+    const achievements = val('achievements');
+    const mainColor = val('mainColor'), accentColor = val('accentColor');
+    const tones = selectedChips('toneChips');
+    const cards = [...cardRows.querySelectorAll('.card-row')].map(r=>({
+      name: r.querySelector('.card-name').value.trim(),
+      desc: r.querySelector('.card-desc').value.trim()
+    })).filter(c=>c.name);
+    const cta = val('ctaText');
+    const steps = [val('step1text'), val('step2text'), val('step3text')].filter(Boolean);
+    const seoTitle = val('seoTitle'), seoH1 = val('seoH1');
+    const disclaimers = selectedChips('disclaimerChips');
+
+    let p = '（Coworkでお使いのWebサイト生成プラグインのcreate-website系スキルを呼び出した後に、以下を貼り付けてください）\n\n';
+    p += '以下、' + brand + ' のLPとして、そのまま制作チームに渡せるレベルでまとめます。\n';
+    if(purpose) p += '目的は「' + purpose + '」です。\n';
+    if(persona) p += '想定するペルソナ：' + persona + '\n';
+
+    p += '\n【訴求の型】\n';
+    p += framework === '自由'
+      ? 'セクション構成は指定しませんので、内容に合わせて適切に組み立ててください。\n'
+      : framework + '型の構成に沿って、悩み・共感 → 解決 → 提案 → 実績 → 行動、の流れでセクションを組んでください。\n';
+
+    if(why1 || why2 || why3){
+      p += '\n【3つのWhy】\n';
+      if(why1) p += '・なぜ今なのか：' + why1 + '\n';
+      if(why2) p += '・なぜこのブランドからなのか：' + why2 + '\n';
+      if(why3) p += '・なぜこのオファーなのか：' + why3 + '\n';
+    }
+    if(achievements) p += '\n【実績・数値】\n' + achievements + '\n';
+
+    p += '\n【デザイン要件】\n';
+    p += 'メインカラー：' + (mainColor||'指定なし') + '／アクセントカラー：' + (accentColor||'指定なし') + '\n';
+    if(tones.length) p += 'トーン：' + tones.join('・') + '\n';
+    p += 'CTA配置：ファーストビュー直下／コース紹介後／Q&A後／最終セクションの複数箇所。スマホは下部固定CTA。\n';
+    p += 'レスポンシブ：スマホ優先、余白広め、画像はWebP・遅延読み込み。\n';
+
+    if(cards.length){
+      p += '\n【学べるコース・サービス一覧（カード型）】\n';
+      cards.forEach(c=>{ p += '・' + c.name + (c.desc ? '：' + c.desc : '') + '\n'; });
+    }
+
+    p += '\n【CTA・登録導線】\n';
+    if(cta) p += 'CTA文言（LP全体で統一）：' + cta + '\n';
+    if(steps.length) p += '登録ステップ：' + steps.map((s,i)=> 'STEP'+(i+1)+' '+s).join(' → ') + '\n';
+
+    p += '\n【SEO】\n';
+    if(seoTitle) p += 'title：' + seoTitle + '\n';
+    if(seoH1) p += 'H1：' + seoH1 + '\n';
+
+    p += '\n【注意点】\n';
+    p += '「誰でも稼げる」「必ず成功」などの成果保証表現は避けてください。\n';
+    if(disclaimers.length){
+      p += '以下の注記を、目立たない位置（Q&A付近・フッター付近）に必ず入れてください：\n';
+      disclaimers.forEach(d=> p += '・' + d + '\n');
+    }
+    p += '\nこのサービスのLPを作成してください。';
+
+    document.getElementById('promptOutput').textContent = p;
+  }
+
+  document.getElementById('copyPrompt').addEventListener('click', ()=>{
+    const text = document.getElementById('promptOutput').textContent;
+    const showSuccess = ()=>{
+      const fb = document.getElementById('copyFeedback');
+      fb.textContent = 'コピーしました';
+      fb.style.color = 'var(--ok)';
+      fb.classList.add('show');
+      setTimeout(()=>fb.classList.remove('show'), 1800);
+    };
+    const showFailure = ()=>{
+      const fb = document.getElementById('copyFeedback');
+      fb.textContent = 'コピーに失敗しました。テキストを選択して手動でコピーしてください';
+      fb.style.color = 'var(--danger)';
+      fb.classList.add('show');
+      setTimeout(()=>fb.classList.remove('show'), 4000);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(showSuccess).catch(showFailure);
+    } else {
+      // clipboard APIが使えない環境（http接続・古いブラウザ等）向けのフォールバック
+      try{
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showSuccess();
+      }catch(e){
+        showFailure();
+      }
+    }
+  });
+
+  /* ---------------- step3: file load ---------------- */
+  const dropArea = document.getElementById('dropArea');
+  const fileInput = document.getElementById('fileInput');
+  const rawHtml = document.getElementById('raw-html');
+
+  ['dragover','dragenter'].forEach(evt=>{
+    dropArea.addEventListener(evt, e=>{ e.preventDefault(); dropArea.classList.add('drag'); });
+  });
+  ['dragleave','drop'].forEach(evt=>{
+    dropArea.addEventListener(evt, e=>{ e.preventDefault(); dropArea.classList.remove('drag'); });
+  });
+  dropArea.addEventListener('drop', e=>{
+    const file = e.dataTransfer.files[0];
+    if(file) readFile(file);
+  });
+  fileInput.addEventListener('change', e=>{
+    const file = e.target.files[0];
+    if(file) readFile(file);
+  });
+  function readFile(file){
+    const reader = new FileReader();
+    reader.onload = ()=>{ rawHtml.value = reader.result; };
+    reader.readAsText(file, 'UTF-8');
+  }
+
+  document.getElementById('runCheck').addEventListener('click', runCheck);
+
+  /* ---------------- checks ---------------- */
+  const NG_WORDS = ['誰でも稼げる','必ず成功','絶対に稼げる','絶対稼げる','100%成功','完全保証','元本保証','必ず儲かる','絶対儲かる','誰でも簡単に稼げる'];
+
+  function runCheck(){
+    // すでにチェック済みで、プレビュー内で編集している場合はその内容を優先する
+    // （そうしないと「再チェック」のたびに編集内容が失われてしまうため）
+    const alreadyChecked = document.getElementById('resultsWrap').style.display === 'block';
+    let htmlStr = null;
+    if(alreadyChecked){
+      htmlStr = getCleanedPreviewHtml();
+    }
+    if(!htmlStr){
+      htmlStr = rawHtml.value;
+    }
+    if(!htmlStr || !htmlStr.trim()){
+      alert('HTMLが空です。ファイルを読み込むか、ソースを貼り付けてください。');
+      return;
+    }
+    const doc = new DOMParser().parseFromString(htmlStr, 'text/html');
+    const bodyText = doc.body ? doc.body.textContent : '';
+
+    const results = [];
+
+    // NGワード
+    const foundNg = NG_WORDS.filter(w=>bodyText.includes(w));
+    if(foundNg.length){
+      results.push({level:'danger', msg:'誇大表現の可能性がある語句が見つかりました：' + foundNg.join('／')});
+    } else {
+      results.push({level:'ok', msg:'誇大表現・NGワードは見つかりませんでした'});
+    }
+
+    // 未置換プレースホルダー（style/scriptタグの中身はCSS・JSの記法と衝突するため除外して判定する）
+    const placeholderDoc = new DOMParser().parseFromString(htmlStr, 'text/html');
+    placeholderDoc.querySelectorAll('style, script').forEach(el=>el.remove());
+    const placeholderScanTarget = placeholderDoc.documentElement ? placeholderDoc.documentElement.outerHTML : htmlStr;
+    const placeholderMatches = placeholderScanTarget.match(/\{[^{}]{1,30}\}/g);
+    if(placeholderMatches && placeholderMatches.length){
+      results.push({level:'danger', msg:'未置換のプレースホルダーが残っています：' + [...new Set(placeholderMatches)].slice(0,8).join('、')});
+    } else {
+      results.push({level:'ok', msg:'未置換のプレースホルダーは見つかりませんでした'});
+    }
+
+    // alt属性
+    const imgs = [...doc.querySelectorAll('img')];
+    const noAlt = imgs.filter(img=>!img.getAttribute('alt') || img.getAttribute('alt').trim()==='');
+    if(imgs.length===0){
+      results.push({level:'warn', msg:'画像（img要素）が見つかりませんでした'});
+    } else if(noAlt.length){
+      results.push({level:'warn', msg:'alt属性が未設定の画像が' + noAlt.length + '件あります'});
+    } else {
+      results.push({level:'ok', msg:'すべての画像にalt属性が設定されています（' + imgs.length + '件）'});
+    }
+
+    // 見出し階層
+    const headings = [...doc.querySelectorAll('h1,h2,h3,h4,h5,h6')];
+    const h1s = headings.filter(h=>h.tagName==='H1');
+    if(h1s.length===0){
+      results.push({level:'danger', msg:'H1見出しが見つかりません'});
+    } else if(h1s.length>1){
+      results.push({level:'warn', msg:'H1見出しが' + h1s.length + '個あります（通常は1つを推奨）'});
+    } else {
+      results.push({level:'ok', msg:'H1見出しは1つです'});
+    }
+    let jump = false, prev = 0;
+    headings.forEach(h=>{
+      const lvl = Number(h.tagName.slice(1));
+      if(prev && lvl - prev > 1) jump = true;
+      prev = lvl;
+    });
+    results.push(jump
+      ? {level:'warn', msg:'見出しレベルが飛んでいる箇所があります（例：H2の次にH4等）'}
+      : {level:'ok', msg:'見出しレベルの飛びは見つかりませんでした'});
+
+    // title
+    const titleEl = doc.querySelector('title');
+    if(!titleEl || !titleEl.textContent.trim()){
+      results.push({level:'danger', msg:'<title>タグが未設定、または空です'});
+    } else {
+      const len = titleEl.textContent.trim().length;
+      if(len > 40){
+        results.push({level:'warn', msg:'titleが長めです（' + len + '文字）。30〜35字程度を目安に見直してください：「' + titleEl.textContent.trim() + '」'});
+      } else {
+        results.push({level:'ok', msg:'titleは設定されています（' + len + '文字）：「' + titleEl.textContent.trim() + '」'});
+      }
+    }
+
+    // meta description
+    const metaDesc = doc.querySelector('meta[name="description"]');
+    const descContent = metaDesc ? (metaDesc.getAttribute('content')||'').trim() : '';
+    if(!descContent){
+      results.push({level:'warn', msg:'meta descriptionが未設定です（検索結果・SNSシェア時の説明文として設定を推奨）'});
+    } else if(descContent.length > 140){
+      results.push({level:'warn', msg:'meta descriptionが長めです（' + descContent.length + '文字）。120字前後を目安に見直してください'});
+    } else {
+      results.push({level:'ok', msg:'meta descriptionは設定されています（' + descContent.length + '文字）'});
+    }
+
+    // CTA表記ゆれ
+    const ctaEls = [...doc.querySelectorAll('a,button')].filter(el=>{
+      const cls = (el.className||'').toString().toLowerCase();
+      const text = el.textContent.trim();
+      return cls.includes('cta') || /登録|学びは|申し込|お申込み|LINEで|今すぐ/.test(text);
+    });
+    const ctaTexts = [...new Set(ctaEls.map(el=>el.textContent.trim()).filter(Boolean))];
+    if(ctaTexts.length > 1){
+      results.push({level:'warn', msg:'CTAの文言に表記ゆれがある可能性があります：' + ctaTexts.join('／')});
+    } else if(ctaTexts.length === 1){
+      results.push({level:'ok', msg:'CTA文言は統一されています（「' + ctaTexts[0] + '」）'});
+    } else {
+      results.push({level:'warn', msg:'CTAらしき要素が見つかりませんでした'});
+    }
+
+    // 必須注記
+    if(bodyText.includes('個人差')){
+      results.push({level:'ok', msg:'「結果には個人差があります」等の注記が含まれています'});
+    } else {
+      results.push({level:'warn', msg:'「結果には個人差があります」等の注記が見つかりません（該当する場合は追記を検討してください）'});
+    }
+
+    renderResults(results);
+    renderPreview(htmlStr);
+    document.getElementById('resultsWrap').style.display = 'block';
+  }
+
+  function renderResults(results){
+    const list = document.getElementById('checkList');
+    list.innerHTML = '';
+    let d=0,w=0,o=0;
+    results.forEach(r=>{
+      if(r.level==='danger') d++; else if(r.level==='warn') w++; else o++;
+      const li = document.createElement('li');
+      li.className = r.level;
+      const tagText = r.level==='danger' ? '要修正' : r.level==='warn' ? '要確認' : 'OK';
+      li.innerHTML = '<span class="tag">'+tagText+'</span><span>'+r.msg+'</span>';
+      list.appendChild(li);
+    });
+    document.getElementById('cntDanger').textContent = d;
+    document.getElementById('cntWarn').textContent = w;
+    document.getElementById('cntOk').textContent = o;
+  }
+
+  /* ---------------- preview / edit ---------------- */
+  const previewFrame = document.getElementById('preview');
+  function renderPreview(htmlStr){
+    previewFrame.onload = ()=>{
+      try{
+        previewFrame.contentDocument.body.setAttribute('contenteditable','true');
+        previewFrame.contentDocument.body.style.outline = 'none';
+      }catch(e){ /* ignore */ }
+    };
+    previewFrame.srcdoc = htmlStr;
+  }
+
+  // プレビュー中の編集を反映したクリーンなHTML文字列を取得する
+  // （contenteditable属性・編集用インラインスタイルを除去してから返す）
+  function getCleanedPreviewHtml(){
+    const cdoc = previewFrame.contentDocument;
+    if(!cdoc || !cdoc.documentElement) return null;
+    const clone = cdoc.documentElement.cloneNode(true);
+    const body = clone.querySelector('body');
+    if(body){
+      body.removeAttribute('contenteditable');
+      if(body.getAttribute('style') === 'outline: none;' || body.getAttribute('style') === 'outline:none;'){
+        body.removeAttribute('style');
+      }
+    }
+    return '<!DOCTYPE html>\n' + clone.outerHTML;
+  }
+
+  document.querySelectorAll('.width-toggle button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.width-toggle button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      previewFrame.style.width = btn.dataset.w;
+    });
+  });
+
+  document.getElementById('downloadHtml').addEventListener('click', ()=>{
+    const out = getCleanedPreviewHtml() || ('<!DOCTYPE html>\n' + rawHtml.value);
+    const blob = new Blob([out], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'index_edited.html';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+})();
+</script>
+</body>
+</html>
