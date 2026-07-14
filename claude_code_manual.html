@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【はじめての方向け】Claude Code デスクトップアプリかんたん説明書</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f59e0b;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --sidebar-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --box-bg-light: #f0fdf4;
+            --box-border-light: #bbf7d0;
+            --box-bg-blue: #eff6ff;
+            --box-border-blue: #bfdbfe;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+        
+        /* 全体レイアウト：テーブル構造でサイドバーとメインを分離（WeasyPrint互換） */
+        .wrapper {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .sidebar-cell {
+            display: table-cell;
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            vertical-align: top;
+            padding: 30px 20px;
+        }
+        .main-cell {
+            display: table-cell;
+            vertical-align: top;
+            padding: 40px 50px;
+        }
+
+        /* サイドナビゲーション */
+        .nav-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav li {
+            margin-bottom: 14px;
+        }
+        nav a {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 10.5pt;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* メインコンテンツ */
+        .header-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .header-banner h1 {
+            margin: 0 0 10px 0;
+            font-size: 20pt;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        .header-banner p {
+            margin: 0;
+            font-size: 11pt;
+            opacity: 0.9;
+        }
+
+        h2 {
+            font-size: 14pt;
+            color: #0f172a;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            padding-left: 12px;
+            border-left: 5px solid var(--primary-color);
+            page-break-after: avoid;
+        }
+        h3 {
+            font-size: 12pt;
+            color: #1e3a8a;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 10.5pt;
+            text-align: justify;
+        }
+
+        /* リスト */
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+            font-size: 10.5pt;
+        }
+        li strong {
+            color: #0f172a;
+        }
+
+        /* 特殊ボックス */
+        .point-box {
+            background-color: var(--box-bg-light);
+            border: 1px solid var(--box-border-light);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        .point-box strong {
+            color: #166534;
+        }
+        
+        .blue-box {
+            background-color: var(--box-bg-blue);
+            border: 1px solid var(--box-border-blue);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        .blue-box strong {
+            color: #1e40af;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+        }
+        
+        .code-block {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 10pt;
+            color: #334155;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- 左側サイドバー -->
+        <div class="sidebar-cell">
+            <div class="nav-title">説明書の目次</div>
+            <nav>
+                <ul>
+                    <li><a href="#intro">1. Claude Codeってなに？</a></li>
+                    <li><a href="#setup">2. 準備編：最初の設定</a></li>
+                    <li><a href="#basic">3. 基本編：かんたん3手順</a></li>
+                    <li><a href="#scary-messages">4. 画面に怖い英語が出たら？</a></li>
+                    <li><a href="#ai-bridge">5. 必殺技：別のAIに頼む方法</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- 右側メインコンテンツ -->
+        <div class="main-cell">
+            <div class="header-banner">
+                <h1>Claude Code デスクトップアプリ<br>かんたんご利用説明書</h1>
+                <p>〜 黒い画面を使わない、知識ゼロからのAIファイル操作ガイド 〜</p>
+            </div>
+
+            <p>この説明書では、パソコンの難しい操作や専門知識（コードの知識など）が一切ない方でも、いつものAIチャットと同じ感覚で安全に「Claude Code」を使いこなすための手順を優しく解説します。</p>
+
+            <section id="intro">
+                <h2>1. Claude Codeってなに？</h2>
+                <p>普段お使いのAIチャット（ChatGPTやGeminiなど）と同じように、日本語で「このファイル直しておいて」と頼むだけで、あなたの代わりにパソコン内のファイルを直接書き換えてくれる非常に賢いアシスタントツールです。</p>
+                <p>最大の特徴は、エンジニアが使うような<strong>「黒い画面（ターミナル）」を一切触らなくてよい</strong>点です。普通のアプリと同じようにマウス操作とチャットだけで動かすことができます。</p>
+            </section>
+
+            <section id="setup">
+                <h2>2. 準備編：最初の設定</h2>
+                <h3>アプリを開いてログインするだけ</h3>
+                <p>インストールされた「Claude Code」のアイコンをダブルクリックしてアプリを起動します。</p>
+
+                <p>画面に表示される<strong>「Sign in（サインイン）」</strong>と書かれたボタンを押すと、自動的にいつものインターネットブラウザ（Google Chromeなど）が開きます。画面の指示に従ってログインを完了させるだけで準備は完了です。</p>
+            </section>
+
+            <section id="basic">
+                <h2>3. 基本編：かんたん3手順</h2>
+                <p>実際の使い方は、以下のたったの3ステップです。</p>
+                
+                <div class="step-card">
+                    <p><strong>手順 1：フォルダを選ぶ</strong><br>
+                    画面にある「フォルダを開く」ボタンを押し、AIに作業（修正や確認）をしてほしいファイルが入っているフォルダを選択します。</p>
+                </div>
+
+                <div class="step-card">
+                    <p><strong>手順 2：AIにお願いする（チャット入力）</strong><br>
+                    画面の下部にあるチャット欄に、日本語でやりたいことを入力して送信します。</p>
+                </div>
+
+                <div class="step-card">
+                    <p><strong>手順 3：確認してOK（適用）ボタンを押す</strong><br>
+                    AIが「このようにファイルを直しました」と画面に提案を表示します。内容に問題がなければ、確定（Accept/Apply）ボタンを押すだけで実際のファイルが書き換わります。</p>
+                </div>
+
+                <div class="point-box">
+                    <strong>💡 初めての方への安心アドバイス</strong><br>
+                    AIがあなたの許可なく勝手にファイルを書き換えたり、パソコンを壊したりすることはありません。必ずあなたの「OK」のボタン操作を待ってから動きますので、どうぞ安心して指示を出してください。
+                </div>
+            </section>
+
+            <section id="scary-messages">
+                <h2>4. 画面に「英語の怖いメッセージ」が出てきたら？</h2>
+                <p>作業を進めていると、画面に英語のポップアップメッセージが表示されて進行が止まることがあります。「ウイルスかもしれない」「壊してしまったかも」と怖くなる必要はまったくありません。</p>
+
+                <p>これはAIが、<strong>「あなたのパソコンの大事なファイルを変更しようとしていますが、本当にこのまま進めてもいいですか？」</strong>と、セキュリティのために親切に確認を求めてきている状態です。</p>
+                <p>ご自身が依頼した作業の途中でこの画面が出た場合は、迷わず<strong>「Allow（許可）」</strong>や<strong>「Yes」</strong>、または青く強調されているボタンを押して進めてしまって大丈夫です。</p>
+                
+                <div class="blue-box">
+                    <strong>💡 どうしても怖くてボタンが押せないときは？</strong><br>
+                    その表示されている画面をスマートフォンで撮影するか、スクリーンショット（画面キャプチャ）を撮って、使い慣れているChatGPTやGeminiに「この画面が出たんだけど、進めて大丈夫？」とそのまま貼り付けて聞いてみてください。「大丈夫な画面ですよ」と優しく背中を押してくれます。
+                </div>
+            </section>
+
+            <section id="ai-bridge">
+                <h2>5. 必殺技：別のAIに「指示書」を作ってもらう方法</h2>
+                <p>Claude Codeのチャット欄を目の前にして、「なんて指示すれば上手く伝わるだろう…」と言葉に詰まってしまうのは当然のことです。そんなときは、あなたが一番使い慣れている<strong>ChatGPTやGeminiを「通訳」として間に挟む</strong>のが一番確実で賢い方法です。</p>
+                
+                <h3>具体的なコピペ手順</h3>
+                
+                <div class="step-card">
+                    <p><strong>ステップ 1：使い慣れたAIに「普通の言葉」で相談する</strong><br>
+                    ChatGPTやGeminiを開き、以下のように普段の言葉で話しかけます。</p>
+                    <div class="code-block">【コピーして使える魔法の相談文】
+〇〇というフォルダの中にあるファイル（例：テキストファイルやHTMLファイルなど）を、〇〇のように書き換えたいです。
+Claude CodeというAIツールに指示を出したいので、以下のチャット欄にそのままコピー＆ペーストして使える「正確な指示文」を日本語で作成してください。</div>
+                </div>
+
+                <div class="step-card">
+                    <p><strong>ステップ 2：作成された指示文をコピーして貼り付ける</strong><br>
+                    相談したAIが作ってくれた丁寧な指示の文章をそのままコピーし、Claude Codeのチャット欄に貼り付けて実行します。これだけで完璧に意図が伝わります。</p>
+                </div>
+
+                <div class="step-card">
+                    <p><strong>ステップ 3：結果やエラーが出たら、またスクショで相談する</strong><br>
+                    もしClaude Codeが思った通りに動かなかったり、よく分からない英語のメッセージを出して止まった場合は、その画面のスクリーンショットを撮り、再びChatGPTやGeminiに貼り付けて以下のように相談してください。</p>
+                    <div class="code-block">Claude Codeに指示を出したら、このような画面になってしまいました。
+次は何て言えば正しく直してくれますか？返信用の指示文を作ってください。</div>
+                </div>
+                
+                <p>この「使い慣れたAIに相談しながらコピペで進める」やり方なら、専門知識はゼロのままで、まるでベテランエンジニアがついているかのような安心感で作業を進めることができます。</p>
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>
