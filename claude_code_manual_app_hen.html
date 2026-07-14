@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【アプリ制作編】Claude Codeで「音痴改善アプリ」を作ろう</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f59e0b;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --sidebar-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --box-bg-light: #f0fdf4;
+            --box-border-light: #bbf7d0;
+            --box-bg-blue: #eff6ff;
+            --box-border-blue: #bfdbfe;
+            --box-bg-orange: #fffbeb;
+            --box-border-orange: #fde68a;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        /* 全体レイアウト：テーブル構造でサイドバーとメインを分離（WeasyPrint互換） */
+        .wrapper {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .sidebar-cell {
+            display: table-cell;
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            vertical-align: top;
+            padding: 30px 20px;
+        }
+        .main-cell {
+            display: table-cell;
+            vertical-align: top;
+            padding: 40px 50px;
+        }
+
+        /* サイドナビゲーション */
+        .nav-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav li {
+            margin-bottom: 14px;
+        }
+        nav a {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 10.5pt;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        .nav-note {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 9pt;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* メインコンテンツ */
+        .header-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .header-banner h1 {
+            margin: 0 0 10px 0;
+            font-size: 20pt;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        .header-banner p {
+            margin: 0;
+            font-size: 11pt;
+            opacity: 0.9;
+        }
+
+        h2 {
+            font-size: 14pt;
+            color: #0f172a;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            padding-left: 12px;
+            border-left: 5px solid var(--primary-color);
+            page-break-after: avoid;
+        }
+        h3 {
+            font-size: 12pt;
+            color: #1e3a8a;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 10.5pt;
+            text-align: justify;
+        }
+
+        /* リスト */
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+            font-size: 10.5pt;
+        }
+        li strong {
+            color: #0f172a;
+        }
+
+        /* 特殊ボックス */
+        .point-box {
+            background-color: var(--box-bg-light);
+            border: 1px solid var(--box-border-light);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        .point-box strong {
+            color: #166534;
+        }
+
+        .blue-box {
+            background-color: var(--box-bg-blue);
+            border: 1px solid var(--box-border-blue);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        .blue-box strong {
+            color: #1e40af;
+        }
+
+        .orange-box {
+            background-color: var(--box-bg-orange);
+            border: 1px solid var(--box-border-orange);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        .orange-box strong {
+            color: #92400e;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+        }
+        .step-card .step-label {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 9pt;
+            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 999px;
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 10pt;
+            color: #334155;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* 応用編：カード一覧 */
+        .idea-grid {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            border-spacing: 10px 0;
+            margin-bottom: 16px;
+        }
+        .idea-cell {
+            display: table-cell;
+            width: 33.33%;
+            background-color: var(--sidebar-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 10pt;
+            vertical-align: top;
+        }
+        .idea-cell strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- 左側サイドバー -->
+        <div class="sidebar-cell">
+            <div class="nav-title">説明書の目次</div>
+            <nav>
+                <ul>
+                    <li><a href="#intro">1. はじめに</a></li>
+                    <li><a href="#setup">2. 準備編：フォルダを作る</a></li>
+                    <li><a href="#step1">3. 見た目だけ作ってみる</a></li>
+                    <li><a href="#step2">4. ブラウザで動かしてみる</a></li>
+                    <li><a href="#step3">5. 本命機能を追加する</a></li>
+                    <li><a href="#trouble">6. うまく動かない時は？</a></li>
+                    <li><a href="#mobile">7. スマホで使えるようにする</a></li>
+                    <li><a href="#next">8. 他のアプリにも応用しよう</a></li>
+                </ul>
+            </nav>
+            <div class="nav-note">
+                ※ サインインの方法や、Claude Codeの基本的な使い方（許可ボタンの押し方など）は「ファイル修正編」の説明書もあわせてご覧ください。
+            </div>
+        </div>
+
+        <!-- 右側メインコンテンツ -->
+        <div class="main-cell">
+            <div class="header-banner">
+                <h1>Claude Code デスクトップアプリ<br>アプリ制作編</h1>
+                <p>〜 題材は「音痴改善アプリ」。作りながら、他のアプリ作りにも使える考え方を身につけます 〜</p>
+            </div>
+
+            <p>この説明書は、「Claude Codeでファイルを直してもらう」ことに慣れた方が、次のステップとして<strong>「ゼロから自分だけのアプリを作る」</strong>ための手順書です。題材として、マイクに向かって歌うと音程のズレを教えてくれる「音痴改善アプリ」を一緒に作っていきますが、ここで学ぶ進め方は他のどんなアプリを作るときにも使える、共通のパターンです。</p>
+
+            <section id="intro">
+                <h2>1. はじめに：プログラミング未経験でも大丈夫な理由</h2>
+                <p>今回作る音痴改善アプリは、Excel関数が使えるくらいのレベルであれば十分に挑戦できます。理由はシンプルで、コードを書くのはあなたではなく、すべてClaude Codeが担当してくれるからです。あなたの役割は「こんなものが欲しい」と日本語で伝え、できあがったものを確認して「OK」を押すことだけです。</p>
+                <p>また、うれしいお知らせとして、今回作るような音程判定アプリは<strong>外部のAPI（有料の追加サービスやアカウント登録）を一切使わずに、ブラウザが最初から持っている機能だけで作ることができます。</strong>お金の心配や、難しい登録作業は不要です。</p>
+                <div class="point-box">
+                    <strong>💡 「ファイル修正編」との違い</strong><br>
+                    前回の説明書は「すでにあるファイルを直してもらう」ものでしたが、今回は「まだ存在しないアプリを、まっさらな状態から生み出す」点が違います。とはいえ基本操作（フォルダを選ぶ→日本語でお願いする→確認してOK）はまったく同じです。
+                </div>
+            </section>
+
+            <section id="setup">
+                <h2>2. 準備編：作業用フォルダを作る</h2>
+                <p>まず、今回のアプリ専用の新しいフォルダを、デスクトップなど分かりやすい場所に作成します。名前は「onchi-app」のように、何のアプリか分かる名前にしておくと後で迷いません。</p>
+                <ol>
+                    <li>デスクトップなど好きな場所で、右クリック→「新規フォルダ」を選び、名前をつける（例：onchi-app）</li>
+                    <li>Claude Codeを起動し、「フォルダを開く」ボタンから、今作ったフォルダを選択する</li>
+                </ol>
+                <p>これで、このフォルダの中だけでアプリ作りの作業が完結します。他の大事なファイルに影響が及ぶ心配はありません。</p>
+            </section>
+
+            <section id="step1">
+                <h2>3. まずは「見た目」だけ作ってみる</h2>
+                <p>いきなり音程を判定する機能から作ろうとすると、つまずいたときに心が折れやすくなります。そこで最初は、<strong>実際に動く機能は後回しにして、画面の「見た目」だけを先に作ってもらいましょう。</strong>これだけでも「自分のアプリができた」という達成感を得られます。</p>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 1</div>
+                    <p><strong>チャット欄に、以下のような指示文を入力してみましょう。</strong></p>
+                    <div class="code-block">音痴改善アプリの画面（HTML1枚）を作ってください。
+・タイトル「音痴改善トレーニング」を上部に表示
+・中央に大きな「録音スタート」ボタン
+・その下に、判定結果を表示するための四角いエリア（今はまだ空欄でOK）
+・全体的にスマホで見ても見やすい、シンプルで可愛いデザインにしてください
+まだ音声機能は不要です。見た目だけを作ってください。</div>
+                </div>
+
+                <div class="point-box">
+                    <strong>💡 小さな成功体験がいちばん大事</strong><br>
+                    この時点ではマイクも音程判定もまだ動きません。それで正解です。「指示すれば画面ができる」という一番の基本ループに、まずは慣れることを目的にしています。
+                </div>
+            </section>
+
+            <section id="step2">
+                <h2>4. ブラウザで実際に動かしてみる</h2>
+                <p>Claude Codeが作成したファイル（例：index.html）を、フォルダの中からダブルクリックしてみましょう。普段お使いのブラウザ（Google Chromeなど）が自動的に開き、たった今作ってもらった画面が表示されます。</p>
+                <p>思っていたデザインと違う場合は、「もう少しボタンを大きくして」「色を水色にして」のように、感想をそのままチャット欄に伝えれば、Claude Codeが微調整してくれます。納得のいく見た目になるまで、遠慮なく何度でもお願いしてみましょう。</p>
+            </section>
+
+            <section id="step3">
+                <h2>5. 本命機能「音程判定」を追加する</h2>
+                <p>見た目に満足したら、いよいよ本命の機能を追加します。</p>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 2</div>
+                    <p><strong>チャット欄に、以下のような指示文を入力してみましょう。</strong></p>
+                    <div class="code-block">先ほどの画面に、実際に動く機能を追加してください。
+・「録音スタート」ボタンを押すとマイクが起動し、歌った声を拾う
+・声の高さ（音程）を解析して、下の結果エリアに「合っています」「少し高いです」
+「少し低いです」のように表示する
+・外部のAPIやライブラリの追加インストールが不要な方法で実装してください</div>
+                </div>
+
+                <div class="blue-box">
+                    <strong>💡 新しい「許可」画面が出てきます</strong><br>
+                    この機能を試すと、Claude Codeの許可ボタンとは<strong>別に</strong>、ブラウザから「マイクの使用を許可しますか？」という確認画面が表示されます。これはあなたの声をこのアプリが聞き取るための、ごく普通の確認です。安心して「許可」を押してください。
+                </div>
+            </section>
+
+            <section id="trouble">
+                <h2>6. うまく動かない時は？（通訳AI実践編）</h2>
+                <p>音程判定のような機能は、一度の指示で完璧に動くとは限りません。「マイクの音を拾ってくれない」「判定がずれている気がする」といったことが起きても、まったく普通のことです。ここで焦らず、いつもの「通訳AI」に頼る練習をしましょう。</p>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 1</div>
+                    <p><strong>うまくいかない画面をスクリーンショットで撮影する</strong><br>
+                    エラーメッセージが出ている場合や、期待通りに動かない画面をそのままキャプチャします。</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 2</div>
+                    <p><strong>ChatGPTやGeminiに、状況とスクショを見せて相談する</strong></p>
+                    <div class="code-block">音痴改善アプリを作っていて、Claude Codeに音程判定機能を追加してもらいました。
+しかし添付の画面のように、〇〇（例：マイクの反応がない／結果が表示されない）という状態です。
+Claude Codeにそのままコピペで送れる、状況を伝える指示文を日本語で作ってください。</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 3</div>
+                    <p><strong>作ってもらった指示文をClaude Codeに貼り付けて送信する</strong><br>
+                    これだけで、あなたが技術的な原因を理解していなくても、Claude Codeに正確に状況を伝えることができます。</p>
+                </div>
+
+                <div class="point-box">
+                    <strong>💡 つまずきは「失敗」ではなく「練習」</strong><br>
+                    音程判定は今回の説明書の中でいちばん難しい部分です。ここで一度「通訳AIに頼って乗り越える」体験をしておくと、今後どんなアプリを作るときも、自分だけで解決しようとせず頼れる引き出しが増えます。
+                </div>
+            </section>
+
+            <section id="mobile">
+                <h2>7. スマホで使えるようにする</h2>
+                <p>歌の練習はパソコンの前より、スマホを片手に行うことの方が多いはずです。最後に、完成したアプリをスマホでも使えるようにする方法を紹介します。</p>
+
+                <div class="orange-box">
+                    <strong>⚠️ なぜファイルを直接スマホに送るだけではダメなの？</strong><br>
+                    マイクを使う機能は安全のため、「httpsから始まる特別な経路」で開かれたページでないと動作しない仕組みになっています。作ったファイルをメールやLINEでスマホに送って直接開いても、マイクが反応しない可能性が高いです。そこで、次の手順でアプリをインターネット上に公開し、専用のURL（https〜）を発行します。
+                </div>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 1</div>
+                    <p><strong>GitHub（ギットハブ）のアカウントを無料で作成する</strong><br>
+                    世界中で使われている、ファイルを保管・公開できる無料サービスです。ターミナルなどの難しい操作は使わず、すべてブラウザの画面上の操作だけで完結します。</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 2</div>
+                    <p><strong>新しいリポジトリ（保管庫）を作り、ファイルをドラッグ＆ドロップでアップロードする</strong><br>
+                    「New repository」というボタンから保管庫を作成し、作成したHTMLファイルをそのままドラッグ＆ドロップでアップロードします。</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-label">STEP 3</div>
+                    <p><strong>「Settings」→「Pages」から公開設定をオンにする</strong><br>
+                    設定を1つオンにするだけで、あなたのアプリ専用の「https://〜」から始まるURLが発行されます。このURLをスマホのブラウザで開けば、マイク機能も含めて正常に動作します。</p>
+                </div>
+
+                <div class="point-box">
+                    <strong>💡 アプリを修正したときは？</strong><br>
+                    デザインや機能を直してもらった後は、同じ手順でファイルを再アップロードすれば、URLはそのままで内容だけが更新されます。難しいことは何もありません。
+                </div>
+            </section>
+
+            <section id="next">
+                <h2>8. 完成後：他のアプリにも応用してみよう</h2>
+                <p>ここまでの流れを振り返ってみましょう。</p>
+                <ol>
+                    <li><strong>見た目だけ</strong>を先に作ってもらい、小さな成功体験を得る</li>
+                    <li><strong>ブラウザで動作確認</strong>しながら、気になる点を伝えて調整する</li>
+                    <li><strong>本命の機能</strong>を追加してもらう（新しい許可画面が出ても慌てない）</li>
+                    <li>うまくいかない時は<strong>通訳AI</strong>に画面を見せて指示文を作ってもらう</li>
+                    <li><strong>GitHub Pages</strong>で公開し、スマホなど好きな場所で使えるようにする</li>
+                </ol>
+                <p>このパターンは、音痴改善アプリに限らず、あらゆるアプリ作りに応用できます。次はこんなアプリにも挑戦してみてはいかがでしょうか。</p>
+
+                <div class="idea-grid">
+                    <div class="idea-cell">
+                        <strong>簡単な家計簿アプリ</strong>
+                        毎日の支出を入力すると、自動で合計を計算してくれるアプリ
+                    </div>
+                    <div class="idea-cell">
+                        <strong>レッスン用タイマー</strong>
+                        発声練習の時間を計り、区切りで音が鳴るアプリ
+                    </div>
+                    <div class="idea-cell">
+                        <strong>単語帳アプリ</strong>
+                        歌詞や外国語の歌詞カードのように、めくって覚えられるアプリ
+                    </div>
+                </div>
+
+                <div class="point-box">
+                    <strong>💡 迷ったら「見た目から」の原則を忘れずに</strong><br>
+                    新しいアプリに挑戦するときも、まずは機能を欲張らず「見た目だけ」を作ってもらうところから始めると、無理なく前に進めます。
+                </div>
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>
