@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【図解解説】Claude Code超入門</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+            800: '#1e40af', 900: '#1e3a8a'
+          }
+        },
+        fontFamily: {
+          sans: ['"Hiragino Kaku Gothic ProN"', '"Noto Sans JP"', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2rem; height: 2rem; border-radius: 9999px;
+    background-color: #2563eb; color: white; font-weight: 700; flex-shrink: 0;
+  }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <!-- ===== Header / Nav ===== -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="#top" class="font-bold text-slate-900 text-sm sm:text-base">
+        Claude Code<span class="text-brand-600">超入門</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+        <a href="#chapter1" class="hover:text-brand-600 transition">① 知る</a>
+        <a href="#chapter2" class="hover:text-brand-600 transition">② わかる</a>
+        <a href="#chapter3" class="hover:text-brand-600 transition">③ 始める</a>
+        <a href="#faq" class="hover:text-brand-600 transition">FAQ</a>
+        <a href="#glossary" class="hover:text-brand-600 transition">用語辞典</a>
+      </nav>
+      <a href="#chapter3" class="md:hidden text-xs font-semibold bg-brand-600 text-white px-3 py-1.5 rounded-full">始める</a>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section id="top" class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-slate-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 pt-14 pb-16 sm:pt-20 sm:pb-24 text-center">
+      <span class="inline-block text-xs sm:text-sm font-semibold text-brand-700 bg-brand-100 rounded-full px-4 py-1.5 mb-5">
+        図解解説 学習資料
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 leading-tight tracking-tight">
+        Claude Code <span class="text-brand-600">超入門</span>
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-slate-600">
+        AI社員が働く会社を、あなたのパソコンで。
+      </p>
+      <p class="mt-6 max-w-2xl mx-auto text-sm sm:text-base text-slate-600 leading-relaxed">
+        資料の下書き、フォルダの整理、ちょっとした調べもの——あなたの毎日のそんな仕事に、
+        手を動かすAIの力を借りられる時代が来ました。専門知識もコードの読み書きも必要ありません。
+        <span class="font-semibold text-slate-800">「知る → わかる → 始める」</span>の順番で、やさしく解きほぐしていきます。
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <span class="flex items-center gap-1.5 text-xs sm:text-sm font-medium bg-white border border-slate-200 rounded-full px-4 py-2 shadow-sm">
+          <span class="text-brand-600">✓</span> 非エンジニアOK
+        </span>
+        <span class="flex items-center gap-1.5 text-xs sm:text-sm font-medium bg-white border border-slate-200 rounded-full px-4 py-2 shadow-sm">
+          <span class="text-brand-600">✓</span> 導入手順つき
+        </span>
+        <span class="flex items-center gap-1.5 text-xs sm:text-sm font-medium bg-white border border-slate-200 rounded-full px-4 py-2 shadow-sm">
+          <span class="text-brand-600">✓</span> 専門語には言い換えつき
+        </span>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+        <a href="#chapter1" class="group bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-left hover:shadow-md hover:border-brand-300 transition">
+          <div class="text-brand-600 text-2xl mb-2">🔍</div>
+          <div class="font-bold text-slate-900">第1章 知る</div>
+          <div class="text-xs text-slate-500 mt-1">Claude Codeが何をする道具かがわかる</div>
+        </a>
+        <a href="#chapter2" class="group bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-left hover:shadow-md hover:border-brand-300 transition">
+          <div class="text-brand-600 text-2xl mb-2">🧩</div>
+          <div class="font-bold text-slate-900">第2章 わかる</div>
+          <div class="text-xs text-slate-500 mt-1">「AI社員」の正体（スキルとサブエージェント）がわかる</div>
+        </a>
+        <a href="#chapter3" class="group bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-left hover:shadow-md hover:border-brand-300 transition">
+          <div class="text-brand-600 text-2xl mb-2">🚀</div>
+          <div class="font-bold text-slate-900">第3章 始める</div>
+          <div class="text-xs text-slate-500 mt-1">デスクトップアプリで最初の1タスクを頼めるようになる</div>
+        </a>
+      </div>
+
+      <p class="mt-6 text-xs text-slate-400">
+        ※ Claude Codeは無料プランでは使えません（月額$20のProプラン〜・2026年7月時点）。読む順番は自由です。
+      </p>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6">
+
+    <!-- ===== CHAPTER 1: 知る ===== -->
+    <section id="chapter1" class="py-16 sm:py-20 scroll-mt-16">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="step-num !w-10 !h-10 !text-lg">1</span>
+        <div>
+          <div class="text-xs font-semibold text-brand-600 tracking-wide">CHAPTER 01 / 知る</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Claude Codeとは</h2>
+        </div>
+      </div>
+
+      <div class="grid gap-6">
+
+        <!-- 答えるAIから動くAIへ -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">「答えるAI」から「動くAI」へ</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-5">
+            チャットAIに質問すると、返ってくるのは文章です。Claude Codeが返すのは<span class="font-semibold text-slate-800">作業の結果</span>。
+            コードベースを読み・ファイルを編集し・コマンドを実行し・開発ツールと連携する「エージェント型」のAIです。
+            答えを教える相手ではなく、実際に手を動かす相棒と考えると近いです。
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4 mb-5">
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+              <div class="text-xs font-semibold text-slate-400 mb-1">チャットAI</div>
+              <div class="text-sm font-medium text-slate-700">答えを文章で返す</div>
+            </div>
+            <div class="bg-brand-50 rounded-xl p-4 border border-brand-100">
+              <div class="text-xs font-semibold text-brand-500 mb-1">Claude Code</div>
+              <div class="text-sm font-medium text-slate-700">読む・書き換える・実行して結果を返す</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-3 justify-center text-sm font-medium text-slate-600">
+            <span class="bg-white border border-slate-200 rounded-full px-4 py-1.5">🔍 読む (read)</span>
+            <span class="bg-white border border-slate-200 rounded-full px-4 py-1.5">✏️ 書き換える (edit)</span>
+            <span class="bg-white border border-slate-200 rounded-full px-4 py-1.5">▶️ 実行する (run)</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">※ターミナル＝黒い画面。本書（原典）では使いません。出典：Claude Code公式ドキュメント Overview</p>
+        </div>
+
+        <!-- 日本語で頼むと仕事が返ってくる -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">日本語で頼むと、仕事が返ってくる</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            あなたが「先週の会議メモを1枚にまとめて」と日本語で頼む——たったこれだけで、Claude Codeは動きはじめます。
+            フォルダの中の資料を自分で読み、要点を拾って下書きを作り、ファイルを変える前には「この内容でいいですか」と許可を求めてきます。
+            <span class="font-semibold text-slate-800">手を動かすのはAI、決めるのはあなた。</span>
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-center">
+            <div class="bg-slate-50 rounded-xl p-3">
+              <div class="step-num mx-auto mb-2 !text-sm">1</div>
+              <div class="text-xs font-medium text-slate-600">日本語で頼む</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-3">
+              <div class="step-num mx-auto mb-2 !text-sm">2</div>
+              <div class="text-xs font-medium text-slate-600">フォルダの資料を自分で読む</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-3">
+              <div class="step-num mx-auto mb-2 !text-sm">3</div>
+              <div class="text-xs font-medium text-slate-600">下書きを作る</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-3">
+              <div class="step-num mx-auto mb-2 !text-sm">4</div>
+              <div class="text-xs font-medium text-slate-600">変える前に許可を求める</div>
+            </div>
+            <div class="bg-brand-50 rounded-xl p-3">
+              <div class="step-num mx-auto mb-2 !text-sm">5</div>
+              <div class="text-xs font-medium text-slate-600">あなたが確認して完成</div>
+            </div>
+          </div>
+          <div class="mt-5 bg-slate-900 text-white text-sm font-medium rounded-xl px-5 py-3 text-center">
+            特別な操作はゼロ。日本語のお願い、ひとつだけ。
+          </div>
+        </div>
+
+        <!-- 動作のしくみ -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">考えて、動いて、確かめる（エージェントループ）</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            Claude Codeはタスクを受け取ると「状況把握 → 行動 → 検証」の輪を回し、必要なら自分でやり直しながらゴールへ近づきます。
+            あなたはこの輪の外にいる監督役で、<span class="font-semibold text-slate-800">Escキー</span>でいつでも止めて方向を直せます。
+          </p>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">🔎</div>
+              <div class="text-xs font-semibold text-slate-700">① 状況把握</div>
+              <div class="text-xs text-slate-400 mt-1">ファイルを探して読む</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">⌨️</div>
+              <div class="text-xs font-semibold text-slate-700">② 行動</div>
+              <div class="text-xs text-slate-400 mt-1">編集・コマンド実行</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">✅</div>
+              <div class="text-xs font-semibold text-slate-700">③ 検証</div>
+              <div class="text-xs text-slate-400 mt-1">テストなどで確かめる</div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">監督はあなた。Escキーで止めて、方向を直せます。出典：Claude Code公式ドキュメント How Claude Code works</p>
+        </div>
+
+        <!-- できることマップ -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">コードだけじゃない</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            Claude Codeはコード専用ではありません。公式も「コマンドラインでできることなら何でも手伝える——文書作成、ビルド、ファイル検索、調べもの」と明言します。
+            Anthropic社内では法務やマーケなど非エンジニアのチームが日々活用中。プログラミングの知識より、
+            <span class="font-semibold text-slate-800">やりたいことを言葉にできることのほうが大切</span>です。
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-slate-50 rounded-xl p-4 text-center">
+              <div class="text-2xl mb-1">📝</div>
+              <div class="text-xs font-medium text-slate-700">文書づくり<br><span class="text-slate-400">下書き・要約</span></div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4 text-center">
+              <div class="text-2xl mb-1">📊</div>
+              <div class="text-xs font-medium text-slate-700">データ整理<br><span class="text-slate-400">一覧・集計</span></div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4 text-center">
+              <div class="text-2xl mb-1">🔎</div>
+              <div class="text-xs font-medium text-slate-700">リサーチ<br><span class="text-slate-400">調べもの</span></div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4 text-center">
+              <div class="text-2xl mb-1">⚙️</div>
+              <div class="text-xs font-medium text-slate-700">定型作業<br><span class="text-slate-400">自動化</span></div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">出典：Anthropic公式ブログ「How Anthropic teams use Claude Code」</p>
+        </div>
+
+        <!-- 安全設計 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">こわす心配を、設計で消す</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            「勝手に壊されたら怖い」——最初に多くの人が感じる不安です。Claude Codeはそこを設計で守ります。
+            このルールを守らせているのは<span class="font-semibold text-slate-800">AIではなくアプリ本体</span>。AIのお行儀に頼らない仕組みです。
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="bg-brand-600 text-white">
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-l-lg">不安</th>
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-r-lg">守り方</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><td class="px-4 py-3 text-slate-600">勝手に壊されそう</td><td class="px-4 py-3 font-medium text-slate-800">変更は許可制（Manual・差分を見てAccept/Reject）</td></tr>
+                <tr><td class="px-4 py-3 text-slate-600">元に戻せるか不安</td><td class="px-4 py-3 font-medium text-slate-800">編集は元に戻せる（Escを2回で巻き戻し）</td></tr>
+                <tr><td class="px-4 py-3 text-slate-600">ルールをAIが破りそう</td><td class="px-4 py-3 font-medium text-slate-800">許可はAI任せでなくアプリ本体が強制</td></tr>
+                <tr><td class="px-4 py-3 text-slate-600">PC全体を覗かれそう</td><td class="px-4 py-3 font-medium text-slate-800">対象は起動時に選んだフォルダの中だけ</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">出典：Claude Code公式ドキュメント Permissions／How Claude Code works</p>
+        </div>
+
+        <!-- 対応環境 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">入り口はいろいろ、本書はデスクトップ</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            Claude Codeにはいくつも入り口があります——ターミナル、VS CodeなどのIDE、Web版、そしてデスクトップアプリ。
+            どれも同じエンジンにつながっています。この資料が案内するのは、黒い画面もインストールの下準備もいらない
+            <span class="font-semibold text-slate-800">「デスクトップアプリ」</span>の道です。
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">⌨️</div>
+              <div class="text-xs text-slate-600">ターミナル<br><span class="text-slate-400">（黒い画面）</span></div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">💻</div>
+              <div class="text-xs text-slate-600">VS Code・JetBrains<br><span class="text-slate-400">（IDE）</span></div>
+            </div>
+            <div class="bg-brand-50 border-2 border-brand-500 rounded-xl p-4">
+              <div class="text-2xl mb-1">📱</div>
+              <div class="text-xs font-semibold text-brand-700">デスクトップアプリ<br><span class="font-normal">← 本書はここ</span></div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">🌐</div>
+              <div class="text-xs text-slate-600">Web<br><span class="text-slate-400">claude.ai/code</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== CHAPTER 2: わかる ===== -->
+    <section id="chapter2" class="py-16 sm:py-20 scroll-mt-16 border-t border-slate-200">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="step-num !w-10 !h-10 !text-lg">2</span>
+        <div>
+          <div class="text-xs font-semibold text-brand-600 tracking-wide">CHAPTER 02 / わかる</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">スキルとAI社員</h2>
+        </div>
+      </div>
+
+      <div class="grid gap-6">
+
+        <!-- スキルの正体 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">中身は"手順書"入りのフォルダ</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            スキルとは、<code class="bg-slate-100 text-brand-700 px-1.5 py-0.5 rounded text-sm">SKILL.md</code>という一枚の"手順書"を入り口にした、ただのフォルダです。
+            中に指示・参照資料・スクリプトをまとめて置くと、Claudeがそれを自分の道具箱に加えます。特別な設定は要りません——
+            "いつ使うか"を書いた説明文さえあれば動き出します。
+          </p>
+          <div class="flex items-center justify-center gap-3 flex-wrap text-sm font-medium text-slate-700 bg-slate-50 rounded-xl p-4">
+            <span class="bg-white border border-slate-200 rounded-lg px-3 py-1.5">SKILL.md<br><span class="text-xs text-slate-400 font-normal">入り口の手順書</span></span>
+            <span class="text-brand-500 font-bold">+</span>
+            <span class="bg-white border border-slate-200 rounded-lg px-3 py-1.5">参照資料</span>
+            <span class="text-brand-500 font-bold">+</span>
+            <span class="bg-white border border-slate-200 rounded-lg px-3 py-1.5">スクリプト</span>
+            <span class="text-brand-500 font-bold">=</span>
+            <span class="bg-brand-600 text-white rounded-lg px-3 py-1.5">ひとつのフォルダ</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">スキルは2025年10月にAnthropicが公式化した仕組みです。出典：Claude Code公式ドキュメント「スキル」</p>
+        </div>
+
+        <!-- スキルの動き方 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">覚えさせず、本棚に置く</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            スキルは中身を"覚えさせる"のではなく、本棚に"置く"仕組みです。ふだんClaudeが見ているのは背表紙、つまり名前と短い説明だけ。
+            あなたの頼みごとがその説明に合ったときはじめて、棚から抜き出して手順書の中身を読みます。だから何十個入れても、使うまでの負担はほぼゼロです。
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num !bg-slate-400 flex-shrink-0">1</span>
+              <div class="text-sm"><span class="font-semibold text-slate-800">レベル1：</span><span class="text-slate-600">名前と説明だけを見ている（約100トークン）</span></div>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num !bg-slate-500 flex-shrink-0">2</span>
+              <div class="text-sm"><span class="font-semibold text-slate-800">レベル2：</span><span class="text-slate-600">依頼が説明に合った時だけ、手順書の本文を読む（5,000トークン未満が目安）</span></div>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">3</span>
+              <div class="text-sm"><span class="font-semibold text-slate-800">レベル3：</span><span class="text-slate-600">参照資料やスクリプトは、必要になった時だけ開く・動かす</span></div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">段階的開示：関連する内容だけが、その時々の"作業机"に載る（公式）。</p>
+        </div>
+
+        <!-- スキルの利点 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">作るのは一度きり</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            スキルの利点は大きく三つ。ひとつの仕事の専門家に仕立てられること、一度作れば毎回教え直さなくても自動で再利用されること、
+            複数を積み重ねて長い作業も組み立てられること。さらに"どこに置くか"で"誰に届くか"が決まります。
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="bg-brand-600 text-white">
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-l-lg">置き場所</th>
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-r-lg">届く範囲</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><td class="px-4 py-3 font-medium text-slate-800">自分だけ（~/.claude/skills）</td><td class="px-4 py-3 text-slate-600">自分のみ</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-slate-800">チームで共有（.claude/skills・gitに載せる）</td><td class="px-4 py-3 text-slate-600">チーム全員</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-slate-800">組織全体（管理者が展開）</td><td class="px-4 py-3 text-slate-600">組織のメンバー全員</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">プロンプトとの違い：プロンプトは1回の会話向け。スキルは何度もの会話にわたって同じ手順を渡せる。</p>
+        </div>
+
+        <!-- サブエージェント -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">並列で働く専門AI（サブエージェント）</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            サブエージェントは、特定の仕事を任せられる"専門のAIアシスタント"です。一人ずつ専用の作業机（コンテキスト）と、
+            使ってよい道具・権限を持ち、任された仕事だけをこなして結果の要約だけを返します。互いに独立しているので、複数を同時に走らせて手分けもできます。
+          </p>
+          <div class="grid grid-cols-3 gap-3 text-center mb-5">
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">🔍</div>
+              <div class="text-xs font-semibold text-slate-700">調べる担当</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">✍️</div>
+              <div class="text-xs font-semibold text-slate-700">書く担当</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">✅</div>
+              <div class="text-xs font-semibold text-slate-700">確かめる担当</div>
+            </div>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            3レーンが専用の机・限られた道具・独立した権限で同時進行し、あなた（メイン会話）には要約だけが返る——一本の流れではなく"横並び"です。
+          </p>
+          <div class="flex flex-wrap gap-3 text-xs font-medium">
+            <span class="bg-brand-50 text-brand-700 rounded-full px-3 py-1.5">✓ 本会話を汚さず調べ物を任せる</span>
+            <span class="bg-brand-50 text-brand-700 rounded-full px-3 py-1.5">✓ 道具を絞って"読むだけ"の担当を作る</span>
+            <span class="bg-brand-50 text-brand-700 rounded-full px-3 py-1.5">✓ 速く安いモデルに回して費用を抑える</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">使い分け：スキル＝知識と手順の再利用、サブエージェント＝作業そのものの分離・委譲（公式）。出典：Claude Code公式ドキュメント「サブエージェント」</p>
+        </div>
+
+        <!-- 監督 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">任せている間、あなたは"監督"でいい</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            仕事を任せても、丸投げして放置、にはなりません。あなたの役割が、手を動かす人から"監督"に変わるだけです。
+            ファイルを書き換える前には、必ず変更案（差分）を見せて許可を求めてきて、あなたが「はい」と言うまで勝手には確定しません。
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="bg-slate-50 rounded-xl p-4 text-center">
+              <div class="text-2xl mb-1">👁️</div>
+              <div class="text-xs font-semibold text-slate-700 mb-1">① 作業中</div>
+              <div class="text-xs text-slate-500">いま何をしているかを表示し、終わると要約で報告</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4 text-center">
+              <div class="text-2xl mb-1">🚦</div>
+              <div class="text-xs font-semibold text-slate-700 mb-1">② 確認ゲート</div>
+              <div class="text-xs text-slate-500">変える前に差分を見せ、あなたの許可を待つ</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4 text-center">
+              <div class="text-2xl mb-1">⏹️</div>
+              <div class="text-xs font-semibold text-slate-700 mb-1">③ 停止</div>
+              <div class="text-xs text-slate-500">Escキーでいつでも中断できる</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第2章まとめ -->
+        <div class="bg-slate-900 rounded-2xl p-6 sm:p-8 text-white">
+          <h3 class="text-lg sm:text-xl font-bold mb-3">"任せる仕組み"は4つの部品</h3>
+          <p class="text-sm text-slate-300 leading-relaxed mb-6">
+            繰り返しの仕事や大きな仕事を"任せる仕組み"は、たった4つの部品でできています。どれもClaude Codeの標準機能です。
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
+            <div class="bg-white/10 rounded-xl p-4">
+              <div class="text-xl mb-1">📖</div>
+              <div class="font-semibold">スキル</div>
+              <div class="text-slate-400 mt-1">同じ頼みをまとめる</div>
+            </div>
+            <div class="bg-white/10 rounded-xl p-4">
+              <div class="text-xl mb-1">🤖</div>
+              <div class="font-semibold">サブエージェント</div>
+              <div class="text-slate-400 mt-1">仕事を分担する</div>
+            </div>
+            <div class="bg-white/10 rounded-xl p-4">
+              <div class="text-xl mb-1">📊</div>
+              <div class="font-semibold">見える化</div>
+              <div class="text-slate-400 mt-1">任せている間の把握</div>
+            </div>
+            <div class="bg-white/10 rounded-xl p-4">
+              <div class="text-xl mb-1">🔏</div>
+              <div class="font-semibold">あなたの決裁</div>
+              <div class="text-slate-400 mt-1">最後にゴーを出す</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== CHAPTER 3: 始める ===== -->
+    <section id="chapter3" class="py-16 sm:py-20 scroll-mt-16 border-t border-slate-200">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="step-num !w-10 !h-10 !text-lg">3</span>
+        <div>
+          <div class="text-xs font-semibold text-brand-600 tracking-wide">CHAPTER 03 / 始める</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">はじめ方</h2>
+        </div>
+      </div>
+
+      <div class="grid gap-6">
+
+        <!-- 3つのタブ -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">使うのは3つのうち1つのタブ</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            Claude Codeは、黒い画面（ターミナル）を触らなくても、パソコンのデスクトップアプリから始められます。
+            アプリには三つのタブがあり、自分のフォルダを直接あつかって作業するのは<span class="font-semibold text-slate-800">『Code』タブ</span>です。
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="bg-brand-600 text-white">
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-l-lg">タブ</th>
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-r-lg">はたらき</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><td class="px-4 py-3 font-medium text-slate-800">💬 Chat</td><td class="px-4 py-3 text-slate-600">ファイルにさわらない通常の会話（claude.aiと同じ）</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-slate-800">☁️ Cowork</td><td class="px-4 py-3 text-slate-600">クラウド上でおまかせ長時間作業</td></tr>
+                <tr class="bg-brand-50"><td class="px-4 py-3 font-semibold text-brand-700">📁 Code ← ここを使う</td><td class="px-4 py-3 text-slate-700 font-medium">自分のフォルダを直接あつかう</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">事前準備はいりません。Node.jsやコマンドの用意は不要で、アプリにClaude Codeがそのまま入っています。</p>
+        </div>
+
+        <!-- インストール -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">3ステップで入れる</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            インストールは大きく三ステップ。公式ページから自分のパソコン用のアプリを取ってきて、開いて起動し、サインインするだけです（2026年7月時点）。
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">1</span>
+              <div class="text-sm text-slate-700"><code class="bg-white px-1.5 py-0.5 rounded text-brand-700">claude.com/download</code> で自分のOS用を入手して開く（実行）</div>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">2</span>
+              <div class="text-sm text-slate-700">起動して、claude.aiと同じアカウントでサインイン</div>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">3</span>
+              <div class="text-sm text-slate-700">上部中央の『Code』タブを開く</div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">動作環境（2026年7月時点）：macOS 11以上／Windows 10以上。WindowsはGit for Windowsが必要です。</p>
+        </div>
+
+        <!-- プラン -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">まずはPro、それで十分</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            Claude Code（Codeタブ）は無料プランでは使えません。使うには有料プランが必要で、いちばん手軽な入口は
+            月額$20のPro（2026年7月時点・税別）です。
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="bg-brand-600 text-white">
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-l-lg">プラン</th>
+                  <th class="text-left font-semibold px-4 py-2.5">月額料金</th>
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-r-lg">Codeタブの利用</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><td class="px-4 py-3 font-medium text-slate-800">Free</td><td class="px-4 py-3 text-slate-600">$0</td><td class="px-4 py-3 text-slate-600">Codeタブは使えない</td></tr>
+                <tr class="bg-brand-50"><td class="px-4 py-3 font-semibold text-brand-700">⭐ Pro</td><td class="px-4 py-3 font-semibold text-brand-700">$20（年払$17）</td><td class="px-4 py-3 font-semibold text-brand-700">まずはこれで十分</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-slate-800">Max</td><td class="px-4 py-3 text-slate-600">$100〜</td><td class="px-4 py-3 text-slate-600">毎日たっぷり使う人向け</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-slate-800">Team</td><td class="px-4 py-3 text-slate-600">1席$25〜</td><td class="px-4 py-3 text-slate-600">複数人・会社で</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">価格は米ドル・2026年7月時点・税別。日本は消費税10%が上乗せ。最新は公式のプラン一覧で確認してください。</p>
+        </div>
+
+        <!-- 初回セッション -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">5歩で最初の指示まで</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            アプリが入ったら、Codeタブで最初のセッションを始めます。まずは、よく知っている小さなフォルダから。
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">1</span>
+              <div class="text-sm text-slate-700">実行環境で「Local」を選ぶ（自分のPCで直接あつかう）</div>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">2</span>
+              <div class="text-sm text-slate-700">『Select folder』で対象のフォルダを選ぶ</div>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">3</span>
+              <div class="text-sm text-slate-700">送信ボタン隣で使うモデルを選ぶ（途中で変更可）</div>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">4</span>
+              <div class="text-sm text-slate-700">やってほしいことを日本語で入力</div>
+            </div>
+            <div class="flex items-center gap-4 bg-brand-50 rounded-xl p-4">
+              <span class="step-num flex-shrink-0">5</span>
+              <div class="text-sm font-medium text-brand-700">Enterで送信</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 権限モード -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">変えるかどうかは、あなたが決める（権限モード）</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            Claude Codeは、はじめは<span class="font-semibold text-slate-800">「Manual（毎回確認）」</span>で動きます。ファイルを変える前に、
+            どこをどう変えるかを差分（diff）で見せ、あなたがAcceptするまで実際には変更しません。
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="bg-brand-600 text-white">
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-l-lg">モード</th>
+                  <th class="text-left font-semibold px-4 py-2.5 rounded-r-lg">ふるまい</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr class="bg-brand-50"><td class="px-4 py-3 font-semibold text-brand-700">✓ Manual（毎回確認）</td><td class="px-4 py-3 text-slate-700 font-medium">新しい人におすすめ。変更前に必ず聞く</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-slate-800">Accept edits</td><td class="px-4 py-3 text-slate-600">ファイル編集は自動でOK（慣れてから）</td></tr>
+                <tr><td class="px-4 py-3 font-medium text-slate-800">Plan</td><td class="px-4 py-3 text-slate-600">編集せず、計画だけを提案</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-400 mt-4">公式のすすめ：まずはManualで様子見、慣れたらAccept editsやPlanへ。※上級者向けにAuto／Bypassもあり</p>
+        </div>
+
+        <!-- 最初の3タスク -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">今日、自分の仕事で試す</h3>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
+            最初の一歩は、自分の仕事で今日試せる小さな用事がおすすめです。決まりではなく提案です。
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">📁</div>
+              <div class="text-sm font-semibold text-slate-800 mb-1">① フォルダの整理</div>
+              <div class="text-xs text-slate-500">散らかったファイルを名前のルールで並べ替え</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">📝</div>
+              <div class="text-sm font-semibold text-slate-800 mb-1">② 文書の下書き・要約</div>
+              <div class="text-xs text-slate-500">長い資料を1枚に、メールのたたき台づくり</div>
+            </div>
+            <div class="bg-slate-50 rounded-xl p-4">
+              <div class="text-2xl mb-1">📊</div>
+              <div class="text-sm font-semibold text-slate-800 mb-1">③ データのまとめ表</div>
+              <div class="text-xs text-slate-500">バラバラの数字を見やすい表に</div>
+            </div>
+          </div>
+          <div class="bg-slate-50 rounded-xl p-4">
+            <div class="text-xs font-semibold text-slate-700 mb-2">よくあるつまずき</div>
+            <ul class="text-xs text-slate-500 space-y-1.5">
+              <li>✓ Codeタブで"アップグレード"表示 → 有料プランが必要</li>
+              <li>✓ サインインしたのに動かない → アプリを再起動</li>
+              <li>✓ 403エラー → いったんサインアウトして入り直す</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="py-16 sm:py-20 scroll-mt-16 border-t border-slate-200">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">よくある質問</h2>
+      <p class="text-sm text-slate-500 mb-8">はじめる前の6つの不安に答えます。</p>
+
+      <div class="grid gap-3">
+        <details class="bg-white rounded-xl border border-slate-200 p-4 group">
+          <summary class="font-semibold text-sm text-slate-800 cursor-pointer list-none flex justify-between items-center">
+            英語ができないと無理？
+            <span class="text-brand-500 group-open:rotate-45 transition">＋</span>
+          </summary>
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">指示は日本語で大丈夫。画面のボタン名（Code・Localなど）は英語ですが、実物の名前のまま案内しています。</p>
+        </details>
+        <details class="bg-white rounded-xl border border-slate-200 p-4 group">
+          <summary class="font-semibold text-sm text-slate-800 cursor-pointer list-none flex justify-between items-center">
+            パソコンを壊さない？
+            <span class="text-brand-500 group-open:rotate-45 transition">＋</span>
+          </summary>
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">変更は許可制。変える前に必ず差分（diff）で見せ、あなたがAcceptするまで実際には変わりません。すべての編集は元に戻せます。</p>
+        </details>
+        <details class="bg-white rounded-xl border border-slate-200 p-4 group">
+          <summary class="font-semibold text-sm text-slate-800 cursor-pointer list-none flex justify-between items-center">
+            料金は？
+            <span class="text-brand-500 group-open:rotate-45 transition">＋</span>
+          </summary>
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">無料プランでは使えません。月額$20のPro（2026年7月時点・税別）から。最新は公式のプラン一覧で確認を。</p>
+        </details>
+        <details class="bg-white rounded-xl border border-slate-200 p-4 group">
+          <summary class="font-semibold text-sm text-slate-800 cursor-pointer list-none flex justify-between items-center">
+            MacでもWindowsでも？
+            <span class="text-brand-500 group-open:rotate-45 transition">＋</span>
+          </summary>
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">両対応（macOS 11以上／Windows 10以上・2026年7月時点）。WindowsはGit for Windowsを一度だけ入れる必要があります。</p>
+        </details>
+        <details class="bg-white rounded-xl border border-slate-200 p-4 group">
+          <summary class="font-semibold text-sm text-slate-800 cursor-pointer list-none flex justify-between items-center">
+            コードが書けないけど使える？
+            <span class="text-brand-500 group-open:rotate-45 transition">＋</span>
+          </summary>
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">書けなくて大丈夫。公式も文書作成やリサーチなどコーディング以外の用途を明記し、Anthropic社内でも法務やマーケの非エンジニアが使っています。</p>
+        </details>
+        <details class="bg-white rounded-xl border border-slate-200 p-4 group">
+          <summary class="font-semibold text-sm text-slate-800 cursor-pointer list-none flex justify-between items-center">
+            スマホでできる？
+            <span class="text-brand-500 group-open:rotate-45 transition">＋</span>
+          </summary>
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">デスクトップアプリはパソコン向け。ただしWeb版（claude.ai/code）で始めた作業は、Claudeのスマホアプリから進み具合を見守れます。</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===== 用語ミニ辞典 ===== -->
+    <section id="glossary" class="py-16 sm:py-20 scroll-mt-16 border-t border-slate-200">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">用語ミニ辞典</h2>
+      <p class="text-sm text-slate-500 mb-8">この本に出た言葉を、ひとことで。</p>
+
+      <div class="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-brand-600 text-white">
+              <th class="text-left font-semibold px-4 py-3">言葉</th>
+              <th class="text-left font-semibold px-4 py-3">ひとことで言うと</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-4 py-3 font-medium text-slate-800">ターミナル</td><td class="px-4 py-3 text-slate-600">文字で命令する黒い画面。本書のデスクトップアプリでは使わない。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">デスクトップアプリ</td><td class="px-4 py-3 text-slate-600">パソコンに入れて使うClaudeの入口。ターミナルなしでClaude Codeを動かせる。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">Codeタブ</td><td class="px-4 py-3 text-slate-600">アプリの中で自分のフォルダを直接あつかうタブ。Claude Codeを使う場所。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">プロジェクト（フォルダ）</td><td class="px-4 py-3 text-slate-600">Claudeに作業してもらう対象のフォルダ。まずはよく知っている1つから。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">スキル</td><td class="px-4 py-3 text-slate-600">よく使う手順をまとめた手順書（SKILL.md入りのフォルダ）。同じ指示の貼り直しをなくす。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">サブエージェント</td><td class="px-4 py-3 text-slate-600">役割を持った専門のAIアシスタント。仕事を任せると並列で働き、結果の要約を返す。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">差分（diff）</td><td class="px-4 py-3 text-slate-600">ファイルを変える前に表示される「変更前後のちがい」。許可（Accept/Reject）の判断材料。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">権限モード</td><td class="px-4 py-3 text-slate-600">AIにどこまで任せるかの設定。既定はManual（変更前に毎回確認）。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">usage ring（使用量リング）</td><td class="px-4 py-3 text-slate-600">残りの使える量をひと目で確認できる表示。</td></tr>
+            <tr><td class="px-4 py-3 font-medium text-slate-800">プラン</td><td class="px-4 py-3 text-slate-600">使うために必要な契約。無料では使えず、月額$20のPro（2026年7月時点・税別）から。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== おわりに ===== -->
+    <section class="py-16 sm:py-20 border-t border-slate-200">
+      <div class="bg-gradient-to-br from-brand-600 to-brand-800 rounded-2xl p-8 sm:p-12 text-center text-white">
+        <h2 class="text-xl sm:text-2xl font-extrabold mb-3">道具は、今日から動く</h2>
+        <p class="text-sm sm:text-base text-brand-50 max-w-xl mx-auto leading-relaxed">
+          よく知っている1つのフォルダを選び、頼みごとを1つ日本語で伝えれば、Claude Codeはすぐに動き始めます。
+          むずかしい設定も、コードの知識も、もう必要ありません。
+        </p>
+        <a href="#chapter3" class="inline-block mt-6 bg-white text-brand-700 font-semibold text-sm rounded-full px-6 py-2.5 hover:bg-brand-50 transition">
+          はじめ方をもう一度見る
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 text-xs text-slate-400 leading-relaxed">
+      <p class="mb-2 font-semibold text-slate-500">出典と免責</p>
+      <p class="mb-4">
+        本資料に載せた定義・手順・価格・画面は、Anthropicの公式ドキュメント、公式ブログ、ヘルプセンターを一次情報としています。
+        ソフトウェアの画面や料金は更新が速く、本資料は2026年7月時点の内容です。数字や手順が実際と違っていたら、
+        まず公式ページ（claude.com、code.claude.com/docs）で最新を確認してください。
+      </p>
+      <p>
+        元資料：『【図解解説】Claude Code超入門』（著者：KEITO、2026年発行）を基に作成した学習用資料。
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
