@@ -173,8 +173,10 @@
       </select>
       <label class="small">APIキー</label>
       <input type="password" id="apiKeyInput" placeholder="AIza... を入力">
+      <button type="button" id="clearKeyBtn" style="width:100%;background:var(--bg-card-raised);border:1.5px solid var(--border);border-radius:8px;color:var(--text-muted);font-family:inherit;font-size:12.5px;padding:9px;cursor:pointer;margin-bottom:8px;">保存したキーを削除</button>
       <div class="note">
-        このページは外部サイトとして動くため、生成のたびにお使いのGemini APIキーをこのブラウザから直接送信します。キーはこの端末のこのタブ内でのみ使われ、Google以外へは送信されません。ページを閉じる／リロードすると再入力が必要です。<br>
+        入力したGemini APIキーはこの端末のブラウザに保存され（localStorage）、次回この端末・ブラウザで開いたときも自動で入力された状態になります。生成のたびにこのキーをGoogleへ直接送信します。Google以外へは送信されません。<br>
+        共有端末で使う場合は、使い終わったら上の「保存したキーを削除」を押してください。<br>
         キーは <b>aistudio.google.com/apikey</b> から無料で発行できます。このURLを他人と共有する場合、キーは各自で入力してもらう前提にしてください（あなたのキーを埋め込んで公開しないこと）。
       </div>
     </div>
@@ -242,8 +244,37 @@ let results = { reply: null, quote: null };
 
 const MODE_LABEL = { reply: 'リプライ', quote: '引用RP' };
 
+const STORAGE_KEY = 'x-reply-drafter:gemini-api-key';
+const STORAGE_MODEL_KEY = 'x-reply-drafter:gemini-model';
+
+try {
+  const savedKey = localStorage.getItem(STORAGE_KEY);
+  if(savedKey){
+    apiKeyInput.value = savedKey;
+    keyDot.classList.add('ok');
+  }
+  const savedModel = localStorage.getItem(STORAGE_MODEL_KEY);
+  if(savedModel){ modelSelect.value = savedModel; }
+} catch(e) { /* localStorage unavailable, ignore */ }
+
 apiKeyInput.addEventListener('input', ()=>{
-  keyDot.classList.toggle('ok', apiKeyInput.value.trim().length > 10);
+  const v = apiKeyInput.value.trim();
+  keyDot.classList.toggle('ok', v.length > 10);
+  try {
+    if(v){ localStorage.setItem(STORAGE_KEY, v); }
+    else { localStorage.removeItem(STORAGE_KEY); }
+  } catch(e) { /* ignore */ }
+});
+
+modelSelect.addEventListener('change', ()=>{
+  try { localStorage.setItem(STORAGE_MODEL_KEY, modelSelect.value); } catch(e) { /* ignore */ }
+});
+
+document.getElementById('clearKeyBtn').addEventListener('click', ()=>{
+  apiKeyInput.value = '';
+  keyDot.classList.remove('ok');
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) { /* ignore */ }
+  setStatus('保存していたAPIキーを削除しました。');
 });
 
 function setStatus(msg, isError){
