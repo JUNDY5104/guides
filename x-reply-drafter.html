@@ -160,6 +160,14 @@
     <p>Xの投稿キャプチャをアップロードすると、内容を読み取って返信・引用RPの文案を1つ作ります。長い投稿は複数枚に分けてアップロードできます。</p>
   </header>
 
+  <div class="card" id="handleCard">
+    <label class="small" style="font-size:11.5px;color:var(--text-muted);display:block;margin:0 0 6px;">あなたのXユーザー名（@なし）</label>
+    <input type="text" id="handleInput" placeholder="例：sumtenchou" style="width:100%;background:var(--bg-card-raised);border:1.5px solid var(--border);border-radius:8px;padding:11px 12px;color:var(--text);font-family:inherit;font-size:14px;">
+    <div class="note" style="font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-top:8px;">
+      自分のポストに来たリプに返信したいときのために使います。設定しておくと、スクショ内のどの投稿が「自分の投稿」かをAIが判断し、リプしてきた相手への返信として文案を作ります。空欄でも動作しますが、その場合はAIが画像だけで推測します。
+    </div>
+  </div>
+
   <details class="card keycard" id="keycard">
     <summary>
       <span><span class="status-dot" id="keyDot"></span>Gemini APIキー設定</span>
@@ -235,6 +243,7 @@ const regenBtn = document.getElementById('regenBtn');
 const statusEl = document.getElementById('status');
 const apiKeyInput = document.getElementById('apiKeyInput');
 const modelSelect = document.getElementById('modelSelect');
+const handleInput = document.getElementById('handleInput');
 const keyDot = document.getElementById('keyDot');
 const keycard = document.getElementById('keycard');
 
@@ -246,6 +255,7 @@ const MODE_LABEL = { reply: 'リプライ', quote: '引用RP' };
 
 const STORAGE_KEY = 'x-reply-drafter:gemini-api-key';
 const STORAGE_MODEL_KEY = 'x-reply-drafter:gemini-model';
+const STORAGE_HANDLE_KEY = 'x-reply-drafter:x-handle';
 
 try {
   const savedKey = localStorage.getItem(STORAGE_KEY);
@@ -255,7 +265,13 @@ try {
   }
   const savedModel = localStorage.getItem(STORAGE_MODEL_KEY);
   if(savedModel){ modelSelect.value = savedModel; }
+  const savedHandle = localStorage.getItem(STORAGE_HANDLE_KEY);
+  if(savedHandle){ handleInput.value = savedHandle; }
 } catch(e) { /* localStorage unavailable, ignore */ }
+
+handleInput.addEventListener('input', ()=>{
+  try { localStorage.setItem(STORAGE_HANDLE_KEY, handleInput.value.trim()); } catch(e) { /* ignore */ }
+});
 
 apiKeyInput.addEventListener('input', ()=>{
   const v = apiKeyInput.value.trim();
@@ -401,9 +417,17 @@ async function generate(){
   resultText.classList.add('placeholder');
   resultText.innerHTML = '<span class="spinner"></span>投稿内容を読み取っています…';
 
+  const myHandle = handleInput.value.trim();
+
+  const ownerJudgeNote = myHandle
+    ? '画像内の投稿の中に、ユーザー本人（Xユーザー名: @' + myHandle + '、表示名が近い場合も含めて本人と判断してよい）が投稿したものと、それに対する第三者からのリプライが両方写っている場合があります。まずこの2つを区別してください。'
+      + 'もし「本人の投稿」に対して「第三者」がリプライしている構図だと判断した場合は、あなたはその第三者ではなく本人（投稿の作者）本人の立場で、そのリプライしてきた相手に向けた返信文を作成してください。相手のコメント内容に具体的に応答し、必要であればお礼・同意・補足・軽い訂正など、投稿者本人としての自然な返しにしてください。'
+      + 'その構図ではなく、単に本人以外の誰かの投稿（本人へのリプライ元も含む）が写っているだけの場合は、通常どおりその投稿に対するリプライ文を作成してください。'
+    : '画像内に、ある投稿とそれに対する誰かのリプライの両方が写っている場合があります。その場合、通常は一番新しい（一番下の）リプライを送ってきた相手に対して返信する想定で文案を作成してください。誰が投稿の本人かの情報がないため、画像の文脈から自然に判断してください。';
+
   const modeInstruction = mode === 'reply'
-    ? '投稿者への「リプライ（返信）」として送る一言を1つ作成してください。相手の投稿に直接語りかける言葉づかいにしてください。'
-    : '「引用リポスト」として自分のタイムラインに添える一言を1つ作成してください。投稿者への直接の呼びかけではなく、自分の視点からのひとことにしてください。';
+    ? '投稿者への「リプライ（返信）」として送る一言を1つ作成してください。相手の投稿に直接語りかける言葉づかいにしてください。' + ownerJudgeNote
+    : '「引用リポスト」として自分のタイムラインに添える一言を1つ作成してください。投稿者への直接の呼びかけではなく、自分の視点からのひとことにしてください。' + ownerJudgeNote;
 
   const multiNote = images.length > 1
     ? 'アップロードされた画像は複数枚あり、1枚では収まらない1つの投稿（または一連のスレッド）を分割してキャプチャしたものです。アップロード順に読み進めて、全体を1つの投稿として理解した上で文案を作成してください。'
