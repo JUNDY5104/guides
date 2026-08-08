@@ -716,6 +716,14 @@ function initApp() {
 
 /* ---- Gemini API呼び出し ---- */
 
+function buildThinkingConfig(modelName) {
+  // Gemini 3系はthinkingLevel、Gemini 2.5系はthinkingBudgetを使う(仕様が異なり、混在させると400エラーになる)
+  if (/^gemini-3/.test(modelName)) {
+    return { thinkingLevel: 'LOW' }; // Gemini 3系は思考を完全オフにできないため、最小レベルを指定
+  }
+  return { thinkingBudget: 0 };
+}
+
 async function callGemini(prompt, maxTokens) {
   const apiKey = getApiKey();
   if (!apiKey) {
@@ -741,7 +749,7 @@ async function callGemini(prompt, maxTokens) {
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
             maxOutputTokens: maxTokens || 1500,
-            thinkingConfig: { thinkingBudget: 0 }
+            thinkingConfig: buildThinkingConfig(modelName)
           }
         })
       });
@@ -901,7 +909,7 @@ RIYUU3: (3つ目の理由)
 TOUKOU3: (3つ目の投稿例)`;
 
   try {
-    const textBlocks = await callGemini(prompt, 1500);
+    const textBlocks = await callGemini(prompt, 2500);
     const parsed = parseResult(textBlocks);
 
     if (parsed.length === 0) {
@@ -920,7 +928,8 @@ TOUKOU3: (3つ目の投稿例)`;
     document.getElementById('screen-result').classList.remove('hidden');
     document.getElementById('error-area').innerHTML = `
       <div class="error-box">
-        解体中にエラーが発生しました。お手数ですが、もう一度お試しください。
+        解体中にエラーが発生しました。お手数ですが、もう一度お試しください。<br>
+        <span style="font-size:11px; opacity:0.7;">詳細: ${escapeDisplay(err && err.message ? err.message : String(err))}</span>
       </div>
       <div style="text-align:center;">
         <button class="btn btn-primary" onclick="retryFromError()">もう一度試す</button>
@@ -1091,7 +1100,7 @@ async function generateBonusPost() {
 TOUKOU: (投稿本文)`;
 
   try {
-    const textBlocks = await callGemini(prompt, 700);
+    const textBlocks = await callGemini(prompt, 1200);
     const toukou = extractField(textBlocks, "TOUKOU");
     if (!toukou) throw new Error("生成結果が空でした");
 
