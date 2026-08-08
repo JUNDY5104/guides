@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>バズる経験解体新書</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2a4a;
+    --navy-deep: #101c33;
+    --gold: #c9a84c;
+    --cyan: #3ddbd9;
+    --paper: #f5f1e8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--navy);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(61,219,217,0.10), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(201,168,76,0.12), transparent 45%);
+    color: var(--paper);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+
+  .brand {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .brand .kit {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--cyan);
+    opacity: 0.85;
+  }
+  .brand h1 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 28px;
+    font-weight: 800;
+    margin: 6px 0 0;
+    letter-spacing: 0.06em;
+    background: linear-gradient(90deg, var(--gold), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .brand .sub {
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgba(245,241,232,0.75);
+  }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 14px;
+    padding: 22px 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 0 0 1px rgba(61,219,217,0.05) inset;
+  }
+
+  /* ---- 導入画面 ---- */
+  #screen-intro p {
+    line-height: 1.9;
+    font-size: 15px;
+    color: rgba(245,241,232,0.9);
+  }
+  #screen-intro .lead {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    color: var(--gold);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 0.04em;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    background: linear-gradient(90deg, var(--gold), #e0c274);
+    color: var(--navy-deep);
+  }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(245,241,232,0.35);
+    color: var(--paper);
+  }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ---- 刃ゲージ ---- */
+  .gauge-wrap {
+    margin-bottom: 20px;
+  }
+  .gauge-label {
+    font-size: 12px;
+    color: rgba(245,241,232,0.6);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+  }
+  .gauge-track {
+    position: relative;
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .gauge-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--cyan));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  /* ---- 質問 ---- */
+  .q-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--paper);
+    margin-bottom: 4px;
+  }
+  .q-hint {
+    font-size: 12.5px;
+    color: rgba(245,241,232,0.55);
+    margin-bottom: 14px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .chip {
+    font-size: 12.5px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(61,219,217,0.5);
+    color: var(--cyan);
+    background: rgba(61,219,217,0.06);
+    cursor: pointer;
+  }
+  .chip:active { background: rgba(61,219,217,0.18); }
+  .chip-hint {
+    font-size: 12px;
+    color: rgba(245,241,232,0.5);
+    margin-bottom: 8px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 96px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(245,241,232,0.25);
+    border-radius: 10px;
+    color: var(--paper);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 14.5px;
+    padding: 12px;
+    resize: vertical;
+    line-height: 1.7;
+  }
+  textarea:focus { outline: none; border-color: var(--gold); }
+  textarea::placeholder { color: rgba(245,241,232,0.35); }
+
+  .nav-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .nav-row .btn { flex: 1; }
+
+  /* ---- ローディング ---- */
+  #screen-loading { text-align: center; padding: 60px 20px; }
+  .loader {
+    width: 54px; height: 54px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 3px solid rgba(201,168,76,0.25);
+    border-top-color: var(--gold);
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #screen-loading .msg {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--gold);
+    font-size: 15px;
+  }
+
+  /* ---- 結果画面 ---- */
+  #screen-result .result-lead {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  #screen-result .result-lead .tag {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+  }
+  #screen-result .result-lead h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 21px;
+    margin: 8px 0 0;
+    color: var(--paper);
+  }
+
+  .pattern-card {
+    position: relative;
+    background: linear-gradient(160deg, rgba(201,168,76,0.09), rgba(61,219,217,0.05));
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 14px;
+    padding: 20px 18px;
+    margin-bottom: 18px;
+  }
+  .pattern-num {
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    background: var(--navy);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.1em;
+  }
+  .pattern-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 10px 0 12px;
+    line-height: 1.5;
+    border-bottom: 1px dashed rgba(201,168,76,0.35);
+    padding-bottom: 12px;
+  }
+  .pattern-block { margin-bottom: 12px; }
+  .pattern-block .label {
+    font-size: 11.5px;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+  }
+  .pattern-block .body {
+    font-size: 14px;
+    line-height: 1.85;
+    color: rgba(245,241,232,0.92);
+  }
+  .post-example {
+    background: rgba(0,0,0,0.22);
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 13.5px;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    border-left: 3px solid var(--cyan);
+  }
+  .copy-btn {
+    margin-top: 8px;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(61,219,217,0.5);
+    background: transparent;
+    color: var(--cyan);
+    cursor: pointer;
+  }
+
+  .cta-final {
+    margin-top: 26px;
+    text-align: center;
+  }
+  .cta-final p {
+    font-size: 13px;
+    color: rgba(245,241,232,0.65);
+    margin-bottom: 12px;
+    line-height: 1.8;
+  }
+
+  /* ---- 特典2:発信軸の投稿量産 ---- */
+  .bonus-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .bonus-hint {
+    font-size: 12.5px;
+    color: rgba(245,241,232,0.6);
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+  .bonus-select {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .bonus-chip {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(245,241,232,0.25);
+    color: rgba(245,241,232,0.85);
+    cursor: pointer;
+    line-height: 1.6;
+  }
+  .bonus-chip.selected {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.12);
+    color: var(--gold);
+  }
+  .bonus-post-card {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(61,219,217,0.3);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 14px;
+  }
+  .bonus-post-type {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+  .bonus-post-body {
+    font-size: 13.5px;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    color: rgba(245,241,232,0.92);
+    margin-bottom: 8px;
+  }
+  .bonus-loading {
+    text-align: center;
+    padding: 16px;
+    font-size: 12.5px;
+    color: rgba(245,241,232,0.5);
+  }
+
+  /* ---- APIキー取得ガイド ---- */
+  .guide-intro {
+    font-size: 14px;
+    line-height: 1.9;
+    color: rgba(245,241,232,0.9);
+    margin-bottom: 16px;
+  }
+  .guide-step {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(245,241,232,0.15);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .guide-step .num {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy-deep);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .guide-step p {
+    margin: 6px 0 0;
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: rgba(245,241,232,0.88);
+  }
+  .guide-linkbtn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 9px 18px;
+    background: linear-gradient(90deg, var(--cyan), #7be8e6);
+    color: var(--navy-deep);
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .note-box {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 14px 0;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: rgba(245,241,232,0.85);
+  }
+  .note-box strong { color: var(--gold); }
+  .caution-box {
+    background: rgba(200,60,60,0.08);
+    border: 1px solid rgba(200,60,60,0.35);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 14px 0;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: rgba(245,241,232,0.85);
+  }
+  .caution-box strong { color: #ff9d9d; }
+  .apikey-input-row {
+    margin-top: 18px;
+  }
+  .apikey-input-row label {
+    display: block;
+    font-size: 12.5px;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+  .apikey-input-row input {
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(245,241,232,0.25);
+    border-radius: 10px;
+    color: var(--paper);
+    font-size: 14px;
+    padding: 12px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+  }
+  .apikey-input-row input:focus { outline: none; border-color: var(--gold); }
+  .apikey-error {
+    font-size: 12px;
+    color: #ff9d9d;
+    margin-top: 6px;
+    display: none;
+  }
+  .apikey-change-link {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    font-size: 12px;
+    color: rgba(245,241,232,0.45);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .btn-detail {
+    display: block;
+    background: linear-gradient(90deg, #8a5fd6, #b48ce8);
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .error-box {
+    background: rgba(200,60,60,0.12);
+    border: 1px solid rgba(200,60,60,0.4);
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    color: #ffb3b3;
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="kit">侍KIT</div>
+    <h1>バズる経験解体新書</h1>
+    <div class="sub">稼いでる発信者は、経験の見せ方が違うだけです。</div>
+  </div>
+
+  <!-- APIキー取得ガイド画面 -->
+  <div id="screen-apikey" class="card hidden">
+    <div class="lead" style="font-family:'Shippori Mincho',serif; font-size:18px; color:var(--gold); margin-bottom:14px; font-weight:600;">はじめに、AIを動かすカギを用意します</div>
+    <p class="guide-intro">
+      このツールは、Googleの生成AI「Gemini」を使って動いています。<br>
+      Geminiを使うには、ご自身の「APIキー」を取得し、下の欄に入力していただく必要があります。<br><br>
+      Googleアカウント(Gmail等)があれば、どなたでも<strong style="color:var(--gold);">無料・クレジットカード登録不要</strong>で取得できます。一度入力すれば、次回からはこの端末に自動で保存されます。
+    </p>
+
+    <div class="note-box">
+      <strong>PCをお持ちの方へ：</strong><br>
+      APIキーの取得画面は、スマートフォンよりPCの方が操作しやすくなっています。PCをお持ちの場合は、PCで取得することをおすすめします。<br><br>
+      取得したキーをスマホでも使いたい場合は、PCでキーをコピーしたあと、LINEの「Keep」に一時的に自分宛てのメモとして貼り付け、スマホ側のLINEアプリでKeepを開いてコピーする方法が簡単です(Mac・iPhoneをお使いの場合は、標準の「メモ」アプリでも同様に共有できます)。ご利用後は、そのメモを削除しておくと安心です。
+    </div>
+
+    <div class="note-box">
+      <strong>画像付きの詳しい手順はこちら：</strong><br>
+      文章だけでは分かりにくい場合は、スクリーンショット付きの詳しいガイドもご覧いただけます。<br>
+      <a href="https://jundy5104.github.io/guides/gemini-apikey-guide.html" target="_blank" rel="noopener" class="btn btn-detail" style="margin-top:10px;">画像付きAPIキー取得ガイドを見る</a>
+    </div>
+
+    <div class="guide-step">
+      <span class="num">STEP 1</span>
+      <p>下のボタンから「Google AI Studio」を開き、お使いのGoogleアカウントでログインしてください。(PCでの操作をおすすめします)</p>
+      <a class="guide-linkbtn" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studioを開く</a>
+    </div>
+
+    <div class="guide-step">
+      <span class="num">STEP 2</span>
+      <p>画面内の「Get API key(APIキーを取得)」または「Create API key(APIキーを作成)」ボタンをクリックします。プロジェクトの選択を求められた場合は、新規プロジェクトを選んでそのまま進めてください。</p>
+    </div>
+
+    <div class="guide-step">
+      <span class="num">STEP 3</span>
+      <p>発行された英数字の文字列(APIキー)を、コピーボタンでコピーしてください。</p>
+    </div>
+
+    <div class="guide-step">
+      <span class="num">STEP 4</span>
+      <p>コピーしたキーを、下の入力欄に貼り付けて「保存して始める」を押してください。</p>
+      <div class="apikey-input-row">
+        <label for="apikey-input">APIキーを貼り付け</label>
+        <input type="text" id="apikey-input" placeholder="AIza... で始まる文字列">
+        <div class="apikey-error" id="apikey-error">APIキーを入力してください。</div>
+      </div>
+    </div>
+
+    <div class="caution-box">
+      <strong>APIキーの取り扱いについて：</strong><br>
+      APIキーはご自身のパスワードと同じように大切なものです。第三者に共有したり、SNS等に貼り付けたりしないようにご注意ください。共有のパソコンなどで使用した場合は、ご利用後に画面下部の「APIキーを削除する」から削除することをおすすめします。
+    </div>
+
+    <div class="caution-box">
+      <strong>無料枠には利用回数の上限があります：</strong><br>
+      短時間に連続して利用すると、一時的にエラーが表示される場合があります。その場合は少し時間を空けてから再度お試しください。
+    </div>
+
+    <div class="note-box">
+      <strong>データの取り扱いについて：</strong><br>
+      無料枠でのご利用時は、入力・出力の内容がGoogleのサービス改善に利用される場合があります。詳細はGoogleの公式利用規約をご確認ください。個人情報や機密性の高い内容の入力はお控えください。
+    </div>
+
+    <button class="btn btn-primary" onclick="saveApiKey()">保存して始める</button>
+    <a href="https://jundy5104.github.io/guides/gemini-apikey-guide.html" target="_blank" rel="noopener" class="btn btn-detail" style="margin-top:10px;">うまくいかない場合は画像付きガイドを見る</a>
+    <div class="apikey-change-link" onclick="clearApiKey()">この端末に保存したAPIキーを削除する</div>
+  </div>
+
+  <!-- 導入画面 -->
+  <div id="screen-intro" class="card hidden">
+    <div class="lead">その経験、まだ解体されていません。</div>
+    <p>
+      同じ経験でも、切り口が違うだけで「刺さる発信」に変わります。<br><br>
+      ここでは、あなたの経験をいくつかの質問で分解し、AIが<strong style="color:var(--gold);">「伸びる切り口」「その理由」「そのまま使える投稿例」</strong>まで一気にお渡しします。<br><br>
+      正解を書く必要はありません。思いついたままで大丈夫です。
+    </p>
+    <button class="btn btn-primary" onclick="startQuiz()">経験を解体してもらう</button>
+    <div id="resume-area"></div>
+    <div class="apikey-change-link" onclick="showApiKeyScreen()">APIキーを変更する</div>
+  </div>
+
+  <!-- 質問画面 -->
+  <div id="screen-quiz" class="card hidden">
+    <div class="gauge-wrap">
+      <div class="gauge-label" id="gauge-label">刃の伸び 1 / 6</div>
+      <div class="gauge-track"><div class="gauge-fill" id="gauge-fill" style="width:16%;"></div></div>
+    </div>
+
+    <div id="question-area"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" id="btn-back" onclick="prevQuestion()">戻る</button>
+      <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">次へ</button>
+    </div>
+  </div>
+
+  <!-- ローディング画面 -->
+  <div id="screen-loading" class="card hidden">
+    <div class="loader"></div>
+    <div class="msg">経験を解体しています…</div>
+  </div>
+
+  <!-- 結果画面 -->
+  <div id="screen-result" class="hidden">
+    <div class="result-lead">
+      <div class="tag">解 体 結 果</div>
+      <h2>あなたの経験から見つかった、3つの切り口</h2>
+    </div>
+    <div id="error-area"></div>
+    <div id="result-area"></div>
+    <div id="bonus-section" class="hidden"></div>
+    <div class="cta-final">
+      <p>気に入った切り口があれば、特典2でその切り口のまま投稿を作り続けられます。<br>侍KITの他のツールも公式LINEでお試しいただけます。</p>
+      <a href="https://lin.ee/qbki5c" style="text-decoration:none;">
+        <button class="btn btn-primary">公式LINEに戻る</button>
+      </a>
+      <div style="margin-top:10px;">
+        <button class="btn btn-ghost" onclick="restart()">もう一度、別の経験で試す</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    key: "experience",
+    title: "①どんな経験・エピソードがありますか？",
+    hint: "仕事、育児、介護、趣味、失敗談…どんなことでも構いません。",
+    chips: ["長年続けてきた仕事の話", "誰にも言っていない失敗談", "人から感謝された出来事", "自分では当たり前だと思っていること", "苦手だったのに続けてきたこと", "人生で一番踏ん張った時期の話", "その他"],
+    placeholder: "例：飲食店の店長を約30年やっていて、新人教育をずっと担当してきた"
+  },
+  {
+    key: "hardship",
+    title: "②その経験で、一番大変だった・苦労した瞬間は？",
+    hint: "つらかった時期、うまくいかなかった時のことを教えてください。",
+    chips: ["人間関係で悩んだ", "結果が出ずに焦った", "誰にも相談できなかった", "何度も失敗を繰り返した", "体力的にも精神的にも限界だった", "周りと比べて自信を失った", "その他"],
+    placeholder: "例：新人がすぐ辞めてしまい、自分の教え方が悪いのかと何年も悩んだ"
+  },
+  {
+    key: "insight",
+    title: "③そこから得た気づき・教訓は？",
+    hint: "今振り返るとわかる、当時は気づかなかったことでも構いません。",
+    chips: ["やり方より伝え方が大事だと気づいた", "相手を見ずに一方的に教えていたと気づいた", "続けることで見えてきたことがある", "失敗した人ほど後で伸びると気づいた", "完璧を目指さなくていいと分かった", "自分の当たり前は人には当たり前じゃないと分かった", "その他"],
+    placeholder: "例：教え方の正解を探すより、相手が何につまずいているかを聞くことが大事だった"
+  },
+  {
+    key: "audience",
+    title: "④今、誰に一番伝えたいですか？",
+    hint: "顔が思い浮かぶ、具体的な誰かをイメージしてください。",
+    chips: ["自分と同じ立場で悩んでいる人", "これから同じ道を歩む若い人", "今まさに苦しんでいる人", "経験を活かせず自信がない人", "頑張っているのに報われないと感じている人", "一歩を踏み出せずにいる人", "その他"],
+    placeholder: "例：部下の指導に悩んでいる、現役の店長やリーダー"
+  },
+  {
+    key: "waste",
+    title: "⑤その経験、今どう活かせていないと感じますか？",
+    hint: "「もったいない」と感じている部分を教えてください。",
+    chips: ["誰にも話したことがない", "当たり前すぎて発信するほどでもないと思っていた", "SNSでは書きにくいと思っていた", "うまくまとめられず放置している", "需要があるか分からず自信がなかった", "忙しくて言語化する時間がなかった", "その他"],
+    placeholder: "例：30年分の経験があるのに、SNSでは何を書けばいいか分からず放置している"
+  },
+  {
+    key: "free",
+    title: "⑥自由記述（任意）",
+    hint: "もっと詳しく書きたいことがあれば、自由にどうぞ。空欄でも構いません。",
+    chips: [],
+    placeholder: "その他、伝えておきたいことがあれば自由にご記入ください。"
+  }
+];
+
+let current = 0;
+const answers = {};
+
+/* ---- Geminiモデル設定 ----
+   将来Googleがモデルを更新・廃止した場合は、この配列を編集するだけで対応できます。
+   先頭が優先モデル。1つ目が使えない(廃止・404等)場合は自動的に次を試します。
+   最終更新:2026年8月 時点の最新安定版と、当面のフォールバック用モデル。
+*/
+const GEMINI_MODEL_CANDIDATES = ['gemini-3.6-flash', 'gemini-2.5-flash'];
+
+/* ---- APIキー管理 ---- */
+
+function getApiKey() {
+  try {
+    return localStorage.getItem('gemini_api_key') || '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function saveApiKey() {
+  const input = document.getElementById('apikey-input');
+  const key = input.value.trim();
+  const errorEl = document.getElementById('apikey-error');
+  if (!key) {
+    errorEl.style.display = 'block';
+    return;
+  }
+  errorEl.style.display = 'none';
+  try {
+    localStorage.setItem('gemini_api_key', key);
+  } catch (e) {
+    alert('この端末ではキーを保存できませんでした。ブラウザの設定をご確認ください。');
+    return;
+  }
+  document.getElementById('screen-apikey').classList.add('hidden');
+  document.getElementById('screen-intro').classList.remove('hidden');
+}
+
+function showApiKeyScreen() {
+  document.getElementById('apikey-input').value = getApiKey();
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-result').classList.add('hidden');
+  document.getElementById('screen-apikey').classList.remove('hidden');
+}
+
+function clearApiKey() {
+  try {
+    localStorage.removeItem('gemini_api_key');
+  } catch (e) {}
+  document.getElementById('apikey-input').value = '';
+  alert('この端末に保存されたAPIキーを削除しました。');
+}
+
+function initApp() {
+  if (getApiKey()) {
+    document.getElementById('screen-intro').classList.remove('hidden');
+  } else {
+    document.getElementById('screen-apikey').classList.remove('hidden');
+  }
+  checkSavedDiagnosis();
+}
+
+/* ---- Gemini API呼び出し ---- */
+
+async function callGemini(prompt, maxTokens) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    showApiKeyScreen();
+    const err = new Error('APIキーが未設定です');
+    err.code = 'API_KEY_MISSING';
+    throw err;
+  }
+
+  let lastError = null;
+
+  for (let i = 0; i < GEMINI_MODEL_CANDIDATES.length; i++) {
+    const modelName = GEMINI_MODEL_CANDIDATES[i];
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            maxOutputTokens: maxTokens || 1500,
+            thinkingConfig: { thinkingBudget: 0 }
+          }
+        })
+      });
+      const data = await response.json();
+
+      if (data.error) {
+        const status = data.error.status || '';
+        const message = data.error.message || '';
+        const isModelUnavailable = status === 'NOT_FOUND' || /not found|does not exist|unsupported/i.test(message);
+        if (isModelUnavailable && i < GEMINI_MODEL_CANDIDATES.length - 1) {
+          // このモデルが廃止・利用不可の可能性が高い。次の候補モデルを試す
+          lastError = new Error(message);
+          continue;
+        }
+        throw new Error(message || 'Gemini APIエラー');
+      }
+
+      const parts = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts;
+      return parts ? parts.map(p => p.text || '').join('') : '';
+    } catch (err) {
+      if (err.code === 'API_KEY_MISSING') throw err;
+      lastError = err;
+      if (i === GEMINI_MODEL_CANDIDATES.length - 1) {
+        throw lastError;
+      }
+      // ネットワークエラー等の場合も、念のため次の候補モデルで再試行
+    }
+  }
+
+  throw lastError || new Error('Gemini APIエラー');
+}
+
+function startQuiz() {
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  const area = document.getElementById('question-area');
+  const chipsHtml = q.chips.map(c => `<div class="chip" onclick="insertChip('${escapeHtml(c)}')">${c}</div>`).join('');
+  const chipHintHtml = q.chips.length > 0 ? `<div class="chip-hint">すぐに思いつかない方は、下のヒントを参考にしてみてください</div>` : '';
+  area.innerHTML = `
+    <div class="q-title">${q.title}</div>
+    <div class="q-hint">${q.hint}</div>
+    ${chipHintHtml}
+    <div class="chips">${chipsHtml}</div>
+    <textarea id="answer-input" placeholder="${q.placeholder}">${answers[q.key] || ''}</textarea>
+  `;
+  document.getElementById('gauge-label').textContent = `刃の伸び ${current + 1} / ${questions.length}`;
+  document.getElementById('gauge-fill').style.width = `${((current + 1) / questions.length) * 100}%`;
+  document.getElementById('btn-back').style.visibility = current === 0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = current === questions.length - 1 ? '解体してもらう' : '次へ';
+}
+
+function insertChip(text) {
+  const ta = document.getElementById('answer-input');
+  if (text === 'その他') {
+    ta.focus();
+    return;
+  }
+  const withArrow = text + ' →';
+  if (ta.value.trim().length > 0) {
+    ta.value += (ta.value.endsWith('\n') ? '' : '\n') + withArrow + ' ';
+  } else {
+    ta.value = withArrow + ' ';
+  }
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+function escapeHtml(str) {
+  return str.replace(/'/g, "\\'");
+}
+
+function saveCurrentAnswer() {
+  const q = questions[current];
+  const ta = document.getElementById('answer-input');
+  answers[q.key] = ta.value;
+}
+
+function nextQuestion() {
+  saveCurrentAnswer();
+  const q = questions[current];
+  if (q.key !== 'free' && !answers[q.key].trim()) {
+    alert('この質問への回答をお願いします（チップを選んでも構いません）。');
+    return;
+  }
+  if (current < questions.length - 1) {
+    current++;
+    renderQuestion();
+  } else {
+    runAnalysis();
+  }
+}
+
+function prevQuestion() {
+  saveCurrentAnswer();
+  if (current > 0) {
+    current--;
+    renderQuestion();
+  }
+}
+
+function restart() {
+  current = 0;
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.getElementById('screen-result').classList.add('hidden');
+  document.getElementById('result-area').innerHTML = '';
+  document.getElementById('error-area').innerHTML = '';
+  document.getElementById('bonus-section').classList.add('hidden');
+  document.getElementById('bonus-section').innerHTML = '';
+  currentPatterns = [];
+  selectedPatternIndex = null;
+  typeQueue = [];
+  bonusPostCount = 0;
+  document.getElementById('screen-intro').classList.remove('hidden');
+  checkSavedDiagnosis();
+}
+
+async function runAnalysis() {
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-loading').classList.remove('hidden');
+
+  const prompt = `あなたは、個人の経験談から「SNS(X)で伸びる発信の切り口」を発見する専門家です。
+以下は、あるユーザーが5つの質問に答えた内容です。この回答をもとに、Xで反応が取れる可能性が高い「切り口・テーマ」を3パターン考えてください。
+
+【回答】
+①経験・エピソード: ${answers.experience}
+②大変だった瞬間: ${answers.hardship}
+③得た気づき・教訓: ${answers.insight}
+④伝えたい相手: ${answers.audience}
+⑤活かせていないと感じる点: ${answers.waste}
+⑥自由記述: ${answers.free || '(なし)'}
+
+【出力ルール】
+- 3つの異なる切り口を考えること。パターンごとに視点を変える（例：共感を軸にした切り口、意外性を軸にした切り口、具体的なノウハウを軸にした切り口など）
+- 抽象的な一般論ではなく、必ずこのユーザー本人の経験の具体的な内容を反映すること
+- 【重要】ユーザーが回答で明示していない具体的なエピソード・数字・習慣・行動（例：「作業前に必ず確認する」等の具体的な行動リストや、本人が言っていない出来事）を、新たに作り出して本人の実体験であるかのように書かないこと。ユーザーの回答内容の範囲内で言い換え・整理・解釈をすることは良いが、事実として新しい具体例を捏造しないこと
+- ユーザーの回答が短く抽象的な場合は、無理に具体的なエピソードを補わず、その抽象度のまま「問いかけ」「気づきの過程」として投稿を構成すること。具体性が欲しい場合は、断定せず「〜かもしれない」「〜だったのではないか」といった本人の内省として表現すること
+- 「切り口タイトル」は、Xの投稿の書き出しやテーマとして使える、具体的で短いフレーズにすること（体言止め・言い切りどちらも可、15〜30文字程度）
+- 「理由」は、なぜこの切り口がXで反応を得やすいのかを、行動心理・SNSの特性の観点から2〜3文で説明すること
+- 「投稿例」は、実際にXにそのまま投稿できる完成形の文章にすること（150〜300文字程度、改行を適度に入れ、読みやすくすること。ハッシュタグは付けない）
+- 年数の具体的な数字（「〇年」等）はユーザーが明示していない限り書き加えないこと
+- 出力は必ず以下のプレーンテキスト形式のみで、それ以外の文章（前置き、Markdown記号、番号の装飾など）を一切含めないこと
+
+出力フォーマット（この形式を厳守）：
+KIRIKUCHI1: (1つ目の切り口タイトル)
+RIYUU1: (1つ目の理由)
+TOUKOU1: (1つ目の投稿例)
+KIRIKUCHI2: (2つ目の切り口タイトル)
+RIYUU2: (2つ目の理由)
+TOUKOU2: (2つ目の投稿例)
+KIRIKUCHI3: (3つ目の切り口タイトル)
+RIYUU3: (3つ目の理由)
+TOUKOU3: (3つ目の投稿例)`;
+
+  try {
+    const textBlocks = await callGemini(prompt, 1500);
+    const parsed = parseResult(textBlocks);
+
+    if (parsed.length === 0) {
+      throw new Error("解析結果が空でした");
+    }
+
+    renderResult(parsed);
+    saveDiagnosis(answers, parsed);
+  } catch (err) {
+    console.error(err);
+    document.getElementById('screen-loading').classList.add('hidden');
+    if (err && err.code === 'API_KEY_MISSING') {
+      // showApiKeyScreen()側で既に画面切り替え済みのため、ここでは何もしない
+      return;
+    }
+    document.getElementById('screen-result').classList.remove('hidden');
+    document.getElementById('error-area').innerHTML = `
+      <div class="error-box">
+        解体中にエラーが発生しました。お手数ですが、もう一度お試しください。
+      </div>
+      <div style="text-align:center;">
+        <button class="btn btn-primary" onclick="retryFromError()">もう一度試す</button>
+      </div>
+    `;
+  }
+}
+
+function retryFromError() {
+  document.getElementById('screen-result').classList.add('hidden');
+  document.getElementById('error-area').innerHTML = '';
+  document.getElementById('screen-loading').classList.remove('hidden');
+  runAnalysis();
+}
+
+function parseResult(text) {
+  const patterns = [];
+  for (let i = 1; i <= 3; i++) {
+    const k = extractField(text, `KIRIKUCHI${i}`);
+    const r = extractField(text, `RIYUU${i}`);
+    const t = extractField(text, `TOUKOU${i}`);
+    if (k && r && t) {
+      patterns.push({ kirikuchi: k, riyuu: r, toukou: t });
+    }
+  }
+  return patterns;
+}
+
+function extractField(text, key) {
+  const regex = new RegExp(key + ":\\s*([\\s\\S]*?)(?=\\n[A-Z]+\\d?:|$)");
+  const match = text.match(regex);
+  return match ? match[1].trim() : "";
+}
+
+function renderResult(patterns) {
+  document.getElementById('screen-loading').classList.add('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
+
+  const area = document.getElementById('result-area');
+  area.innerHTML = patterns.map((p, idx) => `
+    <div class="pattern-card">
+      <div class="pattern-num">切り口 ${idx + 1}</div>
+      <div class="pattern-title">${escapeDisplay(p.kirikuchi)}</div>
+      <div class="pattern-block">
+        <div class="label">なぜ伸びるか</div>
+        <div class="body">${escapeDisplay(p.riyuu)}</div>
+      </div>
+      <div class="pattern-block">
+        <div class="label">そのまま使える投稿例</div>
+        <div class="post-example" id="post-${idx}">${escapeDisplay(p.toukou)}</div>
+        <button class="copy-btn" onclick="copyPost(${idx}, this)">この投稿例をコピー</button>
+      </div>
+    </div>
+  `).join('');
+
+  initBonusSection(patterns);
+}
+
+/* ---- 特典2:選んだ切り口から投稿を量産する ---- */
+
+const bonusTypes = [
+  { name: "迷い斬り型", desc: "「〇〇でもなく、△△でもなく…」と読者の予想を次々と裏切りながら、核心を最後まで見せずに焦らす構成。" },
+  { name: "格付け型", desc: "選択肢に順位やランクをつけて、読者に「自分は損しているかもしれない」と感じさせる構成。" },
+  { name: "数字寸止め型", desc: "気になる数字を使いながら、一番肝心な数字は最後まで明かさず、焦らして最後に見せる構成。" },
+  { name: "一刀両断型", desc: "「〇〇って思いがちですよね」と共感させておいて、「でも実は違います」と一気に常識をひっくり返す構成。" },
+  { name: "一部始終型", desc: "実際にあった出来事や会話を、時系列でドキュメンタリー風に語る構成。" },
+  { name: "ビフォーアフター型", desc: "「以前はこうだった→今はこう変わった」という変化を軸にする構成。" },
+  { name: "問いかけ型", desc: "「あなたは〇〇していませんか？」と読み手に直接問いかけ、自分ごと化させる構成。" },
+  { name: "断言・言い切り型", desc: "「〇〇はやめた方がいい」など、強い主張を最初に断言して目を引く構成。" },
+  { name: "リスト型", desc: "「やってはいけないこと3選」のように、箇条書きで整理して見せ、保存されやすくする構成。" }
+];
+
+let currentPatterns = [];
+let selectedPatternIndex = null;
+let typeQueue = [];
+let bonusPostCount = 0;
+
+function shuffleTypes() {
+  const arr = [...bonusTypes];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function nextType() {
+  if (typeQueue.length === 0) {
+    typeQueue = shuffleTypes();
+  }
+  return typeQueue.shift();
+}
+
+function initBonusSection(patterns) {
+  currentPatterns = patterns;
+  selectedPatternIndex = null;
+  typeQueue = shuffleTypes();
+  bonusPostCount = 0;
+
+  const section = document.getElementById('bonus-section');
+  section.classList.remove('hidden');
+  section.innerHTML = `
+    <div class="card">
+      <div class="bonus-title">特典2：この切り口で、投稿を作り続ける</div>
+      <div class="bonus-hint">気に入った切り口を1つ選ぶと、そのテーマのまま、違う「型」で投稿を何本でも作れます。</div>
+      <div class="bonus-select" id="bonus-select">
+        ${patterns.map((p, i) => `<div class="bonus-chip" id="bonus-chip-${i}" onclick="selectPattern(${i})">切り口${i + 1}：${escapeDisplay(p.kirikuchi)}</div>`).join('')}
+      </div>
+      <button class="btn btn-primary hidden" id="bonus-generate-btn" onclick="generateBonusPost()">この切り口で投稿を作る</button>
+      <div id="bonus-posts"></div>
+    </div>
+  `;
+}
+
+function selectPattern(idx) {
+  selectedPatternIndex = idx;
+  currentPatterns.forEach((_, i) => {
+    document.getElementById(`bonus-chip-${i}`).classList.toggle('selected', i === idx);
+  });
+  const btn = document.getElementById('bonus-generate-btn');
+  btn.classList.remove('hidden');
+  btn.textContent = 'この切り口で投稿を作る';
+}
+
+async function generateBonusPost() {
+  if (selectedPatternIndex === null) return;
+  const pattern = currentPatterns[selectedPatternIndex];
+  const type = nextType();
+  const btn = document.getElementById('bonus-generate-btn');
+  btn.disabled = true;
+  btn.textContent = '作成中…';
+
+  const postsArea = document.getElementById('bonus-posts');
+  const loadingId = `bonus-loading-${Date.now()}`;
+  const loadingEl = document.createElement('div');
+  loadingEl.className = 'bonus-loading';
+  loadingEl.id = loadingId;
+  loadingEl.textContent = `「${type.name}」で作成中…`;
+  postsArea.prepend(loadingEl);
+
+  const prompt = `あなたは、Xで反応が取れる投稿を書く専門家です。
+以下は、あるユーザーの経験と、そこから見つかった発信の切り口です。この切り口をベースに、指定された「型」を使って、新しい投稿を1本作成してください。
+
+【ユーザーの経験】
+①経験・エピソード: ${answers.experience}
+②大変だった瞬間: ${answers.hardship}
+③得た気づき・教訓: ${answers.insight}
+④伝えたい相手: ${answers.audience}
+⑤活かせていないと感じる点: ${answers.waste}
+⑥自由記述: ${answers.free || '(なし)'}
+
+【選ばれた切り口】
+切り口タイトル: ${pattern.kirikuchi}
+切り口の理由: ${pattern.riyuu}
+
+【今回使用する型】
+型名: ${type.name}
+型の仕組み: ${type.desc}
+
+【出力ルール】
+- 上記の型の構成に忠実に沿って、選ばれた切り口のテーマに沿った投稿を1本作成すること
+- これまでの投稿例と似た言い回し・構成の繰り返しを避け、型の個性が出るようにすること
+- ユーザーが回答で明示していない具体的なエピソード・数字・行動を新たに作り出して断定的に書かないこと。抽象度に合わせ、必要であれば「〜かもしれない」等の内省表現を使うこと
+- 投稿は150〜300文字程度、改行を適度に入れて読みやすくすること。ハッシュタグは付けないこと
+- 出力は以下のプレーンテキスト形式のみで、それ以外の文章（前置き、Markdown記号など）は一切含めないこと
+
+出力フォーマット（厳守）：
+TOUKOU: (投稿本文)`;
+
+  try {
+    const textBlocks = await callGemini(prompt, 700);
+    const toukou = extractField(textBlocks, "TOUKOU");
+    if (!toukou) throw new Error("生成結果が空でした");
+
+    document.getElementById(loadingId).remove();
+    bonusPostCount++;
+    const postId = `bonus-post-${bonusPostCount}`;
+    const card = document.createElement('div');
+    card.className = 'bonus-post-card';
+    card.innerHTML = `
+      <div class="bonus-post-type">型：${escapeDisplay(type.name)}</div>
+      <div class="bonus-post-body" id="${postId}">${escapeDisplay(toukou)}</div>
+      <button class="copy-btn" onclick="copyBonusPost('${postId}', this)">この投稿をコピー</button>
+    `;
+    postsArea.prepend(card);
+  } catch (err) {
+    console.error(err);
+    if (err && err.code === 'API_KEY_MISSING') {
+      // showApiKeyScreen()側で既に画面切り替え済みのため、読み込み中表示を静かに消す
+      const el = document.getElementById(loadingId);
+      if (el) el.remove();
+    } else {
+      const el = document.getElementById(loadingId);
+      if (el) el.textContent = '作成に失敗しました。もう一度お試しください。';
+    }
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'もう1本作る';
+  }
+}
+
+function copyBonusPost(postId, btnEl) {
+  const el = document.getElementById(postId);
+  copyToClipboard(el.textContent).then(ok => showCopyFeedback(btnEl, ok));
+}
+
+/* ---- 前回の診断結果の保存・復元 ---- */
+
+function saveDiagnosis(ans, patterns) {
+  try {
+    localStorage.setItem('last-diagnosis', JSON.stringify({ answers: ans, patterns: patterns }));
+  } catch (e) {
+    console.error('保存に失敗しました', e);
+  }
+}
+
+function checkSavedDiagnosis() {
+  try {
+    const raw = localStorage.getItem('last-diagnosis');
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    if (saved && saved.patterns && saved.patterns.length > 0) {
+      showResumeOption(saved);
+    }
+  } catch (e) {
+    // 保存データがない、または壊れている場合は何もしない
+  }
+}
+
+function showResumeOption(saved) {
+  const area = document.getElementById('resume-area');
+  area.innerHTML = `
+    <div style="margin-top:14px; text-align:center;">
+      <button class="btn btn-ghost" onclick="resumeDiagnosis()">前回の結果から、投稿だけ作る</button>
+    </div>
+  `;
+  window.__savedDiagnosis = saved;
+}
+
+function resumeDiagnosis() {
+  const saved = window.__savedDiagnosis;
+  if (!saved) return;
+  Object.keys(saved.answers).forEach(k => { answers[k] = saved.answers[k]; });
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-loading').classList.add('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
+  document.getElementById('error-area').innerHTML = '';
+  renderResult(saved.patterns);
+}
+
+initApp();
+
+function escapeDisplay(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function copyPost(idx, btnEl) {
+  const el = document.getElementById(`post-${idx}`);
+  const text = el.textContent;
+  copyToClipboard(text).then(ok => showCopyFeedback(btnEl, ok));
+}
+
+function copyToClipboard(text) {
+  return new Promise((resolve) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => resolve(true)).catch(() => {
+        resolve(fallbackCopy(text));
+      });
+    } else {
+      resolve(fallbackCopy(text));
+    }
+  });
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  let ok = false;
+  try {
+    ok = document.execCommand('copy');
+  } catch (e) {
+    ok = false;
+  }
+  document.body.removeChild(ta);
+  return ok;
+}
+
+function showCopyFeedback(btnEl, ok) {
+  if (!btnEl) return;
+  if (!btnEl.dataset.originalText) {
+    btnEl.dataset.originalText = btnEl.textContent;
+  }
+  btnEl.textContent = ok ? 'コピーしました ✓' : 'コピーできませんでした';
+  btnEl.disabled = true;
+  setTimeout(() => {
+    btnEl.textContent = btnEl.dataset.originalText;
+    btnEl.disabled = false;
+  }, 1800);
+}
+</script>
+</body>
+</html>
