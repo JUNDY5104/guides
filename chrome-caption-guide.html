@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Chrome 字幕・翻訳ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1858a8;
+  --teal:#0098b0;
+  --blue-soft:#e8f0fb;
+  --teal-soft:#e3f6f9;
+  --ink:#1f2933;
+  --muted:#5b6672;
+  --line:#d9e1ea;
+  --bg:#ffffff;
+  --card:#ffffff;
+  --warn:#b45309;
+  --warn-soft:#fff6e5;
+  --nav-h:52px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
+body{font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;color:var(--ink);background:var(--bg);line-height:1.9;font-size:16px}
+
+/* ===== ヘッダー ===== */
+.site-header{background:linear-gradient(135deg,var(--blue) 0%,var(--teal) 100%);color:#fff;padding:48px 16px 40px;text-align:center}
+.site-header .badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:4px 14px;font-size:13px;margin-bottom:14px;letter-spacing:.05em}
+.site-header h1{font-size:clamp(24px,5vw,34px);line-height:1.4;margin-bottom:12px}
+.site-header p{font-size:15px;opacity:.95;max-width:640px;margin:0 auto}
+
+/* ===== スティッキーナビ ===== */
+.sticky-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgba(24,88,168,.08)}
+.sticky-nav ul{list-style:none;display:flex;gap:4px;overflow-x:auto;padding:8px 12px;max-width:1000px;margin:0 auto;scrollbar-width:thin;scrollbar-color:var(--teal) #eef2f6}
+.sticky-nav ul::-webkit-scrollbar{height:4px}
+.sticky-nav ul::-webkit-scrollbar-track{background:#eef2f6}
+.sticky-nav ul::-webkit-scrollbar-thumb{background:var(--teal);border-radius:4px}
+.sticky-nav a{display:block;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:14px;padding:7px 14px;border-radius:999px;transition:background .2s,color .2s}
+.sticky-nav a:hover{background:var(--blue-soft);color:var(--blue)}
+.sticky-nav a.active{background:var(--blue);color:#fff}
+
+/* ===== 本文 ===== */
+main{max-width:860px;margin:0 auto;padding:32px 16px 48px}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px 24px;margin-bottom:28px}
+.sec-label{display:inline-block;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.12em;margin-bottom:6px}
+h2{font-size:clamp(20px,4vw,25px);color:var(--blue);line-height:1.5;margin-bottom:16px;padding-bottom:10px;border-bottom:3px solid var(--blue-soft)}
+h3{font-size:18px;color:var(--ink);margin:28px 0 12px;padding-left:12px;border-left:4px solid var(--teal);line-height:1.5}
+p{margin-bottom:14px}
+strong{color:var(--blue)}
+
+/* ステップ */
+.steps{list-style:none;counter-reset:step;margin:18px 0}
+.steps > li{counter-increment:step;position:relative;padding:0 0 22px 52px}
+.steps > li::before{content:counter(step);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px}
+.steps > li::after{content:"";position:absolute;left:17px;top:40px;bottom:6px;width:2px;background:var(--blue-soft)}
+.steps > li:last-child::after{display:none}
+.steps .step-title{font-weight:700;font-size:16.5px;margin-bottom:4px;padding-top:4px}
+.steps .step-body{color:var(--ink)}
+
+/* ボタン風表記 */
+.ui{display:inline-block;background:#eef2f7;border:1px solid #cfd8e3;border-radius:6px;padding:0 8px;font-size:14px;font-weight:600;color:var(--ink);line-height:1.8;white-space:nowrap}
+
+/* 注意・ポイント箱 */
+.note{border-radius:12px;padding:16px 18px;margin:18px 0;font-size:15px}
+.note .note-title{font-weight:700;margin-bottom:6px}
+.note.point{background:var(--teal-soft);border-left:5px solid var(--teal)}
+.note.point .note-title{color:#007489}
+.note.caution{background:var(--warn-soft);border-left:5px solid var(--warn)}
+.note.caution .note-title{color:var(--warn)}
+.note p:last-child{margin-bottom:0}
+
+/* ツールチップ */
+.tt{border-bottom:1px dotted var(--blue);cursor:help;position:relative;color:var(--blue)}
+.tt:hover::after,.tt:focus::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);background:#111;color:#fff;font-size:13px;font-weight:400;line-height:1.7;padding:9px 12px;border-radius:8px;width:max-content;max-width:260px;white-space:normal;z-index:200;box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none}
+.tt:hover::before,.tt:focus::before{content:"";position:absolute;left:50%;bottom:calc(100% + 2px);transform:translateX(-50%);border:6px solid transparent;border-top-color:#111;z-index:200}
+
+/* TOPボタン */
+.to-top-wrap{text-align:right;margin-top:24px}
+.to-top{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;font-weight:700;color:var(--blue);background:var(--blue-soft);border:1px solid #c7d8f0;padding:7px 18px;border-radius:999px;transition:background .2s,color .2s,border-color .2s}
+.to-top:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* 比較表 */
+.compare{width:100%;border-collapse:collapse;margin:16px 0;font-size:15px}
+.compare th,.compare td{border:1px solid var(--line);padding:12px;text-align:left;vertical-align:top}
+.compare thead th{background:var(--blue);color:#fff}
+.compare tbody th{background:var(--blue-soft);width:30%;white-space:nowrap}
+.tag-local{display:inline-block;background:#e6f6ec;color:#1b7a3d;border-radius:4px;padding:0 8px;font-weight:700;font-size:13px}
+.tag-send{display:inline-block;background:var(--warn-soft);color:var(--warn);border-radius:4px;padding:0 8px;font-weight:700;font-size:13px}
+
+/* ===== モックアップ共通 ===== */
+.mock{margin:16px 0 8px;border:1px solid #c9d3de;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 20px rgba(31,41,51,.08);font-size:13.5px;line-height:1.6}
+.mock-caption{font-size:12.5px;color:var(--muted);text-align:center;margin-bottom:18px}
+.chrome-tabs{background:#dee3ea;padding:8px 10px 0;display:flex;align-items:flex-end;gap:6px}
+.chrome-dots{display:flex;gap:6px;padding:0 8px 10px 2px}
+.chrome-dots i{width:11px;height:11px;border-radius:50%;display:block}
+.chrome-dots i:nth-child(1){background:#ff5f57}
+.chrome-dots i:nth-child(2){background:#febc2e}
+.chrome-dots i:nth-child(3){background:#28c840}
+.chrome-tab{background:#fff;border-radius:8px 8px 0 0;padding:7px 14px;font-size:12.5px;color:#333;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chrome-bar{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid #e3e7ec;background:#fff}
+.chrome-nav{color:#888;font-size:14px;letter-spacing:6px}
+.chrome-url{flex:1;background:#f1f3f6;border-radius:999px;padding:5px 14px;color:#555;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chrome-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#444;font-size:17px;font-weight:700;flex-shrink:0}
+.chrome-icon.hl{background:var(--teal-soft);outline:2px solid var(--teal);color:var(--teal)}
+.mock-body{position:relative;padding:14px;background:#fafbfc;min-height:120px}
+
+/* メニュー */
+.chrome-menu{position:absolute;right:10px;top:6px;background:#fff;border:1px solid #dde3ea;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.15);width:220px;padding:6px 0}
+.chrome-menu div{padding:7px 16px;color:#333}
+.chrome-menu .sep{height:1px;background:#eceff3;padding:0;margin:4px 0}
+.chrome-menu .hl{background:var(--blue-soft);color:var(--blue);font-weight:700;outline:2px solid var(--blue);outline-offset:-2px;border-radius:4px;margin:0 6px}
+.fake-page{color:#aab4bf;font-size:12px}
+.fake-line{height:9px;background:#e8edf2;border-radius:4px;margin:8px 0;width:55%}
+.fake-line.w2{width:40%}.fake-line.w3{width:48%}
+
+/* 設定画面 */
+.settings{display:flex;min-height:260px}
+.settings-side{width:170px;flex-shrink:0;border-right:1px solid #eceff3;padding:12px 0;background:#fff}
+.settings-side .ttl{font-size:15px;font-weight:700;padding:0 14px 10px;color:#333}
+.settings-side div.item{padding:7px 14px;color:#555;font-size:13px}
+.settings-side div.item.hl{background:var(--blue-soft);color:var(--blue);font-weight:700;border-radius:0 999px 999px 0;margin-right:10px;outline:2px solid var(--blue);outline-offset:-2px}
+.settings-main{flex:1;padding:14px 16px;background:#f7f9fb;min-width:0}
+.settings-main .head{font-size:15px;font-weight:700;margin-bottom:10px;color:#333}
+.set-card{background:#fff;border:1px solid #e3e8ee;border-radius:10px;overflow:hidden}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid #eef1f4}
+.set-row:last-child{border-bottom:none}
+.set-row .lbl{color:#333}
+.set-row .sub{display:block;font-size:11.5px;color:#888}
+.set-row.hl{background:#f0f8fa;outline:2px solid var(--teal);outline-offset:-2px}
+.set-row.indent{padding-left:28px}
+.switch{width:38px;height:20px;border-radius:999px;background:#c5ccd5;position:relative;flex-shrink:0}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.switch.on{background:var(--blue)}
+.switch.on::after{left:20px}
+.select{border:1px solid #cfd8e3;border-radius:6px;padding:3px 10px;background:#fff;color:#333;white-space:nowrap;font-size:12.5px}
+.select::after{content:" ▾";color:#777}
+.link-btn{color:var(--blue);font-weight:700;border:1px solid #c7d8f0;border-radius:999px;padding:2px 12px;white-space:nowrap;font-size:12.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#eef2f7;border-radius:999px;padding:2px 10px;font-size:12px;color:#444}
+.chip.new{background:var(--teal-soft);color:#007489;font-weight:700}
+.dl{font-size:11.5px;color:#1b7a3d}
+
+/* 字幕ふきだし */
+.video-area{background:#1d2530;border-radius:8px;height:150px;position:relative;display:flex;align-items:center;justify-content:center;color:#7f8b99;font-size:13px}
+.video-area .play{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+.caption-bubble{background:#202124;color:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:380px;margin:12px auto 0;position:relative}
+.cb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.5px;color:#bdc1c6;margin-bottom:6px}
+.cb-head .grip{letter-spacing:2px;cursor:move}
+.cb-head .btns{display:flex;gap:6px}
+.cb-head .btns b{background:#3c4043;border-radius:999px;padding:1px 9px;font-weight:600;color:#e8eaed;white-space:nowrap}
+.cb-head .btns b.hl{outline:2px solid #4fd1e8;color:#4fd1e8}
+.cb-text{font-size:14px;line-height:1.7}
+.cb-text .orig{color:#9aa0a6;font-size:12.5px;display:block}
+.cb-arrow{position:absolute;right:10px;bottom:6px;font-size:12px;color:#bdc1c6}
+.cb-arrow.hl{color:#4fd1e8}
+.drag-hint{position:absolute;left:-8px;top:-10px;background:var(--teal);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px}
+.bubble-pair{display:flex;gap:14px;flex-wrap:wrap}
+.bubble-pair > div{flex:1;min-width:240px}
+.bubble-pair .cap-label{font-size:12.5px;font-weight:700;color:var(--muted);text-align:center;margin-bottom:4px}
+
+/* メディアコントロール */
+.media-pop{position:absolute;right:10px;top:6px;width:260px;background:#fff;border:1px solid #dde3ea;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);padding:12px}
+.media-pop .mp-title{font-weight:700;color:#333;font-size:13px}
+.media-pop .mp-sub{font-size:11.5px;color:#888;margin-bottom:8px}
+.media-pop .mp-ctrl{display:flex;justify-content:center;gap:18px;color:#444;font-size:16px;margin:6px 0 10px}
+.media-pop .mp-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #eef1f4;padding-top:9px;margin-top:4px}
+.media-pop .mp-row.hl{background:#f0f8fa;outline:2px solid var(--teal);outline-offset:2px;border-radius:4px}
+
+/* 見た目設定 */
+.style-preview{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.style-preview div{border-radius:8px;padding:8px 14px;background:#202124;color:#fff}
+.style-preview .big{font-size:18px}
+.style-preview .yellow{color:#ffd54a}
+.style-preview .serif{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;background:#fff;color:#111;border:1px solid #ccc}
+
+/* フッター */
+footer{background:#14243d;color:#c8d3e1;text-align:center;font-size:13px;padding:28px 16px}
+
+@media (max-width:600px){
+  section{padding:24px 16px}
+  .settings{flex-direction:column}
+  .settings-side{width:100%;border-right:none;border-bottom:1px solid #eceff3;display:flex;flex-wrap:wrap;gap:2px;padding:8px}
+  .settings-side .ttl{width:100%;padding:0 6px 6px}
+  .settings-side div.item{padding:4px 10px;border-radius:999px}
+  .settings-side div.item.hl{margin-right:0;border-radius:999px}
+  .chrome-menu,.media-pop{position:relative;right:auto;top:auto;margin-left:auto}
+  .compare tbody th{white-space:normal}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="site-header">
+  <div class="badge">はじめてでも大丈夫</div>
+  <h1>Chrome の字幕と翻訳<br>かんたん設定ガイド</h1>
+  <p>動画やオンライン会議の声を、Chrome が文字にして画面に出してくれる機能の使い方を、ひとつずつ順番にご案内します。</p>
+</header>
+
+<nav class="sticky-nav" aria-label="目次">
+  <ul>
+    <li><a href="#intro">この機能でできること</a></li>
+    <li><a href="#caption-on">字幕をオンにする</a></li>
+    <li><a href="#caption-lang">日本語の字幕にする</a></li>
+    <li><a href="#caption-tips">字幕のコツ</a></li>
+    <li><a href="#translate-on">リアルタイム翻訳</a></li>
+    <li><a href="#translate-tips">翻訳のコツ</a></li>
+    <li><a href="#manage">字幕の見た目を整える</a></li>
+    <li><a href="#privacy">安心して使うために</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ===== 1 ===== -->
+<section id="intro">
+  <div class="sec-label">SECTION 01</div>
+  <h2>この機能でできること</h2>
+  <p>Chrome には、パソコンから流れてくる声を聞き取って、その場で文字の字幕にしてくれる<strong>自動字幕起こし</strong>という機能があります。字幕がついていない YouTube 動画を見るときも、音を出せない場所でオンライン会議に参加するときも、話している内容を目で追えるようになります。</p>
+  <p>さらに<strong>リアルタイム翻訳</strong>をオンにすると、英語で話している動画の字幕を日本語に置きかえて表示してくれます。海外の動画を見るときに心強い味方になってくれる機能です。</p>
+  <div class="note point">
+    <div class="note-title">この説明書について</div>
+    <p>ここでは Windows と Mac のパソコンでの手順をご紹介します。Linux や Chromebook でも同じ機能はありますが、画面の進み方が少し違うため、この説明書では扱っていません。</p>
+  </div>
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+<!-- ===== 2 ===== -->
+<section id="caption-on">
+  <div class="sec-label">SECTION 02</div>
+  <h2>自動字幕起こしをオンにする</h2>
+  <p>まずは字幕を出せる状態にしましょう。設定は一度オンにしておけば、次から Chrome を開いたときもそのまま使えます。</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-title">パソコンで Chrome を開きます</div>
+      <div class="step-body">いつもインターネットを見るときと同じように Chrome を起動してください。</div>
+    </li>
+    <li>
+      <div class="step-title">右上の <span class="ui">⋮</span> を押して <span class="ui">設定</span> を選びます</div>
+      <div class="step-body">画面の右上、アドレスが表示されている欄の右はしに、点が縦に3つ並んだボタンがあります。これを Google では<span class="tt" tabindex="0" data-tip="Chrome の右上にある、点が縦に3つ並んだボタンのことです。押すとメニューが開きます。">その他アイコン</span>と呼んでいます。押すとメニューが開くので、下のほうにある「設定」を選んでください。</div>
+    </li>
+  </ol>
+
+  <div class="mock" aria-hidden="true">
+    <div class="chrome-tabs"><div class="chrome-dots"><i></i><i></i><i></i></div><div class="chrome-tab">新しいタブ</div></div>
+    <div class="chrome-bar"><span class="chrome-nav">← → ↻</span><div class="chrome-url">www.google.com</div><div class="chrome-icon hl">⋮</div></div>
+    <div class="mock-body" style="min-height:300px">
+      <div class="fake-line"></div><div class="fake-line w2"></div><div class="fake-line w3"></div>
+      <div class="chrome-menu">
+        <div>新しいタブ</div>
+        <div>新しいウィンドウ</div>
+        <div class="sep"></div>
+        <div>履歴</div>
+        <div>ダウンロード</div>
+        <div>ブックマーク</div>
+        <div class="sep"></div>
+        <div>印刷…</div>
+        <div class="sep"></div>
+        <div class="hl">設定</div>
+        <div>ヘルプ</div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">右上の ⋮ を押すとメニューが開きます。その中の「設定」を選びます。</p>
+
+  <ol class="steps" start="3" style="counter-reset:step 2">
+    <li>
+      <div class="step-title">左のメニューから <span class="ui">ユーザー補助</span> を選びます</div>
+      <div class="step-body">設定画面の左側に項目の一覧が出ます。その中の「<span class="tt" tabindex="0" data-tip="目や耳が不自由な方でも使いやすくするための機能がまとまった場所です。字幕の設定もここにあります。">ユーザー補助</span>」を押してください。見つからないときは、画面の幅を広げると左側に表示されます。</div>
+    </li>
+    <li>
+      <div class="step-title"><span class="ui">自動字幕起こし</span> のスイッチをオンにします</div>
+      <div class="step-body">スイッチを押して青色になればオンです。もう一度押すとオフに戻ります。</div>
+    </li>
+  </ol>
+
+  <div class="mock" aria-hidden="true">
+    <div class="chrome-tabs"><div class="chrome-dots"><i></i><i></i><i></i></div><div class="chrome-tab">設定 - ユーザー補助</div></div>
+    <div class="chrome-bar"><span class="chrome-nav">← → ↻</span><div class="chrome-url">chrome://settings/accessibility</div><div class="chrome-icon">⋮</div></div>
+    <div class="settings">
+      <div class="settings-side">
+        <div class="ttl">設定</div>
+        <div class="item">Google の設定</div>
+        <div class="item">自動入力</div>
+        <div class="item">プライバシーとセキュリティ</div>
+        <div class="item">デザイン</div>
+        <div class="item">検索エンジン</div>
+        <div class="item">言語</div>
+        <div class="item hl">ユーザー補助</div>
+        <div class="item">システム</div>
+      </div>
+      <div class="settings-main">
+        <div class="head">ユーザー補助</div>
+        <div class="set-card">
+          <div class="set-row hl"><span class="lbl">自動字幕起こし<span class="sub">音声や動画の字幕を自動で作成します</span></span><span class="switch on"></span></div>
+          <div class="set-row"><span class="lbl">リアルタイム翻訳</span><span class="switch"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">「自動字幕起こし」のスイッチが青くなっていればオンです。</p>
+
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+<!-- ===== 3 ===== -->
+<section id="caption-lang">
+  <div class="sec-label">SECTION 03</div>
+  <h2>英語以外の言語で字幕を出す</h2>
+  <p>はじめの状態では、字幕は英語の音声に合わせて作られます。日本語で話している動画に字幕をつけたいときは、日本語を聞き取れるように言語を追加しておきます。</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-title"><span class="ui">言語を管理</span> の横にある <span class="ui">言語を追加</span> を押します</div>
+      <div class="step-body">自動字幕起こしをオンにすると、そのすぐ下に言語の項目が出てきます。追加したい言語を選ぶと、その言語を聞き取るための<span class="tt" tabindex="0" data-tip="その言語の音声を聞き取るためのデータです。選ぶと自動でパソコンに取り込まれるので、自分で探してダウンロードする必要はありません。">言語パック</span>が自動でダウンロードされます。</div>
+    </li>
+    <li>
+      <div class="step-title"><span class="ui">優先する字幕の言語</span> の横の ▾ から言語を選びます</div>
+      <div class="step-body">日本語の動画をよく見る方は、ここで「日本語」を選んでおくと、日本語の音声がきちんと文字になります。</div>
+    </li>
+  </ol>
+
+  <div class="mock" aria-hidden="true">
+    <div class="chrome-tabs"><div class="chrome-dots"><i></i><i></i><i></i></div><div class="chrome-tab">設定 - ユーザー補助</div></div>
+    <div class="chrome-bar"><span class="chrome-nav">← → ↻</span><div class="chrome-url">chrome://settings/accessibility</div><div class="chrome-icon">⋮</div></div>
+    <div class="settings-main" style="padding:16px">
+      <div class="head">ユーザー補助</div>
+      <div class="set-card">
+        <div class="set-row"><span class="lbl">自動字幕起こし</span><span class="switch on"></span></div>
+        <div class="set-row indent hl"><span class="lbl">言語を管理<span class="sub"><span class="chips"><span class="chip">English</span><span class="chip new">日本語</span></span></span></span><span class="link-btn">言語を追加</span></div>
+        <div class="set-row indent"><span class="lbl">&nbsp;<span class="sub dl">✓ 日本語の言語パックをダウンロードしました</span></span><span></span></div>
+        <div class="set-row indent hl"><span class="lbl">優先する字幕の言語</span><span class="select">日本語</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">「言語を追加」で日本語を加えてから、「優先する字幕の言語」を日本語にします。</p>
+
+  <div class="note point">
+    <div class="note-title">ダウンロードは待つだけでOKです</div>
+    <p>言語パックのダウンロードは自動で始まって、終わると表示が切りかわります。途中で何か操作をする必要はありません。</p>
+  </div>
+
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+<!-- ===== 4 ===== -->
+<section id="caption-tips">
+  <div class="sec-label">SECTION 04</div>
+  <h2>字幕を使うときのちょっとしたコツ</h2>
+
+  <h3>設定画面を開かずに字幕を切りかえる</h3>
+  <p>動画や音楽が流れていると、Chrome の右上に<span class="tt" tabindex="0" data-tip="Chrome で音が出ているときに右上に現れるボタンです。再生や一時停止を、そのページを開かなくても操作できます。">メディア コントロール</span>のボタンが現れます。ここから字幕をオンにすると、開いているすべての動画に字幕がつくようになるので、いちいち設定画面まで行かなくても済みます。</p>
+
+  <div class="mock" aria-hidden="true">
+    <div class="chrome-tabs"><div class="chrome-dots"><i></i><i></i><i></i></div><div class="chrome-tab">おすすめ動画 - YouTube</div></div>
+    <div class="chrome-bar"><span class="chrome-nav">← → ↻</span><div class="chrome-url">www.youtube.com/watch?v=…</div><div class="chrome-icon hl">&#9834;</div><div class="chrome-icon">⋮</div></div>
+    <div class="mock-body" style="min-height:220px">
+      <div class="fake-line"></div><div class="fake-line w2"></div>
+      <div class="media-pop">
+        <div class="mp-title">おすすめ動画</div>
+        <div class="mp-sub">youtube.com</div>
+        <div class="mp-ctrl"><span>|&#9664;&#xFE0E;</span><span>&#10074;&#10074;</span><span>&#9654;&#xFE0E;|</span></div>
+        <div class="mp-row hl"><span>自動字幕起こし</span><span class="switch on"></span></div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">音が出ているときだけ現れる &#9834; のボタンから、字幕をすぐにオンにできます。</p>
+
+  <h3>勝手に流れる動画に字幕が出ないとき</h3>
+  <p>ページを開いたとたんに<span class="tt" tabindex="0" data-tip="自分で再生ボタンを押していないのに、ページを開くと勝手に流れはじめる動画のことです。">自動再生</span>される動画は、はじめは音が消えた状態になっていることがよくあります。Chrome は聞こえてくる音をもとに字幕を作るので、動画の音量をオンにすると字幕が出はじめます。</p>
+
+  <h3>字幕の表示場所は自由に動かせます</h3>
+  <p>字幕は画面の上に浮かぶ<span class="tt" tabindex="0" data-tip="字幕が表示される小さな黒い枠のことです。動画の上に重なって表示されます。">ふきだし</span>の中に表示されます。動画の大事な部分にかぶってしまうときは、ふきだしをつかんで好きな位置まで引っぱってください。別のタブを見ている途中で、音が出ているタブに戻りたくなったら、ふきだしの <span class="ui">タブに戻る</span> を押すとすぐに移動できます。</p>
+
+  <div class="mock" aria-hidden="true">
+    <div class="mock-body" style="padding:18px">
+      <div class="video-area"><div class="play">&#9654;&#xFE0E;</div></div>
+      <div class="caption-bubble">
+        <span class="drag-hint">ドラッグで移動</span>
+        <div class="cb-head"><span class="grip">⠿⠿ ライブ字幕</span><span class="btns"><b class="hl">タブに戻る</b><b>翻訳</b></span></div>
+        <div class="cb-text">今日はパソコンの便利な設定についてお話しします。</div>
+        <div class="cb-arrow">▲</div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">字幕のふきだし。左上をつかんで動かせて、「タブに戻る」で音の出ているタブへ戻れます。</p>
+
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+<!-- ===== 5 ===== -->
+<section id="translate-on">
+  <div class="sec-label">SECTION 05</div>
+  <h2>リアルタイム翻訳をオンにする</h2>
+  <p>英語の動画の字幕を日本語で読みたいときは、リアルタイム翻訳を使います。字幕の文字を Google に送って、その場で翻訳した文章を表示してくれる仕組みです。</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-title">パソコンで Chrome を開きます</div>
+      <div class="step-body">字幕のときと同じように Chrome を起動します。</div>
+    </li>
+    <li>
+      <div class="step-title">右上の <span class="ui">⋮</span> から <span class="ui">設定</span> を開き、<span class="ui">ユーザー補助</span> を選びます</div>
+      <div class="step-body">自動字幕起こしをオンにしたときと同じ画面です。</div>
+    </li>
+    <li>
+      <div class="step-title"><span class="ui">リアルタイム翻訳</span> のスイッチをオンにします</div>
+      <div class="step-body">青色になればオンです。</div>
+    </li>
+    <li>
+      <div class="step-title"><span class="ui">訳文の言語</span> の横の ▾ から <span class="ui">日本語</span> を選びます</div>
+      <div class="step-body">ここで選んだ言語に翻訳されます。日本語で読みたい方は「日本語」にしておきましょう。</div>
+    </li>
+  </ol>
+
+  <div class="mock" aria-hidden="true">
+    <div class="chrome-tabs"><div class="chrome-dots"><i></i><i></i><i></i></div><div class="chrome-tab">設定 - ユーザー補助</div></div>
+    <div class="chrome-bar"><span class="chrome-nav">← → ↻</span><div class="chrome-url">chrome://settings/accessibility</div><div class="chrome-icon">⋮</div></div>
+    <div class="settings-main" style="padding:16px">
+      <div class="head">ユーザー補助</div>
+      <div class="set-card">
+        <div class="set-row"><span class="lbl">自動字幕起こし</span><span class="switch on"></span></div>
+        <div class="set-row hl"><span class="lbl">リアルタイム翻訳<span class="sub">字幕を Google に送信して翻訳します</span></span><span class="switch on"></span></div>
+        <div class="set-row indent hl"><span class="lbl">訳文の言語</span><span class="select">日本語</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">「リアルタイム翻訳」をオンにして、「訳文の言語」を日本語にします。</p>
+
+  <div class="note caution">
+    <div class="note-title">ここだけは覚えておいてください</div>
+    <p>自動字幕起こしはパソコンの中だけで動きますが、リアルタイム翻訳は字幕の文字を Google に送って翻訳します。人に聞かれたくない会議の内容などを翻訳するときは、このことを頭に入れておきましょう。</p>
+  </div>
+
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+<!-- ===== 6 ===== -->
+<section id="translate-tips">
+  <div class="sec-label">SECTION 06</div>
+  <h2>翻訳を使うときのコツ</h2>
+
+  <h3>翻訳はふきだしの中に自動で出ます</h3>
+  <p>自動字幕起こしとリアルタイム翻訳の両方をオンにしておくと、字幕のふきだしに翻訳された文章がそのまま表示されます。特別な操作はいりません。</p>
+
+  <div class="mock" aria-hidden="true">
+    <div class="mock-body" style="padding:18px">
+      <div class="video-area"><div class="play">&#9654;&#xFE0E;</div></div>
+      <div class="caption-bubble">
+        <div class="cb-head"><span class="grip">⠿⠿ ライブ字幕</span><span class="btns"><b>タブに戻る</b><b class="hl">翻訳</b></span></div>
+        <div class="cb-text"><span class="orig">Today we will learn how to bake bread at home.</span>今日は家でパンを焼く方法を学びます。</div>
+        <div class="cb-arrow">▲</div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">英語の声が日本語に翻訳されて、ふきだしに表示されます。</p>
+
+  <h3>ふきだしの「翻訳」ボタンについて</h3>
+  <p>ふきだしにある <span class="ui">翻訳</span> を押すと、字幕の設定画面に移動します。まだリアルタイム翻訳をオンにしていない場合は、動画で話されている言語の名前を選ぶと翻訳が使えるようになります。</p>
+
+  <h3>メディア コントロールから言語を選ぶ</h3>
+  <p>自動字幕起こしがオンの状態なら、右上のメディア コントロールからも翻訳する言語を選べます。</p>
+  <ol class="steps">
+    <li>
+      <div class="step-title"><span class="ui">リアルタイム翻訳</span> をオンにします</div>
+      <div class="step-body">メディア コントロールの中にあるスイッチを押します。</div>
+    </li>
+    <li>
+      <div class="step-title">使いたい言語を選びます</div>
+      <div class="step-body">日本語で読みたい場合は「日本語」を選んでください。</div>
+    </li>
+  </ol>
+
+  <div class="mock" aria-hidden="true">
+    <div class="chrome-tabs"><div class="chrome-dots"><i></i><i></i><i></i></div><div class="chrome-tab">Cooking Lesson - YouTube</div></div>
+    <div class="chrome-bar"><span class="chrome-nav">← → ↻</span><div class="chrome-url">www.youtube.com/watch?v=…</div><div class="chrome-icon hl">&#9834;</div><div class="chrome-icon">⋮</div></div>
+    <div class="mock-body" style="min-height:250px">
+      <div class="fake-line"></div><div class="fake-line w2"></div>
+      <div class="media-pop">
+        <div class="mp-title">Cooking Lesson</div>
+        <div class="mp-sub">youtube.com</div>
+        <div class="mp-ctrl"><span>|&#9664;&#xFE0E;</span><span>&#10074;&#10074;</span><span>&#9654;&#xFE0E;|</span></div>
+        <div class="mp-row"><span>自動字幕起こし</span><span class="switch on"></span></div>
+        <div class="mp-row hl"><span>リアルタイム翻訳</span><span class="switch on"></span></div>
+        <div class="mp-row hl"><span>言語</span><span class="select">日本語</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">メディア コントロールでリアルタイム翻訳をオンにして、言語を選びます。</p>
+
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+<!-- ===== 7 ===== -->
+<section id="manage">
+  <div class="sec-label">SECTION 07</div>
+  <h2>字幕の見た目を整える</h2>
+  <p>字幕が小さくて読みにくいと感じたら、自分の目に合うように整えてみましょう。</p>
+
+  <h3>ふきだしを広げる・たたむ</h3>
+  <p>ふきだしの右下にある矢印を押すと、字幕の表示エリアが広がって、前に話された内容までさかのぼって読めるようになります。もう一度押すと元の小さな表示に戻ります。</p>
+
+  <div class="mock" aria-hidden="true">
+    <div class="mock-body" style="padding:18px">
+      <div class="bubble-pair">
+        <div>
+          <div class="cap-label">たたんだ状態</div>
+          <div class="caption-bubble" style="margin-top:0">
+            <div class="cb-head"><span class="grip">⠿⠿ ライブ字幕</span></div>
+            <div class="cb-text">それでは始めていきましょう。</div>
+            <div class="cb-arrow hl">▼</div>
+          </div>
+        </div>
+        <div>
+          <div class="cap-label">広げた状態</div>
+          <div class="caption-bubble" style="margin-top:0">
+            <div class="cb-head"><span class="grip">⠿⠿ ライブ字幕</span></div>
+            <div class="cb-text" style="color:#9aa0a6">皆さん、こんにちは。</div>
+            <div class="cb-text" style="color:#9aa0a6">今日は少し長めのお話になります。</div>
+            <div class="cb-text">それでは始めていきましょう。</div>
+            <div class="cb-arrow hl">▲</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">右下の矢印で、ふきだしの大きさを切りかえられます。</p>
+
+  <h3>ふきだしを好きな場所へ動かす</h3>
+  <p>字幕をつかんで引っぱると、ブラウザの中の好きな場所へ移動できます。動画の字幕や大事な画面とかぶらない位置に置いておくと見やすくなります。</p>
+
+  <h3>文字の見た目を変える</h3>
+  <p>字幕の設定画面では、文字の種類から大きさや色まで自分好みに変えられます。年配の方やご家族と一緒に見るときは、文字を大きめにしておくと読みやすくなります。</p>
+
+  <div class="mock" aria-hidden="true">
+    <div class="settings-main" style="padding:16px">
+      <div class="head">字幕の設定</div>
+      <div class="set-card">
+        <div class="set-row hl"><span class="lbl">フォント</span><span class="select">標準</span></div>
+        <div class="set-row hl"><span class="lbl">文字のサイズ</span><span class="select">大</span></div>
+        <div class="set-row hl"><span class="lbl">文字の色</span><span class="select">黄色</span></div>
+      </div>
+      <div class="style-preview">
+        <div>標準の字幕</div>
+        <div class="big yellow">大きく黄色にした字幕</div>
+        <div class="serif">フォントを変えた字幕</div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">設定を変えると、字幕の見え方がこのように変わります。</p>
+
+  <div class="note point">
+    <div class="note-title">設定画面の見た目について</div>
+    <p>字幕の見た目を変える画面は、お使いのパソコンによってデザインが少し違うことがあります。項目の名前を手がかりに探してみてください。</p>
+  </div>
+
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+<!-- ===== 8 ===== -->
+<section id="privacy">
+  <div class="sec-label">SECTION 08</div>
+  <h2>安心して使うために</h2>
+  <p>ふたつの機能は似ているようで、声や文字の扱い方がちがいます。違いを知っておくと、場面に合わせて使い分けられます。</p>
+
+  <table class="compare">
+    <thead><tr><th>機能</th><th>声や字幕のゆくえ</th></tr></thead>
+    <tbody>
+      <tr>
+        <th>自動字幕起こし</th>
+        <td><span class="tag-local">パソコンの中だけ</span><br>声も字幕もパソコンの中で処理されて、保存されることも外へ送られることもありません。</td>
+      </tr>
+      <tr>
+        <th>リアルタイム翻訳</th>
+        <td><span class="tag-send">Google に送信</span><br>翻訳するために、字幕の文字が Google に送られます。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note caution">
+    <div class="note-title">迷ったときの考え方</div>
+    <p>社外秘の打ち合わせのように外へ出したくない話をしているときは、字幕だけを使って翻訳はオフにしておくと安心です。</p>
+  </div>
+
+  <div class="to-top-wrap"><a class="to-top" href="#top">▲ TOPへ戻る</a></div>
+</section>
+
+</main>
+
+<footer>
+  <p>Chrome 字幕・翻訳かんたん設定ガイド</p>
+</footer>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.sticky-nav a');
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var navList = document.querySelector('.sticky-nav ul');
+
+  function activate(id){
+    links.forEach(function(a){ a.classList.remove('active'); });
+    var a = map[id];
+    if(!a) return;
+    a.classList.add('active');
+    var left = a.offsetLeft - (navList.clientWidth - a.offsetWidth) / 2;
+    navList.scrollTo({left: left, behavior: 'smooth'});
+  }
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ activate(entry.target.id); }
+    });
+  }, {rootMargin: '-40% 0px -55% 0px', threshold: 0});
+
+  document.querySelectorAll('main section[id]').forEach(function(sec){ observer.observe(sec); });
+})();
+</script>
+</body>
+</html>
