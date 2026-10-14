@@ -145,6 +145,25 @@ strong{color:var(--blue)}
 .chip.new{background:var(--teal-soft);color:#007489;font-weight:700}
 .dl{font-size:11.5px;color:#1b7a3d}
 
+/* 言語を追加ダイアログ */
+.lang-dialog{max-width:520px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.18);overflow:hidden;font-size:14px}
+.ld-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px 10px;flex-wrap:wrap}
+.ld-title{font-size:17px;color:#202124}
+.ld-search{display:flex;align-items:center;gap:8px;color:#5f6368;font-size:13px;border-bottom:1px solid #5f6368;padding:2px 2px 4px;min-width:170px}
+.ld-search i{width:12px;height:12px;border:2px solid #5f6368;border-radius:50%;position:relative;display:block;flex-shrink:0}
+.ld-search i::after{content:"";position:absolute;width:2px;height:6px;background:#5f6368;right:-4px;bottom:-5px;transform:rotate(-45deg)}
+.ld-list{position:relative;overflow:hidden;border-top:1px solid #eceff3;border-bottom:1px solid #eceff3;padding:4px 18px 4px 20px}
+.ld-list::after{content:"";position:absolute;right:6px;top:30%;width:5px;height:60%;background:#c4c7cc;border-radius:4px}
+.ld-row{display:flex;align-items:center;gap:16px;padding:9px 0;color:#202124}
+.ld-row .cb{width:18px;height:18px;border:2px solid #70757a;border-radius:3px;flex-shrink:0;position:relative}
+.ld-row.on .cb{background:#2457d1;border-color:#2457d1}
+.ld-row.on .cb::after{content:"";position:absolute;left:4px;top:0;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.ld-row.on{background:#f0f8fa;outline:2px solid var(--teal);outline-offset:2px;border-radius:4px}
+.ld-foot{display:flex;justify-content:flex-end;gap:12px;padding:14px 20px}
+.ld-btn{border-radius:999px;padding:7px 22px;font-weight:600;font-size:14px}
+.ld-btn.cancel{border:1px solid #a8c0ef;color:#2457d1;background:#fff}
+.ld-btn.add{background:#2457d1;color:#fff;outline:3px solid var(--teal);outline-offset:2px}
+
 /* 字幕ふきだし */
 .video-area{background:#1d2530;border-radius:8px;height:150px;position:relative;display:flex;align-items:center;justify-content:center;color:#7f8b99;font-size:13px}
 .video-area .play{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
@@ -317,8 +336,37 @@ footer{background:#14243d;color:#c8d3e1;text-align:center;font-size:13px;padding
   <ol class="steps">
     <li>
       <div class="step-title"><span class="ui">言語を管理</span> の横にある <span class="ui">言語を追加</span> を押します</div>
-      <div class="step-body">自動字幕起こしをオンにすると、そのすぐ下に言語の項目が出てきます。追加したい言語を選ぶと、その言語を聞き取るための<span class="tt" tabindex="0" data-tip="その言語の音声を聞き取るためのデータです。選ぶと自動でパソコンに取り込まれるので、自分で探してダウンロードする必要はありません。">言語パック</span>が自動でダウンロードされます。</div>
+      <div class="step-body">自動字幕起こしをオンにすると、そのすぐ下に言語の項目が出てきます。<span class="ui">言語を追加</span> を押すと、言語がずらりと並んだ小さな画面が開きます。</div>
     </li>
+    <li>
+      <div class="step-title"><span class="ui">日本語</span> にチェックを入れて <span class="ui">追加</span> を押します</div>
+      <div class="step-body">一覧を下のほうへ動かしていくと「日本語」が出てきます。見つけにくいときは、右上の「言語を検索」の欄に「日本語」と入力すると一発で出てきます。チェックを入れて <span class="ui">追加</span> を押すと、日本語を聞き取るための<span class="tt" tabindex="0" data-tip="その言語の音声を聞き取るためのデータです。選ぶと自動でパソコンに取り込まれるので、自分で探してダウンロードする必要はありません。">言語パック</span>が自動でダウンロードされます。</div>
+    </li>
+  </ol>
+
+  <div class="mock" aria-hidden="true">
+    <div class="mock-body" style="padding:20px;background:#e9edf2">
+      <div class="lang-dialog">
+        <div class="ld-head"><div class="ld-title">言語を追加</div><div class="ld-search"><i></i>言語を検索</div></div>
+        <div class="ld-list">
+          <div class="ld-row"><span class="cb"></span>ヒンディー語 - हिन्दी</div>
+          <div class="ld-row"><span class="cb"></span>フランス語 - français</div>
+          <div class="ld-row"><span class="cb"></span>ベトナム語 - Tiếng Việt</div>
+          <div class="ld-row"><span class="cb"></span>ポルトガル語 - português</div>
+          <div class="ld-row"><span class="cb"></span>ポーランド語 - polski</div>
+          <div class="ld-row"><span class="cb"></span>ロシア語 - русский</div>
+          <div class="ld-row"><span class="cb"></span>中国語 (簡体字) - 中文（简体）</div>
+          <div class="ld-row"><span class="cb"></span>中国語 (繁体字) - 中文（繁體）</div>
+          <div class="ld-row on"><span class="cb"></span>日本語</div>
+          <div class="ld-row"><span class="cb"></span>韓国語 - 한국어</div>
+        </div>
+        <div class="ld-foot"><span class="ld-btn cancel">キャンセル</span><span class="ld-btn add">追加</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="mock-caption">「言語を追加」の画面。「日本語」にチェックを入れて、右下の「追加」を押します。</p>
+
+  <ol class="steps" style="counter-reset:step 2">
     <li>
       <div class="step-title"><span class="ui">優先する字幕の言語</span> の横の ▾ から言語を選びます</div>
       <div class="step-body">日本語の動画をよく見る方は、ここで「日本語」を選んでおくと、日本語の音声がきちんと文字になります。</div>
